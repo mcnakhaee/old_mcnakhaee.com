@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>XAI | Muhammad Chenariyan Nakhaee</title>
+    <link>/tags/xai/</link>
+      <atom:link href="/tags/xai/index.xml" rel="self" type="application/rss+xml" />
+    <description>XAI</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 03 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>XAI</title>
+      <link>/tags/xai/</link>
+    </image>
+    
+    <item>
+      <title>Data Shapely</title>
+      <link>/post/data-shapely/</link>
+      <pubDate>Thu, 03 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/post/data-shapely/</guid>
+      <description>
+
+
+&lt;div id=&#34;what-is-your-data-worth-equitable-data-valuation-in-machine-learning&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;What is Your Data Worth? Equitable Data Valuation in Machine Learning&lt;/h1&gt;
+&lt;p&gt;This paper barely mentions the term explainability although it is closely related to this domain. Actually the motivation behind this paper is not that we want to know the impact individual points on the performance of machine learning models and detect potential bias present in the dataset. On the other hand,the motivat&lt;/p&gt;
+&lt;p&gt;The basic idea behind this paper is that we want to measure and quantify the value of individual data points.&lt;/p&gt;
+&lt;p&gt;One motivation behind that is&lt;/p&gt;
+&lt;p&gt;data value must be computed with respect to three ingridients:&lt;/p&gt;
+&lt;p&gt;A fixed training dataset: If we use a different subset of data for training, it will be likely that the results of our machine learning model would change.&lt;/p&gt;
+&lt;p&gt;the machine learning model:&lt;/p&gt;
+&lt;p&gt;the performance metric: imagin we would like to classify benign and … tumors in a highly imbalanced dataset. If we use accuracy as the performance metric the impact that each data point have on this metric is small. However, if we use a different metric such as percision, the impact of individual points from minority class which were classified incorrectly as … on this metric will be significant.&lt;/p&gt;
+&lt;div id=&#34;influence-functions&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;influence functions&lt;/h3&gt;
+&lt;p&gt;While influence function do not take into account&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;div id=&#34;motivation&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;&lt;strong&gt;Motivation&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;We want to measure the (equitable) value of data (samples) in terms of their contribution to the model training, prediction and decision making.&lt;/p&gt;
+&lt;p&gt;{{&amp;lt; figure library=“true” src=“3ingridients.jpg” title=“A caption” lightbox=“true” &amp;gt;}}&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/content/post/3ingridients.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Supervised ML models consist of three ingredients:&lt;/p&gt;
+&lt;p&gt;· Training data&lt;/p&gt;
+&lt;p&gt;· Learning model&lt;/p&gt;
+&lt;p&gt;· Performance metrics&lt;/p&gt;
+&lt;p&gt;Therefore, quantifying Data value should reflect all of these ingredients because in some algorithms the value of a data point might change based on the algorithm or the metric that we use.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;research-questions&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;&lt;strong&gt;Research Questions&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;In this paper the following two research questions were addressed;&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;what is an equitable measure of value of a data point to the machine learning model with respect to the performance metric&lt;/li&gt;
+&lt;li&gt;How to measure these data values efficiently?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Similar approaches&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;· Leave one out (LOO)&lt;/p&gt;
+&lt;p&gt;· Influence functions&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;idea&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;&lt;strong&gt;Idea&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;They propose Data Shapely as a metric to measure the value (contribution) of individual data points to an algorithm’s performance.&lt;/p&gt;
+&lt;p&gt;Note that here data valuation is only defined and measurable in terms of supervised machine learning models.&lt;/p&gt;
+&lt;div id=&#34;computing-data-shapely&#34; class=&#34;section level5&#34;&gt;
+&lt;h5&gt;Computing Data Shapely&lt;/h5&gt;
+&lt;p&gt;Equitable data valuation has three main properties:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Null element&lt;/strong&gt;: – If adding a sample to any subset of training data never changes the classifier performance, the value of the sample is 0&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Symmetry:&lt;/strong&gt; – If adding i and j to any subset of training data always gives the same performance, then value of data i and j are the same&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Decomposability&lt;/strong&gt; – the overall performance score is the sum of individual performance scores&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Based on the condition above Data Shapely are computed:&lt;/p&gt;
+&lt;p&gt;{to do : add formula 1}&lt;/p&gt;
+&lt;p&gt;However, computing this formula is computationally expensive as each time that we add a data point to a subset we have to train the machine learning model.&lt;/p&gt;
+&lt;p&gt;Therefore, the authors tried to approximate this value by some smart techniques.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;evaluation&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;&lt;strong&gt;Evaluation&lt;/strong&gt;&lt;/h4&gt;
+&lt;div id=&#34;datasets&#34; class=&#34;section level5&#34;&gt;
+&lt;h5&gt;&lt;strong&gt;Datasets&lt;/strong&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;UK Biobank data set (Tabular)&lt;/li&gt;
+&lt;li&gt;HAM10000 dataset (image)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Results&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;·Removing data points with the &lt;strong&gt;lowest&lt;/strong&gt; Shapely valued improves the model performance&lt;/p&gt;
+&lt;p&gt;· Removing data points with the &lt;strong&gt;highest&lt;/strong&gt; Shapely values decreases the model performance&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Main Applications:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Better allocate our resources for collecting data points that are similar to data points with high Shapely values.&lt;/li&gt;
+&lt;li&gt;Measure the value of data samples that we already have&lt;/li&gt;
+&lt;li&gt;Can be used as a diagnosis tool to identify mislabeled data points.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Disadvantages&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;No condition on it optimality&lt;/li&gt;
+&lt;li&gt;It was not compared with other powerful techniques such as influence functions.&lt;/li&gt;
+&lt;li&gt;Motivation behind the paper is problematic (Data = new oil)&lt;/li&gt;
+&lt;li&gt;Measuring individual data values in the context of legal domains is different from machine learning domains so they will not achieve the goal that they set in the motivation with this technique&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Advantages&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Data value is computed based on all ingredients of machine learning pipeline.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Computing Shapely values is not limited by the type of data, model and performance metrics.
+## Resources
+Official Repository for the paper:
+&lt;a href=&#34;https://github.com/amiratag/DataShapley&#34; class=&#34;uri&#34;&gt;https://github.com/amiratag/DataShapley&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=79pRqMq_-LE&#34;&gt;A talk by one of the authors&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.acolyer.org/2019/07/15/data-shapley/&#34;&gt;A blog post explaining and summarizing the paper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://lineardigressions.com/episodes/2018/5/6/game-theory-for-model-interpretability-shapley-values&#34;&gt;A podcast episode about Data Shapely&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

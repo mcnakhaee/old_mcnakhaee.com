@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Djoerd Hiemstra | Muhammad Chenariyan Nakhaee</title>
+    <link>/authors/djoerd-hiemstra/</link>
+      <atom:link href="/authors/djoerd-hiemstra/index.xml" rel="self" type="application/rss+xml" />
+    <description>Djoerd Hiemstra</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 01 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>Djoerd Hiemstra</title>
+      <link>/authors/djoerd-hiemstra/</link>
+    </image>
+    
+    <item>
+      <title>The Recent Applications of Machine Learning in Rail Track Maintenance A Survey</title>
+      <link>/publication/rssrail/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>/publication/rssrail/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FFORT A benchmark set for fault tree analysis</title>
+      <link>/publication/ffort/</link>
+      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
+      <guid>/publication/ffort/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
