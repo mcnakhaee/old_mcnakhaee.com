@@ -297,13 +297,13 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Advantages&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Data value is computed based on all ingredients of machine learning pipeline.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Data value is computed based on all ingredients of machine learning pipeline.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Computing Shapely values is not limited by the type of data, model and performance metrics.
 ## Resources
 Official Repository for the paper:
 &lt;a href=&#34;https://github.com/amiratag/DataShapley&#34; class=&#34;uri&#34;&gt;https://github.com/amiratag/DataShapley&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=79pRqMq_-LE&#34;&gt;A talk by one of the authors&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.acolyer.org/2019/07/15/data-shapley/&#34;&gt;A blog post explaining and summarizing the paper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=79pRqMq_-LE&#34;&gt;A talk by one of the authors&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://blog.acolyer.org/2019/07/15/data-shapley/&#34;&gt;A blog post explaining and summarizing the paper&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://lineardigressions.com/episodes/2018/5/6/game-theory-for-model-interpretability-shapley-values&#34;&gt;A podcast episode about Data Shapely&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;

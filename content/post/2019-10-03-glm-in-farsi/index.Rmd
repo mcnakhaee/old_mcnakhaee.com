@@ -11,6 +11,7 @@ summary: ''
 authors: []
 lastmod: '2019-10-03T00:39:24+02:00'
 featured: no
+draft: TRUE 
 image:
   caption: ''
   focal_point: ''

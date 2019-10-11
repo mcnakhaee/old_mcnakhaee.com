@@ -6,6 +6,7 @@ categories:
 date: "2019-10-03T00:00:00Z"
 draft: false
 featured: false
+draft: true
 image:
   caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/CpkOjOcXdUY)'
   focal_point: ""
