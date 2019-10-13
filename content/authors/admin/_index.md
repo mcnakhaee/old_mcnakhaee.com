@@ -2,7 +2,6 @@
 authors:
 - admin
 bio: I am Muhammad, currently a PhD student at the University of Twente. I am mainly intereseted in football and then data science and machine learning.
-  matter.
 education:
   courses:
   - course: PhD in Computer Science
@@ -41,4 +40,5 @@ user_groups:
 - Visitors
 ---
 
-Muhammad Chenariyan Nakhaee
+I am Muhammad, currently a PhD student at the University of Twente. I am mainly intereseted in football and then data science and machine learning.
+ matter.
