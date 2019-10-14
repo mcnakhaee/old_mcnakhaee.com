@@ -22,7 +22,7 @@ tags:
 - Machine Learning
 - Railway Maintenance 
 title: The Recent Applications of Machine Learning in Rail Track Maintenance A Survey
-url_pdf: https://djoerdhiemstra.com/wp-content/uploads/rssrail2019.pdf
+url_pdf: https://github.com/mcnakhaee/mcnakhaee.com/blob/master/content/publication/ICT%20Open/Muhammad%20Chenariyan%20Nakhaee%20-%20Poster%20-%20Commit2Data%20-%20ICTOpen%20-%202.pdf
 
 ---
 
