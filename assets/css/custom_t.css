@@ -8,7 +8,7 @@ a {
 a:active, 
 a:focus, 
 a:hover {
-  color: #6096BA;
+  color: #d33682;
 }
 
 /* nav */
@@ -34,7 +34,7 @@ a:hover {
 }
 
 .navbar-nav {
-  border-bottom: 2px solid #6096BA;
+  border-bottom: 2px solid #dc322f;
 }
 
 .navbar-brand {
@@ -45,7 +45,7 @@ a:hover {
 
 .navbar-light .navbar-brand:focus, 
 .navbar-light .navbar-brand:hover {
-  color: #6096BA;
+  color: #d33682;
 }
 
 /* text */
@@ -53,18 +53,15 @@ a:hover {
 h1, h2, h3, h4, h5, h6 {
   color: #333;
   font-weight: 400;
-  direction: rtl;
 }
 
 body {
   color: #333;
   font-size: 0.9rem;
-  direction: rtl;
 }
 
 h1 {
   font-size: 2rem;
-  direction: rtl;
 }
 
 /* home page */
@@ -228,13 +225,13 @@ div.universal-wrapper.pt-3 h1 {
 	margin-left: 10rem;
 	margin-right: 10rem;
 	padding-bottom: 68px;
-  border-bottom: 1px solid #6096BA;
+  border-bottom: 1px solid #dc322f;
 }
 
 hr {
   border: 0;
   height: 1px;
-  background: #6096BA;
+  background: #dc322f;
   background-image: none;
 }
 
@@ -268,17 +265,17 @@ iframe {
 /* pagination buttons */
 
 .page-link {
-	color: #6096BA;
+	color: #dc322f;
 	background-color: #fbf9f4;
-	border: 1px solid #6096BA;
+	border: 1px solid #dc322f;
   border-radius: 0px; /*undo rounded corners*/
 
 }
 
 .page-link:hover {
 	color: #fff;
-	background-color: #6096BA;
-	border-color: #6096BA;
+	background-color: #dc322f;
+	border-color: #dc322f;
 }
 
 .page-item:first-child .page-link {
@@ -294,11 +291,11 @@ iframe {
 /* dark fixes */
 
 .dark .pagination li > a, .pagination li > span {
-	border: 1px solid #6096BA;
+	border: 1px solid #dc322f;
 }
 
 .dark .page-link:hover {
-	background-color: #6096BA;
+	background-color: #dc322f;
 }
 
 .dark a:active, 
@@ -308,5 +305,5 @@ iframe {
 }
 
 h3.article-title i.fab {
-	color: #6096BA;
+	color: #dc322f;
 }
