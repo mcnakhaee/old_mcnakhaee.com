@@ -40,6 +40,5 @@ user_groups:
 - Visitors
 ---
 
-I am Muhammad and I am currently a PhD student at the University of Twente. My main interest is football! Besides that I also love data.  interested in football and then data science and machine learning.
- matter.
+I am Muhammad and I am currently a PhD student at the University of Twente. My main interest is football! Besides that I also love data and finding pattern from data . 
 
