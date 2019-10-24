@@ -40,5 +40,5 @@ user_groups:
 - Visitors
 ---
 
-I am Muhammad and I am currently a PhD student at the University of Twente. My main interest is football! Besides that I also love data and finding pattern from data . 
+My name is Muhammad and currently I am a second year PhD student at the University of Twente in the Netherlands. My PhD project is funded by ProRail, the main Dutch company responsible for maintaining  the railway infrastructure in the Netherlands. The goal of my PhD  project is to combine machine learning and bigdata My My main interest is football! Besides that I also love data and finding pattern from data . 
 
