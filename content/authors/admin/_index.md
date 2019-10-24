@@ -40,5 +40,7 @@ user_groups:
 - Visitors
 ---
 
-My name is Muhammad and currently I am a second year PhD student at the University of Twente in the Netherlands. My PhD project is funded by ProRail, the main Dutch company responsible for maintaining  the railway infrastructure in the Netherlands. The goal of my PhD  project is to combine machine learning and bigdata My My main interest is football! Besides that I also love data and finding pattern from data . 
+My name is Muhammad and currently I am a second year PhD student in the Data Science at the University of Twente in the Netherlands. My PhD project is funded by ProRail, the main Dutch company responsible for maintaining the railway infrastructure in the Netherlands. The goal of my PhD  project is to combine machine learning and big data techniques with formal method tools such as Fault Trees to help ProRail optimize their maintenance operations. 
+
+I began my adventure in data science 5 years ago and since then I have been involved in a wide range of related projects such as machine learning for traffic accident data, social network analysis of Telegram messaging application, stock market prediction and my personal text mining projects. 
 
