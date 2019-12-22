@@ -73,6 +73,41 @@
   </url>
   
   <url>
+    <loc>/categories/</loc>
+    <lastmod>2019-12-22T19:37:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/how-do-we-describe-female-and-male-dogs/</loc>
+    <lastmod>2019-12-22T19:37:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2019-12-22T19:37:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2019-12-22T19:37:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-12-22T19:37:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/tidy-tuesday/</loc>
+    <lastmod>2019-12-22T19:37:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/tidytuesday/</loc>
+    <lastmod>2019-12-22T19:37:48+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/authors/admin/</loc>
     <lastmod>2019-10-03T00:00:00+00:00</lastmod>
   </url>
@@ -84,11 +119,6 @@
   
   <url>
     <loc>/authors/</loc>
-    <lastmod>2019-10-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
     <lastmod>2019-10-03T00:00:00+00:00</lastmod>
   </url>
   
@@ -113,18 +143,8 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2019-10-03T14:43:44+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/categories/r/</loc>
     <lastmod>2019-10-03T00:39:24+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2019-10-03T14:43:44+02:00</lastmod>
   </url>
   
   <url>
@@ -169,6 +189,11 @@
   
   <url>
     <loc>/tags/railway-maintenance/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication/ict-open/</loc>
     <lastmod>2019-02-01T00:00:00+00:00</lastmod>
   </url>
   
