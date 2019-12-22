@@ -1,0 +1,21 @@
+---
+title: How do we describe female and male dogs?
+author: Muhammad Chenariyan Nakhaee
+date: '2019-12-22'
+slug: how-do-we-describe-female-and-male-dogs
+categories:
+  - Tidy Tuesday
+tags:
+  - R
+  - tidytuesday
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-12-22T19:37:48+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
