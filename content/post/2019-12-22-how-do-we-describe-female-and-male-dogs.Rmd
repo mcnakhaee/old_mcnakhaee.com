@@ -18,4 +18,149 @@ image:
   focal_point: ''
   preview_only: no
 projects: []
+
+
+[[gallery_item]]
+album = "1"
+image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png"
+caption = "Default"
+
+[[gallery_item]]
+album = "1"
+image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-dark.png"
+caption = "Dark"
+
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+```
+
+
+```{r}
+library(tidyverse)
+library(tidytext)
+library(wordcloud)
+library(ggthemes)
+library(hrbrthemes)
+library(extrafont)
+library(reshape2)
+
+```
+
+```{r eval=FALSE, include=FALSE}
+font_import()
+
+loadfonts(device = 'win')
+
+```
+
+
+```{r}
+dog_moves <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_moves.csv')
+dog_travel <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_travel.csv')
+dog_descriptions <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv')
+
+head(dog_descriptions)
+```
+
+```{r}
+
+dog_descriptions <- dog_descriptions %>%
+  
+  filter(type == 'Dog', contact_country == 'US') %>%
+  
+  select(-status,
+         -type,
+         -accessed,
+         -stateQ,
+         contact_country,
+         -contact_zip,
+         -url)
+```
+
+
+```{r}
+data(stop_words)
+dog_descriptions_tokens <- dog_descriptions %>%
+  select(sex, description) %>%
+  unnest_tokens(word, description) %>%
+  anti_join(stop_words)
+```
+
+```{r}
+dog_descriptions %>% 
+  select(sex,tags) %>%
+  filter(!is.na(tags)) %>%
+  count(sex)
+```
+
+
+```{r}
+dog_descriptions %>%
+  select(sex, tags) %>%
+  filter(!is.na(tags)) %>%
+  unnest_tokens(word, tags) %>%
+  anti_join(stop_words) %>%
+  count(word, sex, sort = TRUE) %>%
+  filter(n > 40) %>%
+  mutate(word = fct_reorder(word, n),
+         n = n * ifelse(sex == 'Male', -1, 1)) %>%
+  ggplot(aes(word, n, fill = sex)) +
+  geom_col() +
+  geom_text(
+    data = . %>% mutate(position = ifelse(n < 0, n - 100, n + 100) , n_plus = abs(n)),
+    aes(label = n_plus, y = position),
+    family = "Akbar",
+    size = 3,
+    color = 'black'
+  ) +
+  coord_flip() +
+  scale_fill_manual(name = "Sex:", values = c('#DA4167', '#75B9BE')) +
+  
+  theme_tufte() +
+  labs(title =  'Most Popular Tags for Describing Adoptable Dogs',
+       subtitle = 'Do we use different tags for male and female dogs?') +
+  
+  theme(
+    panel.grid.major = element_blank(),
+    plot.title = element_text(
+      size = 18,
+      face = "bold",
+      family = 'Akbar'
+    ),
+    plot.subtitle = element_text(
+      size = 12,
+      face = "bold",
+      family = 'Akbar'
+    ),
+    axis.text.y = element_text(
+      size = 11,
+      face = "bold",
+      family = 'Akbar'
+    ),
+    axis.title.y = element_text(
+      size = 24,
+      face = "bold",
+      family = 'Akbar'
+    ),
+    
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank(),
+    
+    legend.title = element_text(
+      size = 16,
+      face = "bold",
+      family = 'Akbar'
+    ),
+    legend.text = element_text(
+      size = 11,
+      face = "bold",
+      family = 'Akbar'
+    )
+  ) 
+```
+
+

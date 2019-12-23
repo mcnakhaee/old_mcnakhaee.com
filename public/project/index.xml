@@ -5,12 +5,20 @@
     <link>/project/</link>
       <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 27 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 22 Dec 2019 23:59:10 +0100</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Projects</title>
       <link>/project/</link>
     </image>
+    
+    <item>
+      <title>Project</title>
+      <link>/project/tidy-tuesday-submissions/</link>
+      <pubDate>Sun, 22 Dec 2019 23:59:10 +0100</pubDate>
+      <guid>/project/tidy-tuesday-submissions/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>External Project</title>

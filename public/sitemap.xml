@@ -73,6 +73,16 @@
   </url>
   
   <url>
+    <loc>/project/tidy-tuesday-submissions/</loc>
+    <lastmod>2019-12-22T23:59:10+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/</loc>
+    <lastmod>2019-12-22T23:59:10+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
     <lastmod>2019-12-22T19:37:48+01:00</lastmod>
   </url>
@@ -239,11 +249,6 @@
   
   <url>
     <loc>/project/internal-project/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
