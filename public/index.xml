@@ -17,32 +17,18 @@
       <link>/courses/example/example1/</link>
       <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
       <guid>/courses/example/example1/</guid>
-      <description>
-
-&lt;p&gt;In this tutorial, I&amp;rsquo;ll share my top 10 tips for getting started with Academic:&lt;/p&gt;
-
+      <description>&lt;p&gt;In this tutorial, I&#39;ll share my top 10 tips for getting started with Academic:&lt;/p&gt;
 &lt;h2 id=&#34;tip-1&#34;&gt;Tip 1&lt;/h2&gt;
-
 &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-
 &lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-
 &lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-
 &lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-
 &lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
-
 &lt;h2 id=&#34;tip-2&#34;&gt;Tip 2&lt;/h2&gt;
-
 &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-
 &lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-
 &lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-
 &lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-
 &lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
 </description>
     </item>
@@ -60,32 +46,18 @@
       <link>/courses/example/example2/</link>
       <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
       <guid>/courses/example/example2/</guid>
-      <description>
-
-&lt;p&gt;Here are some more tips for getting started with Academic:&lt;/p&gt;
-
+      <description>&lt;p&gt;Here are some more tips for getting started with Academic:&lt;/p&gt;
 &lt;h2 id=&#34;tip-3&#34;&gt;Tip 3&lt;/h2&gt;
-
 &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-
 &lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-
 &lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-
 &lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-
 &lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
-
 &lt;h2 id=&#34;tip-4&#34;&gt;Tip 4&lt;/h2&gt;
-
 &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-
 &lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-
 &lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-
 &lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-
 &lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
 </description>
     </item>
@@ -96,10 +68,8 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/otherwidget/hero/</guid>
       <description>&lt;p&gt;&lt;strong&gt;The Best Way to Create the Website You Want from Markdown (or Jupyter/RStudio)&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;Build &lt;strong&gt;Anything&lt;/strong&gt; with Widgets&lt;/p&gt;
-
-&lt;p&gt;&lt;span style=&#34;text-shadow: none;&#34;&gt;&lt;a class=&#34;github-button&#34; href=&#34;https://github.com/gcushen/hugo-academic&#34; data-icon=&#34;octicon-star&#34; data-size=&#34;large&#34; data-show-count=&#34;true&#34; aria-label=&#34;Star this on GitHub&#34;&gt;Star&lt;/a&gt;&lt;script async defer src=&#34;https://buttons.github.io/buttons.js&#34;&gt;&lt;/script&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Star&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -109,23 +79,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/otherwidget/demo/</guid>
       <description>&lt;p&gt;Welcome to the &lt;strong&gt;personal demo&lt;/strong&gt; of Academic. Other demos available include:&lt;/p&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://sourcethemes.com/academic/&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;Project Demo&lt;/strong&gt; (Academic&amp;rsquo;s actual site)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://sourcethemes.com/academic/&#34;&gt;&lt;strong&gt;Project Demo&lt;/strong&gt; (Academic&#39;s actual site)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Over 100,000 &lt;a href=&#34;https://sourcethemes.com/academic/#expo&#34; target=&#34;_blank&#34;&gt;Amazing Websites&lt;/a&gt; have Already Been Built with Academic&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/install/&#34; target=&#34;_blank&#34;&gt;Join&lt;/a&gt; the Most Empowered Hugo Community&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    &lt;p&gt;This homepage section is an example of adding &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;elements&lt;/a&gt; to the &lt;a href=&#34;https://sourcethemes.com/academic/docs/widgets/&#34; target=&#34;_blank&#34;&gt;&lt;em&gt;Blank&lt;/em&gt; widget&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Backgrounds can be applied to any section. Here, the &lt;em&gt;background&lt;/em&gt; option is set give an &lt;em&gt;image parallax&lt;/em&gt; effect.&lt;/p&gt;
-
-  &lt;/div&gt;
-&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Over 100,000 &lt;a href=&#34;https://sourcethemes.com/academic/#expo&#34;&gt;Amazing Websites&lt;/a&gt; have Already Been Built with Academic&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/install/&#34;&gt;Join&lt;/a&gt; the Most Empowered Hugo Community&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 </description>
     </item>
     
@@ -190,210 +150,186 @@
       <link>/talk/example/</link>
       <pubDate>Sat, 01 Jun 2030 13:00:00 +0000</pubDate>
       <guid>/talk/example/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click on the &lt;strong&gt;Slides&lt;/strong&gt; button above to view the built-in slides feature.
-  &lt;/div&gt;
-&lt;/div&gt;
-
+      <description>&lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;Slides can be added in a few ways:&lt;/p&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Create&lt;/strong&gt; slides using Academic&amp;rsquo;s &lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#create-slides&#34; target=&#34;_blank&#34;&gt;&lt;em&gt;Slides&lt;/em&gt;&lt;/a&gt; feature and link using &lt;code&gt;slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Create&lt;/strong&gt; slides using Academic&#39;s &lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#create-slides&#34;&gt;&lt;em&gt;Slides&lt;/em&gt;&lt;/a&gt; feature and link using &lt;code&gt;slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Upload&lt;/strong&gt; an existing slide deck to &lt;code&gt;static/&lt;/code&gt; and link using &lt;code&gt;url_slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Embed&lt;/strong&gt; your slides (e.g. Google Slides) or presentation video on this page using &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;shortcodes&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Embed&lt;/strong&gt; your slides (e.g. Google Slides) or presentation video on this page using &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34;&gt;shortcodes&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;Further talk details can easily be added to this page using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>Project</title>
-      <link>/project/tidy-tuesday-submissions/</link>
-      <pubDate>Sun, 22 Dec 2019 23:59:10 +0100</pubDate>
-      <guid>/project/tidy-tuesday-submissions/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>How do we describe female and male dogs?</title>
-      <link>/post/how-do-we-describe-female-and-male-dogs/</link>
-      <pubDate>Sun, 22 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>/post/how-do-we-describe-female-and-male-dogs/</guid>
+      <title>Tidy Tuesday Submissions</title>
+      <link>/project/2019-12-29-tidy-tuesday-submissions/</link>
+      <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>/project/2019-12-29-tidy-tuesday-submissions/</guid>
       <description>
 
 
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; Attaching packages &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; tidyverse 1.2.1 &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;lt;U+2713&amp;gt; ggplot2 3.2.1     &amp;lt;U+2713&amp;gt; purrr   0.3.3
-## &amp;lt;U+2713&amp;gt; tibble  2.1.3     &amp;lt;U+2713&amp;gt; dplyr   0.8.3
-## &amp;lt;U+2713&amp;gt; tidyr   1.0.0     &amp;lt;U+2713&amp;gt; stringr 1.4.0
-## &amp;lt;U+2713&amp;gt; readr   1.3.1     &amp;lt;U+2713&amp;gt; forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; Conflicts &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; tidyverse_conflicts() &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidytext)
-library(wordcloud)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Loading required package: RColorBrewer&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggthemes)
-library(hrbrthemes)
-library(extrafont)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Registering fonts with R&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(reshape2)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 
-## Attaching package: &amp;#39;reshape2&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:tidyr&amp;#39;:
+&lt;p&gt;For 6 years, I had been using python exclusively for my data science tasks and experiments. However, recently I have started using Tidyverse packages and tools in R for my data science activities. I am completely facinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then I have tried to participate in the weekly Tidy Tuesday project.
+You can find my submissions in this page.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;00001d.png&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;week-51--adoptable-dogs&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Week 51 -Adoptable dogs&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;tags_Akbar.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ccc.png&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;week-36---moores-law&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;&lt;strong&gt;Week 36 - Moore’s Law&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;CPU.jpg&#34; /&gt;
+&lt;img src=&#34;CPU-Plot.jpg&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;week-35---simpsons-guest-stars&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Week 35 - Simpsons Guest Stars&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;1.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;2.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;3.jpg&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Contrastive Explanations</title>
+      <link>/post/2019-11-07-contrastive-explanations/</link>
+      <pubDate>Thu, 07 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>/post/2019-11-07-contrastive-explanations/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(reticulate)
+options(jupyter.display = &amp;#39;rich&amp;#39;)
+library(tidyverse)
+conda_list()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##           name
+## 1  r-miniconda
+## 2 r-reticulate
+## 3   Anaconda37
+## 4 r-tensorflow
+##                                                                              python
+## 1                     C:\\Users\\iMuhammad\\AppData\\Local\\r-miniconda\\python.exe
+## 2 C:\\Users\\iMuhammad\\AppData\\Local\\r-miniconda\\envs\\r-reticulate\\python.exe
+## 3                                           D:\\ProgramData\\Anaconda37\\python.exe
+## 4                       D:\\ProgramData\\Anaconda37\\envs\\r-tensorflow\\python.exe&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;py_config()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## python:         D:/ProgramData/Anaconda37/python.exe
+## libpython:      D:/ProgramData/Anaconda37/python37.dll
+## pythonhome:     D:/ProgramData/Anaconda37
+## version:        3.7.3 (default, Mar 27 2019, 17:13:21) [MSC v.1915 64 bit (AMD64)]
+## Architecture:   64bit
+## numpy:          D:/ProgramData/Anaconda37/Lib/site-packages/numpy
+## numpy_version:  1.16.2
 ## 
-##     smiths&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_moves &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_moves.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   location = col_character(),
-##   exported = col_double(),
-##   imported = col_double(),
-##   total = col_double(),
-##   inUS = col_logical()
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_travel &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_travel.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   id = col_double(),
-##   contact_city = col_character(),
-##   contact_state = col_character(),
-##   description = col_character(),
-##   found = col_character(),
-##   manual = col_character(),
-##   remove = col_logical(),
-##   still_there = col_logical()
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   .default = col_character(),
-##   id = col_double(),
-##   breed_mixed = col_logical(),
-##   breed_unknown = col_logical(),
-##   fixed = col_logical(),
-##   house_trained = col_logical(),
-##   declawed = col_logical(),
-##   special_needs = col_logical(),
-##   shots_current = col_logical(),
-##   env_children = col_logical(),
-##   env_dogs = col_logical(),
-##   env_cats = col_logical(),
-##   accessed = col_date(format = &amp;quot;&amp;quot;)
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## See spec(...) for full column specifications.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(dog_descriptions)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 36
-##       id org_id url   species breed_primary breed_secondary breed_mixed
-##    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;         &amp;lt;chr&amp;gt;           &amp;lt;lgl&amp;gt;      
-## 1 4.60e7 NV163  http… Dog     American Sta… Mixed Breed     TRUE       
-## 2 4.60e7 NV163  http… Dog     Pit Bull Ter… Mixed Breed     TRUE       
-## 3 4.60e7 NV99   http… Dog     Shepherd      &amp;lt;NA&amp;gt;            FALSE      
-## 4 4.60e7 NV202  http… Dog     German Sheph… &amp;lt;NA&amp;gt;            FALSE      
-## 5 4.60e7 NV184  http… Dog     Dachshund     &amp;lt;NA&amp;gt;            FALSE      
-## 6 4.60e7 NV184  http… Dog     Boxer         Beagle          TRUE       
-## # … with 29 more variables: breed_unknown &amp;lt;lgl&amp;gt;, color_primary &amp;lt;chr&amp;gt;,
-## #   color_secondary &amp;lt;chr&amp;gt;, color_tertiary &amp;lt;chr&amp;gt;, age &amp;lt;chr&amp;gt;, sex &amp;lt;chr&amp;gt;,
-## #   size &amp;lt;chr&amp;gt;, coat &amp;lt;chr&amp;gt;, fixed &amp;lt;lgl&amp;gt;, house_trained &amp;lt;lgl&amp;gt;, declawed &amp;lt;lgl&amp;gt;,
-## #   special_needs &amp;lt;lgl&amp;gt;, shots_current &amp;lt;lgl&amp;gt;, env_children &amp;lt;lgl&amp;gt;,
-## #   env_dogs &amp;lt;lgl&amp;gt;, env_cats &amp;lt;lgl&amp;gt;, name &amp;lt;chr&amp;gt;, tags &amp;lt;chr&amp;gt;, photo &amp;lt;chr&amp;gt;,
-## #   status &amp;lt;chr&amp;gt;, posted &amp;lt;chr&amp;gt;, contact_city &amp;lt;chr&amp;gt;, contact_state &amp;lt;chr&amp;gt;,
-## #   contact_zip &amp;lt;chr&amp;gt;, contact_country &amp;lt;chr&amp;gt;, stateQ &amp;lt;chr&amp;gt;, accessed &amp;lt;date&amp;gt;,
-## #   type &amp;lt;chr&amp;gt;, description &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions &amp;lt;- dog_descriptions %&amp;gt;%
-  
-  filter(type == &amp;#39;Dog&amp;#39;, contact_country == &amp;#39;US&amp;#39;) %&amp;gt;%
-  
-  select(-status,
-         -type,
-         -accessed,
-         -stateQ,
-         contact_country,
-         -contact_zip,
-         -url)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data(stop_words)
-dog_descriptions_tokens &amp;lt;- dog_descriptions %&amp;gt;%
-  select(sex, description) %&amp;gt;%
-  unnest_tokens(word, description) %&amp;gt;%
-  anti_join(stop_words)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;word&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions %&amp;gt;% 
-  select(sex,tags) %&amp;gt;%
-  filter(!is.na(tags)) %&amp;gt;%
-  count(sex)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 2
-##   sex        n
-##   &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
-## 1 Female  2423
-## 2 Male    2576&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions %&amp;gt;%
-  select(sex, tags) %&amp;gt;%
-  filter(!is.na(tags)) %&amp;gt;%
-  unnest_tokens(word, tags) %&amp;gt;%
-  anti_join(stop_words) %&amp;gt;%
-  count(word, sex, sort = TRUE) %&amp;gt;%
-  filter(n &amp;gt; 40) %&amp;gt;%
-  mutate(word = fct_reorder(word, n),
-         n = n * ifelse(sex == &amp;#39;Male&amp;#39;, -1, 1)) %&amp;gt;%
-  ggplot(aes(word, n, fill = sex)) +
-  geom_col() +
-  geom_text(
-    data = . %&amp;gt;% mutate(position = ifelse(n &amp;lt; 0, n - 100, n + 100) , n_plus = abs(n)),
-    aes(label = n_plus, y = position),
-    family = &amp;quot;Akbar&amp;quot;,
-    size = 3,
-    color = &amp;#39;black&amp;#39;
-  ) +
-  coord_flip() +
-  scale_fill_manual(name = &amp;quot;Sex:&amp;quot;, values = c(&amp;#39;#DA4167&amp;#39;, &amp;#39;#75B9BE&amp;#39;)) +
-  
-  theme_tufte() +
-  labs(title =  &amp;#39;Most Popular Tags for Describing Adoptable Dogs&amp;#39;,
-       subtitle = &amp;#39;Do we use different tags for male and female dogs?&amp;#39;) +
-  
-  theme(
-    panel.grid.major = element_blank(),
-    plot.title = element_text(
-      size = 18,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    plot.subtitle = element_text(
-      size = 12,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    axis.text.y = element_text(
-      size = 11,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    axis.title.y = element_text(
-      size = 24,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    
-    axis.text.x = element_blank(),
-    axis.ticks.x = element_blank(),
-    axis.title.x = element_blank(),
-    
-    legend.title = element_text(
-      size = 16,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    legend.text = element_text(
-      size = 11,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    )
-  ) &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;word&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-12-22-how-do-we-describe-female-and-male-dogs_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+## NOTE: Python version was forced by RETICULATE_PYTHON&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   PassengerId Survived Pclass
+## 1           1        0      3
+## 2           2        1      1
+## 3           3        1      3
+## 4           4        1      1
+## 5           5        0      3
+## 6           6        0      3
+##                                                  Name    Sex Age SibSp Parch
+## 1                             Braund, Mr. Owen Harris   male  22     1     0
+## 2 Cumings, Mrs. John Bradley (Florence Briggs Thayer) female  38     1     0
+## 3                              Heikkinen, Miss. Laina female  26     0     0
+## 4        Futrelle, Mrs. Jacques Heath (Lily May Peel) female  35     1     0
+## 5                            Allen, Mr. William Henry   male  35     0     0
+## 6                                    Moran, Mr. James   male NaN     0     0
+##             Ticket    Fare Cabin Embarked
+## 1        A/5 21171  7.2500   NaN        S
+## 2         PC 17599 71.2833   C85        C
+## 3 STON/O2. 3101282  7.9250   NaN        S
+## 4           113803 53.1000  C123        S
+## 5           373450  8.0500   NaN        S
+## 6           330877  8.4583   NaN        Q&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   PassengerId Survived Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q
+## 0           1        0      3  22     1     0  7.2500          0          0
+## 1           2        1      1  38     1     0 71.2833          1          0
+## 2           3        1      3  26     0     0  7.9250          0          0
+## 3           4        1      1  35     1     0 53.1000          0          0
+## 4           5        0      3  35     0     0  8.0500          0          0
+## 6           7        0      1  54     0     0 51.8625          0          0
+##   Embarked_S Sex_binary
+## 0          1          0
+## 1          0          1
+## 2          1          1
+## 3          1          1
+## 4          1          0
+## 6          1          0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;
+X = titanic_dummified.drop([&amp;#39;Survived&amp;#39;],axis=1)
+y = titanic_dummified[&amp;#39;Survived&amp;#39;]
+train, test, labels_train, labels_test = train_test_split(X, y, train_size=0.80)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;rf = RandomForestClassifier(n_estimators=100)
+rf.fit(train,labels_train)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&amp;#39;gini&amp;#39;,
+##                        max_depth=None, max_features=&amp;#39;auto&amp;#39;, max_leaf_nodes=None,
+##                        min_impurity_decrease=0.0, min_impurity_split=None,
+##                        min_samples_leaf=1, min_samples_split=2,
+##                        min_weight_fraction_leaf=0.0, n_estimators=100,
+##                        n_jobs=None, oob_score=False, random_state=None,
+##                        verbose=0, warm_start=False)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;rf.score(test,labels_test)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0.8251748251748252&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;prd_ds = test.copy()
+prd_ds[&amp;#39;actual&amp;#39;]  = labels_test
+prd_ds[&amp;#39;prds&amp;#39;] = rf.predict(test)
+
+prd_ds[&amp;#39;wrong&amp;#39;]  =  prd_ds[&amp;#39;prds&amp;#39;] == prd_ds[&amp;#39;actual&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;py$prd_ds %&amp;gt;% head()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     PassengerId Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q Embarked_S
+## 808         809      2  39     0     0 13.0000          0          0          1
+## 618         619      2   4     2     1 39.0000          0          0          1
+## 850         851      3   4     4     2 31.2750          0          0          1
+## 99          100      2  34     1     0 26.0000          0          0          1
+## 104         105      3  37     2     0  7.9250          0          0          1
+## 493         494      1  71     0     0 49.5042          1          0          0
+##     Sex_binary actual prds wrong
+## 808          0      0    0  TRUE
+## 618          1      1    1  TRUE
+## 850          0      0    0  TRUE
+## 99           0      0    0  TRUE
+## 104          0      0    0  TRUE
+## 493          0      0    0  TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import lime
+import lime.lime_tabular
+import dtreeviz
+import shap&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;explainer = lime.lime_tabular.LimeTabularExplainer(
+train.to_numpy(),
+feature_names = list(train.columns),
+class_names = [0,1],
+discretize_continuous = True
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;instance = test.iloc[1,:]
+exp = explainer.explain_instance(instance,
+rf.predict_proba,
+num_features = 5,
+top_labels = 1
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;
+from IPython.display import display, HTML
+exp.show_in_notebook(show_table = True,show_all = True)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;lt;IPython.core.display.HTML object&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;s = exp.as_html()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rvest)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;rvest&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: xml2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;rvest&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:purrr&amp;#39;:
+## 
+##     pluck&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:readr&amp;#39;:
+## 
+##     guess_encoding&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#htmltools::&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -515,2699 +451,22 @@ Official Repository for the paper:
     </item>
     
     <item>
-      <title>Pandas</title>
-      <link>/post/pandas/</link>
-      <pubDate>Thu, 03 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/post/pandas/</guid>
-      <description>
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import pandas as pd
-import numpy as np
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;یک راه دیگر ساخت دیتافریم ها، استفاده از دیکشنری های است. در این حالت نام ستون های دیتافریم به صورت key های دیکشنری و مقادیر این ستون ها به صورت یک لیست به عنوان value های این دیکشنری قرار داده می شوند.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;sample_dict = { &#39;index&#39;:range(10),
-              &#39;column 1&#39;: np.random.rand(10),
-              &#39;column 2&#39;: np.random.randint(100,size = 10)}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df = pd.DataFrame(sample_dict)
-df
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;index&lt;/th&gt;
-      &lt;th&gt;column 1&lt;/th&gt;
-      &lt;th&gt;column 2&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0.453557&lt;/td&gt;
-      &lt;td&gt;89&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0.264238&lt;/td&gt;
-      &lt;td&gt;63&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;0.488712&lt;/td&gt;
-      &lt;td&gt;45&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;0.688110&lt;/td&gt;
-      &lt;td&gt;84&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;0.592790&lt;/td&gt;
-      &lt;td&gt;57&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;5&lt;/th&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;0.708035&lt;/td&gt;
-      &lt;td&gt;52&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;6&lt;/th&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;0.120676&lt;/td&gt;
-      &lt;td&gt;75&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;7&lt;/th&gt;
-      &lt;td&gt;7&lt;/td&gt;
-      &lt;td&gt;0.360849&lt;/td&gt;
-      &lt;td&gt;15&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;8&lt;/th&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;0.709924&lt;/td&gt;
-      &lt;td&gt;28&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;9&lt;/th&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;0.881338&lt;/td&gt;
-      &lt;td&gt;51&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df.rename({&#39;column 1&#39;: &#39;rand_noraml_col&#39;,
-          &#39;column 2&#39;: &#39;rand_integer_col&#39;},
-         axis = &#39;columns&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;index&lt;/th&gt;
-      &lt;th&gt;rand_noraml_col&lt;/th&gt;
-      &lt;th&gt;rand_integer_col&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0.453557&lt;/td&gt;
-      &lt;td&gt;89&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0.264238&lt;/td&gt;
-      &lt;td&gt;63&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;0.488712&lt;/td&gt;
-      &lt;td&gt;45&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;0.688110&lt;/td&gt;
-      &lt;td&gt;84&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;0.592790&lt;/td&gt;
-      &lt;td&gt;57&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;5&lt;/th&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;0.708035&lt;/td&gt;
-      &lt;td&gt;52&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;6&lt;/th&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;0.120676&lt;/td&gt;
-      &lt;td&gt;75&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;7&lt;/th&gt;
-      &lt;td&gt;7&lt;/td&gt;
-      &lt;td&gt;0.360849&lt;/td&gt;
-      &lt;td&gt;15&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;8&lt;/th&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;0.709924&lt;/td&gt;
-      &lt;td&gt;28&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;9&lt;/th&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;0.881338&lt;/td&gt;
-      &lt;td&gt;51&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df.columns = [&#39;index&#39;,
-              &#39;rand_noraml_col&#39;,
-              &#39;rand_integer_col&#39;]
-df
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;index&lt;/th&gt;
-      &lt;th&gt;rand_noraml_col&lt;/th&gt;
-      &lt;th&gt;rand_integer_col&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0.453557&lt;/td&gt;
-      &lt;td&gt;89&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0.264238&lt;/td&gt;
-      &lt;td&gt;63&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;0.488712&lt;/td&gt;
-      &lt;td&gt;45&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;0.688110&lt;/td&gt;
-      &lt;td&gt;84&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;0.592790&lt;/td&gt;
-      &lt;td&gt;57&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;5&lt;/th&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;0.708035&lt;/td&gt;
-      &lt;td&gt;52&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;6&lt;/th&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;0.120676&lt;/td&gt;
-      &lt;td&gt;75&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;7&lt;/th&gt;
-      &lt;td&gt;7&lt;/td&gt;
-      &lt;td&gt;0.360849&lt;/td&gt;
-      &lt;td&gt;15&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;8&lt;/th&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;0.709924&lt;/td&gt;
-      &lt;td&gt;28&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;9&lt;/th&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;0.881338&lt;/td&gt;
-      &lt;td&gt;51&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df.columns = df.columns.str.replace(&#39;_col&#39;, &#39;&#39;)
-df
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;index&lt;/th&gt;
-      &lt;th&gt;rand_noraml&lt;/th&gt;
-      &lt;th&gt;rand_integer&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0.453557&lt;/td&gt;
-      &lt;td&gt;89&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0.264238&lt;/td&gt;
-      &lt;td&gt;63&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;0.488712&lt;/td&gt;
-      &lt;td&gt;45&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;0.688110&lt;/td&gt;
-      &lt;td&gt;84&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;0.592790&lt;/td&gt;
-      &lt;td&gt;57&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;5&lt;/th&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;0.708035&lt;/td&gt;
-      &lt;td&gt;52&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;6&lt;/th&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;0.120676&lt;/td&gt;
-      &lt;td&gt;75&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;7&lt;/th&gt;
-      &lt;td&gt;7&lt;/td&gt;
-      &lt;td&gt;0.360849&lt;/td&gt;
-      &lt;td&gt;15&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;8&lt;/th&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;0.709924&lt;/td&gt;
-      &lt;td&gt;28&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;9&lt;/th&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;0.881338&lt;/td&gt;
-      &lt;td&gt;51&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data = pd.read_csv(&#39;data/house_price.csv&#39;)
-data.head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;Id&lt;/th&gt;
-      &lt;th&gt;MSSubClass&lt;/th&gt;
-      &lt;th&gt;MSZoning&lt;/th&gt;
-      &lt;th&gt;LotFrontage&lt;/th&gt;
-      &lt;th&gt;LotArea&lt;/th&gt;
-      &lt;th&gt;Street&lt;/th&gt;
-      &lt;th&gt;Alley&lt;/th&gt;
-      &lt;th&gt;LotShape&lt;/th&gt;
-      &lt;th&gt;LandContour&lt;/th&gt;
-      &lt;th&gt;Utilities&lt;/th&gt;
-      &lt;th&gt;...&lt;/th&gt;
-      &lt;th&gt;PoolArea&lt;/th&gt;
-      &lt;th&gt;PoolQC&lt;/th&gt;
-      &lt;th&gt;Fence&lt;/th&gt;
-      &lt;th&gt;MiscFeature&lt;/th&gt;
-      &lt;th&gt;MiscVal&lt;/th&gt;
-      &lt;th&gt;MoSold&lt;/th&gt;
-      &lt;th&gt;YrSold&lt;/th&gt;
-      &lt;th&gt;SaleType&lt;/th&gt;
-      &lt;th&gt;SaleCondition&lt;/th&gt;
-      &lt;th&gt;SalePrice&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;65.0&lt;/td&gt;
-      &lt;td&gt;8450&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;208500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;80.0&lt;/td&gt;
-      &lt;td&gt;9600&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2007&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;181500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;68.0&lt;/td&gt;
-      &lt;td&gt;11250&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;223500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;70&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;60.0&lt;/td&gt;
-      &lt;td&gt;9550&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2006&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Abnorml&lt;/td&gt;
-      &lt;td&gt;140000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;84.0&lt;/td&gt;
-      &lt;td&gt;14260&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;12&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;250000&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;5 rows × 81 columns&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;p&gt;برعکس کردن ترتیب سطرها&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data.loc[::-1].head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;Id&lt;/th&gt;
-      &lt;th&gt;MSSubClass&lt;/th&gt;
-      &lt;th&gt;MSZoning&lt;/th&gt;
-      &lt;th&gt;LotFrontage&lt;/th&gt;
-      &lt;th&gt;LotArea&lt;/th&gt;
-      &lt;th&gt;Street&lt;/th&gt;
-      &lt;th&gt;Alley&lt;/th&gt;
-      &lt;th&gt;LotShape&lt;/th&gt;
-      &lt;th&gt;LandContour&lt;/th&gt;
-      &lt;th&gt;Utilities&lt;/th&gt;
-      &lt;th&gt;...&lt;/th&gt;
-      &lt;th&gt;PoolArea&lt;/th&gt;
-      &lt;th&gt;PoolQC&lt;/th&gt;
-      &lt;th&gt;Fence&lt;/th&gt;
-      &lt;th&gt;MiscFeature&lt;/th&gt;
-      &lt;th&gt;MiscVal&lt;/th&gt;
-      &lt;th&gt;MoSold&lt;/th&gt;
-      &lt;th&gt;YrSold&lt;/th&gt;
-      &lt;th&gt;SaleType&lt;/th&gt;
-      &lt;th&gt;SaleCondition&lt;/th&gt;
-      &lt;th&gt;SalePrice&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1459&lt;/th&gt;
-      &lt;td&gt;1460&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;75.0&lt;/td&gt;
-      &lt;td&gt;9937&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;147500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1458&lt;/th&gt;
-      &lt;td&gt;1459&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;68.0&lt;/td&gt;
-      &lt;td&gt;9717&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;2010&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;142125&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1457&lt;/th&gt;
-      &lt;td&gt;1458&lt;/td&gt;
-      &lt;td&gt;70&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;66.0&lt;/td&gt;
-      &lt;td&gt;9042&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;GdPrv&lt;/td&gt;
-      &lt;td&gt;Shed&lt;/td&gt;
-      &lt;td&gt;2500&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2010&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;266500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1456&lt;/th&gt;
-      &lt;td&gt;1457&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;85.0&lt;/td&gt;
-      &lt;td&gt;13175&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;MnPrv&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2010&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;210000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1455&lt;/th&gt;
-      &lt;td&gt;1456&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;62.0&lt;/td&gt;
-      &lt;td&gt;7917&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;2007&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;175000&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;5 rows × 81 columns&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data.loc[::-1].reset_index(drop = True).head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;Id&lt;/th&gt;
-      &lt;th&gt;MSSubClass&lt;/th&gt;
-      &lt;th&gt;MSZoning&lt;/th&gt;
-      &lt;th&gt;LotFrontage&lt;/th&gt;
-      &lt;th&gt;LotArea&lt;/th&gt;
-      &lt;th&gt;Street&lt;/th&gt;
-      &lt;th&gt;Alley&lt;/th&gt;
-      &lt;th&gt;LotShape&lt;/th&gt;
-      &lt;th&gt;LandContour&lt;/th&gt;
-      &lt;th&gt;Utilities&lt;/th&gt;
-      &lt;th&gt;...&lt;/th&gt;
-      &lt;th&gt;PoolArea&lt;/th&gt;
-      &lt;th&gt;PoolQC&lt;/th&gt;
-      &lt;th&gt;Fence&lt;/th&gt;
-      &lt;th&gt;MiscFeature&lt;/th&gt;
-      &lt;th&gt;MiscVal&lt;/th&gt;
-      &lt;th&gt;MoSold&lt;/th&gt;
-      &lt;th&gt;YrSold&lt;/th&gt;
-      &lt;th&gt;SaleType&lt;/th&gt;
-      &lt;th&gt;SaleCondition&lt;/th&gt;
-      &lt;th&gt;SalePrice&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;1460&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;75.0&lt;/td&gt;
-      &lt;td&gt;9937&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;147500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;1459&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;68.0&lt;/td&gt;
-      &lt;td&gt;9717&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;2010&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;142125&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;1458&lt;/td&gt;
-      &lt;td&gt;70&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;66.0&lt;/td&gt;
-      &lt;td&gt;9042&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;GdPrv&lt;/td&gt;
-      &lt;td&gt;Shed&lt;/td&gt;
-      &lt;td&gt;2500&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2010&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;266500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;1457&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;85.0&lt;/td&gt;
-      &lt;td&gt;13175&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;MnPrv&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2010&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;210000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;1456&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;62.0&lt;/td&gt;
-      &lt;td&gt;7917&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;2007&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;175000&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;5 rows × 81 columns&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&#34;برعکس-کردن-ترتیب-ستون-ها&#34;&gt;برعکس کردن ترتیب ستون ها&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data.loc[:,::-1].head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;SalePrice&lt;/th&gt;
-      &lt;th&gt;SaleCondition&lt;/th&gt;
-      &lt;th&gt;SaleType&lt;/th&gt;
-      &lt;th&gt;YrSold&lt;/th&gt;
-      &lt;th&gt;MoSold&lt;/th&gt;
-      &lt;th&gt;MiscVal&lt;/th&gt;
-      &lt;th&gt;MiscFeature&lt;/th&gt;
-      &lt;th&gt;Fence&lt;/th&gt;
-      &lt;th&gt;PoolQC&lt;/th&gt;
-      &lt;th&gt;PoolArea&lt;/th&gt;
-      &lt;th&gt;...&lt;/th&gt;
-      &lt;th&gt;Utilities&lt;/th&gt;
-      &lt;th&gt;LandContour&lt;/th&gt;
-      &lt;th&gt;LotShape&lt;/th&gt;
-      &lt;th&gt;Alley&lt;/th&gt;
-      &lt;th&gt;Street&lt;/th&gt;
-      &lt;th&gt;LotArea&lt;/th&gt;
-      &lt;th&gt;LotFrontage&lt;/th&gt;
-      &lt;th&gt;MSZoning&lt;/th&gt;
-      &lt;th&gt;MSSubClass&lt;/th&gt;
-      &lt;th&gt;Id&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;208500&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;8450&lt;/td&gt;
-      &lt;td&gt;65.0&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;181500&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;2007&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;9600&lt;/td&gt;
-      &lt;td&gt;80.0&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;223500&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;11250&lt;/td&gt;
-      &lt;td&gt;68.0&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;140000&lt;/td&gt;
-      &lt;td&gt;Abnorml&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;2006&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;9550&lt;/td&gt;
-      &lt;td&gt;60.0&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;70&lt;/td&gt;
-      &lt;td&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;250000&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;12&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;14260&lt;/td&gt;
-      &lt;td&gt;84.0&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;5 rows × 81 columns&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data.info()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;class &#39;pandas.core.frame.DataFrame&#39;&amp;gt;
-RangeIndex: 1460 entries, 0 to 1459
-Data columns (total 81 columns):
-Id               1460 non-null int64
-MSSubClass       1460 non-null int64
-MSZoning         1460 non-null object
-LotFrontage      1201 non-null float64
-LotArea          1460 non-null int64
-Street           1460 non-null object
-Alley            91 non-null object
-LotShape         1460 non-null object
-LandContour      1460 non-null object
-Utilities        1460 non-null object
-LotConfig        1460 non-null object
-LandSlope        1460 non-null object
-Neighborhood     1460 non-null object
-Condition1       1460 non-null object
-Condition2       1460 non-null object
-BldgType         1460 non-null object
-HouseStyle       1460 non-null object
-OverallQual      1460 non-null int64
-OverallCond      1460 non-null int64
-YearBuilt        1460 non-null int64
-YearRemodAdd     1460 non-null int64
-RoofStyle        1460 non-null object
-RoofMatl         1460 non-null object
-Exterior1st      1460 non-null object
-Exterior2nd      1460 non-null object
-MasVnrType       1452 non-null object
-MasVnrArea       1452 non-null float64
-ExterQual        1460 non-null object
-ExterCond        1460 non-null object
-Foundation       1460 non-null object
-BsmtQual         1423 non-null object
-BsmtCond         1423 non-null object
-BsmtExposure     1422 non-null object
-BsmtFinType1     1423 non-null object
-BsmtFinSF1       1460 non-null int64
-BsmtFinType2     1422 non-null object
-BsmtFinSF2       1460 non-null int64
-BsmtUnfSF        1460 non-null int64
-TotalBsmtSF      1460 non-null int64
-Heating          1460 non-null object
-HeatingQC        1460 non-null object
-CentralAir       1460 non-null object
-Electrical       1459 non-null object
-1stFlrSF         1460 non-null int64
-2ndFlrSF         1460 non-null int64
-LowQualFinSF     1460 non-null int64
-GrLivArea        1460 non-null int64
-BsmtFullBath     1460 non-null int64
-BsmtHalfBath     1460 non-null int64
-FullBath         1460 non-null int64
-HalfBath         1460 non-null int64
-BedroomAbvGr     1460 non-null int64
-KitchenAbvGr     1460 non-null int64
-KitchenQual      1460 non-null object
-TotRmsAbvGrd     1460 non-null int64
-Functional       1460 non-null object
-Fireplaces       1460 non-null int64
-FireplaceQu      770 non-null object
-GarageType       1379 non-null object
-GarageYrBlt      1379 non-null float64
-GarageFinish     1379 non-null object
-GarageCars       1460 non-null int64
-GarageArea       1460 non-null int64
-GarageQual       1379 non-null object
-GarageCond       1379 non-null object
-PavedDrive       1460 non-null object
-WoodDeckSF       1460 non-null int64
-OpenPorchSF      1460 non-null int64
-EnclosedPorch    1460 non-null int64
-3SsnPorch        1460 non-null int64
-ScreenPorch      1460 non-null int64
-PoolArea         1460 non-null int64
-PoolQC           7 non-null object
-Fence            281 non-null object
-MiscFeature      54 non-null object
-MiscVal          1460 non-null int64
-MoSold           1460 non-null int64
-YrSold           1460 non-null int64
-SaleType         1460 non-null object
-SaleCondition    1460 non-null object
-SalePrice        1460 non-null int64
-dtypes: float64(3), int64(35), object(43)
-memory usage: 924.0+ KB
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;انتخاب ستون ها بر اساس تایپ ستون&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data.select_dtypes(include = &#39;int64&#39;).head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;Id&lt;/th&gt;
-      &lt;th&gt;MSSubClass&lt;/th&gt;
-      &lt;th&gt;LotArea&lt;/th&gt;
-      &lt;th&gt;OverallQual&lt;/th&gt;
-      &lt;th&gt;OverallCond&lt;/th&gt;
-      &lt;th&gt;YearBuilt&lt;/th&gt;
-      &lt;th&gt;YearRemodAdd&lt;/th&gt;
-      &lt;th&gt;BsmtFinSF1&lt;/th&gt;
-      &lt;th&gt;BsmtFinSF2&lt;/th&gt;
-      &lt;th&gt;BsmtUnfSF&lt;/th&gt;
-      &lt;th&gt;...&lt;/th&gt;
-      &lt;th&gt;WoodDeckSF&lt;/th&gt;
-      &lt;th&gt;OpenPorchSF&lt;/th&gt;
-      &lt;th&gt;EnclosedPorch&lt;/th&gt;
-      &lt;th&gt;3SsnPorch&lt;/th&gt;
-      &lt;th&gt;ScreenPorch&lt;/th&gt;
-      &lt;th&gt;PoolArea&lt;/th&gt;
-      &lt;th&gt;MiscVal&lt;/th&gt;
-      &lt;th&gt;MoSold&lt;/th&gt;
-      &lt;th&gt;YrSold&lt;/th&gt;
-      &lt;th&gt;SalePrice&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;8450&lt;/td&gt;
-      &lt;td&gt;7&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2003&lt;/td&gt;
-      &lt;td&gt;2003&lt;/td&gt;
-      &lt;td&gt;706&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;150&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;61&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;208500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;9600&lt;/td&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;1976&lt;/td&gt;
-      &lt;td&gt;1976&lt;/td&gt;
-      &lt;td&gt;978&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;284&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;298&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2007&lt;/td&gt;
-      &lt;td&gt;181500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;11250&lt;/td&gt;
-      &lt;td&gt;7&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2001&lt;/td&gt;
-      &lt;td&gt;2002&lt;/td&gt;
-      &lt;td&gt;486&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;434&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;42&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;223500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;70&lt;/td&gt;
-      &lt;td&gt;9550&lt;/td&gt;
-      &lt;td&gt;7&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;1915&lt;/td&gt;
-      &lt;td&gt;1970&lt;/td&gt;
-      &lt;td&gt;216&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;540&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;35&lt;/td&gt;
-      &lt;td&gt;272&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2006&lt;/td&gt;
-      &lt;td&gt;140000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;14260&lt;/td&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2000&lt;/td&gt;
-      &lt;td&gt;2000&lt;/td&gt;
-      &lt;td&gt;655&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;490&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;192&lt;/td&gt;
-      &lt;td&gt;84&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;12&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;250000&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;5 rows × 35 columns&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data.select_dtypes(include = &#39;number&#39;).head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;Id&lt;/th&gt;
-      &lt;th&gt;MSSubClass&lt;/th&gt;
-      &lt;th&gt;LotFrontage&lt;/th&gt;
-      &lt;th&gt;LotArea&lt;/th&gt;
-      &lt;th&gt;OverallQual&lt;/th&gt;
-      &lt;th&gt;OverallCond&lt;/th&gt;
-      &lt;th&gt;YearBuilt&lt;/th&gt;
-      &lt;th&gt;YearRemodAdd&lt;/th&gt;
-      &lt;th&gt;MasVnrArea&lt;/th&gt;
-      &lt;th&gt;BsmtFinSF1&lt;/th&gt;
-      &lt;th&gt;...&lt;/th&gt;
-      &lt;th&gt;WoodDeckSF&lt;/th&gt;
-      &lt;th&gt;OpenPorchSF&lt;/th&gt;
-      &lt;th&gt;EnclosedPorch&lt;/th&gt;
-      &lt;th&gt;3SsnPorch&lt;/th&gt;
-      &lt;th&gt;ScreenPorch&lt;/th&gt;
-      &lt;th&gt;PoolArea&lt;/th&gt;
-      &lt;th&gt;MiscVal&lt;/th&gt;
-      &lt;th&gt;MoSold&lt;/th&gt;
-      &lt;th&gt;YrSold&lt;/th&gt;
-      &lt;th&gt;SalePrice&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;65.0&lt;/td&gt;
-      &lt;td&gt;8450&lt;/td&gt;
-      &lt;td&gt;7&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2003&lt;/td&gt;
-      &lt;td&gt;2003&lt;/td&gt;
-      &lt;td&gt;196.0&lt;/td&gt;
-      &lt;td&gt;706&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;61&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;208500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;80.0&lt;/td&gt;
-      &lt;td&gt;9600&lt;/td&gt;
-      &lt;td&gt;6&lt;/td&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;1976&lt;/td&gt;
-      &lt;td&gt;1976&lt;/td&gt;
-      &lt;td&gt;0.0&lt;/td&gt;
-      &lt;td&gt;978&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;298&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2007&lt;/td&gt;
-      &lt;td&gt;181500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;68.0&lt;/td&gt;
-      &lt;td&gt;11250&lt;/td&gt;
-      &lt;td&gt;7&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2001&lt;/td&gt;
-      &lt;td&gt;2002&lt;/td&gt;
-      &lt;td&gt;162.0&lt;/td&gt;
-      &lt;td&gt;486&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;42&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;223500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;70&lt;/td&gt;
-      &lt;td&gt;60.0&lt;/td&gt;
-      &lt;td&gt;9550&lt;/td&gt;
-      &lt;td&gt;7&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;1915&lt;/td&gt;
-      &lt;td&gt;1970&lt;/td&gt;
-      &lt;td&gt;0.0&lt;/td&gt;
-      &lt;td&gt;216&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;35&lt;/td&gt;
-      &lt;td&gt;272&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2006&lt;/td&gt;
-      &lt;td&gt;140000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;84.0&lt;/td&gt;
-      &lt;td&gt;14260&lt;/td&gt;
-      &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2000&lt;/td&gt;
-      &lt;td&gt;2000&lt;/td&gt;
-      &lt;td&gt;350.0&lt;/td&gt;
-      &lt;td&gt;655&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;192&lt;/td&gt;
-      &lt;td&gt;84&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;12&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;250000&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;5 rows × 38 columns&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data.select_dtypes(include = [&#39;int64&#39;,&#39;object&#39;]).head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;Id&lt;/th&gt;
-      &lt;th&gt;MSSubClass&lt;/th&gt;
-      &lt;th&gt;MSZoning&lt;/th&gt;
-      &lt;th&gt;LotArea&lt;/th&gt;
-      &lt;th&gt;Street&lt;/th&gt;
-      &lt;th&gt;Alley&lt;/th&gt;
-      &lt;th&gt;LotShape&lt;/th&gt;
-      &lt;th&gt;LandContour&lt;/th&gt;
-      &lt;th&gt;Utilities&lt;/th&gt;
-      &lt;th&gt;LotConfig&lt;/th&gt;
-      &lt;th&gt;...&lt;/th&gt;
-      &lt;th&gt;PoolArea&lt;/th&gt;
-      &lt;th&gt;PoolQC&lt;/th&gt;
-      &lt;th&gt;Fence&lt;/th&gt;
-      &lt;th&gt;MiscFeature&lt;/th&gt;
-      &lt;th&gt;MiscVal&lt;/th&gt;
-      &lt;th&gt;MoSold&lt;/th&gt;
-      &lt;th&gt;YrSold&lt;/th&gt;
-      &lt;th&gt;SaleType&lt;/th&gt;
-      &lt;th&gt;SaleCondition&lt;/th&gt;
-      &lt;th&gt;SalePrice&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;8450&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Inside&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;208500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;9600&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;FR2&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;2007&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;181500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;11250&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Inside&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;223500&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;70&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;9550&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Corner&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2006&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Abnorml&lt;/td&gt;
-      &lt;td&gt;140000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;5&lt;/td&gt;
-      &lt;td&gt;60&lt;/td&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;14260&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;FR2&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;12&lt;/td&gt;
-      &lt;td&gt;2008&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-      &lt;td&gt;250000&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;5 rows × 78 columns&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data.select_dtypes(exclude=&#39;int64&#39;).head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;MSZoning&lt;/th&gt;
-      &lt;th&gt;LotFrontage&lt;/th&gt;
-      &lt;th&gt;Street&lt;/th&gt;
-      &lt;th&gt;Alley&lt;/th&gt;
-      &lt;th&gt;LotShape&lt;/th&gt;
-      &lt;th&gt;LandContour&lt;/th&gt;
-      &lt;th&gt;Utilities&lt;/th&gt;
-      &lt;th&gt;LotConfig&lt;/th&gt;
-      &lt;th&gt;LandSlope&lt;/th&gt;
-      &lt;th&gt;Neighborhood&lt;/th&gt;
-      &lt;th&gt;...&lt;/th&gt;
-      &lt;th&gt;GarageYrBlt&lt;/th&gt;
-      &lt;th&gt;GarageFinish&lt;/th&gt;
-      &lt;th&gt;GarageQual&lt;/th&gt;
-      &lt;th&gt;GarageCond&lt;/th&gt;
-      &lt;th&gt;PavedDrive&lt;/th&gt;
-      &lt;th&gt;PoolQC&lt;/th&gt;
-      &lt;th&gt;Fence&lt;/th&gt;
-      &lt;th&gt;MiscFeature&lt;/th&gt;
-      &lt;th&gt;SaleType&lt;/th&gt;
-      &lt;th&gt;SaleCondition&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;65.0&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Inside&lt;/td&gt;
-      &lt;td&gt;Gtl&lt;/td&gt;
-      &lt;td&gt;CollgCr&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;2003.0&lt;/td&gt;
-      &lt;td&gt;RFn&lt;/td&gt;
-      &lt;td&gt;TA&lt;/td&gt;
-      &lt;td&gt;TA&lt;/td&gt;
-      &lt;td&gt;Y&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;80.0&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Reg&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;FR2&lt;/td&gt;
-      &lt;td&gt;Gtl&lt;/td&gt;
-      &lt;td&gt;Veenker&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;1976.0&lt;/td&gt;
-      &lt;td&gt;RFn&lt;/td&gt;
-      &lt;td&gt;TA&lt;/td&gt;
-      &lt;td&gt;TA&lt;/td&gt;
-      &lt;td&gt;Y&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;68.0&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Inside&lt;/td&gt;
-      &lt;td&gt;Gtl&lt;/td&gt;
-      &lt;td&gt;CollgCr&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;2001.0&lt;/td&gt;
-      &lt;td&gt;RFn&lt;/td&gt;
-      &lt;td&gt;TA&lt;/td&gt;
-      &lt;td&gt;TA&lt;/td&gt;
-      &lt;td&gt;Y&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;60.0&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;Corner&lt;/td&gt;
-      &lt;td&gt;Gtl&lt;/td&gt;
-      &lt;td&gt;Crawfor&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;1998.0&lt;/td&gt;
-      &lt;td&gt;Unf&lt;/td&gt;
-      &lt;td&gt;TA&lt;/td&gt;
-      &lt;td&gt;TA&lt;/td&gt;
-      &lt;td&gt;Y&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Abnorml&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;RL&lt;/td&gt;
-      &lt;td&gt;84.0&lt;/td&gt;
-      &lt;td&gt;Pave&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;IR1&lt;/td&gt;
-      &lt;td&gt;Lvl&lt;/td&gt;
-      &lt;td&gt;AllPub&lt;/td&gt;
-      &lt;td&gt;FR2&lt;/td&gt;
-      &lt;td&gt;Gtl&lt;/td&gt;
-      &lt;td&gt;NoRidge&lt;/td&gt;
-      &lt;td&gt;...&lt;/td&gt;
-      &lt;td&gt;2000.0&lt;/td&gt;
-      &lt;td&gt;RFn&lt;/td&gt;
-      &lt;td&gt;TA&lt;/td&gt;
-      &lt;td&gt;TA&lt;/td&gt;
-      &lt;td&gt;Y&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;WD&lt;/td&gt;
-      &lt;td&gt;Normal&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;5 rows × 46 columns&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&#34;تغییر-تایپ-ستون-ها&#34;&gt;تغییر تایپ ستون ها&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;titanic = pd.read_csv(&#39;data/titanic.csv&#39;)
-titanic.info()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;class &#39;pandas.core.frame.DataFrame&#39;&amp;gt;
-RangeIndex: 1309 entries, 0 to 1308
-Data columns (total 14 columns):
-pclass       1309 non-null int64
-survived     1309 non-null int64
-name         1309 non-null object
-sex          1309 non-null object
-age          1309 non-null object
-sibsp        1309 non-null int64
-parch        1309 non-null int64
-ticket       1309 non-null object
-fare         1309 non-null object
-cabin        1309 non-null object
-embarked     1309 non-null object
-boat         1309 non-null object
-body         1309 non-null object
-home.dest    1309 non-null object
-dtypes: int64(4), object(10)
-memory usage: 143.2+ KB
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;pd.value_counts(titanic.age).head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;?     263
-24     47
-22     43
-21     41
-30     40
-Name: age, dtype: int64
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;نمونه-برداری-تصادفی-از-دیتافریم&#34;&gt;نمونه برداری تصادفی از دیتافریم&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data.shape
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;(1460, 81)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;train = data.sample(frac= 0.8, random_state=1111)
-train.shape
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;(1168, 81)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;test = data.drop(train.index)
-test.shape
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;(292, 81)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;فیلتر-کردن-بر-اساس-چند-معیار&#34;&gt;فیلتر کردن بر اساس چند معیار&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;titanic.head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;pclass&lt;/th&gt;
-      &lt;th&gt;survived&lt;/th&gt;
-      &lt;th&gt;name&lt;/th&gt;
-      &lt;th&gt;sex&lt;/th&gt;
-      &lt;th&gt;age&lt;/th&gt;
-      &lt;th&gt;sibsp&lt;/th&gt;
-      &lt;th&gt;parch&lt;/th&gt;
-      &lt;th&gt;ticket&lt;/th&gt;
-      &lt;th&gt;fare&lt;/th&gt;
-      &lt;th&gt;cabin&lt;/th&gt;
-      &lt;th&gt;embarked&lt;/th&gt;
-      &lt;th&gt;boat&lt;/th&gt;
-      &lt;th&gt;body&lt;/th&gt;
-      &lt;th&gt;home.dest&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Allen, Miss. Elisabeth Walton&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;29&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;24160&lt;/td&gt;
-      &lt;td&gt;211.3375&lt;/td&gt;
-      &lt;td&gt;B5&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;St Louis, MO&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Allison, Master. Hudson Trevor&lt;/td&gt;
-      &lt;td&gt;male&lt;/td&gt;
-      &lt;td&gt;0.9167&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;113781&lt;/td&gt;
-      &lt;td&gt;151.55&lt;/td&gt;
-      &lt;td&gt;C22 C26&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;11&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;Montreal, PQ / Chesterville, ON&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;Allison, Miss. Helen Loraine&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;113781&lt;/td&gt;
-      &lt;td&gt;151.55&lt;/td&gt;
-      &lt;td&gt;C22 C26&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;Montreal, PQ / Chesterville, ON&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;Allison, Mr. Hudson Joshua Creighton&lt;/td&gt;
-      &lt;td&gt;male&lt;/td&gt;
-      &lt;td&gt;30&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;113781&lt;/td&gt;
-      &lt;td&gt;151.55&lt;/td&gt;
-      &lt;td&gt;C22 C26&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;135&lt;/td&gt;
-      &lt;td&gt;Montreal, PQ / Chesterville, ON&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;Allison, Mrs. Hudson J C (Bessie Waldo Daniels)&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;25&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;113781&lt;/td&gt;
-      &lt;td&gt;151.55&lt;/td&gt;
-      &lt;td&gt;C22 C26&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;Montreal, PQ / Chesterville, ON&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;titanic[(titanic[&#39;pclass&#39;] == 1) &amp;amp;
-       (titanic[&#39;sex&#39;] == &#39;female&#39;) &amp;amp;
-       (titanic[&#39;survived&#39;] == 1)].head()
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;pclass&lt;/th&gt;
-      &lt;th&gt;survived&lt;/th&gt;
-      &lt;th&gt;name&lt;/th&gt;
-      &lt;th&gt;sex&lt;/th&gt;
-      &lt;th&gt;age&lt;/th&gt;
-      &lt;th&gt;sibsp&lt;/th&gt;
-      &lt;th&gt;parch&lt;/th&gt;
-      &lt;th&gt;ticket&lt;/th&gt;
-      &lt;th&gt;fare&lt;/th&gt;
-      &lt;th&gt;cabin&lt;/th&gt;
-      &lt;th&gt;embarked&lt;/th&gt;
-      &lt;th&gt;boat&lt;/th&gt;
-      &lt;th&gt;body&lt;/th&gt;
-      &lt;th&gt;home.dest&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Allen, Miss. Elisabeth Walton&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;29&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;24160&lt;/td&gt;
-      &lt;td&gt;211.3375&lt;/td&gt;
-      &lt;td&gt;B5&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;St Louis, MO&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;6&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Andrews, Miss. Kornelia Theodosia&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;63&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;13502&lt;/td&gt;
-      &lt;td&gt;77.9583&lt;/td&gt;
-      &lt;td&gt;D7&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;10&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;Hudson, NY&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;8&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Appleton, Mrs. Edward Dale (Charlotte Lamson)&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;53&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;11769&lt;/td&gt;
-      &lt;td&gt;51.4792&lt;/td&gt;
-      &lt;td&gt;C101&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;D&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;Bayside, Queens, NY&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;11&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Astor, Mrs. John Jacob (Madeleine Talmadge Force)&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;18&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;PC 17757&lt;/td&gt;
-      &lt;td&gt;227.525&lt;/td&gt;
-      &lt;td&gt;C62 C64&lt;/td&gt;
-      &lt;td&gt;C&lt;/td&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;New York, NY&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;12&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Aubart, Mme. Leontine Pauline&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;24&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;PC 17477&lt;/td&gt;
-      &lt;td&gt;69.3&lt;/td&gt;
-      &lt;td&gt;B35&lt;/td&gt;
-      &lt;td&gt;C&lt;/td&gt;
-      &lt;td&gt;9&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-      &lt;td&gt;Paris, France&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&#34;فیلتر-کردن-بر-اساس-فراوان-ترین-دسته&#34;&gt;فیلتر کردن بر اساس فراوان ترین دسته&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;ubar = pd.read_csv(&#39;data/ubar.csv&#39;)
-ubar.head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;ID&lt;/th&gt;
-      &lt;th&gt;date&lt;/th&gt;
-      &lt;th&gt;sourceLatitude&lt;/th&gt;
-      &lt;th&gt;sourceLongitude&lt;/th&gt;
-      &lt;th&gt;SourceState&lt;/th&gt;
-      &lt;th&gt;destinationLatitude&lt;/th&gt;
-      &lt;th&gt;destinationLongitude&lt;/th&gt;
-      &lt;th&gt;destinationState&lt;/th&gt;
-      &lt;th&gt;distanceKM&lt;/th&gt;
-      &lt;th&gt;taxiDurationMin&lt;/th&gt;
-      &lt;th&gt;vehicleType&lt;/th&gt;
-      &lt;th&gt;vehicleOption&lt;/th&gt;
-      &lt;th&gt;weight&lt;/th&gt;
-      &lt;th&gt;price&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;88142929797&lt;/td&gt;
-      &lt;td&gt;960218&lt;/td&gt;
-      &lt;td&gt;36.666045&lt;/td&gt;
-      &lt;td&gt;48.489706&lt;/td&gt;
-      &lt;td&gt;زنجان&lt;/td&gt;
-      &lt;td&gt;29.600574&lt;/td&gt;
-      &lt;td&gt;52.537114&lt;/td&gt;
-      &lt;td&gt;فارس&lt;/td&gt;
-      &lt;td&gt;1092.0&lt;/td&gt;
-      &lt;td&gt;751.0&lt;/td&gt;
-      &lt;td&gt;treili&lt;/td&gt;
-      &lt;td&gt;kafi&lt;/td&gt;
-      &lt;td&gt;20.00&lt;/td&gt;
-      &lt;td&gt;15300000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;30842979862&lt;/td&gt;
-      &lt;td&gt;960511&lt;/td&gt;
-      &lt;td&gt;32.323951&lt;/td&gt;
-      &lt;td&gt;50.855412&lt;/td&gt;
-      &lt;td&gt;چهارمحال و بختیاری&lt;/td&gt;
-      &lt;td&gt;34.644923&lt;/td&gt;
-      &lt;td&gt;50.876092&lt;/td&gt;
-      &lt;td&gt;قم&lt;/td&gt;
-      &lt;td&gt;414.0&lt;/td&gt;
-      &lt;td&gt;264.0&lt;/td&gt;
-      &lt;td&gt;khavar&lt;/td&gt;
-      &lt;td&gt;mosaghaf_felezi&lt;/td&gt;
-      &lt;td&gt;2.50&lt;/td&gt;
-      &lt;td&gt;1800000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;54262798716&lt;/td&gt;
-      &lt;td&gt;960602&lt;/td&gt;
-      &lt;td&gt;32.575448&lt;/td&gt;
-      &lt;td&gt;51.581011&lt;/td&gt;
-      &lt;td&gt;اصفهان&lt;/td&gt;
-      &lt;td&gt;31.819508&lt;/td&gt;
-      &lt;td&gt;49.865235&lt;/td&gt;
-      &lt;td&gt;خوزستان&lt;/td&gt;
-      &lt;td&gt;310.0&lt;/td&gt;
-      &lt;td&gt;292.0&lt;/td&gt;
-      &lt;td&gt;joft&lt;/td&gt;
-      &lt;td&gt;kompressi&lt;/td&gt;
-      &lt;td&gt;14.97&lt;/td&gt;
-      &lt;td&gt;3742000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;64071173752&lt;/td&gt;
-      &lt;td&gt;960319&lt;/td&gt;
-      &lt;td&gt;35.029685&lt;/td&gt;
-      &lt;td&gt;48.085763&lt;/td&gt;
-      &lt;td&gt;کردستان&lt;/td&gt;
-      &lt;td&gt;35.703801&lt;/td&gt;
-      &lt;td&gt;51.398824&lt;/td&gt;
-      &lt;td&gt;تهران&lt;/td&gt;
-      &lt;td&gt;391.0&lt;/td&gt;
-      &lt;td&gt;271.0&lt;/td&gt;
-      &lt;td&gt;khavar&lt;/td&gt;
-      &lt;td&gt;mosaghaf_felezi&lt;/td&gt;
-      &lt;td&gt;2.50&lt;/td&gt;
-      &lt;td&gt;1300000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;68088966447&lt;/td&gt;
-      &lt;td&gt;960609&lt;/td&gt;
-      &lt;td&gt;31.586965&lt;/td&gt;
-      &lt;td&gt;54.449607&lt;/td&gt;
-      &lt;td&gt;یزد&lt;/td&gt;
-      &lt;td&gt;36.730367&lt;/td&gt;
-      &lt;td&gt;53.965480&lt;/td&gt;
-      &lt;td&gt;گلستان&lt;/td&gt;
-      &lt;td&gt;756.0&lt;/td&gt;
-      &lt;td&gt;573.0&lt;/td&gt;
-      &lt;td&gt;joft&lt;/td&gt;
-      &lt;td&gt;bari&lt;/td&gt;
-      &lt;td&gt;15.00&lt;/td&gt;
-      &lt;td&gt;8870000&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;source_counts = ubar[&#39;SourceState&#39;].value_counts()
-source_counts
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;تهران                  5343
-اصفهان                 4665
-فارس                   4244
-خراسان رضوی            3913
-آذربایجان شرقی         2995
-مرکزی                  2400
-مازندران               1919
-یزد                    1879
-خوزستان                1779
-البرز                  1698
-قزوین                  1539
-آذربایجان غربی         1463
-سمنان                  1442
-گیلان                  1405
-همدان                  1296
-کرمان                  1272
-قم                     1224
-گلستان                 1131
-هرمزگان                1056
-کرمانشاه               1037
-زنجان                   923
-لرستان                  843
-چهارمحال و بختیاری      709
-بوشهر                   693
-سیستان و بلوچستان       622
-کردستان                 603
-خراسان جنوبی            599
-اردبیل                  571
-خراسان شمالی            416
-ایلام                   218
-کهگیلویه و بویراحمد     103
-Name: SourceState, dtype: int64
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;source_counts.nlargest(3)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;تهران     5343
-اصفهان    4665
-فارس      4244
-Name: SourceState, dtype: int64
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;source_counts.nlargest(3).index
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;Index([&#39;تهران&#39;, &#39;اصفهان&#39;, &#39;فارس&#39;], dtype=&#39;object&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;ubar[ubar[&#39;SourceState&#39;].isin(source_counts.nlargest(3).index)].head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;ID&lt;/th&gt;
-      &lt;th&gt;date&lt;/th&gt;
-      &lt;th&gt;sourceLatitude&lt;/th&gt;
-      &lt;th&gt;sourceLongitude&lt;/th&gt;
-      &lt;th&gt;SourceState&lt;/th&gt;
-      &lt;th&gt;destinationLatitude&lt;/th&gt;
-      &lt;th&gt;destinationLongitude&lt;/th&gt;
-      &lt;th&gt;destinationState&lt;/th&gt;
-      &lt;th&gt;distanceKM&lt;/th&gt;
-      &lt;th&gt;taxiDurationMin&lt;/th&gt;
-      &lt;th&gt;vehicleType&lt;/th&gt;
-      &lt;th&gt;vehicleOption&lt;/th&gt;
-      &lt;th&gt;weight&lt;/th&gt;
-      &lt;th&gt;price&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;54262798716&lt;/td&gt;
-      &lt;td&gt;960602&lt;/td&gt;
-      &lt;td&gt;32.575448&lt;/td&gt;
-      &lt;td&gt;51.581011&lt;/td&gt;
-      &lt;td&gt;اصفهان&lt;/td&gt;
-      &lt;td&gt;31.819508&lt;/td&gt;
-      &lt;td&gt;49.865235&lt;/td&gt;
-      &lt;td&gt;خوزستان&lt;/td&gt;
-      &lt;td&gt;310.0&lt;/td&gt;
-      &lt;td&gt;292.0&lt;/td&gt;
-      &lt;td&gt;joft&lt;/td&gt;
-      &lt;td&gt;kompressi&lt;/td&gt;
-      &lt;td&gt;14.97&lt;/td&gt;
-      &lt;td&gt;3742000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;5&lt;/th&gt;
-      &lt;td&gt;66661654430&lt;/td&gt;
-      &lt;td&gt;960121&lt;/td&gt;
-      &lt;td&gt;33.988467&lt;/td&gt;
-      &lt;td&gt;51.445599&lt;/td&gt;
-      &lt;td&gt;اصفهان&lt;/td&gt;
-      &lt;td&gt;29.611385&lt;/td&gt;
-      &lt;td&gt;52.541892&lt;/td&gt;
-      &lt;td&gt;فارس&lt;/td&gt;
-      &lt;td&gt;692.0&lt;/td&gt;
-      &lt;td&gt;468.0&lt;/td&gt;
-      &lt;td&gt;khavar&lt;/td&gt;
-      &lt;td&gt;mosaghaf_felezi&lt;/td&gt;
-      &lt;td&gt;2.50&lt;/td&gt;
-      &lt;td&gt;3100000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;6&lt;/th&gt;
-      &lt;td&gt;24985448221&lt;/td&gt;
-      &lt;td&gt;960323&lt;/td&gt;
-      &lt;td&gt;32.692065&lt;/td&gt;
-      &lt;td&gt;51.532095&lt;/td&gt;
-      &lt;td&gt;اصفهان&lt;/td&gt;
-      &lt;td&gt;38.072506&lt;/td&gt;
-      &lt;td&gt;46.289934&lt;/td&gt;
-      &lt;td&gt;آذربایجان شرقی&lt;/td&gt;
-      &lt;td&gt;894.0&lt;/td&gt;
-      &lt;td&gt;600.0&lt;/td&gt;
-      &lt;td&gt;tak&lt;/td&gt;
-      &lt;td&gt;bari&lt;/td&gt;
-      &lt;td&gt;10.00&lt;/td&gt;
-      &lt;td&gt;11300000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;8&lt;/th&gt;
-      &lt;td&gt;59129599197&lt;/td&gt;
-      &lt;td&gt;960311&lt;/td&gt;
-      &lt;td&gt;32.677168&lt;/td&gt;
-      &lt;td&gt;51.667839&lt;/td&gt;
-      &lt;td&gt;اصفهان&lt;/td&gt;
-      &lt;td&gt;36.571872&lt;/td&gt;
-      &lt;td&gt;53.057423&lt;/td&gt;
-      &lt;td&gt;مازندران&lt;/td&gt;
-      &lt;td&gt;710.0&lt;/td&gt;
-      &lt;td&gt;499.0&lt;/td&gt;
-      &lt;td&gt;treili&lt;/td&gt;
-      &lt;td&gt;labehdar&lt;/td&gt;
-      &lt;td&gt;22.00&lt;/td&gt;
-      &lt;td&gt;11598000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;10&lt;/th&gt;
-      &lt;td&gt;92508423933&lt;/td&gt;
-      &lt;td&gt;960629&lt;/td&gt;
-      &lt;td&gt;35.435610&lt;/td&gt;
-      &lt;td&gt;51.572145&lt;/td&gt;
-      &lt;td&gt;تهران&lt;/td&gt;
-      &lt;td&gt;33.992448&lt;/td&gt;
-      &lt;td&gt;50.684846&lt;/td&gt;
-      &lt;td&gt;مرکزی&lt;/td&gt;
-      &lt;td&gt;237.0&lt;/td&gt;
-      &lt;td&gt;182.0&lt;/td&gt;
-      &lt;td&gt;khavar&lt;/td&gt;
-      &lt;td&gt;mosaghaf_felezi&lt;/td&gt;
-      &lt;td&gt;2.50&lt;/td&gt;
-      &lt;td&gt;2000000&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&#34;مقادیر-گمشده&#34;&gt;مقادیر گمشده&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;titanic = pd.read_csv(&#39;data/titanic.csv&#39;,na_values = &#39;?&#39;)
-titanic.head()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;pclass&lt;/th&gt;
-      &lt;th&gt;survived&lt;/th&gt;
-      &lt;th&gt;name&lt;/th&gt;
-      &lt;th&gt;sex&lt;/th&gt;
-      &lt;th&gt;age&lt;/th&gt;
-      &lt;th&gt;sibsp&lt;/th&gt;
-      &lt;th&gt;parch&lt;/th&gt;
-      &lt;th&gt;ticket&lt;/th&gt;
-      &lt;th&gt;fare&lt;/th&gt;
-      &lt;th&gt;cabin&lt;/th&gt;
-      &lt;th&gt;embarked&lt;/th&gt;
-      &lt;th&gt;boat&lt;/th&gt;
-      &lt;th&gt;body&lt;/th&gt;
-      &lt;th&gt;home.dest&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Allen, Miss. Elisabeth Walton&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;29.0000&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;24160&lt;/td&gt;
-      &lt;td&gt;211.3375&lt;/td&gt;
-      &lt;td&gt;B5&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;St Louis, MO&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Allison, Master. Hudson Trevor&lt;/td&gt;
-      &lt;td&gt;male&lt;/td&gt;
-      &lt;td&gt;0.9167&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;113781&lt;/td&gt;
-      &lt;td&gt;151.5500&lt;/td&gt;
-      &lt;td&gt;C22 C26&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;11&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Montreal, PQ / Chesterville, ON&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;Allison, Miss. Helen Loraine&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;2.0000&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;113781&lt;/td&gt;
-      &lt;td&gt;151.5500&lt;/td&gt;
-      &lt;td&gt;C22 C26&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Montreal, PQ / Chesterville, ON&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;Allison, Mr. Hudson Joshua Creighton&lt;/td&gt;
-      &lt;td&gt;male&lt;/td&gt;
-      &lt;td&gt;30.0000&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;113781&lt;/td&gt;
-      &lt;td&gt;151.5500&lt;/td&gt;
-      &lt;td&gt;C22 C26&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;135.0&lt;/td&gt;
-      &lt;td&gt;Montreal, PQ / Chesterville, ON&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;Allison, Mrs. Hudson J C (Bessie Waldo Daniels)&lt;/td&gt;
-      &lt;td&gt;female&lt;/td&gt;
-      &lt;td&gt;25.0000&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;113781&lt;/td&gt;
-      &lt;td&gt;151.5500&lt;/td&gt;
-      &lt;td&gt;C22 C26&lt;/td&gt;
-      &lt;td&gt;S&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;Montreal, PQ / Chesterville, ON&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;titanic.isna().sum()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;pclass          0
-survived        0
-name            0
-sex             0
-age           263
-sibsp           0
-parch           0
-ticket          0
-fare            1
-cabin        1014
-embarked        2
-boat          823
-body         1188
-home.dest     564
-dtype: int64
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;titanic.isna().mean()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;pclass       0.000000
-survived     0.000000
-name         0.000000
-sex          0.000000
-age          0.200917
-sibsp        0.000000
-parch        0.000000
-ticket       0.000000
-fare         0.000764
-cabin        0.774637
-embarked     0.001528
-boat         0.628724
-body         0.907563
-home.dest    0.430863
-dtype: float64
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;pd.read_csv(    )      
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;---------------------------------------------------------------------------
-
-TypeError                                 Traceback (most recent call last)
-
-&amp;lt;ipython-input-2-495416214f55&amp;gt; in &amp;lt;module&amp;gt;
-----&amp;gt; 1 pd.read_csv()
-
-
-TypeError: parser_f() missing 1 required positional argument: &#39;filepath_or_buffer&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Slides</title>
       <link>/slides/example/</link>
       <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
       <guid>/slides/example/</guid>
-      <description>
-
-&lt;h1 id=&#34;welcome-to-slides&#34;&gt;Welcome to Slides&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/&#34; target=&#34;_blank&#34;&gt;Academic&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
+      <description>&lt;h1 id=&#34;welcome-to-slides&#34;&gt;Welcome to Slides&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/&#34;&gt;Academic&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2 id=&#34;features&#34;&gt;Features&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;Efficiently write slides in Markdown&lt;/li&gt;
 &lt;li&gt;3-in-1: Create, Present, and Publish your slides&lt;/li&gt;
 &lt;li&gt;Supports speaker notes&lt;/li&gt;
 &lt;li&gt;Mobile friendly slides&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;hr /&gt;
-
+&lt;hr&gt;
 &lt;h2 id=&#34;controls&#34;&gt;Controls&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;Next: &lt;code&gt;Right Arrow&lt;/code&gt; or &lt;code&gt;Space&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Previous: &lt;code&gt;Left Arrow&lt;/code&gt;&lt;/li&gt;
@@ -3217,91 +476,60 @@ TypeError: parser_f() missing 1 required positional argument: &#39;filepath_or_b
 &lt;li&gt;Speaker notes: &lt;code&gt;S&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Fullscreen: &lt;code&gt;F&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Zoom: &lt;code&gt;Alt + Click&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/hakimel/reveal.js#pdf-export&#34; target=&#34;_blank&#34;&gt;PDF Export&lt;/a&gt;: &lt;code&gt;E&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hakimel/reveal.js#pdf-export&#34;&gt;PDF Export&lt;/a&gt;: &lt;code&gt;E&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;hr /&gt;
-
+&lt;hr&gt;
 &lt;h2 id=&#34;code-highlighting&#34;&gt;Code Highlighting&lt;/h2&gt;
-
 &lt;p&gt;Inline code: &lt;code&gt;variable&lt;/code&gt;&lt;/p&gt;
-
 &lt;p&gt;Code block:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;porridge = &amp;quot;blueberry&amp;quot;
-if porridge == &amp;quot;blueberry&amp;quot;:
-    print(&amp;quot;Eating...&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;porridge &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;blueberry&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; porridge &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;blueberry&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Eating...&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
 &lt;h2 id=&#34;math&#34;&gt;Math&lt;/h2&gt;
-
 &lt;p&gt;In-line math: $x + y = z$&lt;/p&gt;
-
 &lt;p&gt;Block math:&lt;/p&gt;
-
 &lt;p&gt;$$
-f\left( x \right) = \;\frac{{2\left( {x + 4} \right)\left( {x - 4} \right)}}{{\left( {x + 4} \right)\left( {x + 1} \right)}}
+f\left( x \right) = ;\frac{{2\left( {x + 4} \right)\left( {x - 4} \right)}}{{\left( {x + 4} \right)\left( {x + 1} \right)}}
 $$&lt;/p&gt;
-
-&lt;hr /&gt;
-
+&lt;hr&gt;
 &lt;h2 id=&#34;fragments&#34;&gt;Fragments&lt;/h2&gt;
-
 &lt;p&gt;Make content appear incrementally&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;{{% fragment %}} One {{% /fragment %}}
 {{% fragment %}} **Two** {{% /fragment %}}
 {{% fragment %}} Three {{% /fragment %}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Press &lt;code&gt;Space&lt;/code&gt; to play!&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&#34;fragment &#34; &gt;
-   One
-&lt;/span&gt;
-&lt;span class=&#34;fragment &#34; &gt;
-   &lt;strong&gt;Two&lt;/strong&gt;
-&lt;/span&gt;
-&lt;span class=&#34;fragment &#34; &gt;
-   Three
-&lt;/span&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Press &lt;code&gt;Space&lt;/code&gt; to play!&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;
+One 
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;strong&gt;Two&lt;/strong&gt; 
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+Three 
+&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;hr&gt;
 &lt;p&gt;A fragment can accept two optional parameters:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;class&lt;/code&gt;: use a custom style (requires definition in custom CSS)&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;weight&lt;/code&gt;: sets the order in which a fragment appears&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;hr /&gt;
-
+&lt;hr&gt;
 &lt;h2 id=&#34;speaker-notes&#34;&gt;Speaker Notes&lt;/h2&gt;
-
 &lt;p&gt;Add speaker notes to your presentation&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% speaker_note %}}
-- Only the speaker can read these notes
-- Press `S` key to view
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;{{% speaker_note %}}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;-&lt;/span&gt; Only the speaker can read these notes
+&lt;span style=&#34;color:#66d9ef&#34;&gt;-&lt;/span&gt; Press &lt;span style=&#34;color:#e6db74&#34;&gt;`S`&lt;/span&gt; key to view
 {{% /speaker_note %}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Press the &lt;code&gt;S&lt;/code&gt; key to view the speaker notes!&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Press the &lt;code&gt;S&lt;/code&gt; key to view the speaker notes!&lt;/p&gt;
 &lt;aside class=&#34;notes&#34;&gt;
   &lt;ul&gt;
 &lt;li&gt;Only the speaker can read these notes&lt;/li&gt;
 &lt;li&gt;Press &lt;code&gt;S&lt;/code&gt; key to view&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/aside&gt;
-
-&lt;hr /&gt;
-
+&lt;hr&gt;
 &lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;black: Black background, white text, blue links (default)&lt;/li&gt;
 &lt;li&gt;white: White background, black text, blue links&lt;/li&gt;
@@ -3309,18 +537,14 @@ $$&lt;/p&gt;
 &lt;li&gt;beige: Beige background, dark text, brown links&lt;/li&gt;
 &lt;li&gt;sky: Blue background, thin dark text, blue links&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;hr /&gt;
-
+&lt;hr&gt;
 &lt;ul&gt;
 &lt;li&gt;night: Black background, thick white text, orange links&lt;/li&gt;
 &lt;li&gt;serif: Cappuccino background, gray text, brown links&lt;/li&gt;
 &lt;li&gt;simple: White background, black text, blue links&lt;/li&gt;
 &lt;li&gt;solarized: Cream-colored background, dark green text, blue links&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;hr /&gt;
-
+&lt;hr&gt;
 
 &lt;section data-noprocess data-shortcode-slide
   
@@ -3328,38 +552,24 @@ $$&lt;/p&gt;
       data-background-image=&#34;/img/boards.jpg&#34;
   &gt;
 
-
 &lt;h2 id=&#34;custom-slide&#34;&gt;Custom Slide&lt;/h2&gt;
-
 &lt;p&gt;Customize the slide style and background&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; slide background-image=&amp;quot;/img/boards.jpg&amp;quot; &amp;gt;}}
-{{&amp;lt; slide background-color=&amp;quot;#0000FF&amp;quot; &amp;gt;}}
-{{&amp;lt; slide class=&amp;quot;my-style&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;{{&amp;lt; slide background-image=&amp;#34;/img/boards.jpg&amp;#34; &amp;gt;}}
+{{&amp;lt; slide background-color=&amp;#34;#0000FF&amp;#34; &amp;gt;}}
+{{&amp;lt; slide class=&amp;#34;my-style&amp;#34; &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
 &lt;h2 id=&#34;custom-css-example&#34;&gt;Custom CSS Example&lt;/h2&gt;
-
-&lt;p&gt;Let&amp;rsquo;s make headers navy colored.&lt;/p&gt;
-
+&lt;p&gt;Let&#39;s make headers navy colored.&lt;/p&gt;
 &lt;p&gt;Create &lt;code&gt;assets/css/reveal_custom.css&lt;/code&gt; with:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.reveal section h1,
-.reveal section h2,
-.reveal section h3 {
-  color: navy;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;reveal&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;section&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;
+.&lt;span style=&#34;color:#a6e22e&#34;&gt;reveal&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;section&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;h2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;
+.&lt;span style=&#34;color:#a6e22e&#34;&gt;reveal&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;section&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;h3&lt;/span&gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;color&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;navy&lt;/span&gt;;
 }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
 &lt;h1 id=&#34;questions&#34;&gt;Questions?&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://discourse.gohugo.io&#34; target=&#34;_blank&#34;&gt;Ask&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/&#34; target=&#34;_blank&#34;&gt;Documentation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://discourse.gohugo.io&#34;&gt;Ask&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/&#34;&gt;Documentation&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -3402,31 +612,6 @@ $$&lt;/p&gt;
       <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
       <guid>/otherwidget/terms/</guid>
       <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>External Project</title>
-      <link>/project/external-project/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/project/external-project/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Internal Project</title>
-      <link>/project/internal-project/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/project/internal-project/</guid>
-      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-
-&lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-
-&lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-
-&lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-
-&lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
 </description>
     </item>
     

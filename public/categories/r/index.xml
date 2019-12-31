@@ -5,12 +5,42 @@
     <link>/categories/r/</link>
       <atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 03 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 29 Dec 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>R</title>
       <link>/categories/r/</link>
     </image>
+    
+    <item>
+      <title>Tidy Tuesday Submissions</title>
+      <link>/project/2019-12-29-tidy-tuesday-submissions/</link>
+      <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>/project/2019-12-29-tidy-tuesday-submissions/</guid>
+      <description>
+
+
+&lt;p&gt;For 6 years, I had been using python exclusively for my data science tasks and experiments. However, recently I have started using Tidyverse packages and tools in R for my data science activities. I am completely facinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then I have tried to participate in the weekly Tidy Tuesday project.
+You can find my submissions in this page.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;00001d.png&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;week-51--adoptable-dogs&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Week 51 -Adoptable dogs&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;tags_Akbar.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ccc.png&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;week-36---moores-law&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;&lt;strong&gt;Week 36 - Moore’s Law&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;CPU.jpg&#34; /&gt;
+&lt;img src=&#34;CPU-Plot.jpg&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;week-35---simpsons-guest-stars&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Week 35 - Simpsons Guest Stars&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;1.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;2.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;3.jpg&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>GLM in Farsi</title>

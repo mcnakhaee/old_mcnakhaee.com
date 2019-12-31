@@ -1,0 +1,140 @@
+---
+title: Contrastive Explanations
+author: Muhammad Chenariyan Nakhaee
+date: '2019-11-07'
+slug: []
+categories: []
+tags:
+  - Machine Learning
+  - XAI
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-12-29T12:41:22+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+```{r message=FALSE, warning=FALSE}
+library(reticulate)
+options(jupyter.display = 'rich')
+library(tidyverse)
+conda_list()
+py_config()
+```
+```{r}
+
+```
+
+
+
+```{python}
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+```
+
+
+```{python include=FALSE}
+titanic = pd.read_csv('titanic_train.csv')
+titanic.head()
+```
+
+
+```{r echo=FALSE}
+py$titanic %>% head()
+```
+
+```{python include=FALSE}
+def sex_binary(x):
+  if x == 'male':
+    return 0 
+  else:
+    return 1
+titanic_dummified = pd.get_dummies(titanic,columns=['Embarked'])
+titanic_dummified['Sex_binary'] = titanic_dummified['Sex'].apply(lambda x:sex_binary(x) )
+titanic_dummified.drop(['Cabin','Ticket','Name','Sex'],axis = 1,inplace=True)
+titanic_dummified.head()
+titanic_dummified.shape
+titanic_dummified = titanic_dummified.dropna()
+titanic_dummified.isna().sum()
+
+```
+```{r echo=FALSE}
+py$titanic_dummified %>% head()
+```
+```{python}
+
+X = titanic_dummified.drop(['Survived'],axis=1)
+y = titanic_dummified['Survived']
+train, test, labels_train, labels_test = train_test_split(X, y, train_size=0.80)
+
+```
+
+
+```{python}
+rf = RandomForestClassifier(n_estimators=100)
+rf.fit(train,labels_train)
+rf.score(test,labels_test)
+```
+
+```{python}
+prd_ds = test.copy()
+prd_ds['actual']  = labels_test
+prd_ds['prds'] = rf.predict(test)
+
+prd_ds['wrong']  =  prd_ds['prds'] == prd_ds['actual']
+```
+
+```{r}
+py$prd_ds %>% head()
+```
+
+```{python}
+import lime
+import lime.lime_tabular
+import dtreeviz
+import shap
+```
+
+
+
+
+```{python}
+explainer = lime.lime_tabular.LimeTabularExplainer(
+train.to_numpy(),
+feature_names = list(train.columns),
+class_names = [0,1],
+discretize_continuous = True
+)
+```
+
+
+```{python}
+instance = test.iloc[1,:]
+exp = explainer.explain_instance(instance,
+rf.predict_proba,
+num_features = 5,
+top_labels = 1
+)
+```
+
+
+```{python}
+
+from IPython.display import display, HTML
+exp.show_in_notebook(show_table = True,show_all = True)
+
+
+s = exp.as_html()
+```
+
+```{r}
+library(rvest)
+#htmltools::
+
+```
+

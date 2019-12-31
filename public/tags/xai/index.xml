@@ -5,12 +5,154 @@
     <link>/tags/xai/</link>
       <atom:link href="/tags/xai/index.xml" rel="self" type="application/rss+xml" />
     <description>XAI</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 03 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 07 Nov 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>XAI</title>
       <link>/tags/xai/</link>
     </image>
+    
+    <item>
+      <title>Contrastive Explanations</title>
+      <link>/post/2019-11-07-contrastive-explanations/</link>
+      <pubDate>Thu, 07 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>/post/2019-11-07-contrastive-explanations/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(reticulate)
+options(jupyter.display = &amp;#39;rich&amp;#39;)
+library(tidyverse)
+conda_list()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##           name
+## 1  r-miniconda
+## 2 r-reticulate
+## 3   Anaconda37
+## 4 r-tensorflow
+##                                                                              python
+## 1                     C:\\Users\\iMuhammad\\AppData\\Local\\r-miniconda\\python.exe
+## 2 C:\\Users\\iMuhammad\\AppData\\Local\\r-miniconda\\envs\\r-reticulate\\python.exe
+## 3                                           D:\\ProgramData\\Anaconda37\\python.exe
+## 4                       D:\\ProgramData\\Anaconda37\\envs\\r-tensorflow\\python.exe&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;py_config()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## python:         D:/ProgramData/Anaconda37/python.exe
+## libpython:      D:/ProgramData/Anaconda37/python37.dll
+## pythonhome:     D:/ProgramData/Anaconda37
+## version:        3.7.3 (default, Mar 27 2019, 17:13:21) [MSC v.1915 64 bit (AMD64)]
+## Architecture:   64bit
+## numpy:          D:/ProgramData/Anaconda37/Lib/site-packages/numpy
+## numpy_version:  1.16.2
+## 
+## NOTE: Python version was forced by RETICULATE_PYTHON&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   PassengerId Survived Pclass
+## 1           1        0      3
+## 2           2        1      1
+## 3           3        1      3
+## 4           4        1      1
+## 5           5        0      3
+## 6           6        0      3
+##                                                  Name    Sex Age SibSp Parch
+## 1                             Braund, Mr. Owen Harris   male  22     1     0
+## 2 Cumings, Mrs. John Bradley (Florence Briggs Thayer) female  38     1     0
+## 3                              Heikkinen, Miss. Laina female  26     0     0
+## 4        Futrelle, Mrs. Jacques Heath (Lily May Peel) female  35     1     0
+## 5                            Allen, Mr. William Henry   male  35     0     0
+## 6                                    Moran, Mr. James   male NaN     0     0
+##             Ticket    Fare Cabin Embarked
+## 1        A/5 21171  7.2500   NaN        S
+## 2         PC 17599 71.2833   C85        C
+## 3 STON/O2. 3101282  7.9250   NaN        S
+## 4           113803 53.1000  C123        S
+## 5           373450  8.0500   NaN        S
+## 6           330877  8.4583   NaN        Q&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   PassengerId Survived Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q
+## 0           1        0      3  22     1     0  7.2500          0          0
+## 1           2        1      1  38     1     0 71.2833          1          0
+## 2           3        1      3  26     0     0  7.9250          0          0
+## 3           4        1      1  35     1     0 53.1000          0          0
+## 4           5        0      3  35     0     0  8.0500          0          0
+## 6           7        0      1  54     0     0 51.8625          0          0
+##   Embarked_S Sex_binary
+## 0          1          0
+## 1          0          1
+## 2          1          1
+## 3          1          1
+## 4          1          0
+## 6          1          0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;
+X = titanic_dummified.drop([&amp;#39;Survived&amp;#39;],axis=1)
+y = titanic_dummified[&amp;#39;Survived&amp;#39;]
+train, test, labels_train, labels_test = train_test_split(X, y, train_size=0.80)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;rf = RandomForestClassifier(n_estimators=100)
+rf.fit(train,labels_train)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&amp;#39;gini&amp;#39;,
+##                        max_depth=None, max_features=&amp;#39;auto&amp;#39;, max_leaf_nodes=None,
+##                        min_impurity_decrease=0.0, min_impurity_split=None,
+##                        min_samples_leaf=1, min_samples_split=2,
+##                        min_weight_fraction_leaf=0.0, n_estimators=100,
+##                        n_jobs=None, oob_score=False, random_state=None,
+##                        verbose=0, warm_start=False)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;rf.score(test,labels_test)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0.8251748251748252&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;prd_ds = test.copy()
+prd_ds[&amp;#39;actual&amp;#39;]  = labels_test
+prd_ds[&amp;#39;prds&amp;#39;] = rf.predict(test)
+
+prd_ds[&amp;#39;wrong&amp;#39;]  =  prd_ds[&amp;#39;prds&amp;#39;] == prd_ds[&amp;#39;actual&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;py$prd_ds %&amp;gt;% head()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     PassengerId Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q Embarked_S
+## 808         809      2  39     0     0 13.0000          0          0          1
+## 618         619      2   4     2     1 39.0000          0          0          1
+## 850         851      3   4     4     2 31.2750          0          0          1
+## 99          100      2  34     1     0 26.0000          0          0          1
+## 104         105      3  37     2     0  7.9250          0          0          1
+## 493         494      1  71     0     0 49.5042          1          0          0
+##     Sex_binary actual prds wrong
+## 808          0      0    0  TRUE
+## 618          1      1    1  TRUE
+## 850          0      0    0  TRUE
+## 99           0      0    0  TRUE
+## 104          0      0    0  TRUE
+## 493          0      0    0  TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import lime
+import lime.lime_tabular
+import dtreeviz
+import shap&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;explainer = lime.lime_tabular.LimeTabularExplainer(
+train.to_numpy(),
+feature_names = list(train.columns),
+class_names = [0,1],
+discretize_continuous = True
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;instance = test.iloc[1,:]
+exp = explainer.explain_instance(instance,
+rf.predict_proba,
+num_features = 5,
+top_labels = 1
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;
+from IPython.display import display, HTML
+exp.show_in_notebook(show_table = True,show_all = True)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;lt;IPython.core.display.HTML object&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;s = exp.as_html()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rvest)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;rvest&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: xml2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;rvest&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:purrr&amp;#39;:
+## 
+##     pluck&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:readr&amp;#39;:
+## 
+##     guess_encoding&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#htmltools::&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Data Shapely</title>

@@ -1,0 +1,154 @@
+---
+title: Contrastive Explanations
+author: Muhammad Chenariyan Nakhaee
+date: '2019-11-07'
+slug: []
+categories: []
+tags:
+  - Machine Learning
+  - XAI
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-12-29T12:41:22+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<pre class="r"><code>library(reticulate)
+options(jupyter.display = &#39;rich&#39;)
+library(tidyverse)
+conda_list()</code></pre>
+<pre><code>##           name
+## 1  r-miniconda
+## 2 r-reticulate
+## 3   Anaconda37
+## 4 r-tensorflow
+##                                                                              python
+## 1                     C:\\Users\\iMuhammad\\AppData\\Local\\r-miniconda\\python.exe
+## 2 C:\\Users\\iMuhammad\\AppData\\Local\\r-miniconda\\envs\\r-reticulate\\python.exe
+## 3                                           D:\\ProgramData\\Anaconda37\\python.exe
+## 4                       D:\\ProgramData\\Anaconda37\\envs\\r-tensorflow\\python.exe</code></pre>
+<pre class="r"><code>py_config()</code></pre>
+<pre><code>## python:         D:/ProgramData/Anaconda37/python.exe
+## libpython:      D:/ProgramData/Anaconda37/python37.dll
+## pythonhome:     D:/ProgramData/Anaconda37
+## version:        3.7.3 (default, Mar 27 2019, 17:13:21) [MSC v.1915 64 bit (AMD64)]
+## Architecture:   64bit
+## numpy:          D:/ProgramData/Anaconda37/Lib/site-packages/numpy
+## numpy_version:  1.16.2
+## 
+## NOTE: Python version was forced by RETICULATE_PYTHON</code></pre>
+<pre class="python"><code>import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split</code></pre>
+<pre><code>##   PassengerId Survived Pclass
+## 1           1        0      3
+## 2           2        1      1
+## 3           3        1      3
+## 4           4        1      1
+## 5           5        0      3
+## 6           6        0      3
+##                                                  Name    Sex Age SibSp Parch
+## 1                             Braund, Mr. Owen Harris   male  22     1     0
+## 2 Cumings, Mrs. John Bradley (Florence Briggs Thayer) female  38     1     0
+## 3                              Heikkinen, Miss. Laina female  26     0     0
+## 4        Futrelle, Mrs. Jacques Heath (Lily May Peel) female  35     1     0
+## 5                            Allen, Mr. William Henry   male  35     0     0
+## 6                                    Moran, Mr. James   male NaN     0     0
+##             Ticket    Fare Cabin Embarked
+## 1        A/5 21171  7.2500   NaN        S
+## 2         PC 17599 71.2833   C85        C
+## 3 STON/O2. 3101282  7.9250   NaN        S
+## 4           113803 53.1000  C123        S
+## 5           373450  8.0500   NaN        S
+## 6           330877  8.4583   NaN        Q</code></pre>
+<pre><code>##   PassengerId Survived Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q
+## 0           1        0      3  22     1     0  7.2500          0          0
+## 1           2        1      1  38     1     0 71.2833          1          0
+## 2           3        1      3  26     0     0  7.9250          0          0
+## 3           4        1      1  35     1     0 53.1000          0          0
+## 4           5        0      3  35     0     0  8.0500          0          0
+## 6           7        0      1  54     0     0 51.8625          0          0
+##   Embarked_S Sex_binary
+## 0          1          0
+## 1          0          1
+## 2          1          1
+## 3          1          1
+## 4          1          0
+## 6          1          0</code></pre>
+<pre class="python"><code>
+X = titanic_dummified.drop([&#39;Survived&#39;],axis=1)
+y = titanic_dummified[&#39;Survived&#39;]
+train, test, labels_train, labels_test = train_test_split(X, y, train_size=0.80)</code></pre>
+<pre class="python"><code>rf = RandomForestClassifier(n_estimators=100)
+rf.fit(train,labels_train)</code></pre>
+<pre><code>## RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;gini&#39;,
+##                        max_depth=None, max_features=&#39;auto&#39;, max_leaf_nodes=None,
+##                        min_impurity_decrease=0.0, min_impurity_split=None,
+##                        min_samples_leaf=1, min_samples_split=2,
+##                        min_weight_fraction_leaf=0.0, n_estimators=100,
+##                        n_jobs=None, oob_score=False, random_state=None,
+##                        verbose=0, warm_start=False)</code></pre>
+<pre class="python"><code>rf.score(test,labels_test)</code></pre>
+<pre><code>## 0.8251748251748252</code></pre>
+<pre class="python"><code>prd_ds = test.copy()
+prd_ds[&#39;actual&#39;]  = labels_test
+prd_ds[&#39;prds&#39;] = rf.predict(test)
+
+prd_ds[&#39;wrong&#39;]  =  prd_ds[&#39;prds&#39;] == prd_ds[&#39;actual&#39;]</code></pre>
+<pre class="r"><code>py$prd_ds %&gt;% head()</code></pre>
+<pre><code>##     PassengerId Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q Embarked_S
+## 808         809      2  39     0     0 13.0000          0          0          1
+## 618         619      2   4     2     1 39.0000          0          0          1
+## 850         851      3   4     4     2 31.2750          0          0          1
+## 99          100      2  34     1     0 26.0000          0          0          1
+## 104         105      3  37     2     0  7.9250          0          0          1
+## 493         494      1  71     0     0 49.5042          1          0          0
+##     Sex_binary actual prds wrong
+## 808          0      0    0  TRUE
+## 618          1      1    1  TRUE
+## 850          0      0    0  TRUE
+## 99           0      0    0  TRUE
+## 104          0      0    0  TRUE
+## 493          0      0    0  TRUE</code></pre>
+<pre class="python"><code>import lime
+import lime.lime_tabular
+import dtreeviz
+import shap</code></pre>
+<pre class="python"><code>explainer = lime.lime_tabular.LimeTabularExplainer(
+train.to_numpy(),
+feature_names = list(train.columns),
+class_names = [0,1],
+discretize_continuous = True
+)</code></pre>
+<pre class="python"><code>instance = test.iloc[1,:]
+exp = explainer.explain_instance(instance,
+rf.predict_proba,
+num_features = 5,
+top_labels = 1
+)</code></pre>
+<pre class="python"><code>
+from IPython.display import display, HTML
+exp.show_in_notebook(show_table = True,show_all = True)
+</code></pre>
+<pre><code>## &lt;IPython.core.display.HTML object&gt;</code></pre>
+<pre class="python"><code>s = exp.as_html()</code></pre>
+<pre class="r"><code>library(rvest)</code></pre>
+<pre><code>## Warning: package &#39;rvest&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Loading required package: xml2</code></pre>
+<pre><code>## 
+## Attaching package: &#39;rvest&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     pluck</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     guess_encoding</code></pre>
+<pre class="r"><code>#htmltools::</code></pre>

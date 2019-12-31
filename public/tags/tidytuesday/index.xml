@@ -1,195 +1,44 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>tidytuesday | Muhammad Chenariyan Nakhaee</title>
+    <title>TidyTuesday | Muhammad Chenariyan Nakhaee</title>
     <link>/tags/tidytuesday/</link>
       <atom:link href="/tags/tidytuesday/index.xml" rel="self" type="application/rss+xml" />
-    <description>tidytuesday</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 22 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <description>TidyTuesday</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 29 Dec 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
-      <title>tidytuesday</title>
+      <title>TidyTuesday</title>
       <link>/tags/tidytuesday/</link>
     </image>
     
     <item>
-      <title>How do we describe female and male dogs?</title>
-      <link>/post/how-do-we-describe-female-and-male-dogs/</link>
-      <pubDate>Sun, 22 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>/post/how-do-we-describe-female-and-male-dogs/</guid>
+      <title>Tidy Tuesday Submissions</title>
+      <link>/project/2019-12-29-tidy-tuesday-submissions/</link>
+      <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>/project/2019-12-29-tidy-tuesday-submissions/</guid>
       <description>
 
 
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; Attaching packages &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; tidyverse 1.2.1 &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;lt;U+2713&amp;gt; ggplot2 3.2.1     &amp;lt;U+2713&amp;gt; purrr   0.3.3
-## &amp;lt;U+2713&amp;gt; tibble  2.1.3     &amp;lt;U+2713&amp;gt; dplyr   0.8.3
-## &amp;lt;U+2713&amp;gt; tidyr   1.0.0     &amp;lt;U+2713&amp;gt; stringr 1.4.0
-## &amp;lt;U+2713&amp;gt; readr   1.3.1     &amp;lt;U+2713&amp;gt; forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; Conflicts &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; tidyverse_conflicts() &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidytext)
-library(wordcloud)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Loading required package: RColorBrewer&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggthemes)
-library(hrbrthemes)
-library(extrafont)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Registering fonts with R&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(reshape2)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 
-## Attaching package: &amp;#39;reshape2&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:tidyr&amp;#39;:
-## 
-##     smiths&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_moves &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_moves.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   location = col_character(),
-##   exported = col_double(),
-##   imported = col_double(),
-##   total = col_double(),
-##   inUS = col_logical()
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_travel &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_travel.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   id = col_double(),
-##   contact_city = col_character(),
-##   contact_state = col_character(),
-##   description = col_character(),
-##   found = col_character(),
-##   manual = col_character(),
-##   remove = col_logical(),
-##   still_there = col_logical()
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   .default = col_character(),
-##   id = col_double(),
-##   breed_mixed = col_logical(),
-##   breed_unknown = col_logical(),
-##   fixed = col_logical(),
-##   house_trained = col_logical(),
-##   declawed = col_logical(),
-##   special_needs = col_logical(),
-##   shots_current = col_logical(),
-##   env_children = col_logical(),
-##   env_dogs = col_logical(),
-##   env_cats = col_logical(),
-##   accessed = col_date(format = &amp;quot;&amp;quot;)
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## See spec(...) for full column specifications.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(dog_descriptions)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 36
-##       id org_id url   species breed_primary breed_secondary breed_mixed
-##    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;         &amp;lt;chr&amp;gt;           &amp;lt;lgl&amp;gt;      
-## 1 4.60e7 NV163  http… Dog     American Sta… Mixed Breed     TRUE       
-## 2 4.60e7 NV163  http… Dog     Pit Bull Ter… Mixed Breed     TRUE       
-## 3 4.60e7 NV99   http… Dog     Shepherd      &amp;lt;NA&amp;gt;            FALSE      
-## 4 4.60e7 NV202  http… Dog     German Sheph… &amp;lt;NA&amp;gt;            FALSE      
-## 5 4.60e7 NV184  http… Dog     Dachshund     &amp;lt;NA&amp;gt;            FALSE      
-## 6 4.60e7 NV184  http… Dog     Boxer         Beagle          TRUE       
-## # … with 29 more variables: breed_unknown &amp;lt;lgl&amp;gt;, color_primary &amp;lt;chr&amp;gt;,
-## #   color_secondary &amp;lt;chr&amp;gt;, color_tertiary &amp;lt;chr&amp;gt;, age &amp;lt;chr&amp;gt;, sex &amp;lt;chr&amp;gt;,
-## #   size &amp;lt;chr&amp;gt;, coat &amp;lt;chr&amp;gt;, fixed &amp;lt;lgl&amp;gt;, house_trained &amp;lt;lgl&amp;gt;, declawed &amp;lt;lgl&amp;gt;,
-## #   special_needs &amp;lt;lgl&amp;gt;, shots_current &amp;lt;lgl&amp;gt;, env_children &amp;lt;lgl&amp;gt;,
-## #   env_dogs &amp;lt;lgl&amp;gt;, env_cats &amp;lt;lgl&amp;gt;, name &amp;lt;chr&amp;gt;, tags &amp;lt;chr&amp;gt;, photo &amp;lt;chr&amp;gt;,
-## #   status &amp;lt;chr&amp;gt;, posted &amp;lt;chr&amp;gt;, contact_city &amp;lt;chr&amp;gt;, contact_state &amp;lt;chr&amp;gt;,
-## #   contact_zip &amp;lt;chr&amp;gt;, contact_country &amp;lt;chr&amp;gt;, stateQ &amp;lt;chr&amp;gt;, accessed &amp;lt;date&amp;gt;,
-## #   type &amp;lt;chr&amp;gt;, description &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions &amp;lt;- dog_descriptions %&amp;gt;%
-  
-  filter(type == &amp;#39;Dog&amp;#39;, contact_country == &amp;#39;US&amp;#39;) %&amp;gt;%
-  
-  select(-status,
-         -type,
-         -accessed,
-         -stateQ,
-         contact_country,
-         -contact_zip,
-         -url)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data(stop_words)
-dog_descriptions_tokens &amp;lt;- dog_descriptions %&amp;gt;%
-  select(sex, description) %&amp;gt;%
-  unnest_tokens(word, description) %&amp;gt;%
-  anti_join(stop_words)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;word&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions %&amp;gt;% 
-  select(sex,tags) %&amp;gt;%
-  filter(!is.na(tags)) %&amp;gt;%
-  count(sex)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 2
-##   sex        n
-##   &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
-## 1 Female  2423
-## 2 Male    2576&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions %&amp;gt;%
-  select(sex, tags) %&amp;gt;%
-  filter(!is.na(tags)) %&amp;gt;%
-  unnest_tokens(word, tags) %&amp;gt;%
-  anti_join(stop_words) %&amp;gt;%
-  count(word, sex, sort = TRUE) %&amp;gt;%
-  filter(n &amp;gt; 40) %&amp;gt;%
-  mutate(word = fct_reorder(word, n),
-         n = n * ifelse(sex == &amp;#39;Male&amp;#39;, -1, 1)) %&amp;gt;%
-  ggplot(aes(word, n, fill = sex)) +
-  geom_col() +
-  geom_text(
-    data = . %&amp;gt;% mutate(position = ifelse(n &amp;lt; 0, n - 100, n + 100) , n_plus = abs(n)),
-    aes(label = n_plus, y = position),
-    family = &amp;quot;Akbar&amp;quot;,
-    size = 3,
-    color = &amp;#39;black&amp;#39;
-  ) +
-  coord_flip() +
-  scale_fill_manual(name = &amp;quot;Sex:&amp;quot;, values = c(&amp;#39;#DA4167&amp;#39;, &amp;#39;#75B9BE&amp;#39;)) +
-  
-  theme_tufte() +
-  labs(title =  &amp;#39;Most Popular Tags for Describing Adoptable Dogs&amp;#39;,
-       subtitle = &amp;#39;Do we use different tags for male and female dogs?&amp;#39;) +
-  
-  theme(
-    panel.grid.major = element_blank(),
-    plot.title = element_text(
-      size = 18,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    plot.subtitle = element_text(
-      size = 12,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    axis.text.y = element_text(
-      size = 11,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    axis.title.y = element_text(
-      size = 24,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    
-    axis.text.x = element_blank(),
-    axis.ticks.x = element_blank(),
-    axis.title.x = element_blank(),
-    
-    legend.title = element_text(
-      size = 16,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    legend.text = element_text(
-      size = 11,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    )
-  ) &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;word&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-12-22-how-do-we-describe-female-and-male-dogs_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;For 6 years, I had been using python exclusively for my data science tasks and experiments. However, recently I have started using Tidyverse packages and tools in R for my data science activities. I am completely facinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then I have tried to participate in the weekly Tidy Tuesday project.
+You can find my submissions in this page.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;00001d.png&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;week-51--adoptable-dogs&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Week 51 -Adoptable dogs&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;tags_Akbar.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ccc.png&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;week-36---moores-law&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;&lt;strong&gt;Week 36 - Moore’s Law&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;CPU.jpg&#34; /&gt;
+&lt;img src=&#34;CPU-Plot.jpg&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;week-35---simpsons-guest-stars&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Week 35 - Simpsons Guest Stars&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;1.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;2.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;3.jpg&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
 </description>
     </item>
     
