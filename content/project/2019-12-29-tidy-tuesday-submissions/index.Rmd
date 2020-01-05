@@ -23,7 +23,9 @@ slides: ''
 ---
 For 6 years, I had been using python exclusively for my data science tasks and experiments. However, recently I have started using Tidyverse packages and tools in R for my data science activities. I am completely facinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then I have tried to participate in the weekly Tidy Tuesday project.
 You can find my submissions in this page. 
-
+::: aside
+I am passionate about education. I believe that no topic is too complex if the teacher is empathetic and willing to think about new methods of approaching task. 
+:::
 ![](00001d.png)
 
 ## Week 51 -Adoptable dogs

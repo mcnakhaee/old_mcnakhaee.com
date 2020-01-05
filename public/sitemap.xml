@@ -73,8 +73,43 @@
   </url>
   
   <url>
+    <loc>/post/cv/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
-    <lastmod>2019-12-29T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-31T12:46:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2019-12-31-explainable-data-science-summer-school/</loc>
+    <lastmod>2019-12-31T12:46:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/machine-learning/</loc>
+    <lastmod>2019-12-31T12:46:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-12-31T12:46:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/xai/</loc>
+    <lastmod>2019-12-31T12:46:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/xai/</loc>
+    <lastmod>2019-12-31T12:46:32+01:00</lastmod>
   </url>
   
   <url>
@@ -85,11 +120,6 @@
   <url>
     <loc>/categories/r/</loc>
     <lastmod>2019-12-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2019-12-29T12:41:22+01:00</lastmod>
   </url>
   
   <url>
@@ -109,21 +139,6 @@
   
   <url>
     <loc>/post/2019-11-07-contrastive-explanations/</loc>
-    <lastmod>2019-12-29T12:41:22+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/machine-learning/</loc>
-    <lastmod>2019-12-29T12:41:22+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2019-12-29T12:41:22+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/xai/</loc>
     <lastmod>2019-12-29T12:41:22+01:00</lastmod>
   </url>
   
