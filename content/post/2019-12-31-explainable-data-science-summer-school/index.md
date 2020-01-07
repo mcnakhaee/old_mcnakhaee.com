@@ -26,17 +26,20 @@ Last September, I had the opportunity to participate in the  **EXPLAINABLE DATA 
 
 What I specifically liked about this summer school ( of course besides enjoying the the beautiful city of Luxembourg ) was the fact that it covered a vast variety of topics in the explainable machine learning (AI) literature, ranging from visualization, XAI techniques, causality to psychological aspects of explainability.  In addition, the summer school has a special guest, the legendary **[Christopher Bishop](https://www.microsoft.com/en-us/research/people/cmbishop/)** who gave the **inaugural** lecture.
 
-You can find the complete program and the presentations in the EuADS's website. Nevertheless during some presentations in the summer school, I took notes and I summarized them. I 
+You can find the complete program and the presentations in the [EuADS's website](https://euads.org/summer-school-2019/). Nevertheless during some presentations in the summer school, I took notes and I summarized them. 
 
-`**Disclaimer:**`
-
-`Sometimes it is not easy to keep up with the speaker and take notes. Also, it is possible that what I wrote down is just my interpretation and not what the speaker intened to say.  For this reason, I do not guarantee that all details in this post are accurate or what the speakers wanted to communicate.`
+> **Disclaimer:**
+>
+> Sometimes it is not easy to keep up with the speaker and take notes. Also, it is possible that what I wrote down is just my interpretation and not what the speaker intened to say.  For this reason, I do not guarantee that all details in this post are accurate or what the speakers wanted to communicate.
+>
 
 
 
 ## From Data Mining to Data Science - Peter Flach (EuADS President)
 
-### **1. What is Data Science?**
+
+
+### 1. What is Data Science?**
 
 "Data Science" is a vague term. One might mean by "data science":
 
@@ -58,7 +61,9 @@ data + knowledge = value
 
 Now data science can defined as follows:
 
-![1570983727831](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1570983727831.png)
+![1570983727831](/ds/1.png)
+
+
 
 It means that Data Science has three main ingredients:
 
@@ -77,27 +82,31 @@ The kinds of value that Data Science can generate are:
 
 Many consider data mining to be the father of data science. Others  say that data mining is a subset of data science. While the interest for data mining is declining,  data science gain more popularity.
 
-![1571174422488](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571174422488.png)
+![test](/ds/2.png)
 
-![1571178506748](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571178506748.png)
+*Fig. 2: Data science is getting more popular than data mining*
+
+![test](/ds/3.png)
+
+*Fig. 3: CRISP data mining process*
 
 In data mining, we (implicitly) assume that there is some value in the and  our aim is to use data mining techniques to **uncover** it.  We can see data mining just like the extraction of a valuable metals from an existing mine.
 
 However, in data science, we first need to make sure that data has some value. In other words, data science can be seen as prospective, which means we are searching for a mine to extract metal material from it. That puts more emphasis on the exploratory aspect (nature) of data science, which includes the following activities:
 
-![1571180675528](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571180675528.png)
+![1571180675528](/ds/4.png)
 
 These activities do not exist in the data mining space and distinguish data science and data mining.
 
-![1571180996340](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571180996340.png)
+![1571180996340](/ds/5.png)
 
-
+*Data Science Trajectory (DST) space*
 
 Data mining is a more sequential and more prescriptive approach where every operation must be implemented in a specific order. All activities in data mining can be a part of a data science project but not the opposite. For instance, not every data science project *requires* a modeling phase. On the other hand, the goal of data science  for a specific application can be just data collection or data publication.
 
-![image-20200104194252866](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20200104194252866.png)
+![image-20200104194252866](/ds/6.png)
 
-![image-20200104194422595](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20200104194422595.png)
+![image-20200104194422595](/ds/7.png)
 
 Read more about this in the following paper:
 
@@ -109,17 +118,21 @@ Data Science is for, about, by and with humans and human factors should be taken
 
 For example, look at following table which shows the number and the percentage of students who applied and were admitted to a university.
 
-![1571181577381](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571181577381.png)
+![1571181577381](/ds/8.png)
 
 At the first glance, this table might suggest a case of  bias toward women in the admission process. However, further examinations show that the low percentage of total admissions for women is due to the fact that female applicants tended to apply to more difficult programs  with an overall lower chance of acceptance while men applied to easier programs with a higher probability of acceptance. In other words, the difficulty of programs was a confounding factor that influenced the outcome not gender bias. It indicates measuring a human factor  such as fairness is not easy because measuring bias is not easy. Furthermore, according to Goodhart's Law, the moment we decide to use these  metrics (e.g. bias) as our target to optimize, they are not good measures anymore.
 
 in the the rest of talk, Peter Flach discussed the relationship between GDPR and fairness and specifically he touched upon an important issue regarding data ownership and the role of GDPR for personal data protection.
 
-![1571585896393](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571585896393.png)
+![1571585896393](/ds/9.png)
 
 He provided an example of authorship to demonstrate that solving data ownership is not a simple task. If someone writes a book about someone else (e.g. Clinton), the author has the ownership and the copyright not the the person whom the book is about.
 
+**Resources:**
 
+##### [Slides](https://euads.org/wp-content/uploads/2019/09/From-Data-Mining-Processes-to-Data-Science-Trajectories-2.pdf)
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Model-Based Machine Learning
 
@@ -131,17 +144,9 @@ He provided an example of authorship to demonstrate that solving data ownership 
 2. Large amount of available data (Big data)
 3. More powerful algorithms
 
-![1571587294967](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571587294967.png)
-
-A picture showing one of Microsoft's data centers and a new area to build a new data center.
-
-
-
-![1571587345156](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571587345156.png)
-
 Dozens of machine learning algorithms have been developed.
 
-![image-20200104221438797](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20200104221438797.png)
+![image-20200104221438797](/mml/1.png)
 
 But the 'No Free Lunch Theorem'  states that no universal machine learning can solve every problem. 
 
@@ -158,15 +163,19 @@ However, in model-based machine learning paradigm, we are looking to find a well
 
 #### Data and prior knowledge 
 
-#### ![1571589623467](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571589623467.png)
-
 **Scenario 1:** we have collected a handful of voltage and current measurement from an experiment. and we want to determine the relationship between the current and voltage using these measurements.
 
 **Scenario 2:**  We have a huge database containing images from 1000 objects and our goal is to develop a model to classify each image correctly.
 
-![1571589636558](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571589636558.png)
+![1571589636558](/mml/3.png)
 
 But are these datasets 'big' enough for solving their corresponding problems. In the first scenario, although we only have a few  measurements, we know that they are enough for finding the relationship between voltage and current.  On the other hand, even though we have access to a large number of images for each class, these images do not represent the distribution of all images.
+
+#### 
+
+![1571589623467](/mml/2.png)
+
+*The trade-off between prior knowledge and the amount of data needed*
 
 Therefore, we must distinguish between two types of 'big data':
 
@@ -175,13 +184,18 @@ Therefore, we must distinguish between two types of 'big data':
 
 Then, Chris Bishop argued that we need to incorporate uncertainties into our machine learning models otherwise the consequences would be dire. It means that we should *never ever* build direct classifier but we should build probabilistic classifier.
 
-![1571590428222](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\1571590428222.png)
+![1571590428222](/mml/4.png)
 
 
 
-Why is that? Because not all misclassification errors are equal and different costs are assigned to different errors. Misclassifying  a patient with cancer may be much worse than misclassifying a healthy patient. So, instead of minimizing the number of misclassified instances, we can minimize the expected (average costs). Besides, there are also other benefits to probabilistic classification:
+Why is that? Because not all misclassification errors are equal and different costs are assigned to different errors. Misclassifying  a patient with cancer may be much worse than misclassifying a healthy patient. So, instead of minimizing the number of misclassified instances, we can minimize the expected (average costs). 
+
+
 
 Finally, Chris Bishop presented a demo of a movie recommendation system.
 
+**Resources:**
 
+**[Slides]()**
 
+##### [Model-Based Machine Learning](http://www.mbmlbook.com)

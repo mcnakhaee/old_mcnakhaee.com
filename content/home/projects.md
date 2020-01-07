@@ -28,10 +28,12 @@ subtitle = ""
   [[content.filter_button]]
     name = "Deep Learning"
     tag = "Deep Learning"
-  
+   [[content.filter_button]]
+    name = "Tidy Tuesday"
+    tag = "TidyTuesday" 
   [[content.filter_button]]
-    name = "Other"
-    tag = "Demo"
+    name = "Explainable AI"
+    tag = "XAI"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.
