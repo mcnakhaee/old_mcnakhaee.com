@@ -531,7 +531,7 @@ What I specifically liked about this summer school ( of course besides enjoying 
 <p>But data and knowledge together can result in value. Here knowledge can be an input or an output of the data.</p>
 <p>data + knowledge = value</p>
 <p>Now data science can defined as follows:</p>
-<p><img src="/ds/1.png" alt="1570983727831"></p>
+<p><img src="ds_1.PNG" alt="1570983727831"></p>
 <p>It means that Data Science has three main ingredients:</p>
 <ol>
 <li><strong><!-- raw HTML omitted --> Data <!-- raw HTML omitted --></strong></li>
@@ -547,21 +547,19 @@ What I specifically liked about this summer school ( of course besides enjoying 
 </ul>
 <h3 id="2-from-data-mining-to-data-science">2. From Data Mining to Data Science</h3>
 <p>Many consider data mining to be the father of data science. Others  say that data mining is a subset of data science. While the interest for data mining is declining,  data science gain more popularity.</p>
-<p><img src="/ds/2.png" alt="test"></p>
+<p><img src="ds_2.PNG" alt="test"></p>
 <p><em>Fig. 2: Data science is getting more popular than data mining</em></p>
-<p><img src="/ds/3.png" alt="test"></p>
+<p><img src="ds_3.PNG" alt="test"></p>
 <p><em>Fig. 3: CRISP data mining process</em></p>
 <p>In data mining, we (implicitly) assume that there is some value in the and  our aim is to use data mining techniques to <strong>uncover</strong> it.  We can see data mining just like the extraction of a valuable metals from an existing mine.</p>
 <p>However, in data science, we first need to make sure that data has some value. In other words, data science can be seen as prospective, which means we are searching for a mine to extract metal material from it. That puts more emphasis on the exploratory aspect (nature) of data science, which includes the following activities:</p>
-<p><img src="1.PNG" alt=""></p>
-<p><img src="/1.PNG" alt=""></p>
-<p><img src="4.png" alt="1571180675528"></p>
+<p><img src="ds_4.PNG" alt="1571180675528"></p>
 <p>These activities do not exist in the data mining space and distinguish data science and data mining.</p>
-<p><img src="/ds/5.png/" alt=""></p>
+<p><img src="ds_5.PNG" alt=""></p>
 <p><em>Data Science Trajectory (DST) space</em></p>
 <p>Data mining is a more sequential and more prescriptive approach where every operation must be implemented in a specific order. All activities in data mining can be a part of a data science project but not the opposite. For instance, not every data science project <em>requires</em> a modeling phase. On the other hand, the goal of data science  for a specific application can be just data collection or data publication.</p>
-<p><img src="/ds/6.png" alt="image-20200104194252866"></p>
-<p><img src="/ds/7.png" alt="image-20200104194422595"></p>
+<p><img src="ds_6.PNG" alt="image-20200104194252866"></p>
+<p><img src="ds_7.PNG" alt="image-20200104194422595"></p>
 <p>Read more about this in the following paper:</p>
 <blockquote>
 <p><strong>CRISP-DM Twenty Years Later: From Data Mining Processes to Data Science Trajectories</strong>. Fernando  Martinez-Plumed, Lidia Contreras-Ochando, Cesar Ferri, Jose Hernandez-Orallo, Meelis Kull, NicolasLachiche, Maria Jose Ramirez-Quintana and Peter Flach. (Under review, 2019)</p>
@@ -569,10 +567,10 @@ What I specifically liked about this summer school ( of course besides enjoying 
 <h3 id="3-responsible-data-science---the-human-factor-35">3. Responsible Data Science - The Human Factor (3/5)</h3>
 <p>Data Science is for, about, by and with humans and human factors should be taken into consideration at every stage of a data science project. But it is not always easy to measure, define and ultimately achieve them.</p>
 <p>For example, look at following table which shows the number and the percentage of students who applied and were admitted to a university.</p>
-<p><img src="/ds/8.png" alt="1571181577381"></p>
+<p><img src="ds_8.PNG" alt="1571181577381"></p>
 <p>At the first glance, this table might suggest a case of  bias toward women in the admission process. However, further examinations show that the low percentage of total admissions for women is due to the fact that female applicants tended to apply to more difficult programs  with an overall lower chance of acceptance while men applied to easier programs with a higher probability of acceptance. In other words, the difficulty of programs was a confounding factor that influenced the outcome not gender bias. It indicates measuring a human factor  such as fairness is not easy because measuring bias is not easy. Furthermore, according to Goodhart's Law, the moment we decide to use these  metrics (e.g. bias) as our target to optimize, they are not good measures anymore.</p>
 <p>in the the rest of talk, Peter Flach discussed the relationship between GDPR and fairness and specifically he touched upon an important issue regarding data ownership and the role of GDPR for personal data protection.</p>
-<p><img src="/ds/9.png" alt="1571585896393"></p>
+<p><img src="ds_9.PNG" alt="1571585896393"></p>
 <p>He provided an example of authorship to demonstrate that solving data ownership is not a simple task. If someone writes a book about someone else (e.g. Clinton), the author has the ownership and the copyright not the the person whom the book is about.</p>
 <p><strong>Resources:</strong></p>
 <h5 id="slideshttpseuadsorgwp-contentuploads201909from-data-mining-processes-to-data-science-trajectories-2pdf"><a href="https://euads.org/wp-content/uploads/2019/09/From-Data-Mining-Processes-to-Data-Science-Trajectories-2.pdf">Slides</a></h5>
@@ -588,7 +586,7 @@ What I specifically liked about this summer school ( of course besides enjoying 
 <li>More powerful algorithms</li>
 </ol>
 <p>Dozens of machine learning algorithms have been developed.</p>
-<p><img src="/mml/1.png" alt="image-20200104221438797"></p>
+<p><img src="MML_1.PNG" alt="image-20200104221438797"></p>
 <p>But the &lsquo;No Free Lunch Theorem&rsquo;  states that no universal machine learning can solve every problem.</p>
 <blockquote>
 <p>Averaged over all possible data distributions, every classification algorithm has the same error rate when classifying previously unobserved points.
@@ -601,10 +599,10 @@ D. Wolpert (1996)</p>
 <h4 id="data-and-prior-knowledge">Data and prior knowledge</h4>
 <p><strong>Scenario 1:</strong> we have collected a handful of voltage and current measurement from an experiment. and we want to determine the relationship between the current and voltage using these measurements.</p>
 <p><strong>Scenario 2:</strong>  We have a huge database containing images from 1000 objects and our goal is to develop a model to classify each image correctly.</p>
-<p><img src="/mml/3.png" alt="1571589636558"></p>
+<p><img src="MML_3.PNG" alt="1571589636558"></p>
 <p>But are these datasets &lsquo;big&rsquo; enough for solving their corresponding problems. In the first scenario, although we only have a few  measurements, we know that they are enough for finding the relationship between voltage and current.  On the other hand, even though we have access to a large number of images for each class, these images do not represent the distribution of all images.</p>
 <h4 id="heading"></h4>
-<p><img src="/mml/2.png" alt="1571589623467"></p>
+<p><img src="MML_2.PNG" alt="1571589623467"></p>
 <p><em>The trade-off between prior knowledge and the amount of data needed</em></p>
 <p>Therefore, we must distinguish between two types of &lsquo;big data&rsquo;:</p>
 <ol>
@@ -612,11 +610,11 @@ D. Wolpert (1996)</p>
 <li>In terms of being statistically significant</li>
 </ol>
 <p>Then, Chris Bishop argued that we need to incorporate uncertainties into our machine learning models otherwise the consequences would be dire. It means that we should <em>never ever</em> build direct classifier but we should build probabilistic classifier.</p>
-<p><img src="/mml/4.png" alt="1571590428222"></p>
+<p><img src="MML_4.PNG" alt="1571590428222"></p>
 <p>Why is that? Because not all misclassification errors are equal and different costs are assigned to different errors. Misclassifying  a patient with cancer may be much worse than misclassifying a healthy patient. So, instead of minimizing the number of misclassified instances, we can minimize the expected (average costs).</p>
 <p>Finally, Chris Bishop presented a demo of a movie recommendation system.</p>
 <p><strong>Resources:</strong></p>
-<p><strong><a href="">Slides</a></strong></p>
+<p><strong><a href="https://euads.org/wp-content/uploads/2019/09/Chris-Bishop-SabineK-Lecture-2019_2.pdf">Slides</a></strong></p>
 <h5 id="model-based-machine-learninghttpwwwmbmlbookcom"><a href="http://www.mbmlbook.com">Model-Based Machine Learning</a></h5>
 
     </div>

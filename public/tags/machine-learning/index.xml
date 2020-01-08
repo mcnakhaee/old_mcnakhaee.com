@@ -39,7 +39,7 @@
 &lt;p&gt;But data and knowledge together can result in value. Here knowledge can be an input or an output of the data.&lt;/p&gt;
 &lt;p&gt;data + knowledge = value&lt;/p&gt;
 &lt;p&gt;Now data science can defined as follows:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/ds/1.png&#34; alt=&#34;1570983727831&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ds_1.PNG&#34; alt=&#34;1570983727831&#34;&gt;&lt;/p&gt;
 &lt;p&gt;It means that Data Science has three main ingredients:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;&lt;!-- raw HTML omitted --&gt; Data &lt;!-- raw HTML omitted --&gt;&lt;/strong&gt;&lt;/li&gt;
@@ -55,21 +55,19 @@
 &lt;/ul&gt;
 &lt;h3 id=&#34;2-from-data-mining-to-data-science&#34;&gt;2. From Data Mining to Data Science&lt;/h3&gt;
 &lt;p&gt;Many consider data mining to be the father of data science. Others  say that data mining is a subset of data science. While the interest for data mining is declining,  data science gain more popularity.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/ds/2.png&#34; alt=&#34;test&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ds_2.PNG&#34; alt=&#34;test&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Fig. 2: Data science is getting more popular than data mining&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/ds/3.png&#34; alt=&#34;test&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ds_3.PNG&#34; alt=&#34;test&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Fig. 3: CRISP data mining process&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;In data mining, we (implicitly) assume that there is some value in the and  our aim is to use data mining techniques to &lt;strong&gt;uncover&lt;/strong&gt; it.  We can see data mining just like the extraction of a valuable metals from an existing mine.&lt;/p&gt;
 &lt;p&gt;However, in data science, we first need to make sure that data has some value. In other words, data science can be seen as prospective, which means we are searching for a mine to extract metal material from it. That puts more emphasis on the exploratory aspect (nature) of data science, which includes the following activities:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;1.PNG&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/1.PNG&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;4.png&#34; alt=&#34;1571180675528&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ds_4.PNG&#34; alt=&#34;1571180675528&#34;&gt;&lt;/p&gt;
 &lt;p&gt;These activities do not exist in the data mining space and distinguish data science and data mining.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/ds/5.png/&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ds_5.PNG&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Data Science Trajectory (DST) space&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Data mining is a more sequential and more prescriptive approach where every operation must be implemented in a specific order. All activities in data mining can be a part of a data science project but not the opposite. For instance, not every data science project &lt;em&gt;requires&lt;/em&gt; a modeling phase. On the other hand, the goal of data science  for a specific application can be just data collection or data publication.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/ds/6.png&#34; alt=&#34;image-20200104194252866&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/ds/7.png&#34; alt=&#34;image-20200104194422595&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ds_6.PNG&#34; alt=&#34;image-20200104194252866&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ds_7.PNG&#34; alt=&#34;image-20200104194422595&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Read more about this in the following paper:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;CRISP-DM Twenty Years Later: From Data Mining Processes to Data Science Trajectories&lt;/strong&gt;. Fernando  Martinez-Plumed, Lidia Contreras-Ochando, Cesar Ferri, Jose Hernandez-Orallo, Meelis Kull, NicolasLachiche, Maria Jose Ramirez-Quintana and Peter Flach. (Under review, 2019)&lt;/p&gt;
@@ -77,10 +75,10 @@
 &lt;h3 id=&#34;3-responsible-data-science---the-human-factor-35&#34;&gt;3. Responsible Data Science - The Human Factor (3/5)&lt;/h3&gt;
 &lt;p&gt;Data Science is for, about, by and with humans and human factors should be taken into consideration at every stage of a data science project. But it is not always easy to measure, define and ultimately achieve them.&lt;/p&gt;
 &lt;p&gt;For example, look at following table which shows the number and the percentage of students who applied and were admitted to a university.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/ds/8.png&#34; alt=&#34;1571181577381&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ds_8.PNG&#34; alt=&#34;1571181577381&#34;&gt;&lt;/p&gt;
 &lt;p&gt;At the first glance, this table might suggest a case of  bias toward women in the admission process. However, further examinations show that the low percentage of total admissions for women is due to the fact that female applicants tended to apply to more difficult programs  with an overall lower chance of acceptance while men applied to easier programs with a higher probability of acceptance. In other words, the difficulty of programs was a confounding factor that influenced the outcome not gender bias. It indicates measuring a human factor  such as fairness is not easy because measuring bias is not easy. Furthermore, according to Goodhart&#39;s Law, the moment we decide to use these  metrics (e.g. bias) as our target to optimize, they are not good measures anymore.&lt;/p&gt;
 &lt;p&gt;in the the rest of talk, Peter Flach discussed the relationship between GDPR and fairness and specifically he touched upon an important issue regarding data ownership and the role of GDPR for personal data protection.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/ds/9.png&#34; alt=&#34;1571585896393&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ds_9.PNG&#34; alt=&#34;1571585896393&#34;&gt;&lt;/p&gt;
 &lt;p&gt;He provided an example of authorship to demonstrate that solving data ownership is not a simple task. If someone writes a book about someone else (e.g. Clinton), the author has the ownership and the copyright not the the person whom the book is about.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Resources:&lt;/strong&gt;&lt;/p&gt;
 &lt;h5 id=&#34;slideshttpseuadsorgwp-contentuploads201909from-data-mining-processes-to-data-science-trajectories-2pdf&#34;&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/From-Data-Mining-Processes-to-Data-Science-Trajectories-2.pdf&#34;&gt;Slides&lt;/a&gt;&lt;/h5&gt;
@@ -96,7 +94,7 @@
 &lt;li&gt;More powerful algorithms&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Dozens of machine learning algorithms have been developed.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/mml/1.png&#34; alt=&#34;image-20200104221438797&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;MML_1.PNG&#34; alt=&#34;image-20200104221438797&#34;&gt;&lt;/p&gt;
 &lt;p&gt;But the &amp;lsquo;No Free Lunch Theorem&amp;rsquo;  states that no universal machine learning can solve every problem.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Averaged over all possible data distributions, every classification algorithm has the same error rate when classifying previously unobserved points.
@@ -109,10 +107,10 @@ D. Wolpert (1996)&lt;/p&gt;
 &lt;h4 id=&#34;data-and-prior-knowledge&#34;&gt;Data and prior knowledge&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Scenario 1:&lt;/strong&gt; we have collected a handful of voltage and current measurement from an experiment. and we want to determine the relationship between the current and voltage using these measurements.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Scenario 2:&lt;/strong&gt;  We have a huge database containing images from 1000 objects and our goal is to develop a model to classify each image correctly.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/mml/3.png&#34; alt=&#34;1571589636558&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;MML_3.PNG&#34; alt=&#34;1571589636558&#34;&gt;&lt;/p&gt;
 &lt;p&gt;But are these datasets &amp;lsquo;big&amp;rsquo; enough for solving their corresponding problems. In the first scenario, although we only have a few  measurements, we know that they are enough for finding the relationship between voltage and current.  On the other hand, even though we have access to a large number of images for each class, these images do not represent the distribution of all images.&lt;/p&gt;
 &lt;h4 id=&#34;heading&#34;&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;/mml/2.png&#34; alt=&#34;1571589623467&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;MML_2.PNG&#34; alt=&#34;1571589623467&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;The trade-off between prior knowledge and the amount of data needed&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Therefore, we must distinguish between two types of &amp;lsquo;big data&amp;rsquo;:&lt;/p&gt;
 &lt;ol&gt;
@@ -120,11 +118,11 @@ D. Wolpert (1996)&lt;/p&gt;
 &lt;li&gt;In terms of being statistically significant&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Then, Chris Bishop argued that we need to incorporate uncertainties into our machine learning models otherwise the consequences would be dire. It means that we should &lt;em&gt;never ever&lt;/em&gt; build direct classifier but we should build probabilistic classifier.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/mml/4.png&#34; alt=&#34;1571590428222&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;MML_4.PNG&#34; alt=&#34;1571590428222&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Why is that? Because not all misclassification errors are equal and different costs are assigned to different errors. Misclassifying  a patient with cancer may be much worse than misclassifying a healthy patient. So, instead of minimizing the number of misclassified instances, we can minimize the expected (average costs).&lt;/p&gt;
 &lt;p&gt;Finally, Chris Bishop presented a demo of a movie recommendation system.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Resources:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;&#34;&gt;Slides&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/Chris-Bishop-SabineK-Lecture-2019_2.pdf&#34;&gt;Slides&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h5 id=&#34;model-based-machine-learninghttpwwwmbmlbookcom&#34;&gt;&lt;a href=&#34;http://www.mbmlbook.com&#34;&gt;Model-Based Machine Learning&lt;/a&gt;&lt;/h5&gt;
 </description>
     </item>
@@ -213,27 +211,27 @@ rf.fit(train,labels_train)&lt;/code&gt;&lt;/pre&gt;
 ##                        n_jobs=None, oob_score=False, random_state=None,
 ##                        verbose=0, warm_start=False)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;rf.score(test,labels_test)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 0.8181818181818182&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0.8391608391608392&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;prd_ds = test.copy()
 prd_ds[&amp;#39;actual&amp;#39;]  = labels_test
 prd_ds[&amp;#39;prds&amp;#39;] = rf.predict(test)
 
 prd_ds[&amp;#39;wrong&amp;#39;]  =  prd_ds[&amp;#39;prds&amp;#39;] == prd_ds[&amp;#39;actual&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;py$prd_ds %&amp;gt;% head()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##     PassengerId Pclass   Age SibSp Parch     Fare Embarked_C Embarked_Q
-## 516         517      2 34.00     0     0  10.5000          0          0
-## 327         328      2 36.00     0     0  13.0000          0          0
-## 882         883      3 22.00     0     0  10.5167          0          0
-## 305         306      1  0.92     1     2 151.5500          0          0
-## 574         575      3 16.00     0     0   8.0500          0          0
-## 23           24      1 28.00     0     0  35.5000          0          0
-##     Embarked_S Sex_binary actual prds wrong
-## 516          1          1      1    1  TRUE
-## 327          1          1      1    1  TRUE
-## 882          1          1      0    1 FALSE
-## 305          1          0      1    1  TRUE
-## 574          1          0      0    0  TRUE
-## 23           1          0      1    0 FALSE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     PassengerId Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q Embarked_S
+## 707         708      1  42     0     0 26.2875          0          0          1
+## 591         592      1  52     1     0 78.2667          1          0          0
+## 453         454      1  49     1     0 89.1042          1          0          0
+## 493         494      1  71     0     0 49.5042          1          0          0
+## 221         222      2  27     0     0 13.0000          0          0          1
+## 421         422      3  21     0     0  7.7333          0          1          0
+##     Sex_binary actual prds wrong
+## 707          0      1    1  TRUE
+## 591          1      1    1  TRUE
+## 453          0      1    0 FALSE
+## 493          0      0    0  TRUE
+## 221          0      0    0  TRUE
+## 421          0      0    0  TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import lime
 import lime.lime_tabular
 import dtreeviz
