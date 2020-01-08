@@ -25,19 +25,27 @@ projects: []
 
 
 
-Explanations are always expressed in  a contrastive manner.
+Explanations are always expressed in  a contrastive manner and this contrast is usually implied by the context.
 
-What is an explanation?
+1. ### Producers and consumers of explanations in AI
 
-An explanations is not a description
 
-The developer who produces the explanation and evaluates it. (The inmates are running the asylum phenomena)
 
-But what makes the good explanation for the developer is not necessarily good for other users of  the system.
+The developer who produces the explanation and evaluates it or as Miller et al (2017), the inmates are running the asylum phenomena.
 
-When producing explanations we need to carefully assess the knowledge and beliefs of the audience
+But what makes the good explanation for the developer is not necessarily good for other users of the system.
 
-Philosopher: What is a (good) explanations (e.g. scientific explanations)
+The developer has a deeper understanding of the  system. However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience.
+
+![](1.png)
+
+### What is an explanation?
+
+Answering this question depends on who we ask. 
+
+- > An explanations is not a description
+
+Philosopher considers a (good) explanations to be scientific explanations
 
 Psychologists : What do people consider an explanations and what makes a good explanations (e.g. everyday explanations)
 

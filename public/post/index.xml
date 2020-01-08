@@ -18,13 +18,26 @@
       <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-01-05-euads-summer-school-explanations-in-philosophy-and-psychology/</guid>
       <description>&lt;h2 id=&#34;explanations-in-philosophy-and-psychologyhttpseuadsorgwp-contentuploads201909explanations-in-philosophy-and-psychology-2pdf-christos-bechlivanidishttpswwwuclacukpalsresearchexperimental-psychologypersonchristos-bechlivanidis&#34;&gt;*&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf&#34;&gt;Explanations in Philosophy and Psychology&lt;/a&gt;*: &lt;a href=&#34;https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/&#34;&gt;Christos Bechlivanidis&lt;/a&gt;,&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Explanations are always expressed in  a contrastive manner.&lt;/p&gt;
-&lt;p&gt;What is an explanation?&lt;/p&gt;
+&lt;p&gt;Explanations are always expressed in  a contrastive manner and this contrast is usually implied by the context.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;producers-and-consumers-of-explanations-in-ai&#34;&gt;Producers and consumers of explanations in AI&lt;/h3&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The developer who produces the explanation and evaluates it or as Miller et al (2017), the inmates are running the asylum phenomena.&lt;/p&gt;
+&lt;p&gt;But what makes the good explanation for the developer is not necessarily good for other users of the system.&lt;/p&gt;
+&lt;p&gt;The developer has a deeper understanding of the  system. However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;what-is-an-explanation&#34;&gt;What is an explanation?&lt;/h3&gt;
+&lt;p&gt;Answering this question depends on who we ask.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
 &lt;p&gt;An explanations is not a description&lt;/p&gt;
-&lt;p&gt;The developer who produces the explanation and evaluates it. (The inmates are running the asylum phenomena)&lt;/p&gt;
-&lt;p&gt;But what makes the good explanation for the developer is not necessarily good for other users of  the system.&lt;/p&gt;
-&lt;p&gt;When producing explanations we need to carefully assess the knowledge and beliefs of the audience&lt;/p&gt;
-&lt;p&gt;Philosopher: What is a (good) explanations (e.g. scientific explanations)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Philosopher considers a (good) explanations to be scientific explanations&lt;/p&gt;
 &lt;p&gt;Psychologists : What do people consider an explanations and what makes a good explanations (e.g. everyday explanations)&lt;/p&gt;
 &lt;h2 id=&#34;but-why-an-introduction-to-causal-inference-from-empirical-data&#34;&gt;But why? An introduction to causal inference from empirical data**&lt;/h2&gt;
 &lt;ol&gt;
