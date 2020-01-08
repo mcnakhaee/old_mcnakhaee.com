@@ -23,8 +23,6 @@ projects: []
 
 ## ***[Explanations in Philosophy and Psychology](https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf)\*: [Christos Bechlivanidis](https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/),**
 
-
-
 Explanations are always expressed in  a contrastive manner and this contrast is usually implied by the context.
 
 1. ### Producers and consumers of explanations in AI
@@ -35,9 +33,11 @@ The developer who produces the explanation and evaluates it or as Miller et al (
 
 But what makes the good explanation for the developer is not necessarily good for other users of the system.
 
-The developer has a deeper understanding of the  system. However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience.
+The developer has a deeper understanding of the  system. However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred does not know anything about how neural networks work.
 
 ![](1.png)
+
+
 
 ### What is an explanation?
 
@@ -45,70 +45,49 @@ Answering this question depends on who we ask.
 
 - > An explanations is not a description
 
-Philosopher considers a (good) explanations to be scientific explanations
+Philosopher  care about the **normative** side of an explanation and consider a (good) explanations to be a scientific explanation. But psychologists are interested in the **descriptive** side or what people consider as an explanation such as everyday explanations and what makes a good explanation.
 
-Psychologists : What do people consider an explanations and what makes a good explanations (e.g. everyday explanations)
+Different philosophers and scientists have proposed different definition for an explanation:
 
-## But why? An introduction to causal inference from empirical data**
+• **Aristotle**: Citing the *function*, *the material*, *the category* or the (efficient) cause of X. 
 
-1. what is causation?
-2. how can we measure causation?
-3. how can we discover causation? 
+•**Hempel**:  Producing an (logical) argument whose conclusion is the explanandum X. 
+• **Salmon**: Stating everything that affects the probability of X. In other words, If P(Β|Α) ≠ P(Β) then A is explanatory relevant to B (e.g. P(pregnant | male & contraceptives) = P(pregnant | male)). One downside of this definition is that A does not need to have a high probability to be explanatory. For example,if P(Β|Α) - P(Β) = 0.000001, A is still explanatory  relevant to B.
+**Salmon:** Stating the causal history of X. An explanation of X will trace the causal processes and interactions that lead to X, thus
+showing how X fits into a causal nexus. But, in general, not all causal events in the past of X are
+explanatory relevant to X. The causal model  presented by Salmon has limitation in dealing with certain type of causation such as Double Prevention. 
 
-Causation is not correlation but what is it?
+![](2.png)
 
-> The relationship between something that happens or exists and the things that cause it to happen or exist
+Imagine the above image where a pink plane wants to drop a bomb on a city. A red plane with an alligator has a mission to shoot the pink plane and prevent the bombing. Also, A blue plane is there to prevent the red plane from shooting the pink plane. Now if the the  blue plane successfully shoot the red plane and the pink plane successfully drops its bomb on the city, does the blue plane cause the bombardment of the city.
 
-Causal inference 
+**Kitcher**:• Showing how X fits a more general state of affairs
 
-> The process of reasoning to the conclusion that something is or is ***likely***  to be, the cause of something else
+### **TYPES OF EXPLANATIONS**
 
+![](3.png)
 
+![](4.png)
 
-**Explanations for a Psychological Perspective**
+### Why are we interested in explanations?
 
-Explanations are always said in a contrastive manner depending on the context
+We seek explanations because:
 
-
-
-Miller et al (2017): The inmates are running the asylum
-
-Different types of explanation complexities for different audience:
-
-Fred
-
-Explanation is not a description
-
-Psychologists care about the **descriptive** side: what do people see as an explanation & what properties do they value in an explanation compared to the **normative** view on explanations used by philosophers which focuses on answering the questions what is a (good) explanation
-
-##### Different definition of explanations proposed by different philosophers over time 
-
-• **Aristotle**: Citing the *function*, *the material*, *the category* or the (efficient) cause of X 
-
-![1570709247502](C:\Users\ChenariyahNakhaeeM\AppData\Roaming\Typora\typora-user-images\1570709247502.png)
-
-•**Hempel**:  Producing an (logical) argument whose conclusion  is X (explanandum)
-• **Salmon** Stating everything that affects the probability of X 
-• Stating the causal history of X
-• Showing how X fits a more general state of affairs
-
-**TYPES OF EXPLANATIONS**
-
-Why are we interested in explanations?
-
-1. **To prepare ourselves for the futures events:** Why is the phone turned off? because it has low battery.
-2. **Just to understand or assign blames in one-off events**: why did the assassination of Duke Ferdinand led to WWI?
-3. **Rationalizing actions:**
+1. **To prepare ourselves for similar events in the future :** Why is the phone turned off? because it has low battery.
+2. **Just to explain, understand and assign responsibilities or blames in one-off events**: why did the assassination of Duke Ferdinand lead to WWI?
+3. **To rationalize actions that we take:** Why didn't you vote?  Because it does not make any difference
 4. **To find meaning** 
-5. **To become satisfied from explanations**
+5. **To become satisfied from explanations**. The explanations are like orgasms.
 
-People and children are often biased toward teleological explanations ( looking for the purpose not the cause): 
+Nevertheless, the explanations may not fulfill their    function or objective.
 
-​	Mountains were created to be climbed.
+#### **A PREFERENCE FOR TELEOLOGY**
 
+However, some people and children are often biased toward teleological explanations and they are looking for the purpose not the cause in their explanations:  Mountains were created to be climbed.
 
+### Explanations virtues 
 
-**Properties of a good explanations**
+**The following properties have been proposed as criteria of a good explanation**
 
 1. No Circularity
 
@@ -200,3 +179,21 @@ we can also utilize online crowdsourcing tools and run our analysis through them
 • Testable - testable.org
 
 Experiment
+
+
+
+
+
+## But why? An introduction to causal inference from empirical data**
+
+1. what is causation?
+2. how can we measure causation?
+3. how can we discover causation? 
+
+Causation is not correlation but what is it?
+
+> The relationship between something that happens or exists and the things that cause it to happen or exist
+
+Causal inference 
+
+> The process of reasoning to the conclusion that something is or is ***likely***  to be, the cause of something else
