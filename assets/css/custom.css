@@ -104,6 +104,7 @@ h1 {
   letter-spacing: .08em;
 }
 
+p {text-align: justify;}
 /* make dark even/odd sections same color so less stripey */
 
 .dark .home-section:nth-of-type(n) {
