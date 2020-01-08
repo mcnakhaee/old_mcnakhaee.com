@@ -582,27 +582,27 @@ rf.fit(train,labels_train)</code></pre>
 ##                        n_jobs=None, oob_score=False, random_state=None,
 ##                        verbose=0, warm_start=False)</code></pre>
 <pre class="python"><code>rf.score(test,labels_test)</code></pre>
-<pre><code>## 0.8251748251748252</code></pre>
+<pre><code>## 0.8181818181818182</code></pre>
 <pre class="python"><code>prd_ds = test.copy()
 prd_ds[&#39;actual&#39;]  = labels_test
 prd_ds[&#39;prds&#39;] = rf.predict(test)
 
 prd_ds[&#39;wrong&#39;]  =  prd_ds[&#39;prds&#39;] == prd_ds[&#39;actual&#39;]</code></pre>
 <pre class="r"><code>py$prd_ds %&gt;% head()</code></pre>
-<pre><code>##     PassengerId Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q Embarked_S
-## 808         809      2  39     0     0 13.0000          0          0          1
-## 618         619      2   4     2     1 39.0000          0          0          1
-## 850         851      3   4     4     2 31.2750          0          0          1
-## 99          100      2  34     1     0 26.0000          0          0          1
-## 104         105      3  37     2     0  7.9250          0          0          1
-## 493         494      1  71     0     0 49.5042          1          0          0
-##     Sex_binary actual prds wrong
-## 808          0      0    0  TRUE
-## 618          1      1    1  TRUE
-## 850          0      0    0  TRUE
-## 99           0      0    0  TRUE
-## 104          0      0    0  TRUE
-## 493          0      0    0  TRUE</code></pre>
+<pre><code>##     PassengerId Pclass   Age SibSp Parch     Fare Embarked_C Embarked_Q
+## 516         517      2 34.00     0     0  10.5000          0          0
+## 327         328      2 36.00     0     0  13.0000          0          0
+## 882         883      3 22.00     0     0  10.5167          0          0
+## 305         306      1  0.92     1     2 151.5500          0          0
+## 574         575      3 16.00     0     0   8.0500          0          0
+## 23           24      1 28.00     0     0  35.5000          0          0
+##     Embarked_S Sex_binary actual prds wrong
+## 516          1          1      1    1  TRUE
+## 327          1          1      1    1  TRUE
+## 882          1          1      0    1 FALSE
+## 305          1          0      1    1  TRUE
+## 574          1          0      0    0  TRUE
+## 23           1          0      1    0 FALSE</code></pre>
 <pre class="python"><code>import lime
 import lime.lime_tabular
 import dtreeviz
@@ -789,9 +789,9 @@ exp.show_in_notebook(show_table = True,show_all = True)
           
           <li><a href="/post/data-shapely/">Data Shapely</a></li>
           
-          <li><a href="/publication/ict-open/">The Recent Applications of Machine Learning in Rail Track Maintenance A Survey</a></li>
-          
           <li><a href="/publication/rssrail/">The Recent Applications of Machine Learning in Rail Track Maintenance A Survey</a></li>
+          
+          <li><a href="/publication/ict-open/">The Recent Applications of Machine Learning in Rail Track Maintenance A Survey</a></li>
           
         </ul>
       </div>

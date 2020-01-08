@@ -94,13 +94,15 @@ In data mining, we (implicitly) assume that there is some value in the and  our 
 
 However, in data science, we first need to make sure that data has some value. In other words, data science can be seen as prospective, which means we are searching for a mine to extract metal material from it. That puts more emphasis on the exploratory aspect (nature) of data science, which includes the following activities:
 
-![](/1.png)
+![](1.PNG)
 
-![1571180675528](/ds/4.png)
+![](/1.PNG)
+
+![1571180675528](4.png)
 
 These activities do not exist in the data mining space and distinguish data science and data mining.
 
-![](/ds/5.png)
+![](/ds/5.png/)
 
 *Data Science Trajectory (DST) space*
 

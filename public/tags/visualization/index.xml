@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visualization | Muhammad Chenariyan Nakhaee</title>
+    <link>/tags/visualization/</link>
+      <atom:link href="/tags/visualization/index.xml" rel="self" type="application/rss+xml" />
+    <description>Visualization</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 04 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>Visualization</title>
+      <link>/tags/visualization/</link>
+    </image>
+    
+    <item>
+      <title>EuADS Summer School 2019: SUBJECTIVITY and VISUALIZATION</title>
+      <link>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</link>
+      <pubDate>Sat, 04 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</guid>
+      <description>
+
+
+&lt;p&gt;This talk was mainly focused on the importance of visualization and other techniques for exploring and explaining data. In other words, one approach to explainability is to first explore the input data and find interesting patterns. This can be done via:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Association analysis ()&lt;/li&gt;
+&lt;li&gt;Dimensionality reduction techniques&lt;/li&gt;
+&lt;li&gt;Graph embeddings&lt;/li&gt;
+&lt;li&gt;Clustering&lt;/li&gt;
+&lt;li&gt;Community detection&lt;/li&gt;
+&lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However interesting pattern is a subjective term and there are a huge number of “interesting measures” out there. What you find interesting as a data mining researcher may be different from another researcher. For example, in the case of community detection what we can define as an interesting community can vary. An interesting community might be a densely connected set of nodes or a set of nodes that have few outside neighbors.&lt;/p&gt;
+&lt;p&gt;Why interestingness measures are subjective? Because as a user we compare patterns with our prior beliefs or expectations and in if a pattern &lt;span style=&#34;color:blue&#34;&gt; contrasts&lt;/span&gt; with them and &lt;span style=&#34;color:blue&#34;&gt; can be described easily&lt;/span&gt;, we consider it as interesting.&lt;/p&gt;
+&lt;p&gt;The challenge is to come up with a metric or formalize a metric that measures ’true interestingness&#34; for us.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

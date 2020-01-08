@@ -5,7 +5,7 @@
     <link>/categories/xai/</link>
       <atom:link href="/categories/xai/index.xml" rel="self" type="application/rss+xml" />
     <description>XAI</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 31 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 05 Jan 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>XAI</title>
@@ -13,107 +13,16 @@
     </image>
     
     <item>
-      <title>Explainable Data Science Summer School</title>
-      <link>/post/2019-12-31-explainable-data-science-summer-school/</link>
-      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-12-31-explainable-data-science-summer-school/</guid>
-      <description>&lt;p&gt;Last September, I had the opportunity to participate in the  &lt;strong&gt;EXPLAINABLE DATA SCIENCE&lt;/strong&gt;  summer school in Kirchberg, Luxembourg. the summer school was organized by the European Association for Data Science (&lt;strong&gt;EuADS&lt;/strong&gt;) and was held during 10-13 September.&lt;/p&gt;
-&lt;p&gt;What I specifically liked about this summer school (  besides enjoying the the beautiful city of Luxembourg  of course), it covered a vast variety of topics in the explainable machine learning (AI) literature, ranging from visualization, XAI techniques, causality to psychological aspects of explainability.  In addition, the summer school has a special guest, the legendary &lt;strong&gt;&lt;a href=&#34;https://www.microsoft.com/en-us/research/people/cmbishop/&#34;&gt;Christopher Bishop&lt;/a&gt;&lt;/strong&gt; who gave the &lt;strong&gt;inaugural&lt;/strong&gt; lecture.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;First Day&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/From-Data-Mining-Processes-to-Data-Science-Trajectories-2.pdf&#34;&gt;From Data Mining Processes to Data Science Trajectories&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;*&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/Chris-Bishop-SabineK-Lecture-2019_2.pdf&#34;&gt;“Model-Based Machine Learning“&lt;/a&gt;*&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Second Day&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;* *&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/human-centric-data-exploration.pdf&#34;&gt;Human-Centric Data Exploration&lt;/a&gt;*: &lt;a href=&#34;http://www.tijldebie.net/&#34;&gt;Tijl De Bie&lt;/a&gt;&lt;/strong&gt; (U Ghent, Belgium)
-* *&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf&#34;&gt;Explanations in Philosophy and Psychology&lt;/a&gt;*: &lt;a href=&#34;https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/&#34;&gt;Christos Bechlivanidis&lt;/a&gt;&lt;/strong&gt;, (University College London, UK)&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Third Day&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;*** *&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/xai_Lecture_12.09.2019-Giannotti_2.pdf&#34;&gt;XAI – Science and technology for the explanation of AI decision making&lt;/a&gt;*: &lt;a href=&#34;https://kdd.isti.cnr.it/people/giannotti-fosca&#34;&gt;Fosca Giannotti&lt;/a&gt;** (Knowledge Discovery and Data Mining Laboratory, Italy)~~~~
-* ***&lt;a href=&#34;https://drive.google.com/open?id=10P6BoNhy4m4PL5ye_3EIXEkU65vnZo49&#34;&gt;Making Data Science Intelligible&lt;/a&gt;*:&lt;a href=&#34;https://www.city.ac.uk/people/academics/simone-stumpf&#34;&gt; Simone Stumpf&lt;/a&gt;** (City, U of London, UK)&lt;/p&gt;
-&lt;p&gt;Fourth Day&lt;/p&gt;
-&lt;p&gt;* *&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/causal-inference-from-empirical-data-.pdf&#34;&gt;Causal Inference from Empirical Data&lt;/a&gt;*: &lt;a href=&#34;https://people.mmci.uni-saarland.de/~jilles/&#34;&gt;Jilles Vreeken&lt;/a&gt;&lt;/strong&gt; (Saarland U, Germany)&lt;/p&gt;
-&lt;p&gt;During some presentations, I took notes and I summarized them.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&#34;from-data-mining-to-data-science---peter-flach-euads-president&#34;&gt;From Data Mining to Data Science - Peter Flach (EuADS President)&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;What is Data Science?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&amp;ldquo;Data Science&amp;rdquo; is a vague term. One might mean by &amp;ldquo;data science&amp;rdquo;:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;It is the Science of data. This definition is more frequently used by statistician and machine learning and is more theoretical.&lt;/li&gt;
-&lt;li&gt;Doing science with data. This definition is more applied and data intensive.&lt;/li&gt;
-&lt;li&gt;Applying science to data. This definition is also heavily applied and data intensive.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;Data is not the New Oil&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Some people are over excited about having access to huge amount of data. They think that we can extract value from data and data is a new driver for progress and prosperity. However, even if we &lt;strong&gt;acquire&lt;/strong&gt; data we cannot be certain that it is valuable and we can extract value from it.&lt;/p&gt;
-&lt;p&gt;In other words:&lt;/p&gt;
-&lt;p&gt;data != value but data + knowledge = value&lt;/p&gt;
-&lt;p&gt;(Here knowledge can be an input or an output of data)&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1570983727831.png&#34; alt=&#34;1570983727831&#34;&gt;&lt;/p&gt;
-&lt;p&gt;The kinds of value that Data Science can generate:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;scientific knowledge and models&lt;/li&gt;
-&lt;li&gt;societal value&lt;/li&gt;
-&lt;li&gt;economic value&lt;/li&gt;
-&lt;li&gt;personal value&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Therefore, Data Science has three main ingredients:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;&lt;!-- raw HTML omitted --&gt; Data &lt;!-- raw HTML omitted --&gt;&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;!-- raw HTML omitted --&gt; Knowledge&lt;!-- raw HTML omitted --&gt;&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;!-- raw HTML omitted --&gt; Value &lt;!-- raw HTML omitted --&gt;&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;from-data-mining-to-data-science&#34;&gt;From Data Mining to Data Science&lt;/h3&gt;
-&lt;p&gt;One might consider data mining as the father of data science or we may even say that data mining is a subset of data science.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571174422488.png&#34; alt=&#34;1571174422488&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571178506748.png&#34; alt=&#34;1571178506748&#34;&gt;&lt;/p&gt;
-&lt;p&gt;In data mining, we (implicitly) assume that there is value in the data and we are trying to use data mining and its techniques to &lt;strong&gt;uncover&lt;/strong&gt; it.  &lt;em&gt;In another words,&lt;/em&gt; data mining is like mining a precious material in an existing mine.&lt;/p&gt;
-&lt;p&gt;However, in data science, first we to &lt;em&gt;check&lt;/em&gt; whether the data has value. In another words, data science is prospective which means we are looking for a mine to extract precious material from it. That puts an emphasis on the exploratory  aspect (nature) of data science which includes the following activities:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571180675528.png&#34; alt=&#34;1571180675528&#34;&gt;&lt;/p&gt;
-&lt;p&gt;These activities do not exist in the data mining space and &lt;em&gt;make&lt;/em&gt; a distinction between data science and data mining.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571180996340.png&#34; alt=&#34;1571180996340&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Data mining is a more sequential approach where every operation  must be implemented in a specific order. All activities in data mining can be a part of a data science project but not the opposite. For instance, not every data science projects &lt;em&gt;requires&lt;/em&gt; a modeling phase. The goal of a data science might be just data collection or data publication.&lt;/p&gt;
-&lt;h3 id=&#34;responsible-data-science---the-human-factor-35&#34;&gt;Responsible Data Science - The Human Factor (3/5)&lt;/h3&gt;
-&lt;p&gt;Data Science is for, about, by and with humans. Therefore, human factors should be taken into consideration at every stage of a data science project.&lt;/p&gt;
-&lt;p&gt;However, it is always easy to measure or even define them.&lt;/p&gt;
-&lt;p&gt;For instance, take the following table which shows the number and the percentage of students who  applied and admitted to a university.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571181577381.png&#34; alt=&#34;1571181577381&#34;&gt;&lt;/p&gt;
-&lt;p&gt;It seems that the above table may represent an example of  bias and  toward women in admission process. However, further investigations reveal that the low percentage of total admissions for women was due to the fact that women tended to apply to more difficult programs while men applied to easier programs which had a higher chance of admission. In other words, the difficulty of programs was a confounding factor which influenced the outcome.&lt;/p&gt;
-&lt;p&gt;So, measuring fairness is not easy because measuring bias is not easy.&lt;/p&gt;
-&lt;p&gt;Furthermore, according to Goodhart&#39;s Law, the moment we decide to use these measures of bias as our target to optimize, they are not good measures anymore.&lt;/p&gt;
-&lt;p&gt;in the the rest of talk, Peter Flach discussed the relationship between GDPR and fairness and specifically he touched upon an important issue regarding data ownership and the role of GDPR for personal data protection .&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571585896393.png&#34; alt=&#34;1571585896393&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;More resources&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;CRISP-DM Twenty Years Later: From Data Mining Processes to Data Science Trajectories&lt;/strong&gt;. Fernando Martinez-Plumed, Lidia Contreras Ochando, Cesar Ferri, Jose Hernandez-Orallo, Meelis Kull, Nicolas Lachiche, Maria Jose Ramirez-Quintana and Peter Flach. (Under review, 2019)&lt;/p&gt;
-&lt;h2 id=&#34;model-based-machine-learning&#34;&gt;Model-Based Machine Learning&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;This talk was dedicated to Sabine Krolak-Schwerdt who unfortunately passed away recently and was one of the founders of EuADS.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&#34;three-factors-have-contributed-to-the-popularity-and-the-success-of-ai&#34;&gt;Three factors have contributed to the popularity and the success of AI&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;More computing power&lt;/li&gt;
-&lt;li&gt;Large amount of available data (Big data)&lt;/li&gt;
-&lt;li&gt;More powerful algorithms&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571587294967.png&#34; alt=&#34;1571587294967&#34;&gt;&lt;/p&gt;
-&lt;p&gt;No Free Lunch Theorem and no universal machine learning model.&lt;/p&gt;
-&lt;p&gt;There is no machine learning model that can solve every problem.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571588730575.png&#34; alt=&#34;1571588730575&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571587345156.png&#34; alt=&#34;1571587345156&#34;&gt;&lt;/p&gt;
-&lt;h4 id=&#34;model-based-machine-learning-1&#34;&gt;Model-Based machine learning&lt;/h4&gt;
-&lt;p&gt;The traditional machine learning approach, ML algorithms play a centric role. Here we have an ML algorithm and we would like to know how we can apply it to our problem.&lt;/p&gt;
-&lt;p&gt;However, in model-based machine learning we are looking to derive a model that best represents our problem by making  explicit modeling assumptions.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571589623467.png&#34; alt=&#34;1571589623467&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571589636558.png&#34; alt=&#34;1571589636558&#34;&gt;&lt;/p&gt;
-&lt;p&gt;What we might mea by big:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;In terms of size&lt;/li&gt;
-&lt;li&gt;In terms of being statistically significant&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Then Chris Bishop argued that we need to incorporate uncertainties into our machine learning models otherwise the consequences could be dire.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571590428222.png&#34; alt=&#34;1571590428222&#34;&gt;&lt;/p&gt;
-&lt;p&gt;It can provide us with a few benefits:&lt;/p&gt;
-&lt;h2 id=&#34;explanations-in-philosophy-and-psychologyhttpseuadsorgwp-contentuploads201909explanations-in-philosophy-and-psychology-2pdf-christos-bechlivanidishttpswwwuclacukpalsresearchexperimental-psychologypersonchristos-bechlivanidis&#34;&gt;*&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf&#34;&gt;Explanations in Philosophy and Psychology&lt;/a&gt;*: &lt;a href=&#34;https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/&#34;&gt;Christos Bechlivanidis&lt;/a&gt;,&lt;/strong&gt;&lt;/h2&gt;
+      <title>EuADS Summer School: Explanations in Philosophy and Psychology</title>
+      <link>/post/2020-01-05-euads-summer-school-explanations-in-philosophy-and-psychology/</link>
+      <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-01-05-euads-summer-school-explanations-in-philosophy-and-psychology/</guid>
+      <description>&lt;h2 id=&#34;explanations-in-philosophy-and-psychologyhttpseuadsorgwp-contentuploads201909explanations-in-philosophy-and-psychology-2pdf-christos-bechlivanidishttpswwwuclacukpalsresearchexperimental-psychologypersonchristos-bechlivanidis&#34;&gt;*&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf&#34;&gt;Explanations in Philosophy and Psychology&lt;/a&gt;*: &lt;a href=&#34;https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/&#34;&gt;Christos Bechlivanidis&lt;/a&gt;,&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Explanations are always expressed in  a contrastive manner.&lt;/p&gt;
 &lt;p&gt;What is an explanation?&lt;/p&gt;
 &lt;p&gt;An explanations is not a description&lt;/p&gt;
 &lt;p&gt;The developer who produces the explanation and evaluates it. (The inmates are running the asylum phenomena)&lt;/p&gt;
+&lt;p&gt;But what makes the good explanation for the developer is not necessarily good for other users of  the system.&lt;/p&gt;
 &lt;p&gt;When producing explanations we need to carefully assess the knowledge and beliefs of the audience&lt;/p&gt;
 &lt;p&gt;Philosopher: What is a (good) explanations (e.g. scientific explanations)&lt;/p&gt;
 &lt;p&gt;Psychologists : What do people consider an explanations and what makes a good explanations (e.g. everyday explanations)&lt;/p&gt;
@@ -205,21 +114,183 @@ representations are skeletal and incomplete. We have an illusion that we deeply 
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Match the epistemic status of the audience&lt;/p&gt;
+&lt;p&gt;Match the epistemic status of the audience:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;When producing explanations we need to carefully assess
+the knowledge and beliefs of the audience&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Simplicity&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;What do we mean by simplicity? (number of entities,number of entity types, shortest description? )&lt;/li&gt;
-&lt;li&gt;
-&lt;h2 id=&#34;paul-thagard-1989-simplicity-is-determined-by-the-number-of-special-assumptions-required&#34;&gt;Paul Thagard (1989): simplicity is determined by the number of special assumptions required.&lt;/h2&gt;
-&lt;/li&gt;
+&lt;li&gt;Paul Thagard (1989): simplicity is determined by the number of special assumptions required.  People prefer these kinds of simpler explanations because fewer assumptions means fewer unexplained causes .&lt;/li&gt;
+&lt;li&gt;However when probabilities of are included in explanations, people choose the most probable explanation not the simplest.&lt;/li&gt;
+&lt;li&gt;In Zemla et al (2017) it was shown that  the quality of explanations was positively correlated both with the number of unexplained causes and its length (level of detail)&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200102232251990.png&#34; alt=&#34;image-20200102232251990&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Generality&lt;/p&gt;
+&lt;p&gt;Generality (Breadth– Scope - Coverage)&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200103055453791.png&#34; alt=&#34;image-20200103055453791&#34;&gt;&lt;/p&gt;
+&lt;p&gt;EVALUATING EXPLANATIONS&lt;/p&gt;
+&lt;p&gt;Do the users think that an explanation is  good explanation&lt;/p&gt;
+&lt;p&gt;How well do they understand this explanation&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200103185719893.png&#34; alt=&#34;image-20200103185719893&#34;&gt;&lt;/p&gt;
+&lt;p&gt;We need to compare different versions of our explanations (like A/B testing)&lt;/p&gt;
+&lt;p&gt;Different groups of users see different explanation and same group of users see different explanation.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200103190709445.png&#34; alt=&#34;image-20200103190709445&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200103190752806.png&#34; alt=&#34;image-20200103190752806&#34;&gt;&lt;/p&gt;
+&lt;p&gt;To evaluate our explanations we have to ask a public audience. This audience can be our friends, family members and colleagues who may not have any knowledge of the system. However, we should take into account that the these evaluations can be biased and noisy. For this reason, we need to take a large sample.&lt;/p&gt;
+&lt;p&gt;Alternatively we can collaborate with HCI experts,  psychologist and behavioral scientist to evaluate explanations.&lt;/p&gt;
+&lt;p&gt;we can also utilize online crowdsourcing tools and run our analysis through them:&lt;/p&gt;
+&lt;p&gt;•Amazon Mechanical Turk – mturk.com
+• Prolific Academic - prolific.co
+• Gorilla - gorilla.sc
+• Testable - testable.org&lt;/p&gt;
+&lt;p&gt;Experiment&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>EuADS Summer School 2019: SUBJECTIVITY and VISUALIZATION</title>
+      <link>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</link>
+      <pubDate>Sat, 04 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</guid>
+      <description>
+
+
+&lt;p&gt;This talk was mainly focused on the importance of visualization and other techniques for exploring and explaining data. In other words, one approach to explainability is to first explore the input data and find interesting patterns. This can be done via:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Association analysis ()&lt;/li&gt;
+&lt;li&gt;Dimensionality reduction techniques&lt;/li&gt;
+&lt;li&gt;Graph embeddings&lt;/li&gt;
+&lt;li&gt;Clustering&lt;/li&gt;
+&lt;li&gt;Community detection&lt;/li&gt;
+&lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However interesting pattern is a subjective term and there are a huge number of “interesting measures” out there. What you find interesting as a data mining researcher may be different from another researcher. For example, in the case of community detection what we can define as an interesting community can vary. An interesting community might be a densely connected set of nodes or a set of nodes that have few outside neighbors.&lt;/p&gt;
+&lt;p&gt;Why interestingness measures are subjective? Because as a user we compare patterns with our prior beliefs or expectations and in if a pattern &lt;span style=&#34;color:blue&#34;&gt; contrasts&lt;/span&gt; with them and &lt;span style=&#34;color:blue&#34;&gt; can be described easily&lt;/span&gt;, we consider it as interesting.&lt;/p&gt;
+&lt;p&gt;The challenge is to come up with a metric or formalize a metric that measures ’true interestingness&#34; for us.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Explainable Data Science Summer School</title>
+      <link>/post/2019-12-31-explainable-data-science-summer-school/</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>/post/2019-12-31-explainable-data-science-summer-school/</guid>
+      <description>&lt;p&gt;Last September, I had the opportunity to participate in the  &lt;strong&gt;EXPLAINABLE DATA SCIENCE&lt;/strong&gt;  summer school in Kirchberg, Luxembourg. the summer school was organized by the European Association for Data Science (&lt;strong&gt;EuADS&lt;/strong&gt;) and was held during 10-13 September.&lt;/p&gt;
+&lt;p&gt;What I specifically liked about this summer school ( of course besides enjoying the the beautiful city of Luxembourg ) was the fact that it covered a vast variety of topics in the explainable machine learning (AI) literature, ranging from visualization, XAI techniques, causality to psychological aspects of explainability.  In addition, the summer school has a special guest, the legendary &lt;strong&gt;&lt;a href=&#34;https://www.microsoft.com/en-us/research/people/cmbishop/&#34;&gt;Christopher Bishop&lt;/a&gt;&lt;/strong&gt; who gave the &lt;strong&gt;inaugural&lt;/strong&gt; lecture.&lt;/p&gt;
+&lt;p&gt;You can find the complete program and the presentations in the &lt;a href=&#34;https://euads.org/summer-school-2019/&#34;&gt;EuADS&#39;s website&lt;/a&gt;. Nevertheless during some presentations in the summer school, I took notes and I summarized them.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Sometimes it is not easy to keep up with the speaker and take notes. Also, it is possible that what I wrote down is just my interpretation and not what the speaker intened to say.  For this reason, I do not guarantee that all details in this post are accurate or what the speakers wanted to communicate.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;from-data-mining-to-data-science---peter-flach-euads-president&#34;&gt;From Data Mining to Data Science - Peter Flach (EuADS President)&lt;/h2&gt;
+&lt;h3 id=&#34;1-what-is-data-science&#34;&gt;1. What is Data Science?**&lt;/h3&gt;
+&lt;p&gt;&amp;ldquo;Data Science&amp;rdquo; is a vague term. One might mean by &amp;ldquo;data science&amp;rdquo;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It is the Science of data. This definition is more frequently used by statistician and machine learning and is more theoretical.&lt;/li&gt;
+&lt;li&gt;Doing science with data. This definition is more applied and data intensive.&lt;/li&gt;
+&lt;li&gt;Applying science to data. This definition is also heavily applied and data intensive.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Data is not the New Oil&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Some people are overexcited about having access to huge amount of data as if they have discovered an oil field. Likewise,  they believe that they can simply extract value from  data and this data is a new driver for progress and prosperity. However, even if we &lt;strong&gt;acquire&lt;/strong&gt; data we cannot be certain that it is valuable and we can extract value from it.&lt;/p&gt;
+&lt;p&gt;In other words, data in and of itself does not present value:&lt;/p&gt;
+&lt;p&gt;data != value but&lt;/p&gt;
+&lt;p&gt;But data and knowledge together can result in value. Here knowledge can be an input or an output of the data.&lt;/p&gt;
+&lt;p&gt;data + knowledge = value&lt;/p&gt;
+&lt;p&gt;Now data science can defined as follows:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/ds/1.png&#34; alt=&#34;1570983727831&#34;&gt;&lt;/p&gt;
+&lt;p&gt;It means that Data Science has three main ingredients:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;&lt;!-- raw HTML omitted --&gt; Data &lt;!-- raw HTML omitted --&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;!-- raw HTML omitted --&gt; Knowledge&lt;!-- raw HTML omitted --&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;!-- raw HTML omitted --&gt; Value &lt;!-- raw HTML omitted --&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The kinds of value that Data Science can generate are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;scientific knowledge and models&lt;/li&gt;
+&lt;li&gt;societal value&lt;/li&gt;
+&lt;li&gt;economic value&lt;/li&gt;
+&lt;li&gt;personal value&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-from-data-mining-to-data-science&#34;&gt;2. From Data Mining to Data Science&lt;/h3&gt;
+&lt;p&gt;Many consider data mining to be the father of data science. Others  say that data mining is a subset of data science. While the interest for data mining is declining,  data science gain more popularity.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/ds/2.png&#34; alt=&#34;test&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Fig. 2: Data science is getting more popular than data mining&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/ds/3.png&#34; alt=&#34;test&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Fig. 3: CRISP data mining process&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In data mining, we (implicitly) assume that there is some value in the and  our aim is to use data mining techniques to &lt;strong&gt;uncover&lt;/strong&gt; it.  We can see data mining just like the extraction of a valuable metals from an existing mine.&lt;/p&gt;
+&lt;p&gt;However, in data science, we first need to make sure that data has some value. In other words, data science can be seen as prospective, which means we are searching for a mine to extract metal material from it. That puts more emphasis on the exploratory aspect (nature) of data science, which includes the following activities:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;1.PNG&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/1.PNG&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;4.png&#34; alt=&#34;1571180675528&#34;&gt;&lt;/p&gt;
+&lt;p&gt;These activities do not exist in the data mining space and distinguish data science and data mining.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/ds/5.png/&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Data Science Trajectory (DST) space&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Data mining is a more sequential and more prescriptive approach where every operation must be implemented in a specific order. All activities in data mining can be a part of a data science project but not the opposite. For instance, not every data science project &lt;em&gt;requires&lt;/em&gt; a modeling phase. On the other hand, the goal of data science  for a specific application can be just data collection or data publication.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/ds/6.png&#34; alt=&#34;image-20200104194252866&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/ds/7.png&#34; alt=&#34;image-20200104194422595&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Read more about this in the following paper:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;CRISP-DM Twenty Years Later: From Data Mining Processes to Data Science Trajectories&lt;/strong&gt;. Fernando  Martinez-Plumed, Lidia Contreras-Ochando, Cesar Ferri, Jose Hernandez-Orallo, Meelis Kull, NicolasLachiche, Maria Jose Ramirez-Quintana and Peter Flach. (Under review, 2019)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;3-responsible-data-science---the-human-factor-35&#34;&gt;3. Responsible Data Science - The Human Factor (3/5)&lt;/h3&gt;
+&lt;p&gt;Data Science is for, about, by and with humans and human factors should be taken into consideration at every stage of a data science project. But it is not always easy to measure, define and ultimately achieve them.&lt;/p&gt;
+&lt;p&gt;For example, look at following table which shows the number and the percentage of students who applied and were admitted to a university.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/ds/8.png&#34; alt=&#34;1571181577381&#34;&gt;&lt;/p&gt;
+&lt;p&gt;At the first glance, this table might suggest a case of  bias toward women in the admission process. However, further examinations show that the low percentage of total admissions for women is due to the fact that female applicants tended to apply to more difficult programs  with an overall lower chance of acceptance while men applied to easier programs with a higher probability of acceptance. In other words, the difficulty of programs was a confounding factor that influenced the outcome not gender bias. It indicates measuring a human factor  such as fairness is not easy because measuring bias is not easy. Furthermore, according to Goodhart&#39;s Law, the moment we decide to use these  metrics (e.g. bias) as our target to optimize, they are not good measures anymore.&lt;/p&gt;
+&lt;p&gt;in the the rest of talk, Peter Flach discussed the relationship between GDPR and fairness and specifically he touched upon an important issue regarding data ownership and the role of GDPR for personal data protection.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/ds/9.png&#34; alt=&#34;1571585896393&#34;&gt;&lt;/p&gt;
+&lt;p&gt;He provided an example of authorship to demonstrate that solving data ownership is not a simple task. If someone writes a book about someone else (e.g. Clinton), the author has the ownership and the copyright not the the person whom the book is about.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Resources:&lt;/strong&gt;&lt;/p&gt;
+&lt;h5 id=&#34;slideshttpseuadsorgwp-contentuploads201909from-data-mining-processes-to-data-science-trajectories-2pdf&#34;&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/From-Data-Mining-Processes-to-Data-Science-Trajectories-2.pdf&#34;&gt;Slides&lt;/a&gt;&lt;/h5&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;model-based-machine-learning&#34;&gt;Model-Based Machine Learning&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This talk was dedicated to Sabine Krolak-Schwerdt who unfortunately passed away recently and was one of the founders of EuADS.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;three-factors-have-contributed-to-the-popularity-and-the-recent-success-of-ai&#34;&gt;Three factors have contributed to the popularity and the recent success of AI&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;More computing power&lt;/li&gt;
+&lt;li&gt;Large amount of available data (Big data)&lt;/li&gt;
+&lt;li&gt;More powerful algorithms&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Dozens of machine learning algorithms have been developed.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/mml/1.png&#34; alt=&#34;image-20200104221438797&#34;&gt;&lt;/p&gt;
+&lt;p&gt;But the &amp;lsquo;No Free Lunch Theorem&amp;rsquo;  states that no universal machine learning can solve every problem.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Averaged over all possible data distributions, every classification algorithm has the same error rate when classifying previously unobserved points.
+D. Wolpert (1996)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This means that the goal of machine learning is to find an algorithm that is well-suited to the problem that being solved.&lt;/p&gt;
+&lt;h4 id=&#34;model-based-machine-learning-1&#34;&gt;Model-Based machine learning&lt;/h4&gt;
+&lt;p&gt;In the traditional machine learning paradigm, ML algorithms play a centric role. We start by an ML algorithm and we would like to know how we can apply it to our problem.&lt;/p&gt;
+&lt;p&gt;However, in model-based machine learning paradigm, we are looking to find a well-matched algorithm for our problem. We can derive a model that best represents our problem by making explicit modeling assumptions.&lt;/p&gt;
+&lt;h4 id=&#34;data-and-prior-knowledge&#34;&gt;Data and prior knowledge&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Scenario 1:&lt;/strong&gt; we have collected a handful of voltage and current measurement from an experiment. and we want to determine the relationship between the current and voltage using these measurements.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Scenario 2:&lt;/strong&gt;  We have a huge database containing images from 1000 objects and our goal is to develop a model to classify each image correctly.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/mml/3.png&#34; alt=&#34;1571589636558&#34;&gt;&lt;/p&gt;
+&lt;p&gt;But are these datasets &amp;lsquo;big&amp;rsquo; enough for solving their corresponding problems. In the first scenario, although we only have a few  measurements, we know that they are enough for finding the relationship between voltage and current.  On the other hand, even though we have access to a large number of images for each class, these images do not represent the distribution of all images.&lt;/p&gt;
+&lt;h4 id=&#34;heading&#34;&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;/mml/2.png&#34; alt=&#34;1571589623467&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The trade-off between prior knowledge and the amount of data needed&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Therefore, we must distinguish between two types of &amp;lsquo;big data&amp;rsquo;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;In terms of size&lt;/li&gt;
+&lt;li&gt;In terms of being statistically significant&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Then, Chris Bishop argued that we need to incorporate uncertainties into our machine learning models otherwise the consequences would be dire. It means that we should &lt;em&gt;never ever&lt;/em&gt; build direct classifier but we should build probabilistic classifier.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/mml/4.png&#34; alt=&#34;1571590428222&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Why is that? Because not all misclassification errors are equal and different costs are assigned to different errors. Misclassifying  a patient with cancer may be much worse than misclassifying a healthy patient. So, instead of minimizing the number of misclassified instances, we can minimize the expected (average costs).&lt;/p&gt;
+&lt;p&gt;Finally, Chris Bishop presented a demo of a movie recommendation system.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Resources:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;&#34;&gt;Slides&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h5 id=&#34;model-based-machine-learninghttpwwwmbmlbookcom&#34;&gt;&lt;a href=&#34;http://www.mbmlbook.com&#34;&gt;Model-Based Machine Learning&lt;/a&gt;&lt;/h5&gt;
 </description>
     </item>
     
