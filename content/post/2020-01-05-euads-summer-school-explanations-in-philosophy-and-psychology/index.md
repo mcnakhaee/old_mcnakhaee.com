@@ -1,5 +1,5 @@
 ---
-(title: 'EuADS Summer School: Explanations in Philosophy and Psychology - Christos Bechlivanidis'
+(title: 'EuADS Summer School - Explanations in Philosophy and Psychology by Christos Bechlivanidis'
 author: Muhammad Chenariyan Nakhaee
 date: '2020-01-05'
 slug: []
