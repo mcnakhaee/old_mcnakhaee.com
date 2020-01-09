@@ -13,12 +13,11 @@
     </image>
     
     <item>
-      <title>EuADS Summer School: Explanations in Philosophy and Psychology</title>
+      <title></title>
       <link>/post/2020-01-05-euads-summer-school-explanations-in-philosophy-and-psychology/</link>
       <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-01-05-euads-summer-school-explanations-in-philosophy-and-psychology/</guid>
       <description>&lt;h2 id=&#34;explanations-in-philosophy-and-psychologyhttpseuadsorgwp-contentuploads201909explanations-in-philosophy-and-psychology-2pdf-christos-bechlivanidishttpswwwuclacukpalsresearchexperimental-psychologypersonchristos-bechlivanidis&#34;&gt;*&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf&#34;&gt;Explanations in Philosophy and Psychology&lt;/a&gt;*: &lt;a href=&#34;https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/&#34;&gt;Christos Bechlivanidis&lt;/a&gt;,&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Explanations are always expressed in  a contrastive manner and this contrast is usually implied by the context.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;h3 id=&#34;producers-and-consumers-of-explanations-in-ai&#34;&gt;Producers and consumers of explanations in AI&lt;/h3&gt;
@@ -29,15 +28,9 @@
 &lt;p&gt;The developer has a deeper understanding of the  system. However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred does not know anything about how neural networks work.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;what-is-an-explanation&#34;&gt;What is an explanation?&lt;/h3&gt;
-&lt;p&gt;Answering this question depends on who we ask.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;blockquote&gt;
-&lt;p&gt;An explanations is not a description&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Philosopher  care about the &lt;strong&gt;normative&lt;/strong&gt; side of an explanation and consider a (good) explanations to be a scientific explanation. But psychologists are interested in the &lt;strong&gt;descriptive&lt;/strong&gt; side or what people consider as an explanation such as everyday explanations and what makes a good explanation.&lt;/p&gt;
+&lt;p&gt;Explanations are always expressed in  a contrastive manner and this contrast is usually implied by the context. Also, an explanations is not a description.&lt;/p&gt;
+&lt;p&gt;Nevertheless, answering &amp;ldquo;what is an explanation? &amp;quot; depends on who we ask.&lt;/p&gt;
+&lt;p&gt;Philosopher care about the &lt;strong&gt;normative&lt;/strong&gt; side of an explanation and consider a (good) explanations to be a scientific explanation. But psychologists are interested in the &lt;strong&gt;descriptive&lt;/strong&gt; side or what people consider as an explanation such as everyday explanations and what makes a good explanation.&lt;/p&gt;
 &lt;p&gt;Different philosophers and scientists have proposed different definition for an explanation:&lt;/p&gt;
 &lt;p&gt;• &lt;strong&gt;Aristotle&lt;/strong&gt;: Citing the &lt;em&gt;function&lt;/em&gt;, &lt;em&gt;the material&lt;/em&gt;, &lt;em&gt;the category&lt;/em&gt; or the (efficient) cause of X.&lt;/p&gt;
 &lt;p&gt;•&lt;strong&gt;Hempel&lt;/strong&gt;:  Producing an (logical) argument whose conclusion is the explanandum X. 
@@ -64,35 +57,37 @@ explanatory relevant to X. The causal model  presented by Salmon has limitation 
 &lt;h4 id=&#34;a-preference-for-teleology&#34;&gt;&lt;strong&gt;A PREFERENCE FOR TELEOLOGY&lt;/strong&gt;&lt;/h4&gt;
 &lt;p&gt;However, some people and children are often biased toward teleological explanations and they are looking for the purpose not the cause in their explanations:  Mountains were created to be climbed.&lt;/p&gt;
 &lt;h3 id=&#34;explanations-virtues&#34;&gt;Explanations virtues&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;The following properties have been proposed as criteria of a good explanation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The following properties have been proposed as criteria of a good explanation:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;No Circularity&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;No Circularity&lt;/strong&gt;: &amp;ldquo;This diet pill works because it helps people lose weight&amp;rdquo; and &amp;ldquo;People lose weight because they use  this diet pill&amp;rdquo; are circular arguments. Although we can detect circularity from childhood, it is not always easy to identify it.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Coherence :&lt;/p&gt;
-&lt;p&gt;Different elements of explanation must  have internal consistency (i.e. with prior knowledge and current evidence)&lt;/p&gt;
-&lt;p&gt;Explaining the full set of elements is not feasible (explaining how a bicycle works we need to say how its various mechanical elements interact and constrain each other)&lt;/p&gt;
-&lt;p&gt;Explanations are incomplete (even in science) because our mental
-representations are skeletal and incomplete. We have an illusion that we deeply understand and we can explain things.&lt;/p&gt;
-&lt;p&gt;Tiger example: Tigers have dark vertical stripes on their bodies but without looking at an image of a tiger answer whether these stripes are  vertical or horizontal on the tiger&#39;s tail and legs.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20191231202530998.png&#34; alt=&#34;image-20191231202530998&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Coherence&lt;/strong&gt; : Different elements of explanation must have internal consistency. It means that an explanation must be consistent with prior knowledge and current evidence.&lt;/p&gt;
+&lt;p&gt;However, explaining the full set of elements (relations) may not be simple. For instance, to fully explain how a bicycle works we need to say how its various mechanical elements interact and constrain each other.&lt;/p&gt;
+&lt;p&gt;Explanations are incomplete (even in science) because our mental representations are skeletal and incomplete. We tend to overestimate the depth of our own
+understanding. But the moment we start writing down our understanding, it becomes clear that our understanding is (mostly) shallow and incomplete.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Tiger example&lt;/strong&gt;: Tigers have dark vertical stripes on their bodies but  can we tell without looking at an image of a tiger whether these stripes are vertical or horizontal on the tiger&#39;s tail and legs?!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bicycle example&lt;/strong&gt;: How much do you know how a bicycle work?  Draw one!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;7.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;But sometimes compression is also needed.&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;How much do you know how a bicycle work?  Draw one!&lt;/li&gt;
-&lt;li&gt;One of the most important measure of explanation quality was “perceived expertise”, i.e. whether participants believed the explanation was written by an expert. (Zemla et al (2017))&lt;/li&gt;
+&lt;li&gt;We rely heavily in expertise of other minds. In an experiment carried out by Zemla et al. (2017), it was observed that compared to other measures such as complexity, articulation, coherence, generality and truth, one of the most important measures of explanation quality for the participants was “perceived expertise”.  Perceived expertise indicates whether participants believed the explanation was written by an expert. The more we we trust in the expertise of the explainer, the more likely we accept the explanation.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Relevance:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Relevance&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;From philosophical point of view,  only factors that make a difference to the explanandum should be included to generate a good explanation.&lt;/p&gt;
+&lt;p&gt;From philosophical point of view,  only factors that make a difference to the explanandum or have a causal role should be included to generate a good explanation.  This level of details is ideal but not attainable and we usually find a trade-off by abstraction. Moreover, hyper-concrete explanations are too true  to be good.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;But is it true for non-experts? Weisberg et al (2008) showed that adding irrelevant neuroscientific information (e.g. jargons) to an explanation increased its perceived quality for non-experts.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Another experiment in which participant were asked to rate 3 types of explanations:&lt;/p&gt;
+&lt;p&gt;Another experiment  was carried out in which participant were asked to rate 3 types of explanations:&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20191231205443309.png&#34; alt=&#34;image-20191231205443309&#34;&gt;&lt;/p&gt;

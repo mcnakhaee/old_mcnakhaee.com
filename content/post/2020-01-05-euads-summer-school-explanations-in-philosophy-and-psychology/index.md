@@ -1,5 +1,5 @@
 ---
-title: 'EuADS Summer School: Explanations in Philosophy and Psychology'
+(title: 'EuADS Summer School: Explanations in Philosophy and Psychology - Christos Bechlivanidis'
 author: Muhammad Chenariyan Nakhaee
 date: '2020-01-05'
 slug: []
@@ -23,11 +23,9 @@ projects: []
 
 ## ***[Explanations in Philosophy and Psychology](https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf)\*: [Christos Bechlivanidis](https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/),**
 
-Explanations are always expressed in  a contrastive manner and this contrast is usually implied by the context.
+
 
 1. ### Producers and consumers of explanations in AI
-
-
 
 The developer who produces the explanation and evaluates it or as Miller et al (2017), the inmates are running the asylum phenomena.
 
@@ -41,11 +39,11 @@ The developer has a deeper understanding of the  system. However, his/her unders
 
 ### What is an explanation?
 
-Answering this question depends on who we ask. 
+Explanations are always expressed in  a contrastive manner and this contrast is usually implied by the context. Also, an explanations is not a description. 
 
-- > An explanations is not a description
+Nevertheless, answering "what is an explanation? " depends on who we ask. 
 
-Philosopher  care about the **normative** side of an explanation and consider a (good) explanations to be a scientific explanation. But psychologists are interested in the **descriptive** side or what people consider as an explanation such as everyday explanations and what makes a good explanation.
+Philosopher care about the **normative** side of an explanation and consider a (good) explanations to be a scientific explanation. But psychologists are interested in the **descriptive** side or what people consider as an explanation such as everyday explanations and what makes a good explanation.
 
 Different philosophers and scientists have proposed different definition for an explanation:
 
@@ -87,33 +85,38 @@ However, some people and children are often biased toward teleological explanati
 
 ### Explanations virtues 
 
-**The following properties have been proposed as criteria of a good explanation**
+The following properties have been proposed as criteria of a good explanation:
 
-1. No Circularity
+1. **No Circularity**: "This diet pill works because it helps people lose weight" and "People lose weight because they use  this diet pill" are circular arguments. Although we can detect circularity from childhood, it is not always easy to identify it.
 
-2. Coherence :
+2. **Coherence** : Different elements of explanation must have internal consistency. It means that an explanation must be consistent with prior knowledge and current evidence.
 
-   Different elements of explanation must  have internal consistency (i.e. with prior knowledge and current evidence)
+   However, explaining the full set of elements (relations) may not be simple. For instance, to fully explain how a bicycle works we need to say how its various mechanical elements interact and constrain each other.
 
-   Explaining the full set of elements is not feasible (explaining how a bicycle works we need to say how its various mechanical elements interact and constrain each other)
+   Explanations are incomplete (even in science) because our mental representations are skeletal and incomplete. We tend to overestimate the depth of our own
+   understanding. But the moment we start writing down our understanding, it becomes clear that our understanding is (mostly) shallow and incomplete. 
 
-   Explanations are incomplete (even in science) because our mental
-   representations are skeletal and incomplete. We have an illusion that we deeply understand and we can explain things. 
+   **Tiger example**: Tigers have dark vertical stripes on their bodies but  can we tell without looking at an image of a tiger whether these stripes are vertical or horizontal on the tiger's tail and legs?!
 
-   Tiger example: Tigers have dark vertical stripes on their bodies but without looking at an image of a tiger answer whether these stripes are  vertical or horizontal on the tiger's tail and legs.
+   ![](5.png)
 
-   ![image-20191231202530998](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20191231202530998.png)
+   **Bicycle example**: How much do you know how a bicycle work?  Draw one!
 
-   - How much do you know how a bicycle work?  Draw one!
-   - One of the most important measure of explanation quality was “perceived expertise”, i.e. whether participants believed the explanation was written by an expert. (Zemla et al (2017))
+   ![](7.png)
 
-3. Relevance:
+   But sometimes compression is also needed.
 
-   - From philosophical point of view,  only factors that make a difference to the explanandum should be included to generate a good explanation. 
+   <img src="6.png" style="zoom:50%;" />
+
+   - We rely heavily in expertise of other minds. In an experiment carried out by Zemla et al. (2017), it was observed that compared to other measures such as complexity, articulation, coherence, generality and truth, one of the most important measures of explanation quality for the participants was “perceived expertise”.  Perceived expertise indicates whether participants believed the explanation was written by an expert. The more we we trust in the expertise of the explainer, the more likely we accept the explanation.
+
+3. **Relevance**:
+
+   - From philosophical point of view,  only factors that make a difference to the explanandum or have a causal role should be included to generate a good explanation.  This level of details is ideal but not attainable and we usually find a trade-off by abstraction. Moreover, hyper-concrete explanations are too true  to be good.
 
    - But is it true for non-experts? Weisberg et al (2008) showed that adding irrelevant neuroscientific information (e.g. jargons) to an explanation increased its perceived quality for non-experts. 
 
-   - Another experiment in which participant were asked to rate 3 types of explanations:
+   - Another experiment  was carried out in which participant were asked to rate 3 types of explanations:
 
    - ![image-20191231205443309](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20191231205443309.png)
 
