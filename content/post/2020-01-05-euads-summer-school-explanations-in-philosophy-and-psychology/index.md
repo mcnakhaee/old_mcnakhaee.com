@@ -29,11 +29,7 @@ In [my last post](https://mcnakhaee.com/post/2019-12-31-explainable-data-science
 
 ### Producers and consumers of explanations in AI
 
-The developer who produces the explanation and evaluates it or as Miller et al (2017), the inmates are running the asylum phenomena.
-
-But what makes the good explanation for the developer is not necessarily good for other users of the system.
-
-The developer has a deeper understanding of the system. He/she might be cursed by his/her knowledge. In addition, However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred does not know anything about how neural networks work.
+The developer who produces the explanation and evaluates it or as Miller et al (2017), the inmates are running the asylum phenomena. But what makes the good explanation for the developer is not necessarily good for other users of the system. The developer has a deeper understanding of the system. He/she might be cursed by his/her knowledge. In addition, However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred is a simple person and does not know anything about how neural networks work.
 
 ![](1.png)
 
@@ -49,19 +45,20 @@ Philosopher care about the **normative** side of an explanation and consider a (
 
 Different philosophers and scientists have proposed different definition for an explanation:
 
-• **Aristotle**: Citing the *function*, *the material*, *the category* or the (efficient) cause of X. 
+**Aristotle**: Citing the *function*, *the material*, *the category* or the (efficient) cause of X. 
 
-•**Hempel**:  Producing an (logical) argument whose conclusion is the explanandum X. 
-• **Salmon**: Stating everything that affects the probability of X. In other words, If P(Β|Α) ≠ P(Β) then A is explanatory relevant to B (e.g. P(pregnant | male & contraceptives) = P(pregnant | male)). One downside of this definition is that A does not need to have a high probability to be explanatory. For example,if P(Β|Α) - P(Β) = 0.000001, A is still explanatory  relevant to B.
-**Salmon:** Stating the causal history of X. An explanation of X will trace the causal processes and interactions that lead to X, thus
-showing how X fits into a causal nexus. But, in general, not all causal events in the past of X are
-explanatory relevant to X. The causal model  presented by Salmon has limitation in dealing with certain type of causation such as Double Prevention. 
+**Hempel**:  Producing an (logical) argument whose conclusion is the explanandum X. 
+**Salmon**: Stating everything that affects the probability of X. In other words, If P(Β|Α) ≠ P(Β) then A is explanatory relevant to B (e.g. P(pregnant | male & contraceptives) = P(pregnant | male)). One downside of this definition is that A does not need to have a high probability to be explanatory. For example,if P(Β|Α) - P(Β) = 0.000001, A is still explanatory  relevant to B.
+
+**Kitcher**: Showing how X fits a more general state of affairs
+
+**Salmon:** Stating the causal history of X. An explanation of X will trace the causal processes and interactions that lead to X. But, in general, not all causal events in the past of X are explanatory relevant to X. The causal model  presented by Salmon has limitation in dealing with certain type of causation such as Double Prevention. Take the following image where a pink plane wants to drop a bomb on a city. A red plane with an alligator has a mission to shoot the pink plane and prevent the bombing. Also, A blue plane is there to prevent the red plane from shooting the pink plane. Now if the the  blue plane successfully shoot the red plane and the pink plane successfully drops its bomb on the city, does the blue plane cause the bombardment of the city.
 
 ![](2.png)
 
-Imagine the above image where a pink plane wants to drop a bomb on a city. A red plane with an alligator has a mission to shoot the pink plane and prevent the bombing. Also, A blue plane is there to prevent the red plane from shooting the pink plane. Now if the the  blue plane successfully shoot the red plane and the pink plane successfully drops its bomb on the city, does the blue plane cause the bombardment of the city.
 
-**Kitcher**:• Showing how X fits a more general state of affairs
+
+
 
 ### **TYPES OF EXPLANATIONS**
 
@@ -167,7 +164,7 @@ We can also utilize online crowdsourcing tools and run our analysis through them
 -  Gorilla - gorilla.sc
 - Testable - testable.org
 
-**What do we need to ask?**
+#### **What do we need to ask?**
 
 - Do they think that the provided explanation is a good explanation?
 
