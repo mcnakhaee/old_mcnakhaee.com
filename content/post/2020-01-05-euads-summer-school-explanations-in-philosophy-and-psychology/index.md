@@ -27,7 +27,7 @@ In [my last post](https://mcnakhaee.com/post/2019-12-31-explainable-data-science
 
 
 
-1. ### Producers and consumers of explanations in AI
+### Producers and consumers of explanations in AI
 
 The developer who produces the explanation and evaluates it or as Miller et al (2017), the inmates are running the asylum phenomena.
 
