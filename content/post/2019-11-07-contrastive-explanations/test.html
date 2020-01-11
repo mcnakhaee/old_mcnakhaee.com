@@ -64,7 +64,7 @@ rf.fit(train,labels_train)</code></pre>
 ##                        n_jobs=None, oob_score=False, random_state=None,
 ##                        verbose=0, warm_start=False)</code></pre>
 <pre class="python"><code>rf.score(test,labels_test)</code></pre>
-<pre><code>## 0.8041958041958042</code></pre>
+<pre><code>## 0.8461538461538461</code></pre>
 <pre class="python"><code>prd_ds = test.copy()
 prd_ds[&#39;actual&#39;]  = labels_test
 prd_ds[&#39;prds&#39;] = rf.predict(test)

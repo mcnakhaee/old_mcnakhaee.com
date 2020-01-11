@@ -1,5 +1,5 @@
 ---
-(title: 'EuADS Summer School - Explanations in Philosophy and Psychology by Christos Bechlivanidis'
+(title: 'My Nots from Explanations in Philosophy and Psychology Talk by Christos Bechlivanidis (EuADS Summer School)'
 author: Muhammad Chenariyan Nakhaee
 date: '2020-01-05'
 slug: []
@@ -23,7 +23,7 @@ projects: []
 
 ## ***[Explanations in Philosophy and Psychology](https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf)\*: [Christos Bechlivanidis](https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/),**
 
-
+{:toc}
 
 1. ### Producers and consumers of explanations in AI
 
@@ -112,51 +112,49 @@ The following properties have been proposed as criteria of a good explanation:
 
 3. **Relevance**:
 
-   - From philosophical point of view,  only factors that make a difference to the explanandum or have a causal role should be included to generate a good explanation.  This level of details is ideal but not attainable and we usually find a trade-off by abstraction. Moreover, hyper-concrete explanations are too true  to be good.
+   - From philosophical point of view,  only factors that make a difference to the explanandum or have a causal role should be included to generate a good explanation.  This level of details is ideal but not attainable and we usually find a trade-off by abstraction. Moreover, hyper-concrete explanations are too true  to be good (e.g. extremely detailed maps).
 
-   - But is it true for non-experts? Weisberg et al (2008) showed that adding irrelevant neuroscientific information (e.g. jargons) to an explanation increased its perceived quality for non-experts. 
+   - Strevens (2007) proposed that in order to create an optimal explanation first we need to include every imaginable event and then we remove and abstract every event that makes no difference to the occurrence of the explanandum. 
+
+   - But is it true for non-experts? Philosophical view is different from non-expert view. Weisberg et al (2008) showed that adding irrelevant neuroscientific information (e.g. jargons) to an explanation increased its perceived quality by non-experts (naïve adults and neuroscience students). 
 
    - Another experiment  was carried out in which participant were asked to rate 3 types of explanations:
 
-   - ![image-20191231205443309](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20191231205443309.png)
+   - ![](8.png)
 
-     ![image-20191231205847288](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20191231205847288.png)
+     <img src="9.png" style="zoom:80%;" />
 
    - The average ratings for the abstract explanation was significantly lower than the irrelevant explanation.
 
-   - ![image-20191231210622105](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20191231210622105.png)
+   - <img src="10.png" style="zoom:80%;" />
 
    -  On the other hand, the causal ratings for the abstract explanation was higher that the other two types of explanations 
 
-   - ![image-20191231210237445](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20191231210237445.png)
+   - <img src="11.png" style="zoom:80%;" />
 
-4. Match the epistemic status of the audience:
+4. **Match the epistemic status of the audience**
 
-   - When producing explanations we need to carefully assess
-     the knowledge and beliefs of the audience
+   - When producing explanations we need to carefully asses the knowledge and beliefs of the audience.
 
-5. Simplicity 
+5. **Simplicity** 
 
-   - What do we mean by simplicity? (number of entities,number of entity types, shortest description? )
-   - Paul Thagard (1989): simplicity is determined by the number of special assumptions required.  People prefer these kinds of simpler explanations because fewer assumptions means fewer unexplained causes .
-   - However when probabilities of are included in explanations, people choose the most probable explanation not the simplest.
-   - In Zemla et al (2017) it was shown that  the quality of explanations was positively correlated both with the number of unexplained causes and its length (level of detail)
+   - Everyone agrees that explanations should be simple. But what do we mean by simplicity? (number of entities,number of entity types, shortest description? )
+   - Paul Thagard (1989): simplicity is determined by the number of special required assumptions.  People prefer these kinds of simpler explanations because fewer assumptions means fewer unexplained causes .
+   - However, when probabilities of assumptions are also included in the explanation, people choose the most probable explanation not the simplest. In case of equal probabilities, simpler explanations are preferred. 
+   - Zemla et al (2017) it showed that  the quality of explanations was positively correlated both with the number of unexplained causes and its length (level of detail)
 
-   ![image-20200102232251990](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20200102232251990.png)
+   ![s](12.png)
 
-6. Generality (Breadth– Scope - Coverage)
+6. **Generality (Breadth– Scope - Coverage)**
 
-
-
-
+   - Is it better to explain more things but less precisely or fewer things but more precisely?
+   - Thagard (1992) argues that an explanations that explains more pieces of evidence should be favored.
 
 ![image-20200103055453791](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20200103055453791.png)
 
+### EVALUATING EXPLANATIONS
 
-
-EVALUATING EXPLANATIONS
-
-Do the users think that an explanation is  good explanation
+Do the users think that the provided explanation is a good explanation
 
 How well do they understand this explanation
 
