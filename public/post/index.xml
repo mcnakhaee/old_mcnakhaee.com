@@ -13,12 +13,11 @@
     </image>
     
     <item>
-      <title></title>
+      <title>EuADS Summer School 2019, Explanations in Philosophy and Psychology Talk by Christos Bechlivanidis</title>
       <link>/post/2020-01-05-euads-summer-school-explanations-in-philosophy-and-psychology/</link>
       <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-01-05-euads-summer-school-explanations-in-philosophy-and-psychology/</guid>
-      <description>&lt;h2 id=&#34;explanations-in-philosophy-and-psychologyhttpseuadsorgwp-contentuploads201909explanations-in-philosophy-and-psychology-2pdf-christos-bechlivanidishttpswwwuclacukpalsresearchexperimental-psychologypersonchristos-bechlivanidis&#34;&gt;*&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf&#34;&gt;Explanations in Philosophy and Psychology&lt;/a&gt;*: &lt;a href=&#34;https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/&#34;&gt;Christos Bechlivanidis&lt;/a&gt;,&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;In &lt;a href=&#34;https://mcnakhaee.com/post/2019-12-31-explainable-data-science-summer-school/&#34;&gt;my last post&lt;/a&gt;, I shared my notes from two talks at Explainable Data Science summer school in Luxembourg.  Although every talk in the summer school was interesting  and taught me new things but I particularly liked the &amp;ldquo;Explanations in Philosophy and Psychology&amp;rdquo; talk by Christos Bechlivanidis. I learned a lot of new things from this this talk  specially because what I had focused by them was mainly about the more algorithmic aspect of explainability. In this post I am going to share my notes from this talk. The slides&lt;/p&gt;
+      <description>&lt;p&gt;In &lt;a href=&#34;https://mcnakhaee.com/post/2019-12-31-explainable-data-science-summer-school/&#34;&gt;my last post&lt;/a&gt;, I shared my notes from two talks at Explainable Data Science summer school in Luxembourg.  Although every talk in the summer school was interesting  and taught me new things but I particularly liked the &amp;ldquo;Explanations in Philosophy and Psychology&amp;rdquo; talk by Christos Bechlivanidis. I learned a lot of new things from this this talk  specially because what I had focused by them was mainly about the more algorithmic aspect of explainability. In this post I am going to share my notes from this talk. The slides for this talk can be downloaded from this &lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;h3 id=&#34;producers-and-consumers-of-explanations-in-ai&#34;&gt;Producers and consumers of explanations in AI&lt;/h3&gt;
@@ -135,7 +134,6 @@ understanding. But the moment we start writing down our understanding, it become
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200103055453791.png&#34; alt=&#34;image-20200103055453791&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;evaluating-explanations&#34;&gt;EVALUATING EXPLANATIONS&lt;/h3&gt;
 &lt;p&gt;To evaluate our explanations, we need to ask a public audience. This audience can be our friends, family members and colleagues who may not have any knowledge of the system. However, we should take into account that the these evaluations can be biased and noisy. For this reason, we need to take a larger sample of people.&lt;/p&gt;
 &lt;p&gt;Alternatively, we can also collaborate with HCI experts,  psychologist and behavioral scientist to evaluate explanations.&lt;/p&gt;
@@ -159,7 +157,6 @@ understanding. But the moment we start writing down our understanding, it become
 &lt;p&gt;Behavioral measures such as what did they expect from the explanation?&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;A Recommender System Experiment&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;h3 id=&#34;heading&#34;&gt;&lt;/h3&gt;
 &lt;/blockquote&gt;

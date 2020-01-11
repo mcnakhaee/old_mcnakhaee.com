@@ -1,5 +1,5 @@
 ---
-(title: 'EuADS Summer School 2019, Explanations in Philosophy and Psychology Talk by Christos Bechlivanidis'
+title: 'EuADS Summer School 2019, Explanations in Philosophy and Psychology Talk by Christos Bechlivanidis'
 author: Muhammad Chenariyan Nakhaee
 date: '2020-01-05'
 slug: []
@@ -21,9 +21,9 @@ projects: []
 
 
 
-## ***[Explanations in Philosophy and Psychology](https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf)\*: [Christos Bechlivanidis](https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/),**
 
-In [my last post](https://mcnakhaee.com/post/2019-12-31-explainable-data-science-summer-school/), I shared my notes from two talks at Explainable Data Science summer school in Luxembourg.  Although every talk in the summer school was interesting  and taught me new things but I particularly liked the "Explanations in Philosophy and Psychology" talk by Christos Bechlivanidis. I learned a lot of new things from this this talk  specially because what I had focused by them was mainly about the more algorithmic aspect of explainability. In this post I am going to share my notes from this talk. 
+
+In [my last post](https://mcnakhaee.com/post/2019-12-31-explainable-data-science-summer-school/), I shared my notes from two talks at Explainable Data Science summer school in Luxembourg.  Although every talk in the summer school was interesting  and taught me new things but I particularly liked the "Explanations in Philosophy and Psychology" talk by Christos Bechlivanidis. I learned a lot of new things from this this talk  specially because what I had focused by them was mainly about the more algorithmic aspect of explainability. In this post I am going to share my notes from this talk. The slides for this talk can be downloaded from this [link](https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf).
 
 
 
@@ -151,8 +151,6 @@ The following properties have been proposed as criteria of a good explanation:
 
    - Is it better to explain more things but less precisely or fewer things but more precisely?
    - Thagard (1992) argues that an explanations that explains more pieces of evidence should be favored.
-
-![image-20200103055453791](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20200103055453791.png)
 
 ### EVALUATING EXPLANATIONS
 
