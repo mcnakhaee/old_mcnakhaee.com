@@ -211,27 +211,27 @@ rf.fit(train,labels_train)&lt;/code&gt;&lt;/pre&gt;
 ##                        n_jobs=None, oob_score=False, random_state=None,
 ##                        verbose=0, warm_start=False)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;rf.score(test,labels_test)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 0.8181818181818182&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0.8461538461538461&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;prd_ds = test.copy()
 prd_ds[&amp;#39;actual&amp;#39;]  = labels_test
 prd_ds[&amp;#39;prds&amp;#39;] = rf.predict(test)
 
 prd_ds[&amp;#39;wrong&amp;#39;]  =  prd_ds[&amp;#39;prds&amp;#39;] == prd_ds[&amp;#39;actual&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;py$prd_ds %&amp;gt;% head()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##     PassengerId Pclass Age SibSp Parch     Fare Embarked_C Embarked_Q
-## 537         538      1  30     0     0 106.4250          1          0
-## 382         383      3  32     0     0   7.9250          0          0
-## 345         346      2  24     0     0  13.0000          0          0
-## 660         661      1  50     2     0 133.6500          0          0
-## 205         206      3   2     0     1  10.4625          0          0
-## 603         604      3  44     0     0   8.0500          0          0
-##     Embarked_S Sex_binary actual prds wrong
-## 537          0          1      1    1  TRUE
-## 382          1          0      0    1 FALSE
-## 345          1          1      1    1  TRUE
-## 660          1          0      1    1  TRUE
-## 205          1          1      0    1 FALSE
-## 603          1          0      0    0  TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     PassengerId Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q Embarked_S
+## 556         557      1  48     1     0 39.6000          1          0          0
+## 213         214      2  30     0     0 13.0000          0          0          1
+## 262         263      1  52     1     1 79.6500          0          0          1
+## 645         646      1  48     1     0 76.7292          1          0          0
+## 287         288      3  22     0     0  7.8958          0          0          1
+## 230         231      1  35     1     0 83.4750          0          0          1
+##     Sex_binary actual prds wrong
+## 556          1      1    1  TRUE
+## 213          0      0    0  TRUE
+## 262          0      0    0  TRUE
+## 645          0      1    1  TRUE
+## 287          0      0    0  TRUE
+## 230          1      1    1  TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import lime
 import lime.lime_tabular
 import dtreeviz

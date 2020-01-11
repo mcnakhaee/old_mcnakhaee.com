@@ -470,7 +470,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    8 min read
+    7 min read
   </span>
   
 
@@ -527,24 +527,19 @@
     <div class="article-style">
       <p>In <a href="https://mcnakhaee.com/post/2019-12-31-explainable-data-science-summer-school/">my last post</a>, I shared my notes from two talks at Explainable Data Science summer school in Luxembourg.  Although every talk in the summer school was interesting  and taught me new things but I particularly liked the &ldquo;Explanations in Philosophy and Psychology&rdquo; talk by Christos Bechlivanidis. I learned a lot of new things from this this talk  specially because what I had focused by them was mainly about the more algorithmic aspect of explainability. In this post I am going to share my notes from this talk. The slides for this talk can be downloaded from this <a href="https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf">link</a>.</p>
 <h3 id="producers-and-consumers-of-explanations-in-ai">Producers and consumers of explanations in AI</h3>
-<p>The developer who produces the explanation and evaluates it or as Miller et al (2017), the inmates are running the asylum phenomena.</p>
-<p>But what makes the good explanation for the developer is not necessarily good for other users of the system.</p>
-<p>The developer has a deeper understanding of the system. He/she might be cursed by his/her knowledge. In addition, However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred does not know anything about how neural networks work.</p>
+<p>The developer who produces the explanation and evaluates it or as Miller et al (2017), the inmates are running the asylum phenomena. But what makes the good explanation for the developer is not necessarily good for other users of the system. The developer has a deeper understanding of the system. He/she might be cursed by his/her knowledge. In addition, However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred is a simple person and does not know anything about how neural networks work.</p>
 <p><img src="1.png" alt=""></p>
 <h3 id="what-is-an-explanation">What is an explanation?</h3>
 <p>Explanations are always expressed in  a contrastive manner and this contrast is usually implied by the context. Also, an explanations is not a description.</p>
 <p>Nevertheless, answering &ldquo;what is an explanation? &quot; depends on who we ask.</p>
 <p>Philosopher care about the <strong>normative</strong> side of an explanation and consider a (good) explanations to be a scientific explanation. But psychologists are interested in the <strong>descriptive</strong> side or what people consider as an explanation such as everyday explanations and what makes a good explanation.</p>
 <p>Different philosophers and scientists have proposed different definition for an explanation:</p>
-<p>• <strong>Aristotle</strong>: Citing the <em>function</em>, <em>the material</em>, <em>the category</em> or the (efficient) cause of X.</p>
-<p>•<strong>Hempel</strong>:  Producing an (logical) argument whose conclusion is the explanandum X. 
-• <strong>Salmon</strong>: Stating everything that affects the probability of X. In other words, If P(Β|Α) ≠ P(Β) then A is explanatory relevant to B (e.g. P(pregnant | male &amp; contraceptives) = P(pregnant | male)). One downside of this definition is that A does not need to have a high probability to be explanatory. For example,if P(Β|Α) - P(Β) = 0.000001, A is still explanatory  relevant to B.
-<strong>Salmon:</strong> Stating the causal history of X. An explanation of X will trace the causal processes and interactions that lead to X, thus
-showing how X fits into a causal nexus. But, in general, not all causal events in the past of X are
-explanatory relevant to X. The causal model  presented by Salmon has limitation in dealing with certain type of causation such as Double Prevention.</p>
+<p><strong>Aristotle</strong>: Citing the <em>function</em>, <em>the material</em>, <em>the category</em> or the (efficient) cause of X.</p>
+<p><strong>Hempel</strong>:  Producing an (logical) argument whose conclusion is the explanandum X. 
+<strong>Salmon</strong>: Stating everything that affects the probability of X. In other words, If P(Β|Α) ≠ P(Β) then A is explanatory relevant to B (e.g. P(pregnant | male &amp; contraceptives) = P(pregnant | male)). One downside of this definition is that A does not need to have a high probability to be explanatory. For example,if P(Β|Α) - P(Β) = 0.000001, A is still explanatory  relevant to B.</p>
+<p><strong>Kitcher</strong>: Showing how X fits a more general state of affairs</p>
+<p><strong>Salmon:</strong> Stating the causal history of X. An explanation of X will trace the causal processes and interactions that lead to X. But, in general, not all causal events in the past of X are explanatory relevant to X. The causal model  presented by Salmon has limitation in dealing with certain type of causation such as Double Prevention. Take the following image where a pink plane wants to drop a bomb on a city. A red plane with an alligator has a mission to shoot the pink plane and prevent the bombing. Also, A blue plane is there to prevent the red plane from shooting the pink plane. Now if the the  blue plane successfully shoot the red plane and the pink plane successfully drops its bomb on the city, does the blue plane cause the bombardment of the city.</p>
 <p><img src="2.png" alt=""></p>
-<p>Imagine the above image where a pink plane wants to drop a bomb on a city. A red plane with an alligator has a mission to shoot the pink plane and prevent the bombing. Also, A blue plane is there to prevent the red plane from shooting the pink plane. Now if the the  blue plane successfully shoot the red plane and the pink plane successfully drops its bomb on the city, does the blue plane cause the bombardment of the city.</p>
-<p><strong>Kitcher</strong>:• Showing how X fits a more general state of affairs</p>
 <h3 id="types-of-explanations"><strong>TYPES OF EXPLANATIONS</strong></h3>
 <p><img src="3.png" alt=""></p>
 <p><img src="4.png" alt=""></p>
@@ -649,7 +644,7 @@ understanding. But the moment we start writing down our understanding, it become
 <li>Gorilla - gorilla.sc</li>
 <li>Testable - testable.org</li>
 </ul>
-<p><strong>What do we need to ask?</strong></p>
+<h4 id="what-do-we-need-to-ask"><strong>What do we need to ask?</strong></h4>
 <ul>
 <li>
 <p>Do they think that the provided explanation is a good explanation?</p>
