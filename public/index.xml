@@ -175,7 +175,7 @@
 &lt;/ol&gt;
 &lt;p&gt;The developer who produces the explanation and evaluates it or as Miller et al (2017), the inmates are running the asylum phenomena.&lt;/p&gt;
 &lt;p&gt;But what makes the good explanation for the developer is not necessarily good for other users of the system.&lt;/p&gt;
-&lt;p&gt;The developer has a deeper understanding of the  system. However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred does not know anything about how neural networks work.&lt;/p&gt;
+&lt;p&gt;The developer has a deeper understanding of the system.He/she might be cursed by his/her knowledge. In addition, However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred does not know anything about how neural networks work.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;what-is-an-explanation&#34;&gt;What is an explanation?&lt;/h3&gt;
 &lt;p&gt;Explanations are always expressed in  a contrastive manner and this contrast is usually implied by the context. Also, an explanations is not a description.&lt;/p&gt;
@@ -286,21 +286,28 @@ understanding. But the moment we start writing down our understanding, it become
 &lt;/ol&gt;
 &lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200103055453791.png&#34; alt=&#34;image-20200103055453791&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;evaluating-explanations&#34;&gt;EVALUATING EXPLANATIONS&lt;/h3&gt;
-&lt;p&gt;Do the users think that the provided explanation is a good explanation&lt;/p&gt;
-&lt;p&gt;How well do they understand this explanation&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200103185719893.png&#34; alt=&#34;image-20200103185719893&#34;&gt;&lt;/p&gt;
-&lt;p&gt;We need to compare different versions of our explanations (like A/B testing)&lt;/p&gt;
-&lt;p&gt;Different groups of users see different explanation and same group of users see different explanation.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200103190709445.png&#34; alt=&#34;image-20200103190709445&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CiMuhammad%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200103190752806.png&#34; alt=&#34;image-20200103190752806&#34;&gt;&lt;/p&gt;
-&lt;p&gt;To evaluate our explanations we have to ask a public audience. This audience can be our friends, family members and colleagues who may not have any knowledge of the system. However, we should take into account that the these evaluations can be biased and noisy. For this reason, we need to take a large sample.&lt;/p&gt;
-&lt;p&gt;Alternatively we can collaborate with HCI experts,  psychologist and behavioral scientist to evaluate explanations.&lt;/p&gt;
-&lt;p&gt;we can also utilize online crowdsourcing tools and run our analysis through them:&lt;/p&gt;
-&lt;p&gt;•Amazon Mechanical Turk – mturk.com
-• Prolific Academic - prolific.co
-• Gorilla - gorilla.sc
-• Testable - testable.org&lt;/p&gt;
-&lt;p&gt;Experiment&lt;/p&gt;
+&lt;p&gt;To evaluate our explanations, we need to ask a public audience. This audience can be our friends, family members and colleagues who may not have any knowledge of the system. However, we should take into account that the these evaluations can be biased and noisy. For this reason, we need to take a larger sample of people.&lt;/p&gt;
+&lt;p&gt;Alternatively, we can also collaborate with HCI experts,  psychologist and behavioral scientist to evaluate explanations.&lt;/p&gt;
+&lt;p&gt;Different groups of users see different explanation and same group of users see different explanation. We need to compare different versions of our explanations (like A/B testing) .&lt;/p&gt;
+&lt;p&gt;We can also utilize online crowdsourcing tools and run our analysis through them:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;•Amazon Mechanical Turk – mturk.co&lt;/li&gt;
+&lt;li&gt;Prolific Academic - prolific.c&lt;/li&gt;
+&lt;li&gt;Gorilla - gorilla.sc&lt;/li&gt;
+&lt;li&gt;Testable - testable.org&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;What do we need to ask?&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Do they think that the provided explanation is a good explanation?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;How well do they understand this explanation?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Behavioral measures such as what did they expect from the explanation?&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;but-why-an-introduction-to-causal-inference-from-empirical-data&#34;&gt;But why? An introduction to causal inference from empirical data**&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;what is causation?&lt;/li&gt;

@@ -1,5 +1,5 @@
 ---
-(title: 'My Nots from Explanations in Philosophy and Psychology Talk by Christos Bechlivanidis (EuADS Summer School)'
+(title: 'EuADS Summer School 2019:  Explanations in Philosophy and Psychology Talk by Christos Bechlivanidis'
 author: Muhammad Chenariyan Nakhaee
 date: '2020-01-05'
 slug: []
@@ -23,7 +23,7 @@ projects: []
 
 ## ***[Explanations in Philosophy and Psychology](https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf)\*: [Christos Bechlivanidis](https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/),**
 
-{:toc}
+
 
 1. ### Producers and consumers of explanations in AI
 
@@ -31,7 +31,7 @@ The developer who produces the explanation and evaluates it or as Miller et al (
 
 But what makes the good explanation for the developer is not necessarily good for other users of the system.
 
-The developer has a deeper understanding of the  system. However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred does not know anything about how neural networks work.
+The developer has a deeper understanding of the system.He/she might be cursed by his/her knowledge. In addition, However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred does not know anything about how neural networks work.
 
 ![](1.png)
 
@@ -154,34 +154,25 @@ The following properties have been proposed as criteria of a good explanation:
 
 ### EVALUATING EXPLANATIONS
 
-Do the users think that the provided explanation is a good explanation
+To evaluate our explanations, we need to ask a public audience. This audience can be our friends, family members and colleagues who may not have any knowledge of the system. However, we should take into account that the these evaluations can be biased and noisy. For this reason, we need to take a larger sample of people.
 
-How well do they understand this explanation
+Alternatively, we can also collaborate with HCI experts,  psychologist and behavioral scientist to evaluate explanations.
 
-![image-20200103185719893](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20200103185719893.png)
+Different groups of users see different explanation and same group of users see different explanation. We need to compare different versions of our explanations (like A/B testing) .
 
-We need to compare different versions of our explanations (like A/B testing)
+We can also utilize online crowdsourcing tools and run our analysis through them:
 
-Different groups of users see different explanation and same group of users see different explanation.
+- •Amazon Mechanical Turk – mturk.co
+- Prolific Academic - prolific.c
+-  Gorilla - gorilla.sc
+- Testable - testable.org
 
-![image-20200103190709445](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20200103190709445.png)
+**What do we need to ask?**
 
-![image-20200103190752806](C:\Users\iMuhammad\AppData\Roaming\Typora\typora-user-images\image-20200103190752806.png)
+- Do they think that the provided explanation is a good explanation?
 
-To evaluate our explanations we have to ask a public audience. This audience can be our friends, family members and colleagues who may not have any knowledge of the system. However, we should take into account that the these evaluations can be biased and noisy. For this reason, we need to take a large sample.
-
-Alternatively we can collaborate with HCI experts,  psychologist and behavioral scientist to evaluate explanations.
-
-we can also utilize online crowdsourcing tools and run our analysis through them:
-
-•Amazon Mechanical Turk – mturk.com
-• Prolific Academic - prolific.co
-• Gorilla - gorilla.sc
-• Testable - testable.org
-
-Experiment
-
-
+- How well do they understand this explanation?
+- Behavioral measures such as what did they expect from the explanation? 
 
 
 
