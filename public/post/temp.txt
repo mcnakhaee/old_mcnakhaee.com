@@ -1,0 +1,13 @@
+## But why? An introduction to causal inference from empirical data**
+
+1. what is causation?
+2. how can we measure causation?
+3. how can we discover causation? 
+
+Causation is not correlation but what is it?
+
+> The relationship between something that happens or exists and the things that cause it to happen or exist
+
+Causal inference 
+
+> The process of reasoning to the conclusion that something is or is ***likely***  to be, the cause of something else

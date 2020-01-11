@@ -1,5 +1,5 @@
 ---
-(title: 'EuADS Summer School 2019:  Explanations in Philosophy and Psychology Talk by Christos Bechlivanidis'
+(title: 'EuADS Summer School 2019, Explanations in Philosophy and Psychology Talk by Christos Bechlivanidis'
 author: Muhammad Chenariyan Nakhaee
 date: '2020-01-05'
 slug: []
@@ -23,6 +23,8 @@ projects: []
 
 ## ***[Explanations in Philosophy and Psychology](https://euads.org/wp-content/uploads/2019/09/Explanations-in-Philosophy-and-Psychology-2.pdf)\*: [Christos Bechlivanidis](https://www.ucl.ac.uk/pals/research/experimental-psychology/person/christos-bechlivanidis/),**
 
+In [my last post](https://mcnakhaee.com/post/2019-12-31-explainable-data-science-summer-school/), I shared my notes from two talks at Explainable Data Science summer school in Luxembourg.  Although every talk in the summer school was interesting  and taught me new things but I particularly liked the "Explanations in Philosophy and Psychology" talk by Christos Bechlivanidis. I learned a lot of new things from this this talk  specially because what I had focused by them was mainly about the more algorithmic aspect of explainability. In this post I am going to share my notes from this talk. 
+
 
 
 1. ### Producers and consumers of explanations in AI
@@ -31,7 +33,7 @@ The developer who produces the explanation and evaluates it or as Miller et al (
 
 But what makes the good explanation for the developer is not necessarily good for other users of the system.
 
-The developer has a deeper understanding of the system.He/she might be cursed by his/her knowledge. In addition, However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred does not know anything about how neural networks work.
+The developer has a deeper understanding of the system. He/she might be cursed by his/her knowledge. In addition, However, his/her understanding, perspective, or goals may be different from the end-user. When producing explanations we need to carefully assess the complexity of the explanation and the knowledge and beliefs of the audience. Fred does not know anything about how neural networks work.
 
 ![](1.png)
 
@@ -174,18 +176,4 @@ We can also utilize online crowdsourcing tools and run our analysis through them
 - How well do they understand this explanation?
 - Behavioral measures such as what did they expect from the explanation? 
 
-
-
-## But why? An introduction to causal inference from empirical data**
-
-1. what is causation?
-2. how can we measure causation?
-3. how can we discover causation? 
-
-Causation is not correlation but what is it?
-
-> The relationship between something that happens or exists and the things that cause it to happen or exist
-
-Causal inference 
-
-> The process of reasoning to the conclusion that something is or is ***likely***  to be, the cause of something else
+> ### 
