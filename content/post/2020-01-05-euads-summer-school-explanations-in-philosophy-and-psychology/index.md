@@ -171,4 +171,9 @@ We can also utilize online crowdsourcing tools and run our analysis through them
 - How well do they understand this explanation?
 - Behavioral measures such as what did they expect from the explanation? 
 
-> ### 
+### Summary
+
+![](13.png)
+
+
+

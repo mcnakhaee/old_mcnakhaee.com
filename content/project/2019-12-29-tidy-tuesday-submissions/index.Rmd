@@ -36,6 +36,10 @@ You can find my submissions in this page.
 
 ![](ccc.png)
 
+### Week 46 -  Code in CRAN Packages
+
+![](cran_pkg.png)
+
 
 
 ## **Week 36 - Moore's Law**

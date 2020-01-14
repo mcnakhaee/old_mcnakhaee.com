@@ -45,7 +45,7 @@ titanic.head()
 
 
 ```{r echo=FALSE}
-py$titanic %>% head()
+titanic <- py$titanic 
 ```
 
 ```{python include=FALSE}
@@ -137,4 +137,77 @@ library(rvest)
 #htmltools::
 
 ```
+```{r}
+library(lime)
+library(tidymodels)
+library(ranger) 
+```
+
+```{r}
+library(naniar)
+vis_miss(titanic_training)
+complete.cases(titanic_training)
+```
+
+
+```{r}
+titanic <- titanic  %>% 
+  mutate(Cabin =  as.character(Cabin),
+        Embarked =   as.character(Embarked),
+        Survived = as.factor(Survived)) 
+
+titanic_split <- initial_split(titanic,prop = 0.7)
+titanic_split %>% 
+  training() %>% 
+  glimpse()
+
+```
+
+```{r}
+titanic_recipe <- titanic_split %>% 
+  training() %>% 
+  recipe((Survived ~.)) %>% 
+  step_unknown(Cabin ,Embarked          ) %>% 
+  step_meanimpute(Age) %>% 
+  prep()
+
+titanic_training <- juice(titanic_recipe)
+glimpse(titanic_training) 
+```
+```{r}
+rf <- rand_forest(trees = 100, mode = 'classification') %>% set_engine('ranger') %>% 
+  fit(Survived ~. , data = titanic_training)
+
+```
+
+The lime package for R does not aim to be a line-by-line port of its Python counterpart. I
+```{r}
+explainer_rf  <- lime(titanic_training,rf,n_bins = 10)
+summary(explainer_rf)
+```
+
+```{r}
+objs <- titanic_training[1:5,]
+```
+
+
+```{r fig.height=20, fig.width=20}
+explanation_rf <- explain(
+  x = objs, 
+  explainer = explainer_rf, 
+  n_permutations = 5000,
+  dist_fun = "gower",
+  kernel_width = .75,
+  n_features = 10, 
+  feature_select = "highest_weights",
+  n_labels = 2,
+  )
+  
+  
+plot_features(explanation_rf)
+  
+```
+
+https://uc-r.github.io/lime
+https://cran.r-project.org/web/packages/lime/vignettes/Understanding_lime.html
 
