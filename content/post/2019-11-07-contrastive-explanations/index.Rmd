@@ -145,8 +145,8 @@ library(ranger)
 
 ```{r}
 library(naniar)
-vis_miss(titanic_training)
-complete.cases(titanic_training)
+#vis_miss(titanic_training)
+#complete.cases(titanic_training)
 ```
 
 

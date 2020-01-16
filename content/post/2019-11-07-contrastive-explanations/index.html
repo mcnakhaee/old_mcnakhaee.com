@@ -48,27 +48,6 @@ conda_list()</code></pre>
 <pre class="python"><code>import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split</code></pre>
-<pre><code>##   PassengerId Survived Pclass
-## 1           1        0      3
-## 2           2        1      1
-## 3           3        1      3
-## 4           4        1      1
-## 5           5        0      3
-## 6           6        0      3
-##                                                  Name    Sex Age SibSp Parch
-## 1                             Braund, Mr. Owen Harris   male  22     1     0
-## 2 Cumings, Mrs. John Bradley (Florence Briggs Thayer) female  38     1     0
-## 3                              Heikkinen, Miss. Laina female  26     0     0
-## 4        Futrelle, Mrs. Jacques Heath (Lily May Peel) female  35     1     0
-## 5                            Allen, Mr. William Henry   male  35     0     0
-## 6                                    Moran, Mr. James   male NaN     0     0
-##             Ticket    Fare Cabin Embarked
-## 1        A/5 21171  7.2500   NaN        S
-## 2         PC 17599 71.2833   C85        C
-## 3 STON/O2. 3101282  7.9250   NaN        S
-## 4           113803 53.1000  C123        S
-## 5           373450  8.0500   NaN        S
-## 6           330877  8.4583   NaN        Q</code></pre>
 <pre><code>##   PassengerId Survived Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q
 ## 0           1        0      3  22     1     0  7.2500          0          0
 ## 1           2        1      1  38     1     0 71.2833          1          0
@@ -97,27 +76,27 @@ rf.fit(train,labels_train)</code></pre>
 ##                        n_jobs=None, oob_score=False, random_state=None,
 ##                        verbose=0, warm_start=False)</code></pre>
 <pre class="python"><code>rf.score(test,labels_test)</code></pre>
-<pre><code>## 0.8461538461538461</code></pre>
+<pre><code>## 0.7972027972027972</code></pre>
 <pre class="python"><code>prd_ds = test.copy()
 prd_ds[&#39;actual&#39;]  = labels_test
 prd_ds[&#39;prds&#39;] = rf.predict(test)
 
 prd_ds[&#39;wrong&#39;]  =  prd_ds[&#39;prds&#39;] == prd_ds[&#39;actual&#39;]</code></pre>
 <pre class="r"><code>py$prd_ds %&gt;% head()</code></pre>
-<pre><code>##     PassengerId Pclass Age SibSp Parch    Fare Embarked_C Embarked_Q Embarked_S
-## 556         557      1  48     1     0 39.6000          1          0          0
-## 213         214      2  30     0     0 13.0000          0          0          1
-## 262         263      1  52     1     1 79.6500          0          0          1
-## 645         646      1  48     1     0 76.7292          1          0          0
-## 287         288      3  22     0     0  7.8958          0          0          1
-## 230         231      1  35     1     0 83.4750          0          0          1
-##     Sex_binary actual prds wrong
-## 556          1      1    1  TRUE
-## 213          0      0    0  TRUE
-## 262          0      0    0  TRUE
-## 645          0      1    1  TRUE
-## 287          0      0    0  TRUE
-## 230          1      1    1  TRUE</code></pre>
+<pre><code>##     PassengerId Pclass Age SibSp Parch     Fare Embarked_C Embarked_Q
+## 474         475      3  22     0     0   9.8375          0          0
+## 402         403      3  21     1     0   9.8250          0          0
+## 486         487      1  35     1     0  90.0000          0          0
+## 269         270      1  35     0     0 135.6333          0          0
+## 174         175      1  56     0     0  30.6958          1          0
+## 514         515      3  24     0     0   7.4958          0          0
+##     Embarked_S Sex_binary actual prds wrong
+## 474          1          1      0    1 FALSE
+## 402          1          1      0    0  TRUE
+## 486          1          1      1    1  TRUE
+## 269          1          1      1    1  TRUE
+## 174          0          0      0    0  TRUE
+## 514          1          0      0    0  TRUE</code></pre>
 <pre class="python"><code>import lime
 import lime.lime_tabular
 import dtreeviz
@@ -152,3 +131,118 @@ exp.show_in_notebook(show_table = True,show_all = True)
 ## 
 ##     guess_encoding</code></pre>
 <pre class="r"><code>#htmltools::</code></pre>
+<pre class="r"><code>library(lime)</code></pre>
+<pre><code>## Warning: package &#39;lime&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lime&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     explain</code></pre>
+<pre class="r"><code>library(tidymodels)</code></pre>
+<pre><code>## Warning: package &#39;tidymodels&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;xts&#39;:
+##   method     from
+##   as.zoo.xts zoo</code></pre>
+<pre><code>## &lt;U+2500&gt;&lt;U+2500&gt; Attaching packages &lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt; tidymodels 0.0.3 &lt;U+2500&gt;&lt;U+2500&gt;</code></pre>
+<pre><code>## &lt;U+2713&gt; broom     0.5.2     &lt;U+2713&gt; recipes   0.1.9
+## &lt;U+2713&gt; dials     0.0.4     &lt;U+2713&gt; rsample   0.0.5
+## &lt;U+2713&gt; infer     0.5.1     &lt;U+2713&gt; yardstick 0.0.4
+## &lt;U+2713&gt; parsnip   0.0.5</code></pre>
+<pre><code>## Warning: package &#39;dials&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;infer&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;parsnip&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;recipes&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;rsample&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;yardstick&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## &lt;U+2500&gt;&lt;U+2500&gt; Conflicts &lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt;&lt;U+2500&gt; tidymodels_conflicts() &lt;U+2500&gt;&lt;U+2500&gt;
+## x scales::discard() masks purrr::discard()
+## x lime::explain()   masks dplyr::explain()
+## x dplyr::filter()   masks stats::filter()
+## x recipes::fixed()  masks stringr::fixed()
+## x dplyr::lag()      masks stats::lag()
+## x dials::margin()   masks ggplot2::margin()
+## x rvest::pluck()    masks purrr::pluck()
+## x yardstick::spec() masks readr::spec()
+## x recipes::step()   masks stats::step()</code></pre>
+<pre class="r"><code>library(ranger) </code></pre>
+<pre class="r"><code>library(naniar)
+#vis_miss(titanic_training)
+#complete.cases(titanic_training)</code></pre>
+<pre class="r"><code>titanic &lt;- titanic  %&gt;% 
+  mutate(Cabin =  as.character(Cabin),
+        Embarked =   as.character(Embarked),
+        Survived = as.factor(Survived)) 
+
+titanic_split &lt;- initial_split(titanic,prop = 0.7)
+titanic_split %&gt;% 
+  training() %&gt;% 
+  glimpse()</code></pre>
+<pre><code>## Observations: 624
+## Variables: 12
+## $ PassengerId &lt;dbl&gt; 1, 2, 4, 5, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20…
+## $ Survived    &lt;fct&gt; 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, …
+## $ Pclass      &lt;dbl&gt; 3, 1, 1, 3, 3, 2, 3, 1, 3, 3, 3, 2, 3, 2, 3, 3, 2, 2, 3, …
+## $ Name        &lt;chr&gt; &quot;Braund, Mr. Owen Harris&quot;, &quot;Cumings, Mrs. John Bradley (F…
+## $ Sex         &lt;chr&gt; &quot;male&quot;, &quot;female&quot;, &quot;female&quot;, &quot;male&quot;, &quot;female&quot;, &quot;female&quot;, &quot;…
+## $ Age         &lt;dbl&gt; 22, 38, 35, 35, 27, 14, 4, 58, 20, 39, 14, 55, 2, NaN, 31…
+## $ SibSp       &lt;dbl&gt; 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 4, 0, 1, 0, 0, 0, 0, …
+## $ Parch       &lt;dbl&gt; 0, 0, 0, 0, 2, 0, 1, 0, 0, 5, 0, 0, 1, 0, 0, 0, 0, 0, 0, …
+## $ Ticket      &lt;chr&gt; &quot;A/5 21171&quot;, &quot;PC 17599&quot;, &quot;113803&quot;, &quot;373450&quot;, &quot;347742&quot;, &quot;2…
+## $ Fare        &lt;dbl&gt; 7.2500, 71.2833, 53.1000, 8.0500, 11.1333, 30.0708, 16.70…
+## $ Cabin       &lt;chr&gt; &quot;NaN&quot;, &quot;C85&quot;, &quot;C123&quot;, &quot;NaN&quot;, &quot;NaN&quot;, &quot;NaN&quot;, &quot;G6&quot;, &quot;C103&quot;, …
+## $ Embarked    &lt;chr&gt; &quot;S&quot;, &quot;C&quot;, &quot;S&quot;, &quot;S&quot;, &quot;S&quot;, &quot;C&quot;, &quot;S&quot;, &quot;S&quot;, &quot;S&quot;, &quot;S&quot;, &quot;S&quot;, &quot;S…</code></pre>
+<pre class="r"><code>titanic_recipe &lt;- titanic_split %&gt;% 
+  training() %&gt;% 
+  recipe((Survived ~.)) %&gt;% 
+  step_unknown(Cabin ,Embarked          ) %&gt;% 
+  step_meanimpute(Age) %&gt;% 
+  prep()
+
+titanic_training &lt;- juice(titanic_recipe)
+glimpse(titanic_training) </code></pre>
+<pre><code>## Observations: 624
+## Variables: 12
+## $ PassengerId &lt;dbl&gt; 1, 2, 4, 5, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20…
+## $ Pclass      &lt;dbl&gt; 3, 1, 1, 3, 3, 2, 3, 1, 3, 3, 3, 2, 3, 2, 3, 3, 2, 2, 3, …
+## $ Name        &lt;fct&gt; &quot;Braund, Mr. Owen Harris&quot;, &quot;Cumings, Mrs. John Bradley (F…
+## $ Sex         &lt;fct&gt; male, female, female, male, female, female, female, femal…
+## $ Age         &lt;dbl&gt; 22.00000, 38.00000, 35.00000, 35.00000, 27.00000, 14.0000…
+## $ SibSp       &lt;dbl&gt; 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 4, 0, 1, 0, 0, 0, 0, …
+## $ Parch       &lt;dbl&gt; 0, 0, 0, 0, 2, 0, 1, 0, 0, 5, 0, 0, 1, 0, 0, 0, 0, 0, 0, …
+## $ Ticket      &lt;fct&gt; A/5 21171, PC 17599, 113803, 373450, 347742, 237736, PP 9…
+## $ Fare        &lt;dbl&gt; 7.2500, 71.2833, 53.1000, 8.0500, 11.1333, 30.0708, 16.70…
+## $ Cabin       &lt;fct&gt; NaN, C85, C123, NaN, NaN, NaN, G6, C103, NaN, NaN, NaN, N…
+## $ Embarked    &lt;fct&gt; S, C, S, S, S, C, S, S, S, S, S, S, Q, S, S, C, S, S, Q, …
+## $ Survived    &lt;fct&gt; 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, …</code></pre>
+<pre class="r"><code>rf &lt;- rand_forest(trees = 100, mode = &#39;classification&#39;) %&gt;% set_engine(&#39;ranger&#39;) %&gt;% 
+  fit(Survived ~. , data = titanic_training)</code></pre>
+<p>The lime package for R does not aim to be a line-by-line port of its Python counterpart. I</p>
+<pre class="r"><code>explainer_rf  &lt;- lime(titanic_training,rf,n_bins = 10)
+summary(explainer_rf)</code></pre>
+<pre><code>##                      Length Class   Mode     
+## model                 5     _ranger list     
+## preprocess            1     -none-  function 
+## bin_continuous        1     -none-  logical  
+## n_bins                1     -none-  numeric  
+## quantile_bins         1     -none-  logical  
+## use_density           1     -none-  logical  
+## feature_type         12     -none-  character
+## bin_cuts             12     -none-  list     
+## feature_distribution 12     -none-  list</code></pre>
+<pre class="r"><code>objs &lt;- titanic_training[1:5,]</code></pre>
+<pre class="r"><code>explanation_rf &lt;- explain(
+  x = objs, 
+  explainer = explainer_rf, 
+  n_permutations = 5000,
+  dist_fun = &quot;gower&quot;,
+  kernel_width = .75,
+  n_features = 10, 
+  feature_select = &quot;highest_weights&quot;,
+  n_labels = 2,
+  )
+  
+  
+plot_features(explanation_rf)</code></pre>
+<p><img src="/post/2019-11-07-contrastive-explanations/index_files/figure-html/unnamed-chunk-24-1.png" width="1920" /></p>
+<p><a href="https://uc-r.github.io/lime" class="uri">https://uc-r.github.io/lime</a>
+<a href="https://cran.r-project.org/web/packages/lime/vignettes/Understanding_lime.html" class="uri">https://cran.r-project.org/web/packages/lime/vignettes/Understanding_lime.html</a></p>
