@@ -264,6 +264,7 @@ import shap&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;references-and-further-readings&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;References and further readings&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.kaylinpavlik.com/classifying-songs-genres/&#34; class=&#34;uri&#34;&gt;https://www.kaylinpavlik.com/classifying-songs-genres/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://konradsemsch.netlify.com/2019/10/testing-the-tune-package-from-tidymodels-analysing-the-relationship-between-the-upsampling-ratio-and-model-performance/&#34; class=&#34;uri&#34;&gt;https://konradsemsch.netlify.com/2019/10/testing-the-tune-package-from-tidymodels-analysing-the-relationship-between-the-upsampling-ratio-and-model-performance/&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -576,8 +577,9 @@ library(reticulate)
 library(ggrepel)
 
 theme_update(legend.position = &amp;#39;top&amp;#39;,
-      legend.text   = element_text(size = 24),
-      plot.title = element_text(family = &amp;#39;Montserrat&amp;#39;, face = &amp;quot;bold&amp;quot;, size = 50,hjust = 0.5, color = &amp;#39;#FFE66D&amp;#39;),
+      legend.text   = element_text(size = 24,color = &amp;#39;gray75&amp;#39; ),
+      legend.key = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+      plot.title = element_text(family = &amp;#39;Montserrat&amp;#39;, face = &amp;quot;bold&amp;quot;, size = 60,hjust = 0.5,vjust = 0.5,color = &amp;#39;#FFE66D&amp;#39;,margin = ggplot2::margin(40,0,0,0)),
       plot.subtitle = element_text(
       family = &amp;#39;Montserrat&amp;#39;, size = 30, hjust = 0.5),
       strip.background = element_blank(),
@@ -684,7 +686,7 @@ For the sake of simplicity, I did not change the default values for these hyper-
   scale_color_manual(values = c(&amp;#39;#5BC0EB&amp;#39;,&amp;#39;#FDE74C&amp;#39;,&amp;#39;#7FB800&amp;#39;,&amp;#39;#E55934&amp;#39;,&amp;#39;#FA7921&amp;#39;,&amp;#39;#1A936F&amp;#39; ,&amp;#39;#F0A6CA&amp;#39;,&amp;#39;#B8BEDD&amp;#39;))+
   guides(size = FALSE,
     color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
-    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 6, family = &amp;#39;Montserrat&amp;#39;,
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 7, family = &amp;#39;Montserrat&amp;#39;,
     point.padding = 2.2,
     box.padding = .5,
     force = 1,
@@ -695,7 +697,7 @@ For the sake of simplicity, I did not change the default values for these hyper-
        color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## label_key: selected_artist&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Too many data points, skip labeling&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;embeddings %&amp;gt;%
   ggplot(aes(x = umap_1, y = umap_2 ,color = selected_artist )) +
   geom_point(aes(size = point_size_selected_artist)) +
@@ -703,7 +705,7 @@ For the sake of simplicity, I did not change the default values for these hyper-
   scale_color_manual(values = c(&amp;#39;#5BC0EB&amp;#39;,&amp;#39;#FDE74C&amp;#39;,&amp;#39;#7FB800&amp;#39;,&amp;#39;#E55934&amp;#39;,&amp;#39;#FA7921&amp;#39;,&amp;#39;#1A936F&amp;#39; ,&amp;#39;#F0A6CA&amp;#39;,&amp;#39;#B8BEDD&amp;#39;))+
   guides(size = FALSE,
     color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
-    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 6, family = &amp;#39;Montserrat&amp;#39;,
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 7, family = &amp;#39;Montserrat&amp;#39;,
     point.padding = 2.2,
     box.padding = .5,
     force = 1,
@@ -721,6 +723,62 @@ For the most part both t-SNE and UMAP place songs from the same artists or simil
 &lt;div id=&#34;supervised-umap&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Supervised UMAP&lt;/h2&gt;
 &lt;p&gt;UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a &lt;a href=&#34;https://umap-learn.readthedocs.io/en/latest/supervised.html&#34;&gt;supervised algorithm&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;supervised_umap_embedding_df &amp;lt;- 
+  spotify_songs %&amp;gt;% 
+  select(-c(12:22)) %&amp;gt;% 
+  bind_cols(supervised_umap_embedding %&amp;gt;% as_tibble()) %&amp;gt;% 
+  dplyr::rename(umap_1 = V1, umap_2 = V2) %&amp;gt;% 
+  mutate(
+    selected_artist = if_else( track_artist %in% selected_artists, as.character(track_artist), &amp;quot;&amp;quot;),
+    point_size_selected_artist = if_else(track_artist %in% selected_artists, 0.5, 0.1),
+    track_name_selected_artist = if_else(track_artist %in% selected_artists, track_name, NULL),
+    genre_selected_artist = if_else(track_artist %in% selected_artists,playlist_genre, NULL),
+    popular_tracks_selected_artist = if_else(
+      track_artist %in% selected_artists &amp;amp; track_popularity &amp;gt; 70,shorter_names, NULL )) %&amp;gt;%
+  distinct(track_name, .keep_all = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;supervised_umap_embedding_df %&amp;gt;%
+  ggplot(aes(x = umap_1, y = umap_2 ,color = selected_artist )) +
+  geom_point(aes(size = point_size_selected_artist)) +
+  gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.2, color = &amp;#39;#FFE66D&amp;#39;)) +
+  scale_color_manual(values = c(&amp;#39;#5BC0EB&amp;#39;,&amp;#39;#FDE74C&amp;#39;,&amp;#39;#7FB800&amp;#39;,&amp;#39;#E55934&amp;#39;,&amp;#39;#FA7921&amp;#39;,&amp;#39;#1A936F&amp;#39; ,&amp;#39;#F0A6CA&amp;#39;,&amp;#39;#B8BEDD&amp;#39;))+
+  guides(size = FALSE,
+    color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 7, family = &amp;#39;Montserrat&amp;#39;,
+    point.padding = 2.2,
+    box.padding = .5,
+    force = 1,
+    min.segment.length = 0.1) +
+  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+       title = &amp;#39;The Map of Spotify Songs\n&amp;#39;,
+       subtitle = &amp;#39;Using the Supervised UMAP algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
+       color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Tried to calculate with group_by(), but the calculation failed.
+## Falling back to ungrouped filter operation...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## label_key: selected_artist&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Too many data points, skip labeling&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 249 rows containing missing values (geom_text_repel).&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.&lt;/p&gt;
 &lt;/div&gt;
 </description>

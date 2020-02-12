@@ -14,6 +14,7 @@ summary: ''
 authors: []
 lastmod: '2020-02-11T22:27:18+01:00'
 featured: no
+draft: true
 image:
   caption: ''
   focal_point: ''
@@ -153,3 +154,5 @@ import shap
 ## References and further readings
 
 https://www.kaylinpavlik.com/classifying-songs-genres/
+
+https://konradsemsch.netlify.com/2019/10/testing-the-tune-package-from-tidymodels-analysing-the-relationship-between-the-upsampling-ratio-and-model-performance/

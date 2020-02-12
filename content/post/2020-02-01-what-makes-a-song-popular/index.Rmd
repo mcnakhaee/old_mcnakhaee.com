@@ -70,8 +70,9 @@ library(reticulate)
 library(ggrepel)
 
 theme_update(legend.position = 'top',
-      legend.text   = element_text(size = 24),
-      plot.title = element_text(family = 'Montserrat', face = "bold", size = 50,hjust = 0.5, color = '#FFE66D'),
+      legend.text   = element_text(size = 24,color = 'gray75' ),
+      legend.key = element_rect(fill = "black", color = "black"),
+      plot.title = element_text(family = 'Montserrat', face = "bold", size = 60,hjust = 0.5,vjust = 0.5,color = '#FFE66D',margin = ggplot2::margin(40,0,0,0)),
       plot.subtitle = element_text(
       family = 'Montserrat', size = 30, hjust = 0.5),
       strip.background = element_blank(),
@@ -207,7 +208,7 @@ head(embeddings)
 Finally, it was time to plot the results of both the t-SNE and UMAP embeddings using ``ggplot`` and [``gghighlight``](https://github.com/yutannihilation/gghighlight) libraries. First I visualize the embeddings for t-SNE.
 
 
-```{r eval=TRUE, fig.height=30, fig.width=30, warning=FALSE, include=TRUE}
+```{r eval=TRUE, fig.height=35, fig.width=35, warning=FALSE, include=TRUE}
 embeddings %>%
   ggplot(aes(x = tsne_1, y = tsne_2 ,color = selected_artist )) +
   geom_point(aes(size = point_size_selected_artist)) +
@@ -215,7 +216,7 @@ embeddings %>%
   scale_color_manual(values = c('#5BC0EB','#FDE74C','#7FB800','#E55934','#FA7921','#1A936F' ,'#F0A6CA','#B8BEDD'))+
   guides(size = FALSE,
     color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
-    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 6, family = 'Montserrat',
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 7, family = 'Montserrat',
     point.padding = 2.2,
     box.padding = .5,
     force = 1,
@@ -224,7 +225,6 @@ embeddings %>%
        title = 'The Map of Spotify Songs\n',
        subtitle = 'Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n',
        color = '') 
-
 ```
 
 
@@ -236,7 +236,7 @@ embeddings %>%
   scale_color_manual(values = c('#5BC0EB','#FDE74C','#7FB800','#E55934','#FA7921','#1A936F' ,'#F0A6CA','#B8BEDD'))+
   guides(size = FALSE,
     color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
-    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 6, family = 'Montserrat',
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 7, family = 'Montserrat',
     point.padding = 2.2,
     box.padding = .5,
     force = 1,
@@ -258,15 +258,13 @@ supervised_umap_embedding <- uwot::umap(audio_feature,y = normalized_features$pl
 ```
 
 
-
-
 ## Supervised UMAP
 
 UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a [supervised algorithm](https://umap-learn.readthedocs.io/en/latest/supervised.html).
 
 
-```{r eval=FALSE, include=FALSE}
-supervised_umap_embedding_ds <- 
+```{r eval=FALSE, warning=FALSE, include=TRUE}
+supervised_umap_embedding_df <- 
   spotify_songs %>% 
   select(-c(12:22)) %>% 
   bind_cols(supervised_umap_embedding %>% as_tibble()) %>% 
@@ -281,22 +279,29 @@ supervised_umap_embedding_ds <-
   distinct(track_name, .keep_all = TRUE)
 ```
 
-```{r eval=FALSE, fig.height=35, fig.width=35, include=FALSE}
-supervised_umap_embedding_ds %>%
+```{r warning=FALSE, include=FALSE}
+#supervised_umap_embedding_df %>% write_csv('supervised_umap_embedding_df.csv')
+
+supervised_umap_embedding_df <- read_csv('supervised_umap_embedding_df.csv')
+```
+
+
+```{r eval=TRUE, fig.height=35, fig.width=35, include=TRUE}
+supervised_umap_embedding_df %>%
   ggplot(aes(x = umap_1, y = umap_2 ,color = selected_artist )) +
   geom_point(aes(size = point_size_selected_artist)) +
   gghighlight(selected_artist != "",unhighlighted_params = list(alpha = 0.2, color = '#FFE66D')) +
   scale_color_manual(values = c('#5BC0EB','#FDE74C','#7FB800','#E55934','#FA7921','#1A936F' ,'#F0A6CA','#B8BEDD'))+
   guides(size = FALSE,
     color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
-    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 6, family = 'Montserrat',
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 7, family = 'Montserrat',
     point.padding = 2.2,
     box.padding = .5,
     force = 1,
     min.segment.length = 0.1) +
   labs(x = "", y = "" ,
        title = 'The Map of Spotify Songs\n',
-       subtitle = 'Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n',
+       subtitle = 'Using the Supervised UMAP algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n',
        color = '') 
 ```
 
