@@ -116,7 +116,7 @@ asRules(tree)
 Decision trees are highly scalable and powerful algorithms. But a decision tree is a  greedy algorithm. For instance, the split at each node in a decision tree is determined by a greedy process.  It means that the decision tree does not find an optimal solution and therefore, the optimal rule lists.
 
 
-
+# How to bin 
 
 
 ```{r}
@@ -215,3 +215,7 @@ tree
 
 ```
 
+
+Refrences
+
+https://shiring.github.io/machine_learning/2017/04/23/one_r
