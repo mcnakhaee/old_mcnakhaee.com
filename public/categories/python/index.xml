@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python | Muhammad Chenariyan Nakhaee</title>
+    <link>/categories/python/</link>
+      <atom:link href="/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <description>Python</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 08 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>Python</title>
+      <link>/categories/python/</link>
+    </image>
+    
+    <item>
+      <title>Going Back to the Roots! How Much Influence Did Arabic Have on Persian Literature?</title>
+      <link>/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/</guid>
+      <description>
+
+
+&lt;p&gt;Since the &lt;a href=&#34;https://en.wikipedia.org/wiki/Muslim_conquest_of_Persia&#34;&gt;conquest of Persia (now Iran) by the Muslim forces in the 7th century&lt;/a&gt;, Arabic culture and language have had a huge influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its main language, but the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost use the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language.
+Over the past 100 years, a very few (narrowly-minded and mostly racist) scholars have tried to erase Arabic words from the Persian literature. Since I was a kid I have always wanted to I put my data science skills and tools to&lt;/p&gt;
+&lt;p&gt;I decided to start a small project and determine how much influence Arabic has had on the Persian Lieterature and poetry over time. To put it simply, my goal is to look at every word used in poems ad determind wether it comes from Arabic or it is originally a Persian word. Then I count the occurance of each of them and compute their ratio.&lt;/p&gt;
+&lt;p&gt;However, this is not an easy task for several reasons. Although determing the origin of a word is not difficult for a well-educated person, there are millions of words in Persian literary works.So, labaling each word manually is not feasible and I tried smarter ways (but less accurate ). Similar to many other languages, Persian poems are different from daily written or spoken Persian and therefore common NLP methods are not as effective as before.&lt;/p&gt;
+&lt;p&gt;Ideally, we need a complete dataset of word with Araabic roots that are used in Persian to solve this task. But this dataset does not exist and I must use other approaches:
+1. There are a number of rules and exceptions that can be used to distinguish Persian words from Arabic words. For example, unlike Persian, Arabic does not have four letters representing “p”, “j” such as Japan, “g” such as game and “ch” in its alphabet. It means that any word that consists of one of these letters it is definitely a non-Arabic word. On the other hand, we do not have any letter in the Persian alphabet for representing the ‘th’ letter (and a few other letters) in Arabic. Therefore, words that consist of these letters are likely to be Arabic words.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;# fa --&amp;gt; Farsi (Persian)
+# ar ---&amp;gt; Arabic
+# un ----&amp;gt; Unkown
+def arabic_word(word):
+    if &amp;#39;ث&amp;#39; in word:
+        return &amp;#39;ar&amp;#39;
+    elif &amp;#39;ح&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    elif &amp;#39;ص&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    if &amp;#39;ض&amp;#39; in word:
+        return &amp;#39;ar&amp;#39;
+    elif &amp;#39;ظ&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    elif &amp;#39;ع&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    elif &amp;#39;ط&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    elif &amp;#39;ق&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    elif &amp;#39;ژ&amp;#39; in word:
+        return &amp;#39;fa&amp;#39;
+    elif &amp;#39;گ&amp;#39; in word:
+        return &amp;#39;fa&amp;#39; 
+    elif &amp;#39;چ&amp;#39; in word:
+        return &amp;#39;fa&amp;#39; 
+    elif &amp;#39;پ&amp;#39; in word:
+        return &amp;#39;fa&amp;#39; 
+    else:
+        return &amp;#39;un&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Unfortunately, the rules mentioned above are not comprehensive and the origin of many words cannot be determined by them. So,I turned to the python port of the popular &lt;a href=&#34;https://github.com/Mimino666/langdetect&#34;&gt;&lt;code&gt;Langdetect&lt;/code&gt;&lt;/a&gt; library for help. Here, if the origin of a word can not be determined by the above rules, I will ask this library to identify the language. I should mention that langdetect can be sometimes wrong so the final results might not be 100% accurate.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from langdetect import detect
+x = &amp;#39;from langdetect import detect&amp;#39;
+# The word for &amp;quot;people&amp;quot; in Persian
+print(detect(&amp;quot;مردم&amp;quot;))
+# A word used both in Arabic and also Persian&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## fa&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;print(detect(&amp;quot;عقل&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ar&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;x&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;from langdetect import detect&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I must also mention that I performed a few preprocessing steps such as removing stopwords on the poetry corpus. A few other operations such as stemming could have been performed but my initial assessment was that they might not significantly change the final results.
+After preprocessing, I stored all the information about the ratio of Arabic and Persian words for each poet in a separate dataset.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lang_ratio_df &amp;lt;- read_csv(&amp;#39;lang_ratio_df.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   poet = col_character(),
+##   century = col_double(),
+##   ar = col_double(),
+##   fa = col_double(),
+##   ratio = col_double(),
+##   period = col_character()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(lang_ratio_df)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 6
+##   poet               century    ar    fa ratio period         
+##   &amp;lt;chr&amp;gt;                &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;          
+## 1 Abusaeid Abolkheir       5  3014  8277 0.364 Khorasani Style
+## 2 Ahmad Shamlou           14  8232 28862 0.285 Contemporary   
+## 3 Akhavan-Sales           14  3338 14937 0.223 Contemporary   
+## 4 Amir Khusrow             8 10582 41997 0.252 Iraqi Style    
+## 5 Anvari                   6 29430 67188 0.438 Iraqi Style    
+## 6 Artimani                10  2616  7706 0.339 Indian Style&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I visualized the ratio of words for each poet using the &lt;code&gt;ggplot&lt;/code&gt; library in R.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; lang_ratio_df %&amp;gt;%
+    mutate(
+    poet = fct_reorder(poet, ratio),
+
+    period = factor(
+      period,
+      levels = c(&amp;#39;Khorasani Style&amp;#39;,&amp;#39;Iraqi Style&amp;#39;,&amp;#39;Indian Style&amp;#39;,&amp;#39;Contemporary&amp;#39; )
+    )) %&amp;gt;% 
+  ggplot(aes(x = poet, y = ratio , color = period)) +
+  geom_point(size = 4) +
+  geom_segment(aes(
+    y = 0, yend = ratio, x = poet, xend = poet), size = 1) +
+  geom_text(
+    aes(x = poet,  y = ratio,label = scales::percent(ratio)), size = 5, nudge_y = .2,family = &amp;#39;Montserrat&amp;#39;) +
+  labs( x = &amp;#39;&amp;#39;, y = &amp;#39;&amp;#39;, title = &amp;#39;The Estimated Ratio of Arabic Words Used by Famous Persion Poets&amp;#39;) +
+  scale_color_tableau() +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  coord_flip() +
+  facet_wrap( ~ period, scales = &amp;quot;free_y&amp;quot;, ncol = 2) +
+  theme_tufte() +
+  theme(
+    text = element_text(family = &amp;#39;Montserrat&amp;#39;),
+    legend.title =  element_text(size = 20),
+    axis.ticks.x = element_blank(),
+    legend.text = element_text(
+      size = 15,
+    margin = ggplot2::margin(0, 20, 0, 0)),
+    plot.title = element_text(
+      face = &amp;quot;bold&amp;quot;,
+      color = &amp;#39;gray&amp;#39;,
+      size = 22,
+      margin = ggplot2::margin(0, 20, 20, 0),
+      hjust = 0.5,
+      vjust = 0.5),
+        strip.text = element_text(
+      color = &amp;#39;gray80&amp;#39;,
+      size = 18 ,
+      margin = ggplot2::margin(1, 0, 1, 0)),
+    legend.position = &amp;#39;none&amp;#39;,
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_text(size = 12, color = &amp;#39;gray&amp;#39;),
+    plot.background = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+    panel.background = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+    panel.border = element_rect(fill = NA, color = NA))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As you can see above, every poet used at least a sizable number of Arabic words in his/her work. Most notably, Ferdowsi who wrote &lt;a href=&#34;https://en.wikipedia.org/wiki/Shahnameh&#34;&gt;Shahname (the Book of Kings)&lt;/a&gt;, which recount the myths and legends of Persian Kings and Heroes and is the oldest piece of poetry analyzed in my experiment also includes a considerable number of Arabic words. Other top Persian poets such as &lt;a href=&#34;https://en.wikipedia.org/wiki/Hafez&#34;&gt;Hafez&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Saadi_Shirazi&#34;&gt;Saadi&lt;/a&gt; and &lt;a href=&#34;https://en.wikipedia.org/wiki/Rumis&#34;&gt;Rumi&lt;/a&gt; used Arabic words in almost 40%-50% of their works.&lt;/p&gt;
+&lt;p&gt;Nothing better can show this than the following plot which made by the &lt;a href=&#34;https://emilhvitfeldt.github.io/ggpage/&#34;&gt;&lt;code&gt;ggpage&lt;/code&gt;&lt;/a&gt; package in R. The plot shows the distribution of words and their origins for several top Persian poets. Note that in this plot I used a only random subset of words from the works of each poet and not their whole works of poetry.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sample_poets_df &amp;lt;- read_csv(&amp;#39;sample_poets.csv&amp;#39;)
+head(sample_poets_df)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 4
+##   word  lang  poet   century
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;
+## 1 بام   fa    Rudaki       3
+## 2 اشک   fa    Rudaki       3
+## 3 غم    ar    Rudaki       3
+## 4 همي   fa    Rudaki       3
+## 5 برم   fa    Rudaki       3
+## 6 نهاني fa    Rudaki       3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggpage_df %&amp;gt;%
+  mutate(poet = fct_reorder(poet, century)) %&amp;gt;%
+  ggpage_plot(aes(fill = lang)) +
+  
+  labs(title = &amp;#39;Distribution of Persian and Arabic Words Used by Top Persian Poets&amp;#39;, fill = &amp;#39;&amp;#39;) +
+  scale_fill_manual(values = plotcolors,
+                    guide = &amp;#39;legend&amp;#39; ,
+                    labels = c(&amp;#39;Arabic&amp;#39;,&amp;#39;Persian&amp;#39;)) +
+  
+  facet_wrap(~ poet, nrow = 3) +
+  theme(
+    strip.text = element_text(
+      size = 15,
+      face = &amp;quot;bold&amp;quot;,
+      margin = ggplot2::margin(1, 1, 1, 1, &amp;quot;cm&amp;quot;),
+      color = &amp;#39;white&amp;#39;
+    ),
+        text = element_text(family = &amp;#39;Montserrat&amp;#39;),
+
+    legend.position = &amp;#39;top&amp;#39;,
+    legend.text = element_text(
+      size = 15,
+      margin = ggplot2::margin(10, 10, 10, 10)
+    ),
+    panel.spacing = unit(1, &amp;quot;points&amp;quot;),
+    plot.title = element_text(
+      face = &amp;quot;bold&amp;quot;,
+      size = 22,
+      margin = ggplot2::margin(30, 0, 30, 0),
+      hjust = 0.5
+    ),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    strip.background = element_rect(fill = &amp;#39;#000F2B&amp;#39;),
+    panel.border = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.y = element_blank(),
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;How Much Influence Did Arabic Have on Persian Literature has been one of my questions since I started to read and study literature. Nobody had been able to answer this question and I could not have answered it without the help of data science.&lt;/p&gt;
+&lt;p&gt;My analysis shows that the Arabic language has contributed significantly to our literature and culture. In fact, the golden era of Persian poetry can be seen as a result of its integration with Arabic. Persian also made its contribution to the Arabic language and Arabic poetry. So, talking about erasing one language from the other is not helpful or wise and I hope everyone realizes that.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

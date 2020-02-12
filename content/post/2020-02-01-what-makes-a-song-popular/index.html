@@ -1,0 +1,283 @@
+---
+title: The Map of Spotify Songs
+author: Muhammad Chenariyan Nakhaee
+date: '2020-02-01'
+slug: []
+categories:
+  - R
+  - XAI
+tags:
+  - R
+  - XAI
+  - Visualization
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-02-01T17:12:06+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<p>In the <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md">4th week of the Tidy Tuesday project</a>, a very interesting and fun dataset was proposed to the data science community. The dataset contains information about thousands of songs on Spotify’s platform and along with their metadata and audio features. You can download the dataset can using the following piece of code.</p>
+<p><a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md">4th week of the Tidy Tuesday project</a></p>
+<pre class="r"><code>spotify_songs &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;)
+head(spotify_songs)</code></pre>
+<pre><code>## # A tibble: 6 x 23
+##   track_id track_name track_artist track_popularity track_album_id
+##   &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;         
+## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
+## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
+## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
+## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
+## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
+## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
+## # ... with 18 more variables: track_album_name &lt;chr&gt;,
+## #   track_album_release_date &lt;chr&gt;, playlist_name &lt;chr&gt;, playlist_id &lt;chr&gt;,
+## #   playlist_genre &lt;chr&gt;, playlist_subgenre &lt;chr&gt;, danceability &lt;dbl&gt;,
+## #   energy &lt;dbl&gt;, key &lt;dbl&gt;, loudness &lt;dbl&gt;, mode &lt;dbl&gt;, speechiness &lt;dbl&gt;,
+## #   acousticness &lt;dbl&gt;, instrumentalness &lt;dbl&gt;, liveness &lt;dbl&gt;, valence &lt;dbl&gt;,
+## #   tempo &lt;dbl&gt;, duration_ms &lt;dbl&gt;</code></pre>
+<p>For this week’s tidy Tuesday, I decided to use a rather different approach from my previous submission. Instead of focusing entirely on the visualization aspect of my submission, I tried to use other tools from tidy model universe for machine learning model development.</p>
+<p>Each song has around 12 columns representing audio features. The Github’s page for this dataset describes these features as follows:</p>
+<table>
+<colgroup>
+<col width="19%" />
+<col width="7%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>variable</th>
+<th>class</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>danceability</td>
+<td>double</td>
+<td>Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.</td>
+</tr>
+<tr class="even">
+<td>energy</td>
+<td>double</td>
+<td>Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.</td>
+</tr>
+<tr class="odd">
+<td>key</td>
+<td>double</td>
+<td>The estimated overall key of the track. Integers map to pitches using standard Pitch Class notation . E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.</td>
+</tr>
+<tr class="even">
+<td>loudness</td>
+<td>double</td>
+<td>The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.</td>
+</tr>
+<tr class="odd">
+<td>mode</td>
+<td>double</td>
+<td>Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.</td>
+</tr>
+<tr class="even">
+<td>speechiness</td>
+<td>double</td>
+<td>Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.</td>
+</tr>
+<tr class="odd">
+<td>acousticness</td>
+<td>double</td>
+<td>A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.</td>
+</tr>
+<tr class="even">
+<td>instrumentalness</td>
+<td>double</td>
+<td>Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.</td>
+</tr>
+<tr class="odd">
+<td>liveness</td>
+<td>double</td>
+<td>Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.</td>
+</tr>
+<tr class="even">
+<td>valence</td>
+<td>double</td>
+<td>A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).</td>
+</tr>
+<tr class="odd">
+<td>tempo</td>
+<td>double</td>
+<td>The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.</td>
+</tr>
+<tr class="even">
+<td>duration_ms</td>
+<td>double</td>
+<td>Duration of song in milliseconds</td>
+</tr>
+</tbody>
+</table>
+<p>It would be very helpful to compare songs based on the combination of their audio features. However, It is not possible to plot all these features at the same time on a 2 or 3 dimensional space.</p>
+<p>For this reason, I tried to use unsupervised machine learning for the purpose of visualizing songs on a 2D space by transforming their high-dimensional audio features into a more compressed form.</p>
+<pre class="r"><code>library(tidyverse)
+library(tidymodels)
+library(workflows)
+library(gghighlight)
+library(hrbrthemes)
+library(ggthemes)
+library(lubridate)
+library(reticulate)
+library(ggrepel)
+
+theme_update(legend.position = &#39;top&#39;,
+      legend.text   = element_text(size = 24),
+      plot.title = element_text(family = &#39;Montserrat&#39;, face = &quot;bold&quot;, size = 50,hjust = 0.5, color = &#39;#FFE66D&#39;),
+      plot.subtitle = element_text(
+      family = &#39;Montserrat&#39;, size = 30, hjust = 0.5),
+      strip.background = element_blank(),
+      plot.background = element_rect(fill = &quot;black&quot;, color = &quot;black&quot;),
+      panel.background = element_rect(fill = &quot;black&quot;, color = &quot;black&quot;),
+      panel.grid.major.x =element_blank(),
+      panel.grid.major.y =element_blank(),
+      panel.grid.minor =element_blank(),
+      axis.text.x.bottom  = element_blank(),
+      axis.ticks.x = element_blank(), 
+      axis.ticks.y = element_blank(),
+      axis.text.x = element_blank(),
+      axis.text.y.left = element_blank()) </code></pre>
+<div id="dimensionality-reduction-and-umap" class="section level2">
+<h2>Dimensionality Reduction and UMAP</h2>
+<p>My initial idea was to use clustering algorithms to cluster songs based on their audio feature and find songs that are similar to each other. Yet, it was difficult to visualize these clusters in a two dimensional space. Of course you can do that by using hierarchal clustering but even then visualizing a few thousands samples (songs) can not be done easily. So, I decided to to use other unsupervised techniques to compress the high-dimensional audio features and transform them into a 2D space. One main purpose of the UMAP algorithm is to give us a compressed representation of the input data for visualization with the least possible information loss.</p>
+<p>There are a number of dimensionality reduction algorithms such as PCA, t-SNE UMAP. PCA is a linear dimensionality reduction method while both t-SNE and UMAP are non-linear methods. In this post I will use UMAP and t-SNE algorithms.</p>
+<div id="data-preprocessing" class="section level3">
+<h3>Data Preprocessing</h3>
+<p>The songs’ track names in this dataset are too long. Just for the purpose of the final visualization, the first thing that I did was to make the track names shorter by using both python and R.</p>
+<pre class="r"><code>spotify_songs &lt;- spotify_songs %&gt;%  
+  dplyr::rowwise() %&gt;% 
+  mutate(shorter_names = unlist(str_split(track_name,&#39;-&#39;))[1]) </code></pre>
+<p>Note that both UMAP and T-SNE compute the distance between samples and this distance should be meaningful and reasonable. It is necessary to normalize input features before implementing a them, otherwise some features might have higher influence than other features on the computation of distance between samples.</p>
+<p>I created a data preprocessing recipe using the <code>recipe</code> package and I added a normalization step to scale only the audio features.</p>
+<p>Since I implement an unsupervised algorithm, there is no need to split the dataset into a training and testing dataset.</p>
+<pre class="r"><code>normalized_features &lt;- spotify_songs %&gt;%
+  recipe() %&gt;% 
+  step_normalize( danceability,
+    energy,
+    key,
+    loudness,
+    mode,
+    speechiness,
+    acousticness,
+    instrumentalness,
+    liveness,
+    valence,
+    tempo,
+    duration_ms) %&gt;% 
+  prep() %&gt;% 
+  juice()
+
+head(normalized_features)</code></pre>
+<pre><code>## # A tibble: 6 x 24
+##   track_id track_name track_artist track_popularity track_album_id
+##   &lt;fct&gt;    &lt;fct&gt;      &lt;fct&gt;                   &lt;dbl&gt; &lt;fct&gt;         
+## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
+## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
+## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
+## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
+## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
+## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
+## # ... with 19 more variables: track_album_name &lt;fct&gt;,
+## #   track_album_release_date &lt;fct&gt;, playlist_name &lt;fct&gt;, playlist_id &lt;fct&gt;,
+## #   playlist_genre &lt;fct&gt;, playlist_subgenre &lt;fct&gt;, danceability &lt;dbl&gt;,
+## #   energy &lt;dbl&gt;, key &lt;dbl&gt;, loudness &lt;dbl&gt;, mode &lt;dbl&gt;, speechiness &lt;dbl&gt;,
+## #   acousticness &lt;dbl&gt;, instrumentalness &lt;dbl&gt;, liveness &lt;dbl&gt;, valence &lt;dbl&gt;,
+## #   tempo &lt;dbl&gt;, duration_ms &lt;dbl&gt;, shorter_names &lt;fct&gt;</code></pre>
+<p>Both UMAP and T-SNE have several hyper-parameters that can influence the resulting embedding output.
+For the sake of simplicity, I did not change the default values for these hyper-parameters.</p>
+<p>Just like t-SNE, UMAP is a dimensionality reduction algorithm but it is much more computationally efficient and faster that t-SNE. The UMAP algorithm was <a href="https://github.com/lmcinnes/umap">originally implemented in Python</a>. But there are also several libraries in R such as <a href="https://github.com/ropenscilabs/umapr">umapr</a>, <a href="https://cran.r-project.org/web/packages/umap/vignettes/umap.html">umap</a> and <a href="https://github.com/jlmelville/uwot">uwot</a> that also provide an implementation of the UMAP algorithm. <a href="https://github.com/ropenscilabs/umapr"><code>umapr</code></a> and <a href="https://cran.r-project.org/web/packages/umap/vignettes/umap.html"><code>umap</code></a> use the <a href="https://cran.r-project.org/web/packages/reticulate/index.html"><code>reticulate</code></a> package and provide a wrapper function around the original <code>umap-learn</code> python library. Also, <code>umap</code> and <code>uwot</code> library have their own R implementation of the algorithms and they do not require the python package to be installed first. For my experiment, I used the <code>uwot</code> library.</p>
+<p>Now that I had the learned embeddings for both t-SNE and UMAP, it was time to put the side by side.</p>
+<pre class="r"><code>embeddings &lt;- 
+  spotify_songs %&gt;% 
+  select(-c(12:22)) %&gt;% 
+  bind_cols(tsne_embedding$Y %&gt;% as_tibble()) %&gt;% 
+  dplyr::rename(tsne_1 = V1, tsne_2 = V2) %&gt;% 
+  bind_cols(umap_embedding$layout %&gt;% as_tibble() ) %&gt;% 
+  dplyr::rename(umap_1 = V1, umap_2 = V2) </code></pre>
+<p>Even though I managed to transform a high dimensional dataset into a 2D space, still it was very challenging to visualize every song and every artists all at once. So, I just selected a few artists that I have heard their names and I decided to plot thir most popular songs.</p>
+<pre class="r"><code>selected_artists &lt;- c(&#39;Queen&#39;,&#39;Drake&#39;,&#39;Rihanna&#39;,&#39;Taylor Swift&#39;,&#39;Eminem&#39;,&#39;Snoop Dogg&#39;,&#39;Katy Perry&#39;,&#39;The Beatles&#39;)</code></pre>
+<pre class="r"><code>embeddings &lt;- %&gt;% embeddings
+  mutate(
+    selected_artist = if_else( track_artist %in% selected_artists, as.character(track_artist), &quot;&quot;),
+    point_size_selected_artist = if_else(track_artist %in% selected_artists, 0.5, 0.1),
+    track_name_selected_artist = if_else(track_artist %in% selected_artists, track_name, NULL),
+    genre_selected_artist = if_else(track_artist %in% selected_artists,playlist_genre, NULL),
+    popular_tracks_selected_artist = if_else(
+      track_artist %in% selected_artists &amp; track_popularity &gt; 70,shorter_names, NULL )) %&gt;%
+  distinct(track_name, .keep_all = TRUE)</code></pre>
+<pre class="r"><code>head(embeddings)</code></pre>
+<pre><code>## # A tibble: 6 x 22
+##   track_id track_name track_artist track_popularity track_album_id
+##   &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;         
+## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
+## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
+## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
+## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
+## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
+## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
+## # ... with 17 more variables: track_album_name &lt;chr&gt;,
+## #   track_album_release_date &lt;chr&gt;, playlist_name &lt;chr&gt;, playlist_id &lt;chr&gt;,
+## #   playlist_genre &lt;chr&gt;, playlist_subgenre &lt;chr&gt;, duration_ms &lt;dbl&gt;,
+## #   shorter_names &lt;chr&gt;, tsne_1 &lt;dbl&gt;, tsne_2 &lt;dbl&gt;, umap_1 &lt;dbl&gt;,
+## #   umap_2 &lt;dbl&gt;, selected_artist &lt;chr&gt;, point_size_selected_artist &lt;dbl&gt;,
+## #   track_name_selected_artist &lt;chr&gt;, genre_selected_artist &lt;chr&gt;,
+## #   popular_tracks_selected_artist &lt;chr&gt;</code></pre>
+<p>Finally, it was time to plot the results of both the t-SNE and UMAP embeddings using <code>ggplot</code> and <a href="https://github.com/yutannihilation/gghighlight"><code>gghighlight</code></a> libraries. First I visualize the embeddings for t-SNE.</p>
+<pre class="r"><code>embeddings %&gt;%
+  ggplot(aes(x = tsne_1, y = tsne_2 ,color = selected_artist )) +
+  geom_point(aes(size = point_size_selected_artist)) +
+  gghighlight(selected_artist != &quot;&quot;,unhighlighted_params = list(alpha = 0.2, color = &#39;#FFE66D&#39;)) +
+  scale_color_manual(values = c(&#39;#5BC0EB&#39;,&#39;#FDE74C&#39;,&#39;#7FB800&#39;,&#39;#E55934&#39;,&#39;#FA7921&#39;,&#39;#1A936F&#39; ,&#39;#F0A6CA&#39;,&#39;#B8BEDD&#39;))+
+  guides(size = FALSE,
+    color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 6, family = &#39;Montserrat&#39;,
+    point.padding = 2.2,
+    box.padding = .5,
+    force = 1,
+    min.segment.length = 0.1) +
+  labs(x = &quot;&quot;, y = &quot;&quot; ,
+       title = &#39;The Map of Spotify Songs\n&#39;,
+       subtitle = &#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&#39;,
+       color = &#39;&#39;) </code></pre>
+<pre><code>## label_key: selected_artist</code></pre>
+<pre><code>## Too many data points, skip labeling</code></pre>
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-14-1.png" width="2880" /></p>
+<pre class="r"><code>embeddings %&gt;%
+  ggplot(aes(x = umap_1, y = umap_2 ,color = selected_artist )) +
+  geom_point(aes(size = point_size_selected_artist)) +
+  gghighlight(selected_artist != &quot;&quot;,unhighlighted_params = list(alpha = 0.2, color = &#39;#FFE66D&#39;)) +
+  scale_color_manual(values = c(&#39;#5BC0EB&#39;,&#39;#FDE74C&#39;,&#39;#7FB800&#39;,&#39;#E55934&#39;,&#39;#FA7921&#39;,&#39;#1A936F&#39; ,&#39;#F0A6CA&#39;,&#39;#B8BEDD&#39;))+
+  guides(size = FALSE,
+    color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 6, family = &#39;Montserrat&#39;,
+    point.padding = 2.2,
+    box.padding = .5,
+    force = 1,
+    min.segment.length = 0.1) +
+  labs(x = &quot;&quot;, y = &quot;&quot; ,
+       title = &#39;The Map of Spotify Songs\n&#39;,
+       subtitle = &#39;Using the UMAP algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&#39;,
+       color = &#39;&#39;) </code></pre>
+<pre><code>## label_key: selected_artist</code></pre>
+<pre><code>## Too many data points, skip labeling</code></pre>
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-15-1.png" width="3360" />
+For the most part both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embedding is somehow similar to a real map. For instance, the upper part looks like the map of the US. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen.</p>
+</div>
+</div>
+<div id="supervised-umap" class="section level2">
+<h2>Supervised UMAP</h2>
+<p>UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a <a href="https://umap-learn.readthedocs.io/en/latest/supervised.html">supervised algorithm</a>.</p>
+<p>It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.</p>
+</div>

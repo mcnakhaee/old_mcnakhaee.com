@@ -1,0 +1,155 @@
+---
+title: What Makes a Song Popular? an Explainable Machine Learning Approach
+author: Muhammad Chenariyan Nakhaee
+date: '2020-02-11'
+slug: []
+categories:
+  - XAI
+  - R
+tags:
+  - XAI
+  - Python
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-02-11T22:27:18+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r message=FALSE, warning=FALSE}
+
+library(tidyverse)
+library(lubridate)
+library(corrr)
+spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv')
+head(spotify_songs)
+```
+
+Have you ever wondered why some songs from an artist become popular and others become a total failure? As you can see in the following plot even The Beetles had a few not so popular songs. I find it to be an interesting question that can be answered to some extent by machine learning algorithms and explainable machine learning methods. 
+
+```{r message=FALSE, warning=FALSE}
+spotify_songs %>% 
+  filter(track_artist == 'The Beatles',track_popularity>10) %>% 
+  ggplot(aes(x = track_popularity)) +
+  geom_histogram() 
+```
+
+
+In the second part of this post, I will demonstrate how I designed a machine learning workflow for predicting the popularity of songs based on several audio features. Here my goal from developing a machine learning model is not just to predict the popularity of a song but rather to figure out which factors contribute to the popularity or the unpopularity of a song. Therefore, I will use several explainable machine learning methods such as LIME and SHAP to peek inside my trained machine learning models. Having done that, we can better understand what 
+
+
+
+## Machine Learning
+
+### Exploratory data analysis
+
+
+```{r fig.height=8,fig.width=8}
+spotify_songs %>% 
+  select(track_popularity, c(12:23)) %>% 
+  correlate() %>% 
+    network_plot(min_cor = 0.1,color = c('#1a535c','#4ecdc4','#f7fff7','#ff6b6b','#ffe66d')) 
+
+```
+
+
+
+```{r}
+spotify_songs %>% 
+  ggplot(aes(track_popularity)) +
+  geom_histogram(fill = 'indianred') 
+```
+
+
+Local explanations to understand what feature values contribute to the popularity of a particular song.
+Global explanations such as feature importance scores to understand to the popularity of songs.
+
+To use a explainable machine learning methods for this purpose, it is important to obtain a reasonable performance on the prediction task. Otherwise, the result would be unreliable.
+
+```{r eval=FALSE, include=FALSE}
+workflow() %>% 
+  #add_recipe() %>% 
+  add_formula() %>% 
+  add_model()
+
+split <- initial_split(spotify_songs_ds,prop = 0.7)
+trianing_set <- split %>% 
+  training()
+test_set <- split %>% 
+  testing()
+test_set[1,]
+
+rf <- rand_forest(trees = 100, mode = 'regression') %>% 
+  set_engine("ranger") %>% 
+  fit(track_popularity ~. ,data = trianing_set)
+
+library(lime)
+
+explainer <- lime(trianing_set, rf, n_bins = 5)
+
+summary(explainer)
+
+trees()
+step_zv
+```
+```{r eval=FALSE, include=FALSE}
+explanation_caret <- explain(
+  x = test_set[2,], 
+  explainer = explainer, 
+  n_permutations = 5000,
+  dist_fun = "gower",
+  kernel_width = .75,
+  n_features = 10, 
+  feature_select = "highest_weights",
+  labels = "Yes"
+  )
+
+plot_features(explanation_caret)
+```
+
+## Shap
+
+```{r eval=FALSE, include=FALSE}
+devtools::install_github("ModelOriented/shapper")
+```
+
+### Machine Learning
+```{r eval=FALSE, include=FALSE}
+
+spotify_songs_ds <- spotify_songs %>%
+  select(track_popularity,c(12:22)) %>% 
+  head()
+spotify_songs_ds 
+  select(shorter_names,everything(),-track_id,-track_name,-track_album_id,	
+-track_album_name, -track_album_release_date,-playlist_id,) %>% 
+  #mutate(release_year = year(as_date(track_album_release_date) )) %>% 
+  #mutate(release_year = ifelse(!is.na(release_year),
+  #                              release_year,
+  #                              track_album_release_date))
+  distinct(shorter_names,track_artist,.keep_all = TRUE)
+
+head(spotify_songs_ds)
+```
+
+```{r}
+
+#rf <- rand_forest(trees = 100, mode = 'regression') %>% 
+  #set_engine("randomForest") %>% 
+  #fit(Species ~. ,data = iris_training)
+
+```
+
+```{python}
+import lime
+import shap
+```
+
+
+## References and further readings
+
+https://www.kaylinpavlik.com/classifying-songs-genres/

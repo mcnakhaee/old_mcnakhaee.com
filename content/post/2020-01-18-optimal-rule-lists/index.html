@@ -1,0 +1,208 @@
+---
+title: Optimal Rule Lists
+author: Muhammad Chenariyan Nakhaee
+date: '2020-01-18'
+slug: []
+categories:
+  - XAI
+tags:
+  - XAI
+  - Machine Learning
+  - R
+  - Python
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-01-18T18:46:22+01:00'
+featured: no
+draft: TRUE 
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<p>Axiom
+There is an inverse relationship between
+model accuracy and model interpretability.</p>
+<p>This post is heavily inspired by the Decision Rules chapter from the Interpretable Machine Learning book by Christoph Molnar.</p>
+<p>Some machine learning researchers argue that we should pay more attention to interpretable machine learning instead of trying to design methods to explain black box models.
+While reading almost any paper the field of explainable machine learning, you will notice that in that every paper almost always starts by arguing that there is a trade-off between accuracy and interpretability. It means that a more interpretable is less accurate and vice versa and for this reason we need to use more complex and black box models and then design methods to peek into them. However, Cynthia Rudin argues that actually there is no trade-off between these two concepts. On the contrary, interpretability can even help us increase the accuracy of a model becuase with an interpretable algorithm we better understand how the predictive performance of a model can be improved.</p>
+<p>Cynthia Rudin encourages machine learning practitioners and researchers to rather than trying to make black-box algorithms more build and use accurate interpretable machine learning models .
+There are already a number of interpretable machine learning algorithms in the literature.
+Decision trees and linear models are the two most popular classes of interpretable algorithms. Rule learning algorithms also belong to the class of interpretable algorithms. The aim of these algorithms is to learn decision rules from input data.</p>
+<p>Decision rules are expressed as IF-THEN statement.</p>
+<p>If the condition of the IF part holds true, we will make the prediction based on output of the THEN part.</p>
+<p>Decision rules are considered to be probably the most human-understandable prediction model.</p>
+<p>In many ways, decision rules resemble decision trees. In fact, we can write down a decision tree as a set of decision rules.</p>
+<p>Decision trees are highly scalable and powerful algorithms. But a decision tree is a greedy algorithm. For instance, the split at each node in a decision tree is determined by a greedy process. It means that the decision tree does not find an optimal solution and therefore, the optimal rule lists.</p>
+<pre class="r"><code>library(OneR)
+iris_binned &lt;- optbin(iris)
+iris_binned</code></pre>
+<pre><code>##     Sepal.Length Sepal.Width Petal.Length    Petal.Width    Species
+## 1     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 2     (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 3     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 4     (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 5     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 6     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 7     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 8     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 9     (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 10    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 11    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 12    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 13    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 14    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 15   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 16   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 17    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 18    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 19   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 20    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 21    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 22    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 23    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 24    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 25    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 26    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 27    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 28    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 29    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 30    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 31    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 32    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 33    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 34   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 35    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 36    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 37   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 38    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 39    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 40    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 41    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 42    (4.3,5.41]    (2,2.87] (0.994,2.46] (0.0976,0.791]     setosa
+## 43    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 44    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 45    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 46    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 47    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 48    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 49    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 50    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 51    (6.25,7.9]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 52    (6.25,7.9]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 53    (6.25,7.9] (2.87,3.19]  (4.86,6.91]   (0.791,1.63] versicolor
+## 54   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 55    (6.25,7.9]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 56   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 57    (6.25,7.9]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 58    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 59    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 60    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 61    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 62   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 63   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 64   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 65   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 66    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 67   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 68   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 69   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 70   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 71   (5.41,6.25]  (3.19,4.4]  (2.46,4.86]     (1.63,2.5] versicolor
+## 72   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 73    (6.25,7.9]    (2,2.87]  (4.86,6.91]   (0.791,1.63] versicolor
+## 74   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 75    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 76    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 77    (6.25,7.9]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 78    (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5] versicolor
+## 79   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 80   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 81   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 82   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 83   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 84   (5.41,6.25]    (2,2.87]  (4.86,6.91]   (0.791,1.63] versicolor
+## 85    (4.3,5.41] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 86   (5.41,6.25]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 87    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 88    (6.25,7.9]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 89   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 90   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 91   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 92   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 93   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 94    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 95   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 96   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 97   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 98   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 99    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 100  (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 101   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 102  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 103   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 104   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 105   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 106   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 107   (4.3,5.41]    (2,2.87]  (2.46,4.86]     (1.63,2.5]  virginica
+## 108   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 109   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 110   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 111   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 112   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 113   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 114  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 115  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 116   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 117   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 118   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 119   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 120  (5.41,6.25]    (2,2.87]  (4.86,6.91]   (0.791,1.63]  virginica
+## 121   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 122  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 123   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 124   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 125   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 126   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 127  (5.41,6.25]    (2,2.87]  (2.46,4.86]     (1.63,2.5]  virginica
+## 128  (5.41,6.25] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 129   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 130   (6.25,7.9] (2.87,3.19]  (4.86,6.91]   (0.791,1.63]  virginica
+## 131   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 132   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 133   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 134   (6.25,7.9]    (2,2.87]  (4.86,6.91]   (0.791,1.63]  virginica
+## 135  (5.41,6.25]    (2,2.87]  (4.86,6.91]   (0.791,1.63]  virginica
+## 136   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 137   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 138   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 139  (5.41,6.25] (2.87,3.19]  (2.46,4.86]     (1.63,2.5]  virginica
+## 140   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 141   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 142   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 143  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 144   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 145   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 146   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 147   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 148   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 149  (5.41,6.25]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 150  (5.41,6.25] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica</code></pre>
+<p>From the XAI point of view, we are interested in measuring two metrics for rule lists:</p>
+<p>Accuracy</p>
+<p>Parsimony: Shorter rules are more preferable</p>
+<div id="corels" class="section level2">
+<h2>CORELS</h2>
+<p>Finding an optimal DT (or a set of rule lists) is an NP-hard problem. The CORELS algorithms developed by aims to find the optimal set of rules. To achieve this goal, CORLES uses pre-mined frequent patterns and optimization techniques.</p>
+<p><strong>Disadvantaged of rule lists</strong></p>
+<p>Rule learning algorithms by design can be only trained on datasets with a discrete target variable. It means that they are only capable of dealing with classification problem and not regression. We can tackle this issue by discretizing the continuous target variable in regression problems. However, doing that results in information loss. Moreover, the input features to a rule learning algorithm must be categorical. Again we can solve this problem by binning continouose features but the same information loss will persist.</p>
+<p><strong>Further Readings and Resources</strong></p>
+</div>
+<div id="section" class="section level2">
+<h2></h2>
+</div>

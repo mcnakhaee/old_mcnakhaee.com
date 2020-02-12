@@ -5,7 +5,7 @@
     <link>/tags/r/</link>
       <atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 22 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 12 Feb 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>R</title>
@@ -13,183 +13,696 @@
     </image>
     
     <item>
-      <title>How do we describe female and male dogs?</title>
-      <link>/post/how-do-we-describe-female-and-male-dogs/</link>
-      <pubDate>Sun, 22 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>/post/how-do-we-describe-female-and-male-dogs/</guid>
+      <title>Analyzing Football Data</title>
+      <link>/post/2020-02-12-analyzing-football-data/</link>
+      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-12-analyzing-football-data/</guid>
       <description>
 
 
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; Attaching packages &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; tidyverse 1.2.1 &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;lt;U+2713&amp;gt; ggplot2 3.2.1     &amp;lt;U+2713&amp;gt; purrr   0.3.3
-## &amp;lt;U+2713&amp;gt; tibble  2.1.3     &amp;lt;U+2713&amp;gt; dplyr   0.8.3
-## &amp;lt;U+2713&amp;gt; tidyr   1.0.0     &amp;lt;U+2713&amp;gt; stringr 1.4.0
-## &amp;lt;U+2713&amp;gt; readr   1.3.1     &amp;lt;U+2713&amp;gt; forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; Conflicts &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt; tidyverse_conflicts() &amp;lt;U+2500&amp;gt;&amp;lt;U+2500&amp;gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#install.packages(&amp;quot;polite&amp;quot;)
+library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## -- Attaching packages ----------------------------------------------------------------------- tidyverse 1.3.0 --&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;lt;U+221A&amp;gt; ggplot2 3.2.1     &amp;lt;U+221A&amp;gt; purrr   0.3.3
+## &amp;lt;U+221A&amp;gt; tibble  2.1.3     &amp;lt;U+221A&amp;gt; dplyr   0.8.4
+## &amp;lt;U+221A&amp;gt; tidyr   1.0.2     &amp;lt;U+221A&amp;gt; stringr 1.4.0
+## &amp;lt;U+221A&amp;gt; readr   1.3.1     &amp;lt;U+221A&amp;gt; forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## -- Conflicts -------------------------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidytext)
-library(wordcloud)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Loading required package: RColorBrewer&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggthemes)
-library(hrbrthemes)
-library(extrafont)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Registering fonts with R&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(reshape2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rvest)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: xml2&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 
-## Attaching package: &amp;#39;reshape2&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:tidyr&amp;#39;:
+## Attaching package: &amp;#39;rvest&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:purrr&amp;#39;:
 ## 
-##     smiths&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_moves &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_moves.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   location = col_character(),
-##   exported = col_double(),
-##   imported = col_double(),
-##   total = col_double(),
-##   inUS = col_logical()
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_travel &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_travel.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   id = col_double(),
-##   contact_city = col_character(),
-##   contact_state = col_character(),
-##   description = col_character(),
-##   found = col_character(),
-##   manual = col_character(),
-##   remove = col_logical(),
-##   still_there = col_logical()
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   .default = col_character(),
-##   id = col_double(),
-##   breed_mixed = col_logical(),
-##   breed_unknown = col_logical(),
-##   fixed = col_logical(),
-##   house_trained = col_logical(),
-##   declawed = col_logical(),
-##   special_needs = col_logical(),
-##   shots_current = col_logical(),
-##   env_children = col_logical(),
-##   env_dogs = col_logical(),
-##   env_cats = col_logical(),
-##   accessed = col_date(format = &amp;quot;&amp;quot;)
-## )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## See spec(...) for full column specifications.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(dog_descriptions)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 36
-##       id org_id url   species breed_primary breed_secondary breed_mixed
-##    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;         &amp;lt;chr&amp;gt;           &amp;lt;lgl&amp;gt;      
-## 1 4.60e7 NV163  http… Dog     American Sta… Mixed Breed     TRUE       
-## 2 4.60e7 NV163  http… Dog     Pit Bull Ter… Mixed Breed     TRUE       
-## 3 4.60e7 NV99   http… Dog     Shepherd      &amp;lt;NA&amp;gt;            FALSE      
-## 4 4.60e7 NV202  http… Dog     German Sheph… &amp;lt;NA&amp;gt;            FALSE      
-## 5 4.60e7 NV184  http… Dog     Dachshund     &amp;lt;NA&amp;gt;            FALSE      
-## 6 4.60e7 NV184  http… Dog     Boxer         Beagle          TRUE       
-## # … with 29 more variables: breed_unknown &amp;lt;lgl&amp;gt;, color_primary &amp;lt;chr&amp;gt;,
-## #   color_secondary &amp;lt;chr&amp;gt;, color_tertiary &amp;lt;chr&amp;gt;, age &amp;lt;chr&amp;gt;, sex &amp;lt;chr&amp;gt;,
-## #   size &amp;lt;chr&amp;gt;, coat &amp;lt;chr&amp;gt;, fixed &amp;lt;lgl&amp;gt;, house_trained &amp;lt;lgl&amp;gt;, declawed &amp;lt;lgl&amp;gt;,
-## #   special_needs &amp;lt;lgl&amp;gt;, shots_current &amp;lt;lgl&amp;gt;, env_children &amp;lt;lgl&amp;gt;,
-## #   env_dogs &amp;lt;lgl&amp;gt;, env_cats &amp;lt;lgl&amp;gt;, name &amp;lt;chr&amp;gt;, tags &amp;lt;chr&amp;gt;, photo &amp;lt;chr&amp;gt;,
-## #   status &amp;lt;chr&amp;gt;, posted &amp;lt;chr&amp;gt;, contact_city &amp;lt;chr&amp;gt;, contact_state &amp;lt;chr&amp;gt;,
-## #   contact_zip &amp;lt;chr&amp;gt;, contact_country &amp;lt;chr&amp;gt;, stateQ &amp;lt;chr&amp;gt;, accessed &amp;lt;date&amp;gt;,
-## #   type &amp;lt;chr&amp;gt;, description &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions &amp;lt;- dog_descriptions %&amp;gt;%
-  
-  filter(type == &amp;#39;Dog&amp;#39;, contact_country == &amp;#39;US&amp;#39;) %&amp;gt;%
-  
-  select(-status,
-         -type,
-         -accessed,
-         -stateQ,
-         contact_country,
-         -contact_zip,
-         -url)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data(stop_words)
-dog_descriptions_tokens &amp;lt;- dog_descriptions %&amp;gt;%
-  select(sex, description) %&amp;gt;%
-  unnest_tokens(word, description) %&amp;gt;%
-  anti_join(stop_words)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;word&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions %&amp;gt;% 
-  select(sex,tags) %&amp;gt;%
-  filter(!is.na(tags)) %&amp;gt;%
-  count(sex)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 2
-##   sex        n
-##   &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
-## 1 Female  2423
-## 2 Male    2576&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dog_descriptions %&amp;gt;%
-  select(sex, tags) %&amp;gt;%
-  filter(!is.na(tags)) %&amp;gt;%
-  unnest_tokens(word, tags) %&amp;gt;%
-  anti_join(stop_words) %&amp;gt;%
-  count(word, sex, sort = TRUE) %&amp;gt;%
-  filter(n &amp;gt; 40) %&amp;gt;%
-  mutate(word = fct_reorder(word, n),
-         n = n * ifelse(sex == &amp;#39;Male&amp;#39;, -1, 1)) %&amp;gt;%
-  ggplot(aes(word, n, fill = sex)) +
-  geom_col() +
-  geom_text(
-    data = . %&amp;gt;% mutate(position = ifelse(n &amp;lt; 0, n - 100, n + 100) , n_plus = abs(n)),
-    aes(label = n_plus, y = position),
-    family = &amp;quot;Akbar&amp;quot;,
-    size = 3,
-    color = &amp;#39;black&amp;#39;
-  ) +
-  coord_flip() +
-  scale_fill_manual(name = &amp;quot;Sex:&amp;quot;, values = c(&amp;#39;#DA4167&amp;#39;, &amp;#39;#75B9BE&amp;#39;)) +
-  
-  theme_tufte() +
-  labs(title =  &amp;#39;Most Popular Tags for Describing Adoptable Dogs&amp;#39;,
-       subtitle = &amp;#39;Do we use different tags for male and female dogs?&amp;#39;) +
-  
-  theme(
-    panel.grid.major = element_blank(),
-    plot.title = element_text(
-      size = 18,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    plot.subtitle = element_text(
-      size = 12,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    axis.text.y = element_text(
-      size = 11,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    axis.title.y = element_text(
-      size = 24,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
+##     pluck&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:readr&amp;#39;:
+## 
+##     guess_encoding&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(polite)&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
+    <item>
+      <title>Going Back to the Roots! How Much Influence Did Arabic Have on Persian Literature?</title>
+      <link>/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/</guid>
+      <description>
+
+
+&lt;p&gt;Since the &lt;a href=&#34;https://en.wikipedia.org/wiki/Muslim_conquest_of_Persia&#34;&gt;conquest of Persia (now Iran) by the Muslim forces in the 7th century&lt;/a&gt;, Arabic culture and language have had a huge influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its main language, but the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost use the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language.
+Over the past 100 years, a very few (narrowly-minded and mostly racist) scholars have tried to erase Arabic words from the Persian literature. Since I was a kid I have always wanted to I put my data science skills and tools to&lt;/p&gt;
+&lt;p&gt;I decided to start a small project and determine how much influence Arabic has had on the Persian Lieterature and poetry over time. To put it simply, my goal is to look at every word used in poems ad determind wether it comes from Arabic or it is originally a Persian word. Then I count the occurance of each of them and compute their ratio.&lt;/p&gt;
+&lt;p&gt;However, this is not an easy task for several reasons. Although determing the origin of a word is not difficult for a well-educated person, there are millions of words in Persian literary works.So, labaling each word manually is not feasible and I tried smarter ways (but less accurate ). Similar to many other languages, Persian poems are different from daily written or spoken Persian and therefore common NLP methods are not as effective as before.&lt;/p&gt;
+&lt;p&gt;Ideally, we need a complete dataset of word with Araabic roots that are used in Persian to solve this task. But this dataset does not exist and I must use other approaches:
+1. There are a number of rules and exceptions that can be used to distinguish Persian words from Arabic words. For example, unlike Persian, Arabic does not have four letters representing “p”, “j” such as Japan, “g” such as game and “ch” in its alphabet. It means that any word that consists of one of these letters it is definitely a non-Arabic word. On the other hand, we do not have any letter in the Persian alphabet for representing the ‘th’ letter (and a few other letters) in Arabic. Therefore, words that consist of these letters are likely to be Arabic words.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;# fa --&amp;gt; Farsi (Persian)
+# ar ---&amp;gt; Arabic
+# un ----&amp;gt; Unkown
+def arabic_word(word):
+    if &amp;#39;ث&amp;#39; in word:
+        return &amp;#39;ar&amp;#39;
+    elif &amp;#39;ح&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    elif &amp;#39;ص&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    if &amp;#39;ض&amp;#39; in word:
+        return &amp;#39;ar&amp;#39;
+    elif &amp;#39;ظ&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    elif &amp;#39;ع&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    elif &amp;#39;ط&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    elif &amp;#39;ق&amp;#39; in word:
+        return &amp;#39;ar&amp;#39; 
+    elif &amp;#39;ژ&amp;#39; in word:
+        return &amp;#39;fa&amp;#39;
+    elif &amp;#39;گ&amp;#39; in word:
+        return &amp;#39;fa&amp;#39; 
+    elif &amp;#39;چ&amp;#39; in word:
+        return &amp;#39;fa&amp;#39; 
+    elif &amp;#39;پ&amp;#39; in word:
+        return &amp;#39;fa&amp;#39; 
+    else:
+        return &amp;#39;un&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Unfortunately, the rules mentioned above are not comprehensive and the origin of many words cannot be determined by them. So,I turned to the python port of the popular &lt;a href=&#34;https://github.com/Mimino666/langdetect&#34;&gt;&lt;code&gt;Langdetect&lt;/code&gt;&lt;/a&gt; library for help. Here, if the origin of a word can not be determined by the above rules, I will ask this library to identify the language. I should mention that langdetect can be sometimes wrong so the final results might not be 100% accurate.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from langdetect import detect
+x = &amp;#39;from langdetect import detect&amp;#39;
+# The word for &amp;quot;people&amp;quot; in Persian
+print(detect(&amp;quot;مردم&amp;quot;))
+# A word used both in Arabic and also Persian&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## fa&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;print(detect(&amp;quot;عقل&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ar&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;x&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;from langdetect import detect&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I must also mention that I performed a few preprocessing steps such as removing stopwords on the poetry corpus. A few other operations such as stemming could have been performed but my initial assessment was that they might not significantly change the final results.
+After preprocessing, I stored all the information about the ratio of Arabic and Persian words for each poet in a separate dataset.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lang_ratio_df &amp;lt;- read_csv(&amp;#39;lang_ratio_df.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   poet = col_character(),
+##   century = col_double(),
+##   ar = col_double(),
+##   fa = col_double(),
+##   ratio = col_double(),
+##   period = col_character()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(lang_ratio_df)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 6
+##   poet               century    ar    fa ratio period         
+##   &amp;lt;chr&amp;gt;                &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;          
+## 1 Abusaeid Abolkheir       5  3014  8277 0.364 Khorasani Style
+## 2 Ahmad Shamlou           14  8232 28862 0.285 Contemporary   
+## 3 Akhavan-Sales           14  3338 14937 0.223 Contemporary   
+## 4 Amir Khusrow             8 10582 41997 0.252 Iraqi Style    
+## 5 Anvari                   6 29430 67188 0.438 Iraqi Style    
+## 6 Artimani                10  2616  7706 0.339 Indian Style&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I visualized the ratio of words for each poet using the &lt;code&gt;ggplot&lt;/code&gt; library in R.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; lang_ratio_df %&amp;gt;%
+    mutate(
+    poet = fct_reorder(poet, ratio),
+
+    period = factor(
+      period,
+      levels = c(&amp;#39;Khorasani Style&amp;#39;,&amp;#39;Iraqi Style&amp;#39;,&amp;#39;Indian Style&amp;#39;,&amp;#39;Contemporary&amp;#39; )
+    )) %&amp;gt;% 
+  ggplot(aes(x = poet, y = ratio , color = period)) +
+  geom_point(size = 4) +
+  geom_segment(aes(
+    y = 0, yend = ratio, x = poet, xend = poet), size = 1) +
+  geom_text(
+    aes(x = poet,  y = ratio,label = scales::percent(ratio)), size = 5, nudge_y = .2,family = &amp;#39;Montserrat&amp;#39;) +
+  labs( x = &amp;#39;&amp;#39;, y = &amp;#39;&amp;#39;, title = &amp;#39;The Estimated Ratio of Arabic Words Used by Famous Persion Poets&amp;#39;) +
+  scale_color_tableau() +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  coord_flip() +
+  facet_wrap( ~ period, scales = &amp;quot;free_y&amp;quot;, ncol = 2) +
+  theme_tufte() +
+  theme(
+    text = element_text(family = &amp;#39;Montserrat&amp;#39;),
+    legend.title =  element_text(size = 20),
+    axis.ticks.x = element_blank(),
+    legend.text = element_text(
+      size = 15,
+    margin = ggplot2::margin(0, 20, 0, 0)),
+    plot.title = element_text(
+      face = &amp;quot;bold&amp;quot;,
+      color = &amp;#39;gray&amp;#39;,
+      size = 22,
+      margin = ggplot2::margin(0, 20, 20, 0),
+      hjust = 0.5,
+      vjust = 0.5),
+        strip.text = element_text(
+      color = &amp;#39;gray80&amp;#39;,
+      size = 18 ,
+      margin = ggplot2::margin(1, 0, 1, 0)),
+    legend.position = &amp;#39;none&amp;#39;,
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_text(size = 12, color = &amp;#39;gray&amp;#39;),
+    plot.background = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+    panel.background = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+    panel.border = element_rect(fill = NA, color = NA))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As you can see above, every poet used at least a sizable number of Arabic words in his/her work. Most notably, Ferdowsi who wrote &lt;a href=&#34;https://en.wikipedia.org/wiki/Shahnameh&#34;&gt;Shahname (the Book of Kings)&lt;/a&gt;, which recount the myths and legends of Persian Kings and Heroes and is the oldest piece of poetry analyzed in my experiment also includes a considerable number of Arabic words. Other top Persian poets such as &lt;a href=&#34;https://en.wikipedia.org/wiki/Hafez&#34;&gt;Hafez&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Saadi_Shirazi&#34;&gt;Saadi&lt;/a&gt; and &lt;a href=&#34;https://en.wikipedia.org/wiki/Rumis&#34;&gt;Rumi&lt;/a&gt; used Arabic words in almost 40%-50% of their works.&lt;/p&gt;
+&lt;p&gt;Nothing better can show this than the following plot which made by the &lt;a href=&#34;https://emilhvitfeldt.github.io/ggpage/&#34;&gt;&lt;code&gt;ggpage&lt;/code&gt;&lt;/a&gt; package in R. The plot shows the distribution of words and their origins for several top Persian poets. Note that in this plot I used a only random subset of words from the works of each poet and not their whole works of poetry.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sample_poets_df &amp;lt;- read_csv(&amp;#39;sample_poets.csv&amp;#39;)
+head(sample_poets_df)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 4
+##   word  lang  poet   century
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;
+## 1 بام   fa    Rudaki       3
+## 2 اشک   fa    Rudaki       3
+## 3 غم    ar    Rudaki       3
+## 4 همي   fa    Rudaki       3
+## 5 برم   fa    Rudaki       3
+## 6 نهاني fa    Rudaki       3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggpage_df %&amp;gt;%
+  mutate(poet = fct_reorder(poet, century)) %&amp;gt;%
+  ggpage_plot(aes(fill = lang)) +
+  
+  labs(title = &amp;#39;Distribution of Persian and Arabic Words Used by Top Persian Poets&amp;#39;, fill = &amp;#39;&amp;#39;) +
+  scale_fill_manual(values = plotcolors,
+                    guide = &amp;#39;legend&amp;#39; ,
+                    labels = c(&amp;#39;Arabic&amp;#39;,&amp;#39;Persian&amp;#39;)) +
+  
+  facet_wrap(~ poet, nrow = 3) +
+  theme(
+    strip.text = element_text(
+      size = 15,
+      face = &amp;quot;bold&amp;quot;,
+      margin = ggplot2::margin(1, 1, 1, 1, &amp;quot;cm&amp;quot;),
+      color = &amp;#39;white&amp;#39;
+    ),
+        text = element_text(family = &amp;#39;Montserrat&amp;#39;),
+
+    legend.position = &amp;#39;top&amp;#39;,
+    legend.text = element_text(
+      size = 15,
+      margin = ggplot2::margin(10, 10, 10, 10)
+    ),
+    panel.spacing = unit(1, &amp;quot;points&amp;quot;),
+    plot.title = element_text(
+      face = &amp;quot;bold&amp;quot;,
+      size = 22,
+      margin = ggplot2::margin(30, 0, 30, 0),
+      hjust = 0.5
+    ),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    strip.background = element_rect(fill = &amp;#39;#000F2B&amp;#39;),
+    panel.border = element_blank(),
     axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),
     axis.title.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.y = element_blank(),
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;How Much Influence Did Arabic Have on Persian Literature has been one of my questions since I started to read and study literature. Nobody had been able to answer this question and I could not have answered it without the help of data science.&lt;/p&gt;
+&lt;p&gt;My analysis shows that the Arabic language has contributed significantly to our literature and culture. In fact, the golden era of Persian poetry can be seen as a result of its integration with Arabic. Persian also made its contribution to the Arabic language and Arabic poetry. So, talking about erasing one language from the other is not helpful or wise and I hope everyone realizes that.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
-    legend.title = element_text(
-      size = 16,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    ),
-    legend.text = element_text(
-      size = 11,
-      face = &amp;quot;bold&amp;quot;,
-      family = &amp;#39;Akbar&amp;#39;
-    )
-  ) &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;word&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-12-22-how-do-we-describe-female-and-male-dogs_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+    <item>
+      <title>The Map of Spotify Songs</title>
+      <link>/post/2020-02-01-what-makes-a-song-popular/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-01-what-makes-a-song-popular/</guid>
+      <description>
+
+
+&lt;p&gt;In the &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md&#34;&gt;4th week of the Tidy Tuesday project&lt;/a&gt;, a very interesting and fun dataset was proposed to the data science community. The dataset contains information about thousands of songs on Spotify’s platform and along with their metadata and audio features. You can download the dataset can using the following piece of code.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md&#34;&gt;4th week of the Tidy Tuesday project&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&amp;#39;)
+head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 23
+##   track_id track_name track_artist track_popularity track_album_id
+##   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         
+## 1 6f807x0~ I Don&amp;#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
+## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
+## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
+## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
+## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
+## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
+## # ... with 18 more variables: track_album_name &amp;lt;chr&amp;gt;,
+## #   track_album_release_date &amp;lt;chr&amp;gt;, playlist_name &amp;lt;chr&amp;gt;, playlist_id &amp;lt;chr&amp;gt;,
+## #   playlist_genre &amp;lt;chr&amp;gt;, playlist_subgenre &amp;lt;chr&amp;gt;, danceability &amp;lt;dbl&amp;gt;,
+## #   energy &amp;lt;dbl&amp;gt;, key &amp;lt;dbl&amp;gt;, loudness &amp;lt;dbl&amp;gt;, mode &amp;lt;dbl&amp;gt;, speechiness &amp;lt;dbl&amp;gt;,
+## #   acousticness &amp;lt;dbl&amp;gt;, instrumentalness &amp;lt;dbl&amp;gt;, liveness &amp;lt;dbl&amp;gt;, valence &amp;lt;dbl&amp;gt;,
+## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For this week’s tidy Tuesday, I decided to use a rather different approach from my previous submission. Instead of focusing entirely on the visualization aspect of my submission, I tried to use other tools from tidy model universe for machine learning model development.&lt;/p&gt;
+&lt;p&gt;Each song has around 12 columns representing audio features. The Github’s page for this dataset describes these features as follows:&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;19%&#34; /&gt;
+&lt;col width=&#34;7%&#34; /&gt;
+&lt;col width=&#34;73%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;variable&lt;/th&gt;
+&lt;th&gt;class&lt;/th&gt;
+&lt;th&gt;description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;danceability&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;energy&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;key&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;The estimated overall key of the track. Integers map to pitches using standard Pitch Class notation . E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;loudness&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;mode&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;speechiness&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;acousticness&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;instrumentalness&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;liveness&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;valence&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;tempo&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;duration_ms&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Duration of song in milliseconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;It would be very helpful to compare songs based on the combination of their audio features. However, It is not possible to plot all these features at the same time on a 2 or 3 dimensional space.&lt;/p&gt;
+&lt;p&gt;For this reason, I tried to use unsupervised machine learning for the purpose of visualizing songs on a 2D space by transforming their high-dimensional audio features into a more compressed form.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(tidymodels)
+library(workflows)
+library(gghighlight)
+library(hrbrthemes)
+library(ggthemes)
+library(lubridate)
+library(reticulate)
+library(ggrepel)
+
+theme_update(legend.position = &amp;#39;top&amp;#39;,
+      legend.text   = element_text(size = 24),
+      plot.title = element_text(family = &amp;#39;Montserrat&amp;#39;, face = &amp;quot;bold&amp;quot;, size = 50,hjust = 0.5, color = &amp;#39;#FFE66D&amp;#39;),
+      plot.subtitle = element_text(
+      family = &amp;#39;Montserrat&amp;#39;, size = 30, hjust = 0.5),
+      strip.background = element_blank(),
+      plot.background = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+      panel.background = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+      panel.grid.major.x =element_blank(),
+      panel.grid.major.y =element_blank(),
+      panel.grid.minor =element_blank(),
+      axis.text.x.bottom  = element_blank(),
+      axis.ticks.x = element_blank(), 
+      axis.ticks.y = element_blank(),
+      axis.text.x = element_blank(),
+      axis.text.y.left = element_blank()) &lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;dimensionality-reduction-and-umap&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Dimensionality Reduction and UMAP&lt;/h2&gt;
+&lt;p&gt;My initial idea was to use clustering algorithms to cluster songs based on their audio feature and find songs that are similar to each other. Yet, it was difficult to visualize these clusters in a two dimensional space. Of course you can do that by using hierarchal clustering but even then visualizing a few thousands samples (songs) can not be done easily. So, I decided to to use other unsupervised techniques to compress the high-dimensional audio features and transform them into a 2D space. One main purpose of the UMAP algorithm is to give us a compressed representation of the input data for visualization with the least possible information loss.&lt;/p&gt;
+&lt;p&gt;There are a number of dimensionality reduction algorithms such as PCA, t-SNE UMAP. PCA is a linear dimensionality reduction method while both t-SNE and UMAP are non-linear methods. In this post I will use UMAP and t-SNE algorithms.&lt;/p&gt;
+&lt;div id=&#34;data-preprocessing&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Data Preprocessing&lt;/h3&gt;
+&lt;p&gt;The songs’ track names in this dataset are too long. Just for the purpose of the final visualization, the first thing that I did was to make the track names shorter by using both python and R.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs &amp;lt;- spotify_songs %&amp;gt;%  
+  dplyr::rowwise() %&amp;gt;% 
+  mutate(shorter_names = unlist(str_split(track_name,&amp;#39;-&amp;#39;))[1]) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note that both UMAP and T-SNE compute the distance between samples and this distance should be meaningful and reasonable. It is necessary to normalize input features before implementing a them, otherwise some features might have higher influence than other features on the computation of distance between samples.&lt;/p&gt;
+&lt;p&gt;I created a data preprocessing recipe using the &lt;code&gt;recipe&lt;/code&gt; package and I added a normalization step to scale only the audio features.&lt;/p&gt;
+&lt;p&gt;Since I implement an unsupervised algorithm, there is no need to split the dataset into a training and testing dataset.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;normalized_features &amp;lt;- spotify_songs %&amp;gt;%
+  recipe() %&amp;gt;% 
+  step_normalize( danceability,
+    energy,
+    key,
+    loudness,
+    mode,
+    speechiness,
+    acousticness,
+    instrumentalness,
+    liveness,
+    valence,
+    tempo,
+    duration_ms) %&amp;gt;% 
+  prep() %&amp;gt;% 
+  juice()
+
+head(normalized_features)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 24
+##   track_id track_name track_artist track_popularity track_album_id
+##   &amp;lt;fct&amp;gt;    &amp;lt;fct&amp;gt;      &amp;lt;fct&amp;gt;                   &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;         
+## 1 6f807x0~ I Don&amp;#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
+## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
+## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
+## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
+## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
+## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
+## # ... with 19 more variables: track_album_name &amp;lt;fct&amp;gt;,
+## #   track_album_release_date &amp;lt;fct&amp;gt;, playlist_name &amp;lt;fct&amp;gt;, playlist_id &amp;lt;fct&amp;gt;,
+## #   playlist_genre &amp;lt;fct&amp;gt;, playlist_subgenre &amp;lt;fct&amp;gt;, danceability &amp;lt;dbl&amp;gt;,
+## #   energy &amp;lt;dbl&amp;gt;, key &amp;lt;dbl&amp;gt;, loudness &amp;lt;dbl&amp;gt;, mode &amp;lt;dbl&amp;gt;, speechiness &amp;lt;dbl&amp;gt;,
+## #   acousticness &amp;lt;dbl&amp;gt;, instrumentalness &amp;lt;dbl&amp;gt;, liveness &amp;lt;dbl&amp;gt;, valence &amp;lt;dbl&amp;gt;,
+## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;, shorter_names &amp;lt;fct&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Both UMAP and T-SNE have several hyper-parameters that can influence the resulting embedding output.
+For the sake of simplicity, I did not change the default values for these hyper-parameters.&lt;/p&gt;
+&lt;p&gt;Just like t-SNE, UMAP is a dimensionality reduction algorithm but it is much more computationally efficient and faster that t-SNE. The UMAP algorithm was &lt;a href=&#34;https://github.com/lmcinnes/umap&#34;&gt;originally implemented in Python&lt;/a&gt;. But there are also several libraries in R such as &lt;a href=&#34;https://github.com/ropenscilabs/umapr&#34;&gt;umapr&lt;/a&gt;, &lt;a href=&#34;https://cran.r-project.org/web/packages/umap/vignettes/umap.html&#34;&gt;umap&lt;/a&gt; and &lt;a href=&#34;https://github.com/jlmelville/uwot&#34;&gt;uwot&lt;/a&gt; that also provide an implementation of the UMAP algorithm. &lt;a href=&#34;https://github.com/ropenscilabs/umapr&#34;&gt;&lt;code&gt;umapr&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://cran.r-project.org/web/packages/umap/vignettes/umap.html&#34;&gt;&lt;code&gt;umap&lt;/code&gt;&lt;/a&gt; use the &lt;a href=&#34;https://cran.r-project.org/web/packages/reticulate/index.html&#34;&gt;&lt;code&gt;reticulate&lt;/code&gt;&lt;/a&gt; package and provide a wrapper function around the original &lt;code&gt;umap-learn&lt;/code&gt; python library. Also, &lt;code&gt;umap&lt;/code&gt; and &lt;code&gt;uwot&lt;/code&gt; library have their own R implementation of the algorithms and they do not require the python package to be installed first. For my experiment, I used the &lt;code&gt;uwot&lt;/code&gt; library.&lt;/p&gt;
+&lt;p&gt;Now that I had the learned embeddings for both t-SNE and UMAP, it was time to put the side by side.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;embeddings &amp;lt;- 
+  spotify_songs %&amp;gt;% 
+  select(-c(12:22)) %&amp;gt;% 
+  bind_cols(tsne_embedding$Y %&amp;gt;% as_tibble()) %&amp;gt;% 
+  dplyr::rename(tsne_1 = V1, tsne_2 = V2) %&amp;gt;% 
+  bind_cols(umap_embedding$layout %&amp;gt;% as_tibble() ) %&amp;gt;% 
+  dplyr::rename(umap_1 = V1, umap_2 = V2) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Even though I managed to transform a high dimensional dataset into a 2D space, still it was very challenging to visualize every song and every artists all at once. So, I just selected a few artists that I have heard their names and I decided to plot thir most popular songs.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;selected_artists &amp;lt;- c(&amp;#39;Queen&amp;#39;,&amp;#39;Drake&amp;#39;,&amp;#39;Rihanna&amp;#39;,&amp;#39;Taylor Swift&amp;#39;,&amp;#39;Eminem&amp;#39;,&amp;#39;Snoop Dogg&amp;#39;,&amp;#39;Katy Perry&amp;#39;,&amp;#39;The Beatles&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;embeddings &amp;lt;- %&amp;gt;% embeddings
+  mutate(
+    selected_artist = if_else( track_artist %in% selected_artists, as.character(track_artist), &amp;quot;&amp;quot;),
+    point_size_selected_artist = if_else(track_artist %in% selected_artists, 0.5, 0.1),
+    track_name_selected_artist = if_else(track_artist %in% selected_artists, track_name, NULL),
+    genre_selected_artist = if_else(track_artist %in% selected_artists,playlist_genre, NULL),
+    popular_tracks_selected_artist = if_else(
+      track_artist %in% selected_artists &amp;amp; track_popularity &amp;gt; 70,shorter_names, NULL )) %&amp;gt;%
+  distinct(track_name, .keep_all = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(embeddings)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 22
+##   track_id track_name track_artist track_popularity track_album_id
+##   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         
+## 1 6f807x0~ I Don&amp;#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
+## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
+## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
+## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
+## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
+## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
+## # ... with 17 more variables: track_album_name &amp;lt;chr&amp;gt;,
+## #   track_album_release_date &amp;lt;chr&amp;gt;, playlist_name &amp;lt;chr&amp;gt;, playlist_id &amp;lt;chr&amp;gt;,
+## #   playlist_genre &amp;lt;chr&amp;gt;, playlist_subgenre &amp;lt;chr&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;,
+## #   shorter_names &amp;lt;chr&amp;gt;, tsne_1 &amp;lt;dbl&amp;gt;, tsne_2 &amp;lt;dbl&amp;gt;, umap_1 &amp;lt;dbl&amp;gt;,
+## #   umap_2 &amp;lt;dbl&amp;gt;, selected_artist &amp;lt;chr&amp;gt;, point_size_selected_artist &amp;lt;dbl&amp;gt;,
+## #   track_name_selected_artist &amp;lt;chr&amp;gt;, genre_selected_artist &amp;lt;chr&amp;gt;,
+## #   popular_tracks_selected_artist &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, it was time to plot the results of both the t-SNE and UMAP embeddings using &lt;code&gt;ggplot&lt;/code&gt; and &lt;a href=&#34;https://github.com/yutannihilation/gghighlight&#34;&gt;&lt;code&gt;gghighlight&lt;/code&gt;&lt;/a&gt; libraries. First I visualize the embeddings for t-SNE.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;embeddings %&amp;gt;%
+  ggplot(aes(x = tsne_1, y = tsne_2 ,color = selected_artist )) +
+  geom_point(aes(size = point_size_selected_artist)) +
+  gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.2, color = &amp;#39;#FFE66D&amp;#39;)) +
+  scale_color_manual(values = c(&amp;#39;#5BC0EB&amp;#39;,&amp;#39;#FDE74C&amp;#39;,&amp;#39;#7FB800&amp;#39;,&amp;#39;#E55934&amp;#39;,&amp;#39;#FA7921&amp;#39;,&amp;#39;#1A936F&amp;#39; ,&amp;#39;#F0A6CA&amp;#39;,&amp;#39;#B8BEDD&amp;#39;))+
+  guides(size = FALSE,
+    color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 6, family = &amp;#39;Montserrat&amp;#39;,
+    point.padding = 2.2,
+    box.padding = .5,
+    force = 1,
+    min.segment.length = 0.1) +
+  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+       title = &amp;#39;The Map of Spotify Songs\n&amp;#39;,
+       subtitle = &amp;#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
+       color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## label_key: selected_artist&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Too many data points, skip labeling&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;embeddings %&amp;gt;%
+  ggplot(aes(x = umap_1, y = umap_2 ,color = selected_artist )) +
+  geom_point(aes(size = point_size_selected_artist)) +
+  gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.2, color = &amp;#39;#FFE66D&amp;#39;)) +
+  scale_color_manual(values = c(&amp;#39;#5BC0EB&amp;#39;,&amp;#39;#FDE74C&amp;#39;,&amp;#39;#7FB800&amp;#39;,&amp;#39;#E55934&amp;#39;,&amp;#39;#FA7921&amp;#39;,&amp;#39;#1A936F&amp;#39; ,&amp;#39;#F0A6CA&amp;#39;,&amp;#39;#B8BEDD&amp;#39;))+
+  guides(size = FALSE,
+    color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 6, family = &amp;#39;Montserrat&amp;#39;,
+    point.padding = 2.2,
+    box.padding = .5,
+    force = 1,
+    min.segment.length = 0.1) +
+  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+       title = &amp;#39;The Map of Spotify Songs\n&amp;#39;,
+       subtitle = &amp;#39;Using the UMAP algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
+       color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## label_key: selected_artist&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Too many data points, skip labeling&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;3360&#34; /&gt;
+For the most part both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embedding is somehow similar to a real map. For instance, the upper part looks like the map of the US. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;supervised-umap&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Supervised UMAP&lt;/h2&gt;
+&lt;p&gt;UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a &lt;a href=&#34;https://umap-learn.readthedocs.io/en/latest/supervised.html&#34;&gt;supervised algorithm&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Some Fun with Maps</title>
+      <link>/post/2020-01-24-some-fun-with-maps/</link>
+      <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-01-24-some-fun-with-maps/</guid>
+      <description>
+
+
+
+</description>
+    </item>
+    
+    <item>
+      <title>Optimal Rule Lists</title>
+      <link>/post/2020-01-18-optimal-rule-lists/</link>
+      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-01-18-optimal-rule-lists/</guid>
+      <description>
+
+
+&lt;p&gt;Axiom
+There is an inverse relationship between
+model accuracy and model interpretability.&lt;/p&gt;
+&lt;p&gt;This post is heavily inspired by the Decision Rules chapter from the Interpretable Machine Learning book by Christoph Molnar.&lt;/p&gt;
+&lt;p&gt;Some machine learning researchers argue that we should pay more attention to interpretable machine learning instead of trying to design methods to explain black box models.
+While reading almost any paper the field of explainable machine learning, you will notice that in that every paper almost always starts by arguing that there is a trade-off between accuracy and interpretability. It means that a more interpretable is less accurate and vice versa and for this reason we need to use more complex and black box models and then design methods to peek into them. However, Cynthia Rudin argues that actually there is no trade-off between these two concepts. On the contrary, interpretability can even help us increase the accuracy of a model becuase with an interpretable algorithm we better understand how the predictive performance of a model can be improved.&lt;/p&gt;
+&lt;p&gt;Cynthia Rudin encourages machine learning practitioners and researchers to rather than trying to make black-box algorithms more build and use accurate interpretable machine learning models .
+There are already a number of interpretable machine learning algorithms in the literature.
+Decision trees and linear models are the two most popular classes of interpretable algorithms. Rule learning algorithms also belong to the class of interpretable algorithms. The aim of these algorithms is to learn decision rules from input data.&lt;/p&gt;
+&lt;p&gt;Decision rules are expressed as IF-THEN statement.&lt;/p&gt;
+&lt;p&gt;If the condition of the IF part holds true, we will make the prediction based on output of the THEN part.&lt;/p&gt;
+&lt;p&gt;Decision rules are considered to be probably the most human-understandable prediction model.&lt;/p&gt;
+&lt;p&gt;In many ways, decision rules resemble decision trees. In fact, we can write down a decision tree as a set of decision rules.&lt;/p&gt;
+&lt;p&gt;Decision trees are highly scalable and powerful algorithms. But a decision tree is a greedy algorithm. For instance, the split at each node in a decision tree is determined by a greedy process. It means that the decision tree does not find an optimal solution and therefore, the optimal rule lists.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(OneR)
+iris_binned &amp;lt;- optbin(iris)
+iris_binned&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     Sepal.Length Sepal.Width Petal.Length    Petal.Width    Species
+## 1     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 2     (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 3     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 4     (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 5     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 6     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 7     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 8     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 9     (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 10    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 11    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 12    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 13    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 14    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 15   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 16   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 17    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 18    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 19   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 20    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 21    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 22    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 23    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 24    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 25    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 26    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 27    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 28    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 29    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 30    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 31    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 32    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 33    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 34   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 35    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 36    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 37   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 38    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 39    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 40    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 41    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 42    (4.3,5.41]    (2,2.87] (0.994,2.46] (0.0976,0.791]     setosa
+## 43    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 44    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 45    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 46    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 47    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 48    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 49    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 50    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 51    (6.25,7.9]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 52    (6.25,7.9]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 53    (6.25,7.9] (2.87,3.19]  (4.86,6.91]   (0.791,1.63] versicolor
+## 54   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 55    (6.25,7.9]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 56   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 57    (6.25,7.9]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 58    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 59    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 60    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 61    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 62   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 63   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 64   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 65   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 66    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 67   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 68   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 69   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 70   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 71   (5.41,6.25]  (3.19,4.4]  (2.46,4.86]     (1.63,2.5] versicolor
+## 72   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 73    (6.25,7.9]    (2,2.87]  (4.86,6.91]   (0.791,1.63] versicolor
+## 74   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 75    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 76    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 77    (6.25,7.9]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 78    (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5] versicolor
+## 79   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 80   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 81   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 82   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 83   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 84   (5.41,6.25]    (2,2.87]  (4.86,6.91]   (0.791,1.63] versicolor
+## 85    (4.3,5.41] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 86   (5.41,6.25]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 87    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 88    (6.25,7.9]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 89   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 90   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 91   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 92   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 93   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 94    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 95   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 96   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 97   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 98   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 99    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 100  (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 101   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 102  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 103   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 104   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 105   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 106   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 107   (4.3,5.41]    (2,2.87]  (2.46,4.86]     (1.63,2.5]  virginica
+## 108   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 109   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 110   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 111   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 112   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 113   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 114  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 115  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 116   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 117   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 118   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 119   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 120  (5.41,6.25]    (2,2.87]  (4.86,6.91]   (0.791,1.63]  virginica
+## 121   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 122  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 123   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 124   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 125   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 126   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 127  (5.41,6.25]    (2,2.87]  (2.46,4.86]     (1.63,2.5]  virginica
+## 128  (5.41,6.25] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 129   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 130   (6.25,7.9] (2.87,3.19]  (4.86,6.91]   (0.791,1.63]  virginica
+## 131   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 132   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 133   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 134   (6.25,7.9]    (2,2.87]  (4.86,6.91]   (0.791,1.63]  virginica
+## 135  (5.41,6.25]    (2,2.87]  (4.86,6.91]   (0.791,1.63]  virginica
+## 136   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 137   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 138   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 139  (5.41,6.25] (2.87,3.19]  (2.46,4.86]     (1.63,2.5]  virginica
+## 140   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 141   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 142   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 143  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 144   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 145   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 146   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 147   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 148   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 149  (5.41,6.25]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 150  (5.41,6.25] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From the XAI point of view, we are interested in measuring two metrics for rule lists:&lt;/p&gt;
+&lt;p&gt;Accuracy&lt;/p&gt;
+&lt;p&gt;Parsimony: Shorter rules are more preferable&lt;/p&gt;
+&lt;div id=&#34;corels&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;CORELS&lt;/h2&gt;
+&lt;p&gt;Finding an optimal DT (or a set of rule lists) is an NP-hard problem. The CORELS algorithms developed by aims to find the optimal set of rules. To achieve this goal, CORLES uses pre-mined frequent patterns and optimization techniques.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Disadvantaged of rule lists&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Rule learning algorithms by design can be only trained on datasets with a discrete target variable. It means that they are only capable of dealing with classification problem and not regression. We can tackle this issue by discretizing the continuous target variable in regression problems. However, doing that results in information loss. Moreover, the input features to a rule learning algorithm must be categorical. Again we can solve this problem by binning continouose features but the same information loss will persist.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Further Readings and Resources&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;section&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;&lt;/h2&gt;
+&lt;/div&gt;
 </description>
     </item>
     

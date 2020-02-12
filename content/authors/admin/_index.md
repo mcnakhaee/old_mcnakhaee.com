@@ -1,12 +1,18 @@
 ---
 authors:
 - admin
-bio: I am Muhammad, currently a PhD student at the University of Twente. I am mainly intereseted in football and then data science and machine learning.
+bio: I am Muhammad, currently a PhD student at the University of Twente. However, my journey at UTwente will come to an end by March 31
 education:
   courses:
   - course: PhD in Computer Science
     institution:  University of Twente
-    year: 2019
+    year: 2018-2020
+  - course: MSC Industrial Engineering
+    institution:  Sharif University of Technology
+    year: 2014-2017
+  - course: Bachelor Industrial Engineering
+    institution:  Polytechnique University of Tehran
+    year: 2009-2014
 
 email: "m.cnakhaee@utwente.nl"
 interests:

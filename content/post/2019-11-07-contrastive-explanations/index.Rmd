@@ -12,6 +12,7 @@ summary: ''
 authors: []
 lastmod: '2019-12-29T12:41:22+01:00'
 featured: no
+draft: TRUE
 image:
   caption: ''
   focal_point: ''
@@ -150,7 +151,7 @@ library(naniar)
 ```
 
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 titanic <- titanic  %>% 
   mutate(Cabin =  as.character(Cabin),
         Embarked =   as.character(Embarked),
@@ -163,7 +164,7 @@ titanic_split %>%
 
 ```
 
-```{r}
+```{r eval=FALSE, warning=TRUE, include=FALSE}
 titanic_recipe <- titanic_split %>% 
   training() %>% 
   recipe((Survived ~.)) %>% 
@@ -174,24 +175,24 @@ titanic_recipe <- titanic_split %>%
 titanic_training <- juice(titanic_recipe)
 glimpse(titanic_training) 
 ```
-```{r}
+```{r eval=FALSE, include=FALSE}
 rf <- rand_forest(trees = 100, mode = 'classification') %>% set_engine('ranger') %>% 
   fit(Survived ~. , data = titanic_training)
 
 ```
 
 The lime package for R does not aim to be a line-by-line port of its Python counterpart. I
-```{r}
+```{r eval=FALSE, include=FALSE}
 explainer_rf  <- lime(titanic_training,rf,n_bins = 10)
 summary(explainer_rf)
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 objs <- titanic_training[1:5,]
 ```
 
 
-```{r fig.height=20, fig.width=20}
+```{r eval=FALSE, fig.height=20, fig.width=20, include=FALSE}
 explanation_rf <- explain(
   x = objs, 
   explainer = explainer_rf, 
@@ -210,4 +211,10 @@ plot_features(explanation_rf)
 
 https://uc-r.github.io/lime
 https://cran.r-project.org/web/packages/lime/vignettes/Understanding_lime.html
+
+```{python}
+import wikipedia
+wikipedia.set_lang('nl')
+wikipedia.summary('Abel Tasman')
+```
 

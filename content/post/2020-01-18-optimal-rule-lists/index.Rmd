@@ -1,0 +1,217 @@
+---
+title: Optimal Rule Lists
+author: Muhammad Chenariyan Nakhaee
+date: '2020-01-18'
+slug: []
+categories:
+  - XAI
+tags:
+  - XAI
+  - Machine Learning
+  - R
+  - Python
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-01-18T18:46:22+01:00'
+featured: no
+draft: TRUE 
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+```{r eval=FALSE, include=FALSE}
+remotes::install_github(c("tidymodels/workflows", "tidymodels/tune", "tidymodels/modeldata"))
+library(tidyverse)
+library(tidymodels)
+library(remotes)
+library(rpart.plot)
+library(rattle)
+library(vip)
+#library(AmesHousing)
+#library(kknn)
+library(rpart)
+library(ranger)
+library(partykit)
+library(workflows)
+library(tune)
+library(modeldata)
+
+```
+Axiom
+There is an inverse relationship between
+model accuracy and model interpretability.
+
+
+This post is heavily inspired by the Decision Rules chapter from the Interpretable Machine Learning book by Christoph Molnar.
+
+Some machine learning researchers argue that we should pay more attention to interpretable machine learning instead of trying to design methods to explain black box models. 
+While reading almost any paper the field of explainable machine learning, you will notice that in that every paper almost always starts by arguing that there is a trade-off between accuracy and interpretability. It means that a more interpretable is less accurate and vice versa and for this reason we need to use more complex and black box models and then design methods to peek into them. However, Cynthia Rudin argues that actually there is no trade-off between these two concepts. On the contrary, interpretability can even help us increase the accuracy of a model becuase with an interpretable algorithm we better understand how the predictive performance of a model can be improved.
+
+Cynthia Rudin encourages  machine learning practitioners and researchers to rather than trying to make black-box algorithms more build and use accurate interpretable machine learning models  .
+There are already a number of interpretable machine learning algorithms in the literature.
+Decision trees and linear models are the two most popular classes of interpretable algorithms. Rule learning algorithms also belong to the class of interpretable algorithms. The aim of these algorithms is to learn decision rules from input data.
+
+Decision rules are expressed as IF-THEN statement.
+
+
+
+If the condition of  the IF part holds true, we will make the prediction based on output of the THEN part.
+
+Decision rules are considered to be probably the most human-understandable prediction model.
+
+In many ways, decision rules resemble decision trees. In fact, we can write down a decision tree as a set of decision rules.
+```{r eval=FALSE, include=FALSE}
+set.seed(123)
+library(tidymodels)
+
+iris_split <- initial_split(iris)
+train_iris <-
+  iris_split %>% 
+  training()
+
+test_iris  <- iris_split %>% 
+  testing()
+#tree <- fit(Species ~ .,
+#          data = train_iris,
+#          )
+#fit
+tree <- decision_tree() %>% 
+  set_engine('rpart') %>% 
+  
+  set_mode('classification') %>% 
+  fit(Species ~ .,
+          data = train_iris)
+
+
+library(rattle)
+library(rpart)
+
+
+
+
+tree <- rpart(Species~ Petal.Length + Petal.Width,
+                data = iris,
+              method = 'class')
+#asRules(tree$fit)
+```
+
+```{r eval=FALSE, include=FALSE}
+tree <- rpart(Species~ Petal.Length + Petal.Width,
+                data = iris,
+              method = 'class',
+              minsplit = 3,
+              minbucket = 1,
+              cp = -1)
+asRules(tree)
+              
+```
+
+```{r}
+
+```
+
+Decision trees are highly scalable and powerful algorithms. But a decision tree is a  greedy algorithm. For instance, the split at each node in a decision tree is determined by a greedy process.  It means that the decision tree does not find an optimal solution and therefore, the optimal rule lists.
+
+
+
+
+
+```{r}
+library(OneR)
+iris_binned <- optbin(iris)
+iris_binned
+
+```
+
+
+
+From the XAI point of view, we are interested in measuring two metrics for rule lists:
+
+Accuracy
+
+Parsimony: Shorter rules are more preferable
+
+
+
+## CORELS
+
+Finding an optimal DT  (or a set of rule lists) is an NP-hard problem. The  CORELS algorithms developed by aims to find the optimal set of rules. To achieve this goal, CORLES uses pre-mined frequent patterns and optimization techniques. 
+
+
+
+
+
+**Disadvantaged of rule lists**
+
+Rule learning algorithms by design can be only trained on datasets with a discrete target variable. It means that they are only capable of dealing with classification problem and not regression. We can tackle this issue by discretizing the continuous target variable in regression problems. However, doing that results in information loss. Moreover, the input features to a rule learning algorithm must be categorical. Again we can solve this problem by binning continouose features but the same information loss will persist.
+
+
+
+
+
+**Further Readings and Resources**
+
+## 
+
+
+```{r eval=FALSE, include=FALSE}
+install.packages("sbrl")
+library(sbrl)
+data(tictactoe)
+for (name in names(tictactoe)) {tictactoe[name] <- as.factor(tictactoe[,name])}
+# Train on two-thirds of the data
+b = round(2*nrow(tictactoe)/3, digit=0)
+data_train <- tictactoe[1:b, ]
+# Test on the remaining one third of the data
+data_test <- tictactoe[(b+1):nrow(tictactoe), ]
+
+data_test
+data("Titanic")
+names(tit)
+
+tit <- read_csv('E:\\Muhammad\\GDrive\\datasets\\R\\titanic_train.csv')
+View(Titanic)
+mtcars_binned<- tit %>% 
+  select(Embarked,Survived,Sex,SibSp, Parch,Fare,Age,Pclass) %>% 
+  drop_na() %>% 
+  as.data.frame() %>% 
+  optbin() %>% 
+  rename(label = Survived) %>% 
+  mutate(label = as.integer(label)) %>% 
+  #filter(label != 3) %>% 
+  mutate_all(as_factor) %>% 
+    mutate_all(as.integer) %>%
+mutate_all(as_factor) %>% 
+  as.data.frame()
+  
+optbin(mtcars)
+iris_binned
+glimpse(mtcars_binned)
+data_train
+#sbrl_model <- sbrl(mtcars_binned) , iters=20, pos_sign="1",
+#neg_sign="0", rule_minlen=2, rule_maxlen=4,
+#minsupport_pos=0.40, minsupport_neg=0.40,
+#lambda=10.0, eta=1.0, nchain=25)
+
+
+tree %>% 
+  predict(train_iris) %>%
+  bind_cols(train_iris) %>% 
+  collect_metrics()
+formula <- Species ~ .
+model <- decision_tree() %>% 
+  set_engine('rpart') %>% 
+  
+  set_mode('classification')
+wf <- workflows::add_model(workflows::add_formula(workflows::workflow(), formula), model)
+fit(wf,train_iris,save_pred = TRUE) %>%
+  collect_predictions()
+tree
+    collect_predictions(tree)
+    coll
+
+```
+

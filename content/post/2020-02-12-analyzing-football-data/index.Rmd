@@ -1,0 +1,65 @@
+---
+title: Analyzing Football Data
+author: Muhammad Chenariyan Nakhaee
+date: '2020-02-12'
+slug: []
+categories:
+  - R
+tags:
+  - football
+  - R
+  - Visualization
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-02-12T01:23:17+01:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+```{r}
+#install.packages("polite")
+library(tidyverse)
+library(rvest)
+library(polite)
+```
+```{r eval=FALSE, include=FALSE}
+url <- "https://fbref.com/en/squads/d609edc0/Internazionale"
+
+read_table_wiki <- function(url,n_tbl = 2){
+  table_wiki <- url %>%
+    read_html() %>%
+    html_nodes(xpath = paste('//*[@id="stats_standard_ks_3260"]')) %>%
+  html_table(header = NA,fill = TRUE) %>% 
+    as.data.frame() %>% 
+    slice(2:10)
+  table_wiki
+  
+}
+
+
+session <- bow(url, force = TRUE)
+session$robotstxt$permissions
+read_table_wiki(url)
+col_names <- url %>%
+    read_html() %>%
+    html_nodes(xpath = paste('//*[@id="stats_standard_ks_3260"]')) %>%
+  html_table(header = NA,fill = TRUE) %>% 
+    as.data.frame() %>% 
+    slice(1) 
+
+names(html_table)<- col_names
+names(table_wiki)
+View(as_tibble(table_wiki,.name_repair = "minimal")[1,1])
+
+t <- as_tibble(table_wiki,.name_repair = "minimal")[1,1]
+as.vector(t)
+table_wiki[1:10]
+```
+
