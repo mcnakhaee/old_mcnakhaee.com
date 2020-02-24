@@ -73,22 +73,17 @@
   </url>
   
   <url>
-    <loc>/post/2020-02-23-the-most-eloeuent-democratic-candidate/</loc>
-    <lastmod>2020-02-23T17:15:22+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/categories/</loc>
     <lastmod>2020-02-23T17:15:22+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/nlp/</loc>
+    <loc>/tags/nlp/</loc>
     <lastmod>2020-02-23T17:15:22+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/nlp/</loc>
+    <loc>/categories/nlp/</loc>
     <lastmod>2020-02-23T17:15:22+01:00</lastmod>
   </url>
   
@@ -113,6 +108,11 @@
   </url>
   
   <url>
+    <loc>/post/2020-02-23-the-most-eloeuent-democratic-candidate/</loc>
+    <lastmod>2020-02-23T17:15:22+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/</loc>
     <lastmod>2020-02-08T17:09:04+01:00</lastmod>
   </url>
@@ -133,12 +133,12 @@
   </url>
   
   <url>
-    <loc>/categories/xai/</loc>
+    <loc>/tags/xai/</loc>
     <lastmod>2020-02-01T17:12:06+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/xai/</loc>
+    <loc>/categories/xai/</loc>
     <lastmod>2020-02-01T17:12:06+01:00</lastmod>
   </url>
   
@@ -158,12 +158,12 @@
   </url>
   
   <url>
-    <loc>/categories/social-network-analysis/</loc>
+    <loc>/tags/social-network-analysis/</loc>
     <lastmod>2020-02-13T01:28:15+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/social-network-analysis/</loc>
+    <loc>/categories/social-network-analysis/</loc>
     <lastmod>2020-02-13T01:28:15+01:00</lastmod>
   </url>
   

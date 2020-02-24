@@ -1,5 +1,5 @@
 ---
-title: "Analyzing Democratic Party's Debate - Part 1: The Most Eloeuent Democratic Candidate"
+title: "Who Is the Most Eloquent Democratic Candidate in Debates?"
 author: Muhammad Chenariyan Nakhaee
 date: '2020-02-23'
 slug: []
@@ -32,6 +32,7 @@ projects: []
 <li><p><strong>Vocabulary size</strong>: The ratio of unique words that a candidate used in his/her debate speech.</p></li>
 <li><p><strong>Vocabulary complexity</strong>: The ratio of stop-words (words that are very common and usually don’t add much value to the content).A lower ratio of stopword usage by a candidate indicates that the candidate is more articulate.</p></li>
 </ol>
+<p>I use the <code>Tidytext</code> library and its stopword list to compute my defined metrics.</p>
 <pre class="r"><code>library(demdebates2020)
 library(tidytext)
 library(tidyverse)
@@ -53,7 +54,7 @@ theme_update(legend.position = &#39;none&#39;,
 speakers</code></pre>
 <pre><code>## [1] &quot;Bernie Sanders&quot;   &quot;Elizabeth Warren&quot; &quot;Mike Bloomberg&quot;   &quot;Pete Buttigieg&quot;  
 ## [5] &quot;Amy Klobuchar&quot;    &quot;Joe Biden&quot;</code></pre>
-<p>I use the Tidytext library and its stopword list to compute my defined metrics. But first the debate transcripts should be truned into a tidy format (one word per row). Then, I create a logical variable to see whether a words is a stopword or not.</p>
+<p>But first the debate transcripts should be truned into a tidy format (one word per row). Then, I create a logical variable to see whether a words is a stopword or not.</p>
 <pre class="r"><code>debate_vocab_df &lt;- debates %&gt;%
   filter(!is.na(speech), type == &#39;Candidate&#39;,speaker %in% speakers) %&gt;%
   unnest_tokens(word, speech) %&gt;%
@@ -101,12 +102,13 @@ head(debate_vocab_df)  </code></pre>
   mutate(speaker = fct_reorder(speaker,vocab_size,.desc =  TRUE)) %&gt;% 
   ggplot(aes(x = speaker , y = vocab_size,fill = speaker)) +
   geom_col(show.legend = FALSE) +
-  geom_label(aes(label = round(vocab_size,digits = 3) ,size = 7)) +
+  geom_label(aes(label = round(vocab_size,digits = 3) ,size = 8)) +
   coord_flip() +
   scale_fill_manual(values = custom_palette) +
   labs(title = &quot;The ratio of unique Words used by Democratic candidates in the Debates&quot;,
        caption = &#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&#39;)</code></pre>
-<p><img src="/post/2020-02-23-the-most-eloeuent-democratic-candidate/index_files/figure-html/unnamed-chunk-6-1.png" width="1344" /></p>
+<p><img src="/post/2020-02-23-the-most-eloeuent-democratic-candidate/index_files/figure-html/unnamed-chunk-6-1.png" width="1440" /></p>
+<p>In conclusion, there is no outright winner in terms of language skills among Democratic candidates. Bernie Sanders got the best score in terms of vocabulary complexity but he has the least ratio of unique words among his competitors. Also, one can argue that being eloquent might not benefit a candidate becuase people are interested in everyday speeches.</p>
 <div id="further-reading" class="section level1">
 <h1>Further Reading</h1>
 <p><a href="https://www.favstats.eu/post/demdebates/" class="uri">https://www.favstats.eu/post/demdebates/</a></p>
