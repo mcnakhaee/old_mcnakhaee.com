@@ -149,7 +149,7 @@ head(normalized_features)
 Both UMAP and T-SNE have several hyper-parameters that can influence the resulting embedding output.
 For the sake of simplicity, I did not change the default values for these hyper-parameters.
 
-```{r eval=FALSE, include=FALSE}
+```{r eval=FALSE, include=TRUE}
 library(Rtsne)
 tsne_embedding <- normalized_features %>%
   select(c(12:23)) %>%
@@ -163,7 +163,7 @@ embeddings <- read_csv('spotify_emb.csv')
 
 Just like t-SNE, UMAP is  a dimensionality reduction algorithm but it is much more computationally efficient and faster that t-SNE. The UMAP algorithm was [originally implemented in Python](https://github.com/lmcinnes/umap). But there are also several libraries in R such as [umapr](https://github.com/ropenscilabs/umapr), [umap](https://cran.r-project.org/web/packages/umap/vignettes/umap.html) and [uwot](https://github.com/jlmelville/uwot) that also provide an implementation of the UMAP algorithm. [``umapr``](https://github.com/ropenscilabs/umapr) and [`umap`](https://cran.r-project.org/web/packages/umap/vignettes/umap.html) use the [``reticulate``](https://cran.r-project.org/web/packages/reticulate/index.html) package and provide a wrapper function around the original ``umap-learn`` python library.  Also,  ``umap`` and ``uwot`` library have their own R implementation of the algorithms and they do not require the python package to be installed first. For my experiment, I used the ``uwot`` library.
 
-```{r eval=FALSE, include=FALSE}
+```{r eval=FALSE, include=TRUE}
 library(uwot)
 umap_embedding <- normalized_features %>%
   select(c(12:23)) %>%

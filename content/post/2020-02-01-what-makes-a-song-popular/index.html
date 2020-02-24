@@ -198,7 +198,15 @@ head(normalized_features)</code></pre>
 ## #   tempo &lt;dbl&gt;, duration_ms &lt;dbl&gt;, shorter_names &lt;fct&gt;</code></pre>
 <p>Both UMAP and T-SNE have several hyper-parameters that can influence the resulting embedding output.
 For the sake of simplicity, I did not change the default values for these hyper-parameters.</p>
+<pre class="r"><code>library(Rtsne)
+tsne_embedding &lt;- normalized_features %&gt;%
+  select(c(12:23)) %&gt;%
+  Rtsne(check_duplicates = FALSE)</code></pre>
 <p>Just like t-SNE, UMAP is a dimensionality reduction algorithm but it is much more computationally efficient and faster that t-SNE. The UMAP algorithm was <a href="https://github.com/lmcinnes/umap">originally implemented in Python</a>. But there are also several libraries in R such as <a href="https://github.com/ropenscilabs/umapr">umapr</a>, <a href="https://cran.r-project.org/web/packages/umap/vignettes/umap.html">umap</a> and <a href="https://github.com/jlmelville/uwot">uwot</a> that also provide an implementation of the UMAP algorithm. <a href="https://github.com/ropenscilabs/umapr"><code>umapr</code></a> and <a href="https://cran.r-project.org/web/packages/umap/vignettes/umap.html"><code>umap</code></a> use the <a href="https://cran.r-project.org/web/packages/reticulate/index.html"><code>reticulate</code></a> package and provide a wrapper function around the original <code>umap-learn</code> python library. Also, <code>umap</code> and <code>uwot</code> library have their own R implementation of the algorithms and they do not require the python package to be installed first. For my experiment, I used the <code>uwot</code> library.</p>
+<pre class="r"><code>library(uwot)
+umap_embedding &lt;- normalized_features %&gt;%
+  select(c(12:23)) %&gt;%
+  umap(random_state = 123)</code></pre>
 <p>Now that I had the learned embeddings for both t-SNE and UMAP, it was time to put the side by side.</p>
 <pre class="r"><code>embeddings &lt;- 
   spotify_songs %&gt;% 
@@ -314,27 +322,6 @@ For the most part both t-SNE and UMAP place songs from the same artists or simil
 <pre><code>## label_key: selected_artist</code></pre>
 <pre><code>## Too many data points, skip labeling</code></pre>
 <pre><code>## Warning: Removed 249 rows containing missing values (geom_text_repel).</code></pre>
-<pre><code>## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database
-
-## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database
-
-## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database
-
-## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database
-
-## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database</code></pre>
-<pre><code>## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database</code></pre>
-<pre><code>## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database
-
-## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database</code></pre>
 <p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-19-1.png" width="3360" /></p>
 <p>It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.</p>
 </div>

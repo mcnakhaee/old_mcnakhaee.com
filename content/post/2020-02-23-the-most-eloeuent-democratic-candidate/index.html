@@ -1,0 +1,113 @@
+---
+title: "Analyzing Democratic Party's Debate - Part 1: The Most Eloeuent Democratic Candidate"
+author: Muhammad Chenariyan Nakhaee
+date: '2020-02-23'
+slug: []
+categories:
+  - NLP
+  - R
+tags:
+  - NLP
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-02-23T17:15:22+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<p>I am not neither a US citizen nor have I not been to the US in my entire life. However, the US presidential election plays an important role in my life and almost everyone’s else around the world. For that reason, I have been following the US politics very closely for a few years.</p>
+<p>A few days ago I found <a href="https://github.com/favstats/demdebates2020">an R package</a> on Twitter that contains the transcripts of the Democratic debates. Then I wondered how I can use my data science techniques to analyze these transcripts.</p>
+<p>Everyone agrees that Donald Trump only uses a basic English vocabulary in his speeches and tweets and probably he is not the most eloquent president in the US history. But what about his possible future challengers from the democratic party and how skillful his opponents are with words? So, I decided to analyze transcripts from this aspected an identify how eloquent Trump’s contenders are.</p>
+<p>An eloquent person has acquired a rich vocabulary and uses a wide range of complex words in his/her speeches. On the other hand, an inarticulate person has a limited vocabulary and mainly uses simple and everyday words. So,Ideally, I think we can measure eloquency by counting the number of unique words and the number of sophisticated words that a person uses.</p>
+<p>However, I could not find a dataset of English words along with their perceived complexity. So, to measure the eloquency of the presidential candidates, I defined two other metrics that I hope can serve as apporoximation to the truth:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Vocabulary size</strong>: The ratio of unique words that a candidate used in his/her debate speech.</p></li>
+<li><p><strong>Vocabulary complexity</strong>: The ratio of stop-words (words that are very common and usually don’t add much value to the content).A lower ratio of stopword usage by a candidate indicates that the candidate is more articulate.</p></li>
+</ol>
+<pre class="r"><code>library(demdebates2020)
+library(tidytext)
+library(tidyverse)
+library(gghighlight)
+library(ggthemes)
+theme_set(theme_fivethirtyeight())
+theme_update(legend.position = &#39;none&#39;,
+             text = element_text(family = &#39;Montserrat&#39;),
+      plot.title = element_text(family = &#39;Montserrat&#39;, face = &quot;bold&quot;,size = 25, margin = margin(0, 0, 20, 0)),
+      axis.text.x = element_blank(),
+      axis.text.y = element_text(family = &#39;Montserrat&#39;, face = &quot;bold&quot;,size = 15, margin = margin(0, 0, 20, 0)),
+      
+      panel.spacing = unit(2, &quot;points&quot;),)</code></pre>
+<p>I should mention that for the sake of simplicity, I only anlayze speeches delviered by candidates who are still in the race and were present in the 9th democratic debate.</p>
+<pre class="r"><code>speakers &lt;- debates %&gt;%
+  filter(!is.na(speech), type == &#39;Candidate&#39; ,debate == 9) %&gt;%
+  distinct(speaker) %&gt;%
+  pull(speaker)
+speakers</code></pre>
+<pre><code>## [1] &quot;Bernie Sanders&quot;   &quot;Elizabeth Warren&quot; &quot;Mike Bloomberg&quot;   &quot;Pete Buttigieg&quot;  
+## [5] &quot;Amy Klobuchar&quot;    &quot;Joe Biden&quot;</code></pre>
+<p>I use the Tidytext library and its stopword list to compute my defined metrics. But first the debate transcripts should be truned into a tidy format (one word per row). Then, I create a logical variable to see whether a words is a stopword or not.</p>
+<pre class="r"><code>debate_vocab_df &lt;- debates %&gt;%
+  filter(!is.na(speech), type == &#39;Candidate&#39;,speaker %in% speakers) %&gt;%
+  unnest_tokens(word, speech) %&gt;%
+  mutate(is_stop_word = word %in% stop_words$word) %&gt;%
+  group_by(speaker) %&gt;%
+  summarize(stop_word_ratio = sum(is_stop_word) / n(),
+            vocab_size = n_distinct(word)/ n())  %&gt;% 
+  arrange(stop_word_ratio) 
+  
+head(debate_vocab_df)  </code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   speaker          stop_word_ratio vocab_size
+##   &lt;chr&gt;                      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Bernie Sanders             0.652     0.106 
+## 2 Elizabeth Warren           0.693     0.0948
+## 3 Pete Buttigieg             0.697     0.120 
+## 4 Joe Biden                  0.718     0.0993
+## 5 Amy Klobuchar              0.719     0.108 
+## 6 Mike Bloomberg             0.742     0.273</code></pre>
+<p>Now it is time to visualize the results using the <code>ggplot</code> library.</p>
+<pre class="r"><code>custom_palette &lt;-
+  c(
+    &#39;Mike Bloomberg&#39; = &#39;#EDC948&#39;,
+    &#39;Amy Klobuchar&#39; = &#39;#59A14F&#39; ,
+    &#39;Joe Biden&#39; = &#39;#4E79A7&#39;,
+    &#39;Pete Buttigieg&#39; = &#39;#B07AA1&#39;,
+    &#39;Elizabeth Warren&#39; =  &#39;#F28E2B&#39;,
+    &#39;Bernie Sanders&#39; = &#39;#E15759&#39; 
+  )
+
+&#39;#76B7B2&#39;</code></pre>
+<pre><code>## [1] &quot;#76B7B2&quot;</code></pre>
+<pre class="r"><code>debate_vocab_df %&gt;%
+  mutate(speaker = fct_reorder(speaker,stop_word_ratio,.desc =  TRUE)) %&gt;% 
+  ggplot(aes(x = speaker , y = stop_word_ratio,fill = speaker)) +
+  geom_col(show.legend = FALSE) +
+  geom_label(aes(label = round(stop_word_ratio,digits = 3)) ,size = 5) +
+  coord_flip() +
+  scale_fill_manual(values = custom_palette) +
+  labs(title = &quot;The ratio of stopwords used by Democratic canidates in the debates&quot;)</code></pre>
+<p><img src="/post/2020-02-23-the-most-eloeuent-democratic-candidate/index_files/figure-html/unnamed-chunk-5-1.png" width="1344" /></p>
+<p>It seems that so far Bernie Sanders has used the lowest percentage of stopwords in his speeches. On the other hand, Mike Bloomberg used the largest ratio of stopwords in his first and only debate.</p>
+<p>The vocabulary size measure shows a different trend as Mike Bloomberg has the highest score among the rest of the candidates. Of course, as I mentioned before, Bloomberg has appeared only once on the debate stage and it might be too soon to draw a conclusion about his eloquency.</p>
+<pre class="r"><code> debate_vocab_df %&gt;%
+  mutate(speaker = fct_reorder(speaker,vocab_size,.desc =  TRUE)) %&gt;% 
+  ggplot(aes(x = speaker , y = vocab_size,fill = speaker)) +
+  geom_col(show.legend = FALSE) +
+  geom_label(aes(label = round(vocab_size,digits = 3) ,size = 7)) +
+  coord_flip() +
+  scale_fill_manual(values = custom_palette) +
+  labs(title = &quot;The ratio of unique Words used by Democratic candidates in the Debates&quot;,
+       caption = &#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&#39;)</code></pre>
+<p><img src="/post/2020-02-23-the-most-eloeuent-democratic-candidate/index_files/figure-html/unnamed-chunk-6-1.png" width="1344" /></p>
+<div id="further-reading" class="section level1">
+<h1>Further Reading</h1>
+<p><a href="https://www.favstats.eu/post/demdebates/" class="uri">https://www.favstats.eu/post/demdebates/</a></p>
+</div>

@@ -5,7 +5,7 @@
     <link>/tags/python/</link>
       <atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <description>Python</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 11 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 14 Feb 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Python</title>
@@ -13,17 +13,79 @@
     </image>
     
     <item>
-      <title>What Makes a Song Popular? an Explainable Machine Learning Approach</title>
+      <title>Tidymodel for Scikit-Learn Users and Vise Versa</title>
+      <link>/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/</link>
+      <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/</guid>
+      <description>
+
+
+&lt;p&gt;Advantages
+There are many ways to do one thing
+The output is a table which you can use as an input to everything that works with a table&lt;/p&gt;
+&lt;p&gt;Disadvantages&lt;/p&gt;
+&lt;p&gt;##Classification Models&lt;/p&gt;
+&lt;div id=&#34;regression-models&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Regression Models&lt;/h2&gt;
+&lt;div id=&#34;making-prediction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Making Prediction&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div id=&#34;model-selection&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Model selection&lt;/h3&gt;
+&lt;p&gt;reasonable defaults for tidymodel&lt;/p&gt;
+&lt;p&gt;tidymodel by default tuning paramters are set for us. We can also specify them ourselves.&lt;/p&gt;
+&lt;p&gt;you can even tune the preprocessing steps in Tidymodel.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pipelines&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Pipelines&lt;/h2&gt;
+&lt;p&gt;pipelines are handy:
+they make your code much shorter
+data leakage&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pre-processing&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Pre-Processing&lt;/h2&gt;
+&lt;p&gt;inverse transform&lt;/p&gt;
+&lt;div id=&#34;section&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;/h3&gt;
+&lt;p&gt;My preferable way&lt;/p&gt;
+&lt;p&gt;Automatic machine learning&lt;/p&gt;
+&lt;p&gt;parellal processing&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>What Makes a Song Popular? An Explainable Machine Learning Approach</title>
       <link>/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/</link>
       <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/</guid>
       <description>
 
 
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tune)
+library(rsample)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: tidyr&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(yardstick)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## For binary classification, the first factor level is assumed to be the event.
+## Set the global option `yardstick.event_first` to `FALSE` to change this.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dials)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: scales&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(workflows)
+library(parsnip)
+library(infer)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#devtools::install_github(&amp;quot;tidymodels/tidymodels&amp;quot;)
+#remotes::install_github(&amp;quot;wilkelab/ggtext&amp;quot;,build = &amp;#39;binary&amp;#39;)
+library(tidyverse)
+library(tidymodels)
 library(lubridate)
 library(corrr)
-spotify_songs &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&amp;#39;)
+library(pins)
+library(genius)
+library(reticulate)
+
+spotify_songs &amp;lt;- pin(read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&amp;#39;))
 head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 23
 ##   track_id track_name track_artist track_popularity track_album_id
@@ -40,44 +102,86 @@ head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
 ## #   energy &amp;lt;dbl&amp;gt;, key &amp;lt;dbl&amp;gt;, loudness &amp;lt;dbl&amp;gt;, mode &amp;lt;dbl&amp;gt;, speechiness &amp;lt;dbl&amp;gt;,
 ## #   acousticness &amp;lt;dbl&amp;gt;, instrumentalness &amp;lt;dbl&amp;gt;, liveness &amp;lt;dbl&amp;gt;, valence &amp;lt;dbl&amp;gt;,
 ## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Have you ever wondered why some songs from an artist become popular and others become a total failure? As you can see in the following plot even The Beetles had a few not so popular songs. I find it to be an interesting question that can be answered to some extent by machine learning algorithms and explainable machine learning methods.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs %&amp;gt;% 
-  filter(track_artist == &amp;#39;The Beatles&amp;#39;,track_popularity&amp;gt;10) %&amp;gt;% 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs &amp;lt;- spotify_songs %&amp;gt;%  
+  dplyr::rowwise() %&amp;gt;% 
+  mutate(shorter_names = unlist(str_split(track_name,&amp;#39;-&amp;#39;))[1]) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs &amp;lt;- py$spotify_songs&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Have you ever wondered why some songs from an artist become so popular and others are just total failure?
+Look at the next plot. Even The Beetles had a few not so popular songs.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#charts_lyrics &amp;lt;- add_genius(spotify_songs, track_artist, shorter_names, type = &amp;quot;lyrics&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(aptheme)
+spotify_songs %&amp;gt;%
+  filter(track_artist == &amp;#39;The Beatles&amp;#39;, track_popularity &amp;gt; 10) %&amp;gt;%
   ggplot(aes(x = track_popularity)) +
-  geom_histogram() &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;In the second part of this post, I will demonstrate how I designed a machine learning workflow for predicting the popularity of songs based on several audio features. Here my goal from developing a machine learning model is not just to predict the popularity of a song but rather to figure out which factors contribute to the popularity or the unpopularity of a song. Therefore, I will use several explainable machine learning methods such as LIME and SHAP to peek inside my trained machine learning models. Having done that, we can better understand what&lt;/p&gt;
+ geom_histogram() +
+  theme_ap() + theme(legend.position = &amp;#39;bottom&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;So what can be the recipe for popularity? Or why does a song become(un)popular? Is it solely releated to the artists that play a song? Can it be the song’s audio features?&lt;/p&gt;
+&lt;p&gt;##Exploratory Data Analysis&lt;/p&gt;
 &lt;div id=&#34;machine-learning&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Machine Learning&lt;/h2&gt;
+&lt;p&gt;Another more complex way to look at this problem is to use machine learning algorithms. We can train a machine learning model to accurately predict the popularity of a song. Now if we look inside the patterns that this model learning model has learned, we might be able to find out why a song has become popular or unpopular.
+In the second part of this post, I will demonstrate how I designed a machine learning workflow to predict the popularity of songs based on several audio features. Here my goal from using an ML model is not just to predict popularity but rather to figure out which factors contribute to it.&lt;/p&gt;
+&lt;p&gt;However, peeking inside an ML algorithm and discovering how it makes prediction is not alwayse straighforward. Only the inner-workings of a few ML algorithms such as decision trees and linear modelsare transparent. These algorithms are very simple and might be powerful enough to model the complexities and the common knowledge is that they are not accurate. Of course you can make a decision tree fairly accurate by increasing its depth but the resulting tree would become exteremly messy and hard to understand.In addition, deeper tree are more likely to overfit.&lt;/p&gt;
+&lt;p&gt;There are also more powerful and more accurate algorithms such as random forests, xgboost or deep neural networks but understanding how they make predictions is very challenging (sometimes they are called black-box models). That is translated to a widespread belief amont ML community that there is a trade-off between the accuracy and the interpretability of an ML algorithm. However, a few other researchers reject this claim and believe it is just a popular myth and you can indeed find an interpretable and accurate ML algorithm.&lt;/p&gt;
+&lt;p&gt;Anyways, over the past five years a lot of methods have been proposed to some “approximate” how an ML algorithm predicts an outcome. Two popular methods that are widely used to interpret machine learning algorithms are LIME and SHAP.&lt;/p&gt;
+&lt;p&gt;We can look inside a machine learning algorithms from two aspects:&lt;/p&gt;
+&lt;p&gt;Based on what feature values, an ML algorithm has made prediction about the popularity of “a particular” song. Local explanations
+Global explanations such as feature importance scores to understand to the popularity of songs.&lt;/p&gt;
+&lt;p&gt;In this part of my post, first I will train a random forest and an XGBoost model to predict song popularity and then I will discover how they make prediction using SHAP, LIME and feature importance scores. Hopefully, these patterns can help us better understand which factors might contribute to a song’s popularity.&lt;/p&gt;
+&lt;p&gt;To use a explainable machine learning methods for this purpose, it is important to obtain a reasonable performance on the prediction task. Otherwise, the result would be unreliable and useless.&lt;/p&gt;
+&lt;p&gt;I won’t use common pre-processing steps such as normalization because random forest and XGBoost are not sensitive to non-normalized data. Also, some pre-processing steps might make the interpretation of the results less intuitive.&lt;/p&gt;
+&lt;p&gt;I have mainly used scikit-learn for training ML models but recently I have become passionately interested in the Tidymodels ecosystem. So, here I have decided to use Tidymodels and its features for model development.
+Workflows are similar to &lt;code&gt;pipelines&lt;/code&gt; in scikit-learn.
+My designed workflow consists of the following step:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;I create a preprocessing recipe using the &lt;code&gt;recipe&lt;/code&gt; package.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I split the input dataset into a training and testing set&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I build a random forest and an XGBoost model using the &lt;code&gt;parsnip&lt;/code&gt; package.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I use &lt;code&gt;tune&lt;/code&gt; package and tuning the hyper-paramters of the random forest and the XGBoost model.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I use&lt;code&gt;rsample&lt;/code&gt; package to perform cross-validation and train both models.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I evaluate the performance of the trained models based on metrics from the &lt;code&gt;yardstick&lt;/code&gt; package and select the best model.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a href=&#34;https://tidymodels.github.io/yardstick/reference/index.html&#34; class=&#34;uri&#34;&gt;https://tidymodels.github.io/yardstick/reference/index.html&lt;/a&gt;&lt;/p&gt;
+&lt;ol start=&#34;7&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Finally, I explain the predictions of the machine learning model in hope of finding interesting patterns that might tell us something about why a song becomes popular. Not that this step is not implemented as a part of the Tidymodel workflow.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;machine-learning-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Machine Learning&lt;/h2&gt;
+&lt;div id=&#34;pre-processing&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;pre-processing&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bulding-the-ml-models&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Bulding the ML models&lt;/h3&gt;
+&lt;p&gt;first we need to specify the type of the model that we want to train and if necessary its hyper-paramters. Then we have to determine the mode of the ML task that we would like to solve. Our problem is a regression problem, so we set the mode as &lt;code&gt;regression&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;set the engine or the implementation of the model (Ranger)&lt;/p&gt;
+&lt;p&gt;4.set the mode of the ML task (Regression)&lt;/p&gt;
+&lt;/div&gt;
 &lt;div id=&#34;exploratory-data-analysis&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Exploratory data analysis&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs %&amp;gt;% 
-  select(track_popularity, c(12:23)) %&amp;gt;% 
-  correlate() %&amp;gt;% 
-    network_plot(min_cor = 0.1,color = c(&amp;#39;#1a535c&amp;#39;,&amp;#39;#4ecdc4&amp;#39;,&amp;#39;#f7fff7&amp;#39;,&amp;#39;#ff6b6b&amp;#39;,&amp;#39;#ffe66d&amp;#39;)) &lt;/code&gt;&lt;/pre&gt;
+ select(track_popularity, c(12:23)) %&amp;gt;% 
+ correlate() %&amp;gt;% 
+  network_plot(min_cor = 0.1,color = c(&amp;#39;#1a535c&amp;#39;,&amp;#39;#4ecdc4&amp;#39;,&amp;#39;#f7fff7&amp;#39;,&amp;#39;#ff6b6b&amp;#39;,&amp;#39;#ffe66d&amp;#39;)) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 
 ## Correlation method: &amp;#39;pearson&amp;#39;
 ## Missing treated using: &amp;#39;pairwise.complete.obs&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs %&amp;gt;% 
-  ggplot(aes(track_popularity)) +
-  geom_histogram(fill = &amp;#39;indianred&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+ ggplot(aes(track_popularity)) +
+ geom_histogram(fill = &amp;#39;indianred&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Local explanations to understand what feature values contribute to the popularity of a particular song.
-Global explanations such as feature importance scores to understand to the popularity of songs.&lt;/p&gt;
-&lt;p&gt;To use a explainable machine learning methods for this purpose, it is important to obtain a reasonable performance on the prediction task. Otherwise, the result would be unreliable.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;shap&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Shap&lt;/h2&gt;
-&lt;div id=&#34;machine-learning-1&#34; class=&#34;section level3&#34;&gt;
+&lt;div id=&#34;machine-learning-2&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Machine Learning&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#rf &amp;lt;- rand_forest(trees = 100, mode = &amp;#39;regression&amp;#39;) %&amp;gt;% 
-  #set_engine(&amp;quot;randomForest&amp;quot;) %&amp;gt;% 
-  #fit(Species ~. ,data = iris_training)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import lime
-import shap&lt;/code&gt;&lt;/pre&gt;
+ #set_engine(&amp;quot;randomForest&amp;quot;) %&amp;gt;% 
+ #fit(Species ~. ,data = iris_training)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;references-and-further-readings&#34; class=&#34;section level2&#34;&gt;
@@ -112,6 +216,8 @@ Decision trees and linear models are the two most popular classes of interpretab
 &lt;p&gt;Decision trees are highly scalable and powerful algorithms. But a decision tree is a greedy algorithm. For instance, the split at each node in a decision tree is determined by a greedy process. It means that the decision tree does not find an optimal solution and therefore, the optimal rule lists.&lt;/p&gt;
 &lt;div id=&#34;how-to-bin&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;How to bin&lt;/h1&gt;
+&lt;p&gt;optbin
+santokura&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(OneR)
 iris_binned &amp;lt;- optbin(iris)
 iris_binned&lt;/code&gt;&lt;/pre&gt;

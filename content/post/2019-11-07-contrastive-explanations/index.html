@@ -77,7 +77,7 @@ rf.fit(train,labels_train)</code></pre>
 ##                        n_jobs=None, oob_score=False, random_state=None,
 ##                        verbose=0, warm_start=False)</code></pre>
 <pre class="python"><code>rf.score(test,labels_test)</code></pre>
-<pre><code>## 0.8321678321678322</code></pre>
+<pre><code>## 0.8111888111888111</code></pre>
 <pre class="python"><code>prd_ds = test.copy()
 prd_ds[&#39;actual&#39;]  = labels_test
 prd_ds[&#39;prds&#39;] = rf.predict(test)
@@ -85,19 +85,19 @@ prd_ds[&#39;prds&#39;] = rf.predict(test)
 prd_ds[&#39;wrong&#39;]  =  prd_ds[&#39;prds&#39;] == prd_ds[&#39;actual&#39;]</code></pre>
 <pre class="r"><code>py$prd_ds %&gt;% head()</code></pre>
 <pre><code>##     PassengerId Pclass Age SibSp Parch     Fare Embarked_C Embarked_Q
-## 465         466      3  38     0     0   7.0500          0          0
-## 297         298      1   2     1     2 151.5500          0          0
-## 267         268      3  25     1     0   7.7750          0          0
-## 97           98      1  23     0     1  63.3583          1          0
-## 120         121      2  21     2     0  73.5000          0          0
-## 9            10      2  14     1     0  30.0708          1          0
+## 66           67      2  29     0     0  10.5000          0          0
+## 63           64      3   4     3     2  27.9000          0          0
+## 455         456      3  29     0     0   7.8958          1          0
+## 318         319      1  31     0     2 164.8667          0          0
+## 299         300      1  50     0     1 247.5208          1          0
+## 571         572      1  53     2     0  51.4792          0          0
 ##     Embarked_S Sex_binary actual prds wrong
-## 465          1          0      0    0  TRUE
-## 297          1          1      0    1 FALSE
-## 267          1          0      1    0 FALSE
-## 97           0          0      1    0 FALSE
-## 120          1          0      0    0  TRUE
-## 9            0          1      1    1  TRUE</code></pre>
+## 66           1          1      1    1  TRUE
+## 63           1          0      0    0  TRUE
+## 455          0          0      1    0 FALSE
+## 318          1          1      1    1  TRUE
+## 299          0          1      1    1  TRUE
+## 571          1          1      1    1  TRUE</code></pre>
 <pre class="python"><code>import lime
 import lime.lime_tabular
 import dtreeviz
@@ -138,12 +138,13 @@ exp.show_in_notebook(show_table = True,show_all = True)
 ## 
 ##     explain</code></pre>
 <pre class="r"><code>library(tidymodels)</code></pre>
-<pre><code>## -- Attaching packages -------------------------------------------------------------------------- tidymodels 0.0.3 --</code></pre>
-<pre><code>## &lt;U+221A&gt; broom     0.5.4     &lt;U+221A&gt; recipes   0.1.9
-## &lt;U+221A&gt; dials     0.0.4     &lt;U+221A&gt; rsample   0.0.5
-## &lt;U+221A&gt; infer     0.5.1     &lt;U+221A&gt; yardstick 0.0.5
-## &lt;U+221A&gt; parsnip   0.0.5</code></pre>
-<pre><code>## -- Conflicts ----------------------------------------------------------------------------- tidymodels_conflicts() --
+<pre><code>## -- Attaching packages -------------------------------------------------------------------------------- tidymodels 0.1.0 --</code></pre>
+<pre><code>## &lt;U+221A&gt; broom     0.5.4     &lt;U+221A&gt; rsample   0.0.5
+## &lt;U+221A&gt; dials     0.0.4     &lt;U+221A&gt; tune      0.0.1
+## &lt;U+221A&gt; infer     0.5.1     &lt;U+221A&gt; workflows 0.1.0
+## &lt;U+221A&gt; parsnip   0.0.5     &lt;U+221A&gt; yardstick 0.0.5
+## &lt;U+221A&gt; recipes   0.1.9</code></pre>
+<pre><code>## -- Conflicts ----------------------------------------------------------------------------------- tidymodels_conflicts() --
 ## x scales::discard()   masks purrr::discard()
 ## x lime::explain()     masks dplyr::explain()
 ## x dplyr::filter()     masks stats::filter()

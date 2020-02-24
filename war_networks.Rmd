@@ -1,0 +1,120 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+https://cran.r-project.org/web/packages/tsna/vignettes/tsna_vignette.html
+
+```{r}
+library(tidyverse)
+library(foreign)
+library(lubridate)
+library(readxl)
+library(tsna)
+library(networkDynamicData)
+```
+
+```{r}
+conflicts <- read_xls('E:/Muhammad/GDrive/datasets/English/wars/MainConflictTable.xls')
+tail(conflicts %>%  arrange(EpEndDate))
+```
+
+```{r}
+
+events <- read_xls('E:/Muhammad/GDrive/datasets/English/wars/AcledEvents.xls')
+tail(events)
+#read.dta('E:/Muhammad/GDrive/datasets/English/wars/onset/annual_onset.dta')
+```
+```{r}
+ucdp <- read_csv('E:/Muhammad/GDrive/datasets/English/wars/ucdp-prio-acd-191.csv')
+ucdp %>% 
+  filter(!is.na(ep_end_date)) 
+```
+
+
+Most of the tsna package function assume that their input is formatted as a networkDynamic data structure. The networkDynamic package provides utilities (networkDynamic()) for converting data from various formats (such as timed edge-lists, or lists of matrices) as well as functions for manipulating the data structures.
+
+The data structure provided by networkDynamic objects assumes that the vertices and (directed or non-directed) edges of a network have multiple ‘activity spells’ associated with them indicating when they are ‘active’ or exist within the observation period. Each spell is an interval with an onset and terminus time. Each edge or vertex can activate and deactivate multiple times during the period over which the network is observed
+
+```{r}
+data(moodyContactSim)
+moodyContactSim
+```
+
+```{r}
+dyn_df <- conflicts %>% 
+  filter(!is.na(EpEndDate)) %>% 
+  mutate(onset =   lubridate::as_datetime(StartDate),
+         terminus = if_else(!is.na(EpEndDate),  lubridate::as_datetime(EpEndDate), lubridate::as_datetime(Sys.Date())),
+        onset.censored = FALSE,
+        terminus.censored = FALSE,
+        edge.id = seq(1,dim(conflicts %>% 
+  filter(!is.na(EpEndDate)))[1]),
+        head = SideA,
+        head_name = SideA,
+        tail = SideB,
+        tail_name = SideB,
+        duration = lubridate::as.duration(terminus-onset)) %>%
+  filter(terminus > onset) %>% 
+ select(onset,terminus,head,tail,onset.censored,terminus.censored,duration,edge.id,head_name,tail_name) %>% mutate(duration = as.numeric(duration),
+                                                                                               onset = as.numeric(as.character(as.Date(onset, format = "%d/%m/%Y"), format="%Y%m%d")),
+         terminus = as.numeric(as.character(as.Date(terminus, format = "%d/%m/%Y"), format="%Y%m%d")))
+
+tail(dyn_df,20)
+dim(dyn_df)
+```
+
+
+
+
+```{r}
+edges <- dyn_df %>%  select(tail,head)
+net <- network(edges,  directed = FALSE,
+  bipartite = FALSE)
+
+names <- unique(c(dyn_df$head,dyn_df$tail))
+dyn_df$head <- match(dyn_df$head,names)
+dyn_df$tail <- match(dyn_df$tail,names)
+
+
+gf_dyn <- networkDynamic(net,
+                         edge.spells = as.data.frame(dyn_df))
+
+dyn_df
+```
+
+```{r fig.height=50,fig.width=50}
+plot(network.extract(gf_dyn,at=20060814),
+     main='network at time 215',
+     displaylabels=TRUE,
+     label.cex=1.9,
+     label.pos=5,
+     vertex.col='white',
+     vertex.cex=1)
+```
+```{r}
+dyn_df %>% 
+  filter(tail == 1 | head == 1)
+```
+Temporal Paths and metrics
+Explanation of paths in network
+```{r fig.height=50,fig.width=50}
+p <- tPath(gf_dyn,v = 2,start = 19470101        )
+plot(p,
+     displaylabels=TRUE,
+          label.cex=1.9,
+     label.pos=5,
+     vertex.col='white',
+     vertex.cex=1)
+```
+
+```{r fig.height=50,fig.width=50}
+plotPaths(gf_dyn,
+          p,
+               displaylabels=TRUE,
+          label.cex=1.9,
+     label.pos=5,
+     vertex.col='white',
+     vertex.cex=1)
+```
+

@@ -5,7 +5,7 @@
     <link>/categories/r/</link>
       <atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 12 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 23 Feb 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>R</title>
@@ -13,109 +13,100 @@
     </image>
     
     <item>
-      <title>Analyzing Football Data</title>
-      <link>/post/2020-02-12-analyzing-football-data/</link>
-      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-02-12-analyzing-football-data/</guid>
+      <title>Analyzing Democratic Party&#39;s Debate - Part 1: The Most Eloeuent Democratic Candidate</title>
+      <link>/post/2020-02-23-the-most-eloeuent-democratic-candidate/</link>
+      <pubDate>Sun, 23 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-23-the-most-eloeuent-democratic-candidate/</guid>
       <description>
 
 
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#install.packages(&amp;quot;polite&amp;quot;)
-library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## -- Attaching packages ----------------------------------------------------------------------- tidyverse 1.3.0 --&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;lt;U+221A&amp;gt; ggplot2 3.2.1     &amp;lt;U+221A&amp;gt; purrr   0.3.3
-## &amp;lt;U+221A&amp;gt; tibble  2.1.3     &amp;lt;U+221A&amp;gt; dplyr   0.8.4
-## &amp;lt;U+221A&amp;gt; tidyr   1.0.2     &amp;lt;U+221A&amp;gt; stringr 1.4.0
-## &amp;lt;U+221A&amp;gt; readr   1.3.1     &amp;lt;U+221A&amp;gt; forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## -- Conflicts -------------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rvest)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Loading required package: xml2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 
-## Attaching package: &amp;#39;rvest&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:purrr&amp;#39;:
-## 
-##     pluck&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:readr&amp;#39;:
-## 
-##     guess_encoding&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(polite)&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>What Makes a Song Popular? an Explainable Machine Learning Approach</title>
-      <link>/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/</link>
-      <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/</guid>
-      <description>
+&lt;p&gt;I am not neither a US citizen nor have I not been to the US in my entire life. However, the US presidential election plays an important role in my life and almost everyone’s else around the world. For that reason, I have been following the US politics very closely for a few years.&lt;/p&gt;
+&lt;p&gt;A few days ago I found &lt;a href=&#34;https://github.com/favstats/demdebates2020&#34;&gt;an R package&lt;/a&gt; on Twitter that contains the transcripts of the Democratic debates. Then I wondered how I can use my data science techniques to analyze these transcripts.&lt;/p&gt;
+&lt;p&gt;Everyone agrees that Donald Trump only uses a basic English vocabulary in his speeches and tweets and probably he is not the most eloquent president in the US history. But what about his possible future challengers from the democratic party and how skillful his opponents are with words? So, I decided to analyze transcripts from this aspected an identify how eloquent Trump’s contenders are.&lt;/p&gt;
+&lt;p&gt;An eloquent person has acquired a rich vocabulary and uses a wide range of complex words in his/her speeches. On the other hand, an inarticulate person has a limited vocabulary and mainly uses simple and everyday words. So,Ideally, I think we can measure eloquency by counting the number of unique words and the number of sophisticated words that a person uses.&lt;/p&gt;
+&lt;p&gt;However, I could not find a dataset of English words along with their perceived complexity. So, to measure the eloquency of the presidential candidates, I defined two other metrics that I hope can serve as apporoximation to the truth:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Vocabulary size&lt;/strong&gt;: The ratio of unique words that a candidate used in his/her debate speech.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Vocabulary complexity&lt;/strong&gt;: The ratio of stop-words (words that are very common and usually don’t add much value to the content).A lower ratio of stopword usage by a candidate indicates that the candidate is more articulate.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(demdebates2020)
+library(tidytext)
+library(tidyverse)
+library(gghighlight)
+library(ggthemes)
+theme_set(theme_fivethirtyeight())
+theme_update(legend.position = &amp;#39;none&amp;#39;,
+             text = element_text(family = &amp;#39;Montserrat&amp;#39;),
+      plot.title = element_text(family = &amp;#39;Montserrat&amp;#39;, face = &amp;quot;bold&amp;quot;,size = 25, margin = margin(0, 0, 20, 0)),
+      axis.text.x = element_blank(),
+      axis.text.y = element_text(family = &amp;#39;Montserrat&amp;#39;, face = &amp;quot;bold&amp;quot;,size = 15, margin = margin(0, 0, 20, 0)),
+      
+      panel.spacing = unit(2, &amp;quot;points&amp;quot;),)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I should mention that for the sake of simplicity, I only anlayze speeches delviered by candidates who are still in the race and were present in the 9th democratic debate.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;speakers &amp;lt;- debates %&amp;gt;%
+  filter(!is.na(speech), type == &amp;#39;Candidate&amp;#39; ,debate == 9) %&amp;gt;%
+  distinct(speaker) %&amp;gt;%
+  pull(speaker)
+speakers&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Bernie Sanders&amp;quot;   &amp;quot;Elizabeth Warren&amp;quot; &amp;quot;Mike Bloomberg&amp;quot;   &amp;quot;Pete Buttigieg&amp;quot;  
+## [5] &amp;quot;Amy Klobuchar&amp;quot;    &amp;quot;Joe Biden&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I use the Tidytext library and its stopword list to compute my defined metrics. But first the debate transcripts should be truned into a tidy format (one word per row). Then, I create a logical variable to see whether a words is a stopword or not.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;debate_vocab_df &amp;lt;- debates %&amp;gt;%
+  filter(!is.na(speech), type == &amp;#39;Candidate&amp;#39;,speaker %in% speakers) %&amp;gt;%
+  unnest_tokens(word, speech) %&amp;gt;%
+  mutate(is_stop_word = word %in% stop_words$word) %&amp;gt;%
+  group_by(speaker) %&amp;gt;%
+  summarize(stop_word_ratio = sum(is_stop_word) / n(),
+            vocab_size = n_distinct(word)/ n())  %&amp;gt;% 
+  arrange(stop_word_ratio) 
+  
+head(debate_vocab_df)  &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 3
+##   speaker          stop_word_ratio vocab_size
+##   &amp;lt;chr&amp;gt;                      &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
+## 1 Bernie Sanders             0.652     0.106 
+## 2 Elizabeth Warren           0.693     0.0948
+## 3 Pete Buttigieg             0.697     0.120 
+## 4 Joe Biden                  0.718     0.0993
+## 5 Amy Klobuchar              0.719     0.108 
+## 6 Mike Bloomberg             0.742     0.273&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now it is time to visualize the results using the &lt;code&gt;ggplot&lt;/code&gt; library.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;custom_palette &amp;lt;-
+  c(
+    &amp;#39;Mike Bloomberg&amp;#39; = &amp;#39;#EDC948&amp;#39;,
+    &amp;#39;Amy Klobuchar&amp;#39; = &amp;#39;#59A14F&amp;#39; ,
+    &amp;#39;Joe Biden&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Pete Buttigieg&amp;#39; = &amp;#39;#B07AA1&amp;#39;,
+    &amp;#39;Elizabeth Warren&amp;#39; =  &amp;#39;#F28E2B&amp;#39;,
+    &amp;#39;Bernie Sanders&amp;#39; = &amp;#39;#E15759&amp;#39; 
+  )
 
-
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
-library(lubridate)
-library(corrr)
-spotify_songs &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&amp;#39;)
-head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 23
-##   track_id track_name track_artist track_popularity track_album_id
-##   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         
-## 1 6f807x0~ I Don&amp;#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
-## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
-## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
-## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
-## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
-## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
-## # ... with 18 more variables: track_album_name &amp;lt;chr&amp;gt;,
-## #   track_album_release_date &amp;lt;chr&amp;gt;, playlist_name &amp;lt;chr&amp;gt;, playlist_id &amp;lt;chr&amp;gt;,
-## #   playlist_genre &amp;lt;chr&amp;gt;, playlist_subgenre &amp;lt;chr&amp;gt;, danceability &amp;lt;dbl&amp;gt;,
-## #   energy &amp;lt;dbl&amp;gt;, key &amp;lt;dbl&amp;gt;, loudness &amp;lt;dbl&amp;gt;, mode &amp;lt;dbl&amp;gt;, speechiness &amp;lt;dbl&amp;gt;,
-## #   acousticness &amp;lt;dbl&amp;gt;, instrumentalness &amp;lt;dbl&amp;gt;, liveness &amp;lt;dbl&amp;gt;, valence &amp;lt;dbl&amp;gt;,
-## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Have you ever wondered why some songs from an artist become popular and others become a total failure? As you can see in the following plot even The Beetles had a few not so popular songs. I find it to be an interesting question that can be answered to some extent by machine learning algorithms and explainable machine learning methods.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs %&amp;gt;% 
-  filter(track_artist == &amp;#39;The Beatles&amp;#39;,track_popularity&amp;gt;10) %&amp;gt;% 
-  ggplot(aes(x = track_popularity)) +
-  geom_histogram() &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;In the second part of this post, I will demonstrate how I designed a machine learning workflow for predicting the popularity of songs based on several audio features. Here my goal from developing a machine learning model is not just to predict the popularity of a song but rather to figure out which factors contribute to the popularity or the unpopularity of a song. Therefore, I will use several explainable machine learning methods such as LIME and SHAP to peek inside my trained machine learning models. Having done that, we can better understand what&lt;/p&gt;
-&lt;div id=&#34;machine-learning&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Machine Learning&lt;/h2&gt;
-&lt;div id=&#34;exploratory-data-analysis&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Exploratory data analysis&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs %&amp;gt;% 
-  select(track_popularity, c(12:23)) %&amp;gt;% 
-  correlate() %&amp;gt;% 
-    network_plot(min_cor = 0.1,color = c(&amp;#39;#1a535c&amp;#39;,&amp;#39;#4ecdc4&amp;#39;,&amp;#39;#f7fff7&amp;#39;,&amp;#39;#ff6b6b&amp;#39;,&amp;#39;#ffe66d&amp;#39;)) &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 
-## Correlation method: &amp;#39;pearson&amp;#39;
-## Missing treated using: &amp;#39;pairwise.complete.obs&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs %&amp;gt;% 
-  ggplot(aes(track_popularity)) +
-  geom_histogram(fill = &amp;#39;indianred&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Local explanations to understand what feature values contribute to the popularity of a particular song.
-Global explanations such as feature importance scores to understand to the popularity of songs.&lt;/p&gt;
-&lt;p&gt;To use a explainable machine learning methods for this purpose, it is important to obtain a reasonable performance on the prediction task. Otherwise, the result would be unreliable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;shap&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Shap&lt;/h2&gt;
-&lt;div id=&#34;machine-learning-1&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Machine Learning&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#rf &amp;lt;- rand_forest(trees = 100, mode = &amp;#39;regression&amp;#39;) %&amp;gt;% 
-  #set_engine(&amp;quot;randomForest&amp;quot;) %&amp;gt;% 
-  #fit(Species ~. ,data = iris_training)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import lime
-import shap&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;references-and-further-readings&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;References and further readings&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.kaylinpavlik.com/classifying-songs-genres/&#34; class=&#34;uri&#34;&gt;https://www.kaylinpavlik.com/classifying-songs-genres/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://konradsemsch.netlify.com/2019/10/testing-the-tune-package-from-tidymodels-analysing-the-relationship-between-the-upsampling-ratio-and-model-performance/&#34; class=&#34;uri&#34;&gt;https://konradsemsch.netlify.com/2019/10/testing-the-tune-package-from-tidymodels-analysing-the-relationship-between-the-upsampling-ratio-and-model-performance/&lt;/a&gt;&lt;/p&gt;
+&amp;#39;#76B7B2&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;#76B7B2&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;debate_vocab_df %&amp;gt;%
+  mutate(speaker = fct_reorder(speaker,stop_word_ratio,.desc =  TRUE)) %&amp;gt;% 
+  ggplot(aes(x = speaker , y = stop_word_ratio,fill = speaker)) +
+  geom_col(show.legend = FALSE) +
+  geom_label(aes(label = round(stop_word_ratio,digits = 3)) ,size = 5) +
+  coord_flip() +
+  scale_fill_manual(values = custom_palette) +
+  labs(title = &amp;quot;The ratio of stopwords used by Democratic canidates in the debates&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloeuent-democratic-candidate/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;1344&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;It seems that so far Bernie Sanders has used the lowest percentage of stopwords in his speeches. On the other hand, Mike Bloomberg used the largest ratio of stopwords in his first and only debate.&lt;/p&gt;
+&lt;p&gt;The vocabulary size measure shows a different trend as Mike Bloomberg has the highest score among the rest of the candidates. Of course, as I mentioned before, Bloomberg has appeared only once on the debate stage and it might be too soon to draw a conclusion about his eloquency.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; debate_vocab_df %&amp;gt;%
+  mutate(speaker = fct_reorder(speaker,vocab_size,.desc =  TRUE)) %&amp;gt;% 
+  ggplot(aes(x = speaker , y = vocab_size,fill = speaker)) +
+  geom_col(show.legend = FALSE) +
+  geom_label(aes(label = round(vocab_size,digits = 3) ,size = 7)) +
+  coord_flip() +
+  scale_fill_manual(values = custom_palette) +
+  labs(title = &amp;quot;The ratio of unique Words used by Democratic candidates in the Debates&amp;quot;,
+       caption = &amp;#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloeuent-democratic-candidate/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;1344&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;further-reading&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Further Reading&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.favstats.eu/post/demdebates/&#34; class=&#34;uri&#34;&gt;https://www.favstats.eu/post/demdebates/&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -492,7 +483,15 @@ head(normalized_features)&lt;/code&gt;&lt;/pre&gt;
 ## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;, shorter_names &amp;lt;fct&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Both UMAP and T-SNE have several hyper-parameters that can influence the resulting embedding output.
 For the sake of simplicity, I did not change the default values for these hyper-parameters.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(Rtsne)
+tsne_embedding &amp;lt;- normalized_features %&amp;gt;%
+  select(c(12:23)) %&amp;gt;%
+  Rtsne(check_duplicates = FALSE)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Just like t-SNE, UMAP is a dimensionality reduction algorithm but it is much more computationally efficient and faster that t-SNE. The UMAP algorithm was &lt;a href=&#34;https://github.com/lmcinnes/umap&#34;&gt;originally implemented in Python&lt;/a&gt;. But there are also several libraries in R such as &lt;a href=&#34;https://github.com/ropenscilabs/umapr&#34;&gt;umapr&lt;/a&gt;, &lt;a href=&#34;https://cran.r-project.org/web/packages/umap/vignettes/umap.html&#34;&gt;umap&lt;/a&gt; and &lt;a href=&#34;https://github.com/jlmelville/uwot&#34;&gt;uwot&lt;/a&gt; that also provide an implementation of the UMAP algorithm. &lt;a href=&#34;https://github.com/ropenscilabs/umapr&#34;&gt;&lt;code&gt;umapr&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://cran.r-project.org/web/packages/umap/vignettes/umap.html&#34;&gt;&lt;code&gt;umap&lt;/code&gt;&lt;/a&gt; use the &lt;a href=&#34;https://cran.r-project.org/web/packages/reticulate/index.html&#34;&gt;&lt;code&gt;reticulate&lt;/code&gt;&lt;/a&gt; package and provide a wrapper function around the original &lt;code&gt;umap-learn&lt;/code&gt; python library. Also, &lt;code&gt;umap&lt;/code&gt; and &lt;code&gt;uwot&lt;/code&gt; library have their own R implementation of the algorithms and they do not require the python package to be installed first. For my experiment, I used the &lt;code&gt;uwot&lt;/code&gt; library.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(uwot)
+umap_embedding &amp;lt;- normalized_features %&amp;gt;%
+  select(c(12:23)) %&amp;gt;%
+  umap(random_state = 123)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now that I had the learned embeddings for both t-SNE and UMAP, it was time to put the side by side.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;embeddings &amp;lt;- 
   spotify_songs %&amp;gt;% 
@@ -608,42 +607,9 @@ For the most part both t-SNE and UMAP place songs from the same artists or simil
 &lt;pre&gt;&lt;code&gt;## label_key: selected_artist&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Too many data points, skip labeling&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: Removed 249 rows containing missing values (geom_text_repel).&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database
-
-## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database
-
-## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database
-
-## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database
-
-## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database
-
-## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.&lt;/p&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Some Fun with Maps</title>
-      <link>/post/2020-01-24-some-fun-with-maps/</link>
-      <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-01-24-some-fun-with-maps/</guid>
-      <description>
-
-
-
 </description>
     </item>
     
@@ -655,7 +621,7 @@ For the most part both t-SNE and UMAP place songs from the same artists or simil
       <description>
 
 
-&lt;p&gt;For 6 years, I had been using python exclusively as the main tool for carrying out my data science tasks and running my experiments. Recently, I have started using Tidyverse packages and tools in R for my data science activities. I am completely facinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then I have tried to participate in the weekly Tidy Tuesday project.
+&lt;p&gt;For 6 years I had been using python exclusively as the main tool for carrying out my data science tasks and running my experiments. Recently, I have started using Tidyverse packages and tools in R for my data science activities. I am completely facinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then I have tried to participate in the weekly Tidy Tuesday project.
 You can find my submissions in this page.&lt;/p&gt;
 &lt;div id=&#34;section&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;2020&lt;/h2&gt;
@@ -693,18 +659,6 @@ You can find my submissions in this page.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;2.jpg&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;3.jpg&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>GLM in Farsi</title>
-      <link>/post/2019-10-03-glm-in-farsi/</link>
-      <pubDate>Thu, 03 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/post/2019-10-03-glm-in-farsi/</guid>
-      <description>
-
-
-
 </description>
     </item>
     

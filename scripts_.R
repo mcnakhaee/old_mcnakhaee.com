@@ -7,7 +7,7 @@ py_config()
 blogdown::build_site()
 blogdown::serve_site()
 servr::daemon_stop(1) 
-servr::daemon_stop(5) 
+servr::daemon_stop(2) 
 pagedown::html_resume()
 
 letters
@@ -69,4 +69,47 @@ embedding %>%
     axis.text.y.left = element_blank(),
     axis.text.x = element_blank()
   ) 
+
+
+
+
+
+iris_recipe <- training(iris_split) %>%
+  #recipe(Species ~.) %>% 
+  #step_corr(all_predictors()) %>% 
+  prep()
+
+
+
+
+
+
+
+data_split <- initial_split(spotify_songs_ds,prop = 0.7)
+trianing_set <- data_split %>% 
+  training()
+test_set <- data_split %>% 
+  testing()
+
+rf <- rand_forest(trees = 200, ) %>% 
+  set_engine("ranger") %>% 
+  #set_mode(mode = 'classification') %>% 
+  set_mode(mode = 'regression') %>% 
+  fit(track_popularity ~. ,data = trianing_set) 
+#fit(playlist_genre ~. ,data = trianing_set) 
+
+args(rand_forest)
+#metric_set(rmse,mae,rsq )
+metric_set(accuracy )
+
+
+rf %>% 
+  predict(test_set) %>% 
+  bind_cols(test_set) %>% 
+  #metrics(truth = playlist_genre, estimate = .pred_class)
+  metrics(truth = track_popularity, estimate = .pred)
+
+
+rf %>% 
+  collect_metrics()
 ```

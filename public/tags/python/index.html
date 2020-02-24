@@ -134,7 +134,7 @@
   <meta property="og:description" content="Personal Blog of Muhammad Chenariyan Nakhaee"><meta property="og:image" content="/img/avatar.jpg">
   <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-02-11T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2020-02-14T00:00:00&#43;00:00">
   
 
   
@@ -388,10 +388,25 @@
   
   
   <div>
-    <h2><a href="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/">What Makes a Song Popular? an Explainable Machine Learning Approach</a></h2>
+    <h2><a href="/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/">Tidymodel for Scikit-Learn Users and Vise Versa</a></h2>
     <div class="article-style">
       
-      library(tidyverse)library(lubridate)library(corrr)spotify_songs &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;)head(spotify_songs)## # A tibble: 6 x 23## track_id track_name track_artist track_popularity track_album_id## &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; ## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran 66 2oCs0DGTsRO98~## 2 0r7CVbZ~ Memories ~ Maroon 5 67 63rPSO264uRjW~## 3 1z1Hg7V~ All the T~ Zara Larsson 70 1HoSmj2eLcsrR~## 4 75Fpbth~ Call You ~ The Chainsm~ 60 1nqYsOef1yKKu~## 5 1e8PAfc~ Someone Y~ Lewis Capal~ 69 7m7vv9wlQ4i0L~## 6 7fvUMiy~ Beautiful~ Ed Sheeran 67 2yiy9cd2QktrN~## # .
+      AdvantagesThere are many ways to do one thingThe output is a table which you can use as an input to everything that works with a table
+Disadvantages
+##Classification Models
+Regression ModelsMaking PredictionModel selectionreasonable defaults for tidymodel
+tidymodel by default tuning paramters are set for us. We can also specify them ourselves.
+you can even tune the preprocessing steps in Tidymodel.
+Pipelinespipelines are handy:they make your code much shorterdata leakage
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/">What Makes a Song Popular? An Explainable Machine Learning Approach</a></h2>
+    <div class="article-style">
+      
+      library(tune)library(rsample)## Loading required package: tidyrlibrary(yardstick)## For binary classification, the first factor level is assumed to be the event.## Set the global option `yardstick.event_first` to `FALSE` to change this.library(dials)## Loading required package: scaleslibrary(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)## # A tibble: 6 x 23## track_id track_name track_artist track_popularity track_album_id## &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; ## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran 66 2oCs0DGTsRO98~## 2 0r7CVbZ~ Memories ~ Maroon 5 67 63rPSO264uRjW~## 3 1z1Hg7V~ All the T~ Zara Larsson 70 1HoSmj2eLcsrR~## 4 75Fpbth~ Call You ~ The Chainsm~ 60 1nqYsOef1yKKu~## 5 1e8PAfc~ Someone Y~ Lewis Capal~ 69 7m7vv9wlQ4i0L~## 6 7fvUMiy~ Beautiful~ Ed Sheeran 67 2yiy9cd2QktrN~## # .
       
     </div>
   </div>

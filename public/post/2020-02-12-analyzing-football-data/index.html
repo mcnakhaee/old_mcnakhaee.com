@@ -28,7 +28,10 @@
   
     
   
-  <meta name="description" content="#install.packages(&quot;polite&quot;)library(tidyverse)## -- Attaching packages ----------------------------------------------------------------------- tidyverse 1.3.0 --## &lt;U&#43;221A&gt; ggplot2 3.2.1 &lt;U&#43;221A&gt; purrr 0.3.3## &lt;U&#43;221A&gt; tibble 2.1.3 &lt;U&#43;221A&gt; dplyr 0.8.4## &lt;U&#43;221A&gt; tidyr 1.0.2 &lt;U&#43;221A&gt; stringr 1.4.0## &lt;U&#43;221A&gt; readr 1.3.1 &lt;U&#43;221A&gt; forcats 0.4.0## -- Conflicts -------------------------------------------------------------------------- tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()library(rvest)## Loading required package: xml2## ## Attaching package: &#39;rvest&#39;## The following object is masked from &#39;package:purrr&#39;:## ## pluck## The following object is masked from &#39;package:readr&#39;:## ## guess_encodinglibrary(polite)">
+  <meta name="description" content="names(html_table)&lt;- col_namesnames(table_wiki)View(as_tibble(table_wiki,.name_repair = “minimal”)[1,1])
+t &lt;- as_tibble(table_wiki,.name_repair = “minimal”)[1,1]as.vector(t)table_wiki[1:10]
+col_names &lt;- url %&gt;%read_html() %&gt;%html_nodes(xpath = paste(’//*[@id=&#34;stats_standard_ks_3260&#34;]’)) %&gt;%html_table(header = NA,fill = TRUE) %&gt;%as.data.frame() %&gt;%slice(1)
+```">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2020-02-12-analyzing-football-data/">
@@ -129,7 +132,10 @@
   <meta property="og:site_name" content="Muhammad Chenariyan Nakhaee">
   <meta property="og:url" content="/post/2020-02-12-analyzing-football-data/">
   <meta property="og:title" content="Analyzing Football Data | Muhammad Chenariyan Nakhaee">
-  <meta property="og:description" content="#install.packages(&quot;polite&quot;)library(tidyverse)## -- Attaching packages ----------------------------------------------------------------------- tidyverse 1.3.0 --## &lt;U&#43;221A&gt; ggplot2 3.2.1 &lt;U&#43;221A&gt; purrr 0.3.3## &lt;U&#43;221A&gt; tibble 2.1.3 &lt;U&#43;221A&gt; dplyr 0.8.4## &lt;U&#43;221A&gt; tidyr 1.0.2 &lt;U&#43;221A&gt; stringr 1.4.0## &lt;U&#43;221A&gt; readr 1.3.1 &lt;U&#43;221A&gt; forcats 0.4.0## -- Conflicts -------------------------------------------------------------------------- tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()library(rvest)## Loading required package: xml2## ## Attaching package: &#39;rvest&#39;## The following object is masked from &#39;package:purrr&#39;:## ## pluck## The following object is masked from &#39;package:readr&#39;:## ## guess_encodinglibrary(polite)"><meta property="og:image" content="/img/avatar.jpg">
+  <meta property="og:description" content="names(html_table)&lt;- col_namesnames(table_wiki)View(as_tibble(table_wiki,.name_repair = “minimal”)[1,1])
+t &lt;- as_tibble(table_wiki,.name_repair = “minimal”)[1,1]as.vector(t)table_wiki[1:10]
+col_names &lt;- url %&gt;%read_html() %&gt;%html_nodes(xpath = paste(’//*[@id=&#34;stats_standard_ks_3260&#34;]’)) %&gt;%html_table(header = NA,fill = TRUE) %&gt;%as.data.frame() %&gt;%slice(1)
+```"><meta property="og:image" content="/img/avatar.jpg">
   <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
   
     
@@ -181,7 +187,7 @@
       "url": "/img/icon-512.png"
     }
   },
-  "description": "\r#install.packages(\u0026quot;polite\u0026quot;)\rlibrary(tidyverse)\r## -- Attaching packages ----------------------------------------------------------------------- tidyverse 1.3.0 --\r## \u0026lt;U+221A\u0026gt; ggplot2 3.2.1 \u0026lt;U+221A\u0026gt; purrr 0.3.3\r## \u0026lt;U+221A\u0026gt; tibble 2.1.3 \u0026lt;U+221A\u0026gt; dplyr 0.8.4\r## \u0026lt;U+221A\u0026gt; tidyr 1.0.2 \u0026lt;U+221A\u0026gt; stringr 1.4.0\r## \u0026lt;U+221A\u0026gt; readr 1.3.1 \u0026lt;U+221A\u0026gt; forcats 0.4.0\r## -- Conflicts -------------------------------------------------------------------------- tidyverse_conflicts() --\r## x dplyr::filter() masks stats::filter()\r## x dplyr::lag() masks stats::lag()\rlibrary(rvest)\r## Loading required package: xml2\r## ## Attaching package: \u0026#39;rvest\u0026#39;\r## The following object is masked from \u0026#39;package:purrr\u0026#39;:\r## ## pluck\r## The following object is masked from \u0026#39;package:readr\u0026#39;:\r## ## guess_encoding\rlibrary(polite)\r"
+  "description": "names(html_table)\u0026lt;- col_names\rnames(table_wiki)\rView(as_tibble(table_wiki,.name_repair = “minimal”)[1,1])\nt \u0026lt;- as_tibble(table_wiki,.name_repair = “minimal”)[1,1]\ras.vector(t)\rtable_wiki[1:10]\ncol_names \u0026lt;- url %\u0026gt;%\rread_html() %\u0026gt;%\rhtml_nodes(xpath = paste(’//*[@id=\"stats_standard_ks_3260\"]’)) %\u0026gt;%\rhtml_table(header = NA,fill = TRUE) %\u0026gt;%\ras.data.frame() %\u0026gt;%\rslice(1)\n```"
 }
 </script>
 
@@ -503,27 +509,19 @@
       
 
 
-<pre class="r"><code>#install.packages(&quot;polite&quot;)
-library(tidyverse)</code></pre>
-<pre><code>## -- Attaching packages ----------------------------------------------------------------------- tidyverse 1.3.0 --</code></pre>
-<pre><code>## &lt;U+221A&gt; ggplot2 3.2.1     &lt;U+221A&gt; purrr   0.3.3
-## &lt;U+221A&gt; tibble  2.1.3     &lt;U+221A&gt; dplyr   0.8.4
-## &lt;U+221A&gt; tidyr   1.0.2     &lt;U+221A&gt; stringr 1.4.0
-## &lt;U+221A&gt; readr   1.3.1     &lt;U+221A&gt; forcats 0.4.0</code></pre>
-<pre><code>## -- Conflicts -------------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(rvest)</code></pre>
-<pre><code>## Loading required package: xml2</code></pre>
-<pre><code>## 
-## Attaching package: &#39;rvest&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     pluck</code></pre>
-<pre><code>## The following object is masked from &#39;package:readr&#39;:
-## 
-##     guess_encoding</code></pre>
-<pre class="r"><code>library(polite)</code></pre>
+<p>names(html_table)&lt;- col_names
+names(table_wiki)
+View(as_tibble(table_wiki,.name_repair = “minimal”)[1,1])</p>
+<p>t &lt;- as_tibble(table_wiki,.name_repair = “minimal”)[1,1]
+as.vector(t)
+table_wiki[1:10]</p>
+<p>col_names &lt;- url %&gt;%
+read_html() %&gt;%
+html_nodes(xpath = paste(’//*<span class="citation">[@id="stats_standard_ks_3260"]</span>’)) %&gt;%
+html_table(header = NA,fill = TRUE) %&gt;%
+as.data.frame() %&gt;%
+slice(1)</p>
+<p>```</p>
 
     </div>
 

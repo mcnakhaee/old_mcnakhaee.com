@@ -118,6 +118,8 @@ Decision trees are highly scalable and powerful algorithms. But a decision tree 
 
 # How to bin 
 
+optbin
+santokura
 
 ```{r}
 library(OneR)
