@@ -1,5 +1,5 @@
 ---
-title: "Who Is the Most Eloquent Democratic Candidate in Debates?"
+title: "Analyzing the 2020 Democratic Party Presidential Debates - Part 1"
 author: Muhammad Chenariyan Nakhaee
 date: '2020-02-23'
 slug: []
@@ -22,7 +22,7 @@ projects: []
 ---
 
 
-```{r eval=FALSE, warning=TRUE, include=FALSE}
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 #devtools::install_github("favstats/demdebates2020")
 #install.packages('ggthemes')  
  ggthemes::ggthemes_data[["tableau"]][["color-palettes"]][["regular"]] 
@@ -33,22 +33,32 @@ extrafont::loadfonts()
 extrafont::font_install(fontpkg = 'alegreya')
 ```
 
-I am not neither a US citizen nor have I not been to the US in my entire life. However, the US presidential election plays an important role in my life and almost everyone's else around the world. For that reason, I have been following the US politics very closely for a few years.
+I am not a US citizen, nor have I been to the United States, but that does not mean that I should not care about the result of the US presidential election. The outcome of the election plays an important role in my life and almost everyone’s else around the world. So, I have been following the US politics for a few years. 
 
-A few days ago I found [an R package](https://github.com/favstats/demdebates2020) on Twitter that contains the transcripts of the Democratic debates. Then I wondered how I can use my data science techniques to analyze these transcripts.
+I consider everything and every issue around me as a data science problem and an opportunity to use data science. The US presidential election is not an exception, and a few weeks ago, I was wondering how I can use data science techniques to analyze the presidential election in the U.S and the Democratic Primary elections. Luckily, a few days later, I found [an amazing R package](https://github.com/favstats/demdebates2020) on Twitter which contains the transcripts of speeches given by all candidates in the Democratic Party’s debates. 
 
-Everyone agrees that Donald Trump only uses a basic English vocabulary in his speeches and  tweets and probably he is not the most eloquent president in the US history. But what about his possible future challengers from the democratic party and how skillful  his opponents are with words? So, I decided to analyze transcripts from this aspected an identify how eloquent Trump's contenders are.
+Now that I had access to a dataset, it was time to think about how I should use it and how I can extract useful knowledge from it. There are many possibilities for studying the debates’ transcript, but I was interested in investigating 3 aspects of the debates and candidates:
 
-An eloquent person has acquired a rich vocabulary and uses a wide range of complex words in his/her speeches. On the other hand, an inarticulate person has a limited vocabulary and mainly uses simple and everyday words. So,Ideally, I think we can measure eloquency by counting the number of unique words and the number of sophisticated words that a person uses. 
+1. Determining the most eloquent presidential candidate.
+2. Sentiment analysis of the transcripts to find out who used positive or most negative words on the stage.
+3. Network analysis of the transcripts.
 
-However, I could  not find a dataset of English words along with their perceived complexity. So, to measure the eloquency of the presidential candidates, I defined two other metrics that I hope can serve as apporoximation to the truth:
+In this post, I will explain how I used R and the tidytext package to investigate the first two points. Discussing how I approached needs a much longer and separate post, so I will write about here.
+
+### Who is the most eloquent candidate?
+
+Everyone agrees that Donald Trump only uses a basic English vocabulary in his speeches and tweets, and he is not the most eloquent president in the US history. But what about his future challenger from the democratic party and how skillful his opponents are with words? For this reason, I analyzed the transcripts from this point of view to determine how good they are with words.
+
+An eloquent person has gained a rich vocabulary and uses a wide range of complex words in his/her speeches. An inarticulate person has a limited vocabulary and uses simple and everyday words in his/her writings or conversations. Ideally, I think we can measure eloquence by counting the number of unique words and the number of sophisticated words that a person uses. 
+
+However, I could not find a dataset of English words along with their perceived complexity. So, to measure the eloquence of the presidential candidates, I defined two other metrics that I hope can serve as an approximation to the truth:
 
 1. **Vocabulary size**: The ratio of unique words that a candidate used in his/her debate speech.
+2. **Vocabulary complexity**: The ratio of stop-words (words that are very common and rarely add much value to the content). Intuitively, a lower ratio of stopword usage by a candidate shows that the candidate is more articulate. 
 
-2. **Vocabulary complexity**: The ratio of stop-words (words that are very common and usually don't add much value to the content).A lower ratio of stopword usage by a candidate indicates that the candidate is more articulate. 
+I use the `Tidytext` library and its stopword list to compute my defined metrics. Note that there are several stopword lexicons out there, and the choice of lexicon can slightly change the outcome.
 
-I use the ``Tidytext`` library and its stopword list to compute my defined metrics.
-
+It's time to start the analysis itself, but before that I need to import a few libraries and set and customize the theme that I am going to use for visualization.
 
 ```{r message=FALSE, warning=FALSE}
 library(demdebates2020)
@@ -56,18 +66,22 @@ library(tidytext)
 library(tidyverse)
 library(gghighlight)
 library(ggthemes)
+library(kableExtra)
+#set a default theme for visualization
 theme_set(theme_fivethirtyeight())
+#customize the default theme 
 theme_update(legend.position = 'none',
              text = element_text(family = 'Montserrat'),
       plot.title = element_text(family = 'Montserrat', face = "bold",size = 25, margin = margin(0, 0, 20, 0)),
       axis.text.x = element_blank(),
       axis.text.y = element_text(family = 'Montserrat', face = "bold",size = 15, margin = margin(0, 0, 20, 0)),
-      
-      panel.spacing = unit(2, "points"),)
+      panel.spacing = unit(2, "points"),
+      axis.title.x = element_blank(),
+      axis.title.y = element_blank())
 ```
 
+The field of the democratic primary election is full of candidates. So, for the sake of simplicity and clarity, I am going to analyze candidates that are still in the race (as of February 23rd) and were present in the last two democratic debate. It means that I will compare six democratic candidates including *Bernie Sanders*, *Elizabeth Warren*, *Mike Bloomberg*,  *Pete Buttigieg*, *Amy Klobuchar* and *Joe Biden*.       
 
-I should mention that for the sake of simplicity, I only anlayze speeches delviered by candidates who are still in the race and were present in the 9th democratic debate.
 
 ```{r}
 speakers <- debates %>%
@@ -77,7 +91,8 @@ speakers <- debates %>%
 speakers
 ```
 
- But first the debate transcripts should be truned into a tidy format (one word per row). Then, I create a logical variable to see whether a words is a stopword or not.
+Before computing my desirable metrics, I should tokenize and transform the transcript into a *[tidy format](https://www.tidytextmining.com/tidytext.html)* (one word per row). After that, I will create a logical variable called ``is_stop_word`` to determine whether a word is stopword or not.
+
 
 ```{r}
 debate_vocab_df <- debates %>%
@@ -88,12 +103,18 @@ debate_vocab_df <- debates %>%
   summarize(stop_word_ratio = sum(is_stop_word) / n(),
             vocab_size = n_distinct(word)/ n())  %>% 
   arrange(stop_word_ratio) 
-  
-head(debate_vocab_df)  
-  
+#show the output  
+head(debate_vocab_df)  %>% 
+kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
 
-Now it is time to visualize the results using the ``ggplot`` library.
+After computing my metrics it is time to visualize them with ``ggplot``.
+
+### Stop word ratio
+
+I will start by visualizing the stop word ratio for each candidate.
+
 
 ```{r fig.height=7, fig.width= 14, message=FALSE, warning=FALSE}
 custom_palette <-
@@ -106,7 +127,6 @@ custom_palette <-
     'Bernie Sanders' = '#E15759' 
   )
 
-'#76B7B2'
 debate_vocab_df %>%
   mutate(speaker = fct_reorder(speaker,stop_word_ratio,.desc =  TRUE)) %>% 
   ggplot(aes(x = speaker , y = stop_word_ratio,fill = speaker)) +
@@ -119,13 +139,15 @@ debate_vocab_df %>%
 
 ```
 
-It seems that so far Bernie Sanders has used the lowest percentage of stopwords in his speeches. On the other hand, Mike Bloomberg used the largest ratio of stopwords in his first and only debate.
+It seems that Bernie Sanders had used the lowest percentage of stopwords in his speeches. On the other hand, Mike Bloomberg had used the largest ratio of stopwords in his first and only debates so far.
 
-The vocabulary size  measure shows a different trend as Mike Bloomberg has the highest score among the rest of the candidates. Of course, as I mentioned before, Bloomberg has appeared only once on the debate stage and it might be too soon to draw a conclusion about his eloquency.
+### Vocabulary size
+
+The vocabulary size metric shows a different trend as Mike Bloomberg has the highest score among the rest of the candidates. Of course and as I mentioned before, Bloomberg has appeared only once on the debate stage, and it might be too soon to draw a conclusion about his eloquence.
 
 ```{r, fig.height = 7, fig.width = 15, message=FALSE, warning=FALSE}
  debate_vocab_df %>%
-  mutate(speaker = fct_reorder(speaker,vocab_size,.desc =  TRUE)) %>% 
+  mutate(speaker = fct_reorder(speaker,vocab_size,.desc =  FALSE)) %>% 
   ggplot(aes(x = speaker , y = vocab_size,fill = speaker)) +
   geom_col(show.legend = FALSE) +
   geom_label(aes(label = round(vocab_size,digits = 3) ,size = 8)) +
@@ -137,13 +159,101 @@ The vocabulary size  measure shows a different trend as Mike Bloomberg has the h
 
 ```
 
+So, there is no outright winner in terms of language skills among Democratic candidates. Bernie Sanders had the best score in terms of vocabulary complexity, but he has the least ratio of unique words among his competitors. Also, one can argue that being eloquent might not be advantage to a candidate and win them an election ( look at the person who is the current president). Finally, I must emphasize that my metrics are rather arbitrary and should be taken with a grain of salt.
 
-In conclusion, there is no outright winner in terms of language skills among Democratic candidates. Bernie Sanders got the best score in terms of vocabulary complexity but he has the least ratio of unique words among his competitors. Also, one can argue that being eloquent might not benefit a candidate becuase people are interested in everyday speeches.
+### Sentiment analysis
+In this part of my blog post, I examine how the language used by each top candidate had changed over the course of debates. I will use the tidy text approach to measure sentiment in the text. There are four main sentiment lexicons in the tidytext library, but in this experiment I am just using the [Loughran lexicon](https://rdrr.io/cran/textdata/man/lexicon_loughran.html). 
+
+```{r message=FALSE, warning=FALSE}
+debate_senteneces_sentiment <- debates %>%
+  filter(type == 'Candidate', is.na(background)) %>%
+  unnest_tokens(word, speech) %>%
+  anti_join(stop_words) %>%
+  inner_join(get_sentiments("loughran"))
+
+head(debate_senteneces_sentiment,3) %>% 
+kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+```{r, fig.height=15,fig.width=15}
+debate_senteneces_sentiment %>%
+group_by(speaker,debate,sentiment)%>%
+summarise(sentiment_score = n())%>%
+ungroup() %>%
+filter(speaker %in% speakers) %>%
+ggplot(aes(x = debate,y= sentiment_score,color = speaker)) +
+geom_line(size = 3,alpha = 0.8) +
+  geom_point(size  = 4) +
+scale_color_manual(values = custom_palette) +
+  scale_x_continuous(breaks = seq(1,10),labels = seq(1,10)) +
+  labs(title = 'What kinds of Language Have the Top Deomocratic Candidates Used in the Debates?',
+       color = '',
+       x = '') +
+facet_wrap(sentiment ~ . ,ncol = 1,scales = 'free') +
+#theme_tufte() +
+theme(strip.text = element_text(size = 20),
+      strip.background = element_rect(fill = 'gray80') ,
+     legend.text = element_text(size = 15),
+     title = element_text(size = 25),
+     legend.position = 'top',
+     axis.text.y = element_blank(),
+     axis.text.x = element_text(size = 15),
+     axis.ticks.y = element_blank(),
+     axis.title.y = element_blank())
+```
+
+An the overall sentiment score for each candidate:
+
+```{r  fig.height=5,fig.width=12}
+debate_senteneces_sentiment %>%
+group_by(speaker,sentiment)%>%
+summarise(sentiment_score = n())%>%
+ungroup() %>%
+filter(speaker %in% speakers) %>%
+  ggplot(aes(speaker,sentiment_score,fill = speaker)) +
+  geom_col(alpha =0.8) +
+scale_fill_manual(values = custom_palette) +
+  coord_flip() +
+  facet_wrap(~sentiment, ncol = 5) +
+  theme(strip.text = element_text(size = 20),
+      strip.background = element_rect(fill = 'gray80') ,
+     title = element_text(size = 25),
+     legend.position = 'none',
+     axis.title.y = element_blank(),
+     axis.title.x = element_blank())
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+debates %>%
+  #group_by(debate,day,order,background) %>% 
+  arrange(debate,day,order) %>%
+  mutate(text = lead(speech , n = 1)) %>% 
+  filter(background == '(APPLAUSE)') 
+  
+```
+
+It seems that negativity has been the most predominant emotion during Democratic debates (which absolutely makes sense since they want to unseat a president). Bernie Sanders used the highest number of words with negative sentiment in his remarks.
+
+
+```{r eval=FALSE, include=FALSE}
+word_count_speaker <-debates %>%
+filter(type == 'Candidate',is.na(background))%>%
+select(-background) %>%
+unnest_tokens(word,speech) %>%
+anti_join(get_stopwords(source = "smart",language = "en"))%>%
+count(word,speaker,sort = TRUE)
+```
+
+Performing sentiment analysis in tidytext is straightforward and easy, but sometimes the results are not what we hope and what the candidate actually meant. So, also take these results with a grain of salt.
 
 
 
 # Further Reading
 
-https://www.favstats.eu/post/demdebates/
+If you are interested to learn more about tidy text mining in r, these links can be specially useful:
 
+https://www.tidytextmining.com/tidytext.html
 
+https://education.rstudio.com/blog/2020/02/conf20-tidytext/

@@ -68,7 +68,7 @@ def arabic_word(word):
 
 
 
-```{python}
+```{python eval = FALSE, echo=FALSE}
 from langdetect import detect
 x = 'from langdetect import detect'
 # The word for "people" in Persian
@@ -81,8 +81,6 @@ x
 
 
 
-
-
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse)
 library(ggpage)
@@ -90,6 +88,7 @@ library(ggthemes)
 library(gganimate)
 library(wordcloud)
 library(scales)
+library(reticulate)
 ```
 
 

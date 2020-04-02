@@ -5,12 +5,256 @@
     <link>/tags/machine-learning/</link>
       <atom:link href="/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
     <description>Machine Learning</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 31 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 14 Feb 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Machine Learning</title>
       <link>/tags/machine-learning/</link>
     </image>
+    
+    <item>
+      <title>Tidymodel for Scikit-Learn Users and Vise Versa</title>
+      <link>/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/</link>
+      <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/</guid>
+      <description>
+
+
+&lt;p&gt;Advantages
+There are many ways to do one thing
+The output is a table which you can use as an input to everything that works with a table&lt;/p&gt;
+&lt;p&gt;Disadvantages&lt;/p&gt;
+&lt;p&gt;##Classification Models&lt;/p&gt;
+&lt;div id=&#34;regression-models&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Regression Models&lt;/h2&gt;
+&lt;div id=&#34;making-prediction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Making Prediction&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div id=&#34;model-selection&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Model selection&lt;/h3&gt;
+&lt;p&gt;reasonable defaults for tidymodel&lt;/p&gt;
+&lt;p&gt;tidymodel by default tuning paramters are set for us. We can also specify them ourselves.&lt;/p&gt;
+&lt;p&gt;you can even tune the preprocessing steps in Tidymodel.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pipelines&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Pipelines&lt;/h2&gt;
+&lt;p&gt;pipelines are handy:
+they make your code much shorter
+data leakage&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pre-processing&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Pre-Processing&lt;/h2&gt;
+&lt;p&gt;inverse transform&lt;/p&gt;
+&lt;div id=&#34;section&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;/h3&gt;
+&lt;p&gt;My preferable way&lt;/p&gt;
+&lt;p&gt;Automatic machine learning&lt;/p&gt;
+&lt;p&gt;parellal processing&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Optimal Rule Lists</title>
+      <link>/post/2020-01-18-optimal-rule-lists/</link>
+      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-01-18-optimal-rule-lists/</guid>
+      <description>
+
+
+&lt;p&gt;Axiom
+There is an inverse relationship between
+model accuracy and model interpretability.&lt;/p&gt;
+&lt;p&gt;This post is heavily inspired by the Decision Rules chapter from the Interpretable Machine Learning book by Christoph Molnar.&lt;/p&gt;
+&lt;p&gt;Some machine learning researchers argue that we should pay more attention to interpretable machine learning instead of trying to design methods to explain black box models.
+While reading almost any paper the field of explainable machine learning, you will notice that in that every paper almost always starts by arguing that there is a trade-off between accuracy and interpretability. It means that a more interpretable is less accurate and vice versa and for this reason we need to use more complex and black box models and then design methods to peek into them. However, Cynthia Rudin argues that actually there is no trade-off between these two concepts. On the contrary, interpretability can even help us increase the accuracy of a model becuase with an interpretable algorithm we better understand how the predictive performance of a model can be improved.&lt;/p&gt;
+&lt;p&gt;Cynthia Rudin encourages machine learning practitioners and researchers to rather than trying to make black-box algorithms more build and use accurate interpretable machine learning models .
+There are already a number of interpretable machine learning algorithms in the literature.
+Decision trees and linear models are the two most popular classes of interpretable algorithms. Rule learning algorithms also belong to the class of interpretable algorithms. The aim of these algorithms is to learn decision rules from input data.&lt;/p&gt;
+&lt;p&gt;Decision rules are expressed as IF-THEN statement.&lt;/p&gt;
+&lt;p&gt;If the condition of the IF part holds true, we will make the prediction based on output of the THEN part.&lt;/p&gt;
+&lt;p&gt;Decision rules are considered to be probably the most human-understandable prediction model.&lt;/p&gt;
+&lt;p&gt;In many ways, decision rules resemble decision trees. In fact, we can write down a decision tree as a set of decision rules.&lt;/p&gt;
+&lt;p&gt;Decision trees are highly scalable and powerful algorithms. But a decision tree is a greedy algorithm. For instance, the split at each node in a decision tree is determined by a greedy process. It means that the decision tree does not find an optimal solution and therefore, the optimal rule lists.&lt;/p&gt;
+&lt;div id=&#34;how-to-bin&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;How to bin&lt;/h1&gt;
+&lt;p&gt;optbin
+santokura&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(OneR)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;OneR&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;iris_binned &amp;lt;- optbin(iris)
+iris_binned&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     Sepal.Length Sepal.Width Petal.Length    Petal.Width    Species
+## 1     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 2     (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 3     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 4     (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 5     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 6     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 7     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 8     (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 9     (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 10    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 11    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 12    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 13    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 14    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 15   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 16   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 17    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 18    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 19   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 20    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 21    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 22    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 23    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 24    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 25    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 26    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 27    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 28    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 29    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 30    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 31    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 32    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 33    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 34   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 35    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 36    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 37   (5.41,6.25]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 38    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 39    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 40    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 41    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 42    (4.3,5.41]    (2,2.87] (0.994,2.46] (0.0976,0.791]     setosa
+## 43    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 44    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 45    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 46    (4.3,5.41] (2.87,3.19] (0.994,2.46] (0.0976,0.791]     setosa
+## 47    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 48    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 49    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 50    (4.3,5.41]  (3.19,4.4] (0.994,2.46] (0.0976,0.791]     setosa
+## 51    (6.25,7.9]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 52    (6.25,7.9]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 53    (6.25,7.9] (2.87,3.19]  (4.86,6.91]   (0.791,1.63] versicolor
+## 54   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 55    (6.25,7.9]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 56   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 57    (6.25,7.9]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 58    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 59    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 60    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 61    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 62   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 63   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 64   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 65   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 66    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 67   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 68   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 69   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 70   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 71   (5.41,6.25]  (3.19,4.4]  (2.46,4.86]     (1.63,2.5] versicolor
+## 72   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 73    (6.25,7.9]    (2,2.87]  (4.86,6.91]   (0.791,1.63] versicolor
+## 74   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 75    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 76    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 77    (6.25,7.9]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 78    (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5] versicolor
+## 79   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 80   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 81   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 82   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 83   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 84   (5.41,6.25]    (2,2.87]  (4.86,6.91]   (0.791,1.63] versicolor
+## 85    (4.3,5.41] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 86   (5.41,6.25]  (3.19,4.4]  (2.46,4.86]   (0.791,1.63] versicolor
+## 87    (6.25,7.9] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 88    (6.25,7.9]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 89   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 90   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 91   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 92   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 93   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 94    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 95   (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 96   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 97   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 98   (5.41,6.25] (2.87,3.19]  (2.46,4.86]   (0.791,1.63] versicolor
+## 99    (4.3,5.41]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 100  (5.41,6.25]    (2,2.87]  (2.46,4.86]   (0.791,1.63] versicolor
+## 101   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 102  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 103   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 104   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 105   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 106   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 107   (4.3,5.41]    (2,2.87]  (2.46,4.86]     (1.63,2.5]  virginica
+## 108   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 109   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 110   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 111   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 112   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 113   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 114  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 115  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 116   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 117   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 118   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 119   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 120  (5.41,6.25]    (2,2.87]  (4.86,6.91]   (0.791,1.63]  virginica
+## 121   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 122  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 123   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 124   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 125   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 126   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 127  (5.41,6.25]    (2,2.87]  (2.46,4.86]     (1.63,2.5]  virginica
+## 128  (5.41,6.25] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 129   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 130   (6.25,7.9] (2.87,3.19]  (4.86,6.91]   (0.791,1.63]  virginica
+## 131   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 132   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 133   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 134   (6.25,7.9]    (2,2.87]  (4.86,6.91]   (0.791,1.63]  virginica
+## 135  (5.41,6.25]    (2,2.87]  (4.86,6.91]   (0.791,1.63]  virginica
+## 136   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 137   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 138   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 139  (5.41,6.25] (2.87,3.19]  (2.46,4.86]     (1.63,2.5]  virginica
+## 140   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 141   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 142   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 143  (5.41,6.25]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 144   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 145   (6.25,7.9]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 146   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 147   (6.25,7.9]    (2,2.87]  (4.86,6.91]     (1.63,2.5]  virginica
+## 148   (6.25,7.9] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica
+## 149  (5.41,6.25]  (3.19,4.4]  (4.86,6.91]     (1.63,2.5]  virginica
+## 150  (5.41,6.25] (2.87,3.19]  (4.86,6.91]     (1.63,2.5]  virginica&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From the XAI point of view, we are interested in measuring two metrics for rule lists:&lt;/p&gt;
+&lt;p&gt;Accuracy&lt;/p&gt;
+&lt;p&gt;Parsimony: Shorter rules are more preferable&lt;/p&gt;
+&lt;div id=&#34;corels&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;CORELS&lt;/h2&gt;
+&lt;p&gt;Finding an optimal DT (or a set of rule lists) is an NP-hard problem. The CORELS algorithms developed by aims to find the optimal set of rules. To achieve this goal, CORLES uses pre-mined frequent patterns and optimization techniques.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Disadvantaged of rule lists&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Rule learning algorithms by design can be only trained on datasets with a discrete target variable. It means that they are only capable of dealing with classification problem and not regression. We can tackle this issue by discretizing the continuous target variable in regression problems. However, doing that results in information loss. Moreover, the input features to a rule learning algorithm must be categorical. Again we can solve this problem by binning continouose features but the same information loss will persist.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Further Readings and Resources&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;section&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;&lt;/h2&gt;
+&lt;p&gt;Refrences&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://shiring.github.io/machine_learning/2017/04/23/one_r&#34; class=&#34;uri&#34;&gt;https://shiring.github.io/machine_learning/2017/04/23/one_r&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Explainable Data Science Summer School</title>
@@ -19,7 +263,7 @@
       <guid>/post/2019-12-31-explainable-data-science-summer-school/</guid>
       <description>&lt;p&gt;Last September, I had the opportunity to participate in the  &lt;strong&gt;EXPLAINABLE DATA SCIENCE&lt;/strong&gt;  summer school in Kirchberg, Luxembourg. the summer school was organized by the European Association for Data Science (&lt;strong&gt;EuADS&lt;/strong&gt;) and was held during 10-13 September.&lt;/p&gt;
 &lt;p&gt;What I specifically liked about this summer school ( of course besides enjoying the the beautiful city of Luxembourg ) was the fact that it covered a vast variety of topics in the explainable machine learning (AI) literature, ranging from visualization, XAI techniques, causality to psychological aspects of explainability.  In addition, the summer school has a special guest, the legendary &lt;strong&gt;&lt;a href=&#34;https://www.microsoft.com/en-us/research/people/cmbishop/&#34;&gt;Christopher Bishop&lt;/a&gt;&lt;/strong&gt; who gave the &lt;strong&gt;inaugural&lt;/strong&gt; lecture.&lt;/p&gt;
-&lt;p&gt;You can find the complete program and the presentations in the &lt;a href=&#34;https://euads.org/summer-school-2019/&#34;&gt;EuADS&#39;s website&lt;/a&gt;. Nevertheless during some presentations in the summer school, I took notes and I summarized them.&lt;/p&gt;
+&lt;p&gt;You can find the complete program and the presentations in the &lt;a href=&#34;https://euads.org/summer-school-2019/&#34;&gt;EuADS&amp;rsquo;s website&lt;/a&gt;. Nevertheless during some presentations in the summer school, I took notes and I summarized them.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Sometimes it is not easy to keep up with the speaker and take notes. Also, it is possible that what I wrote down is just my interpretation and not what the speaker intened to say.  For this reason, I do not guarantee that all details in this post are accurate or what the speakers wanted to communicate.&lt;/p&gt;
@@ -76,7 +320,7 @@
 &lt;p&gt;Data Science is for, about, by and with humans and human factors should be taken into consideration at every stage of a data science project. But it is not always easy to measure, define and ultimately achieve them.&lt;/p&gt;
 &lt;p&gt;For example, look at following table which shows the number and the percentage of students who applied and were admitted to a university.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;ds_8.PNG&#34; alt=&#34;1571181577381&#34;&gt;&lt;/p&gt;
-&lt;p&gt;At the first glance, this table might suggest a case of  bias toward women in the admission process. However, further examinations show that the low percentage of total admissions for women is due to the fact that female applicants tended to apply to more difficult programs  with an overall lower chance of acceptance while men applied to easier programs with a higher probability of acceptance. In other words, the difficulty of programs was a confounding factor that influenced the outcome not gender bias. It indicates measuring a human factor  such as fairness is not easy because measuring bias is not easy. Furthermore, according to Goodhart&#39;s Law, the moment we decide to use these  metrics (e.g. bias) as our target to optimize, they are not good measures anymore.&lt;/p&gt;
+&lt;p&gt;At the first glance, this table might suggest a case of  bias toward women in the admission process. However, further examinations show that the low percentage of total admissions for women is due to the fact that female applicants tended to apply to more difficult programs  with an overall lower chance of acceptance while men applied to easier programs with a higher probability of acceptance. In other words, the difficulty of programs was a confounding factor that influenced the outcome not gender bias. It indicates measuring a human factor  such as fairness is not easy because measuring bias is not easy. Furthermore, according to Goodhart&amp;rsquo;s Law, the moment we decide to use these  metrics (e.g. bias) as our target to optimize, they are not good measures anymore.&lt;/p&gt;
 &lt;p&gt;in the the rest of talk, Peter Flach discussed the relationship between GDPR and fairness and specifically he touched upon an important issue regarding data ownership and the role of GDPR for personal data protection.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;ds_9.PNG&#34; alt=&#34;1571585896393&#34;&gt;&lt;/p&gt;
 &lt;p&gt;He provided an example of authorship to demonstrate that solving data ownership is not a simple task. If someone writes a book about someone else (e.g. Clinton), the author has the ownership and the copyright not the the person whom the book is about.&lt;/p&gt;
@@ -124,6 +368,18 @@ D. Wolpert (1996)&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Resources:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://euads.org/wp-content/uploads/2019/09/Chris-Bishop-SabineK-Lecture-2019_2.pdf&#34;&gt;Slides&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h5 id=&#34;model-based-machine-learninghttpwwwmbmlbookcom&#34;&gt;&lt;a href=&#34;http://www.mbmlbook.com&#34;&gt;Model-Based Machine Learning&lt;/a&gt;&lt;/h5&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Contrastive Explanations</title>
+      <link>/post/2019-11-07-contrastive-explanations/</link>
+      <pubDate>Thu, 07 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>/post/2019-11-07-contrastive-explanations/</guid>
+      <description>
+
+
+
 </description>
     </item>
     

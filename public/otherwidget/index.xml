@@ -5,7 +5,7 @@
     <link>/otherwidget/</link>
       <atom:link href="/otherwidget/index.xml" rel="self" type="application/rss+xml" />
     <description>Otherwidgets</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 28 Jun 2018 00:00:00 +0100</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Otherwidgets</title>
@@ -38,7 +38,7 @@
       <guid>/otherwidget/demo/</guid>
       <description>&lt;p&gt;Welcome to the &lt;strong&gt;personal demo&lt;/strong&gt; of Academic. Other demos available include:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://sourcethemes.com/academic/&#34;&gt;&lt;strong&gt;Project Demo&lt;/strong&gt; (Academic&#39;s actual site)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://sourcethemes.com/academic/&#34;&gt;&lt;strong&gt;Project Demo&lt;/strong&gt; (Academic&amp;rsquo;s actual site)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Over 100,000 &lt;a href=&#34;https://sourcethemes.com/academic/#expo&#34;&gt;Amazing Websites&lt;/a&gt; have Already Been Built with Academic&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/install/&#34;&gt;Join&lt;/a&gt; the Most Empowered Hugo Community&lt;/strong&gt;&lt;/p&gt;
@@ -101,6 +101,24 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/otherwidget/tags/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title>Privacy Policy</title>
+      <link>/otherwidget/privacy/</link>
+      <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
+      <guid>/otherwidget/privacy/</guid>
+      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Terms</title>
+      <link>/otherwidget/terms/</link>
+      <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
+      <guid>/otherwidget/terms/</guid>
+      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
+</description>
     </item>
     
   </channel>

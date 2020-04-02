@@ -1,0 +1,279 @@
+```{r message=FALSE, warning=FALSE}
+library(reticulate)
+options(jupyter.display = 'rich')
+library(tidyverse)
+conda_list()
+py_config()
+```
+```{r}
+
+```
+
+
+
+```{python eval=FALSE, include=FALSE}
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+```
+
+
+```{python eval=FALSE, include=FALSE}
+titanic = pd.read_csv('titanic_train.csv')
+titanic.head()
+```
+
+
+```{r eval=FALSE, include=FALSE}
+titanic <- py$titanic 
+```
+
+```{python eval=FALSE, include=FALSE}
+def sex_binary(x):
+  if x == 'male':
+  return 0 
+else:
+  return 1
+titanic_dummified = pd.get_dummies(titanic,columns=['Embarked'])
+titanic_dummified['Sex_binary'] = titanic_dummified['Sex'].apply(lambda x:sex_binary(x) )
+titanic_dummified.drop(['Cabin','Ticket','Name','Sex'],axis = 1,inplace=True)
+titanic_dummified.head()
+```
+
+
+```{python eval=FALSE, include=FALSE}
+titanic_dummified.shape
+titanic_dummified = titanic_dummified.dropna()
+titanic_dummified.isna().sum()
+
+```
+```{r eval=FALSE, include=FALSE}
+py$titanic_dummified %>% head()
+```
+```{python eval=FALSE, include=FALSE}
+
+X = titanic_dummified.drop(['Survived'],axis=1)
+y = titanic_dummified['Survived']
+train, test, labels_train, labels_test = train_test_split(X, y, train_size=0.80)
+
+```
+
+
+```{python eval=FALSE, include=FALSE}
+rf = RandomForestClassifier(n_estimators=100)
+rf.fit(train,labels_train)
+rf.score(test,labels_test)
+```
+
+```{python eval=FALSE, include=FALSE}
+prd_ds = test.copy()
+prd_ds['actual']  = labels_test
+prd_ds['prds'] = rf.predict(test)
+
+prd_ds['wrong']  =  prd_ds['prds'] == prd_ds['actual']
+```
+
+```{r}
+py$prd_ds %>% head()
+```
+
+```{python eval=FALSE, include=FALSE}
+import lime
+import lime.lime_tabular
+import dtreeviz
+import shap
+```
+
+
+
+
+```{python eval=FALSE, include=FALSE}
+explainer = lime.lime_tabular.LimeTabularExplainer(
+  train.to_numpy(),
+  feature_names = list(train.columns),
+  class_names = [0,1],
+  discretize_continuous = True
+)
+```
+
+
+```{python eval=FALSE, include=FALSE}
+instance = test.iloc[1,:]
+exp = explainer.explain_instance(instance,
+                                 rf.predict_proba,
+                                 num_features = 5,
+                                 top_labels = 1
+)
+```
+
+
+```{python eval=FALSE, include=FALSE}
+
+from IPython.display import display, HTML
+exp.show_in_notebook(show_table = True,show_all = True)
+
+
+s = exp.as_html()
+```
+
+```{r}
+library(rvest)
+#htmltools::
+
+```
+```{r eval=FALSE, include=FALSE}
+library(lime)
+library(tidymodels)
+library(ranger) 
+```
+
+```{r eval=FALSE, include=FALSE}
+library(naniar)
+#vis_miss(titanic_training)
+#complete.cases(titanic_training)
+```
+
+
+```{r eval=FALSE, include=FALSE}
+titanic <- titanic  %>% 
+  mutate(Cabin =  as.character(Cabin),
+         Embarked =   as.character(Embarked),
+         Survived = as.factor(Survived)) 
+
+titanic_split <- initial_split(titanic,prop = 0.7)
+titanic_split %>% 
+  training() %>% 
+  glimpse()
+
+```
+
+```{r eval=FALSE, warning=TRUE, include=FALSE}
+titanic_recipe <- titanic_split %>% 
+  training() %>% 
+  recipe((Survived ~.)) %>% 
+  step_unknown(Cabin ,Embarked          ) %>% 
+  step_meanimpute(Age) %>% 
+  prep()
+
+titanic_training <- juice(titanic_recipe)
+glimpse(titanic_training) 
+```
+```{r eval=FALSE, include=FALSE}
+rf <- rand_forest(trees = 100, mode = 'classification') %>% set_engine('ranger') %>% 
+  fit(Survived ~. , data = titanic_training)
+
+```
+
+The lime package for R does not aim to be a line-by-line port of its Python counterpart. I
+```{r eval=FALSE, include=FALSE}
+explainer_rf  <- lime(titanic_training,rf,n_bins = 10)
+summary(explainer_rf)
+```
+
+```{r eval=FALSE, include=FALSE}
+objs <- titanic_training[1:5,]
+```
+
+
+```{r eval=FALSE, fig.height=20, fig.width=20, include=FALSE}
+explanation_rf <- explain(
+  x = objs, 
+  explainer = explainer_rf, 
+  n_permutations = 5000,
+  dist_fun = "gower",
+  kernel_width = .75,
+  n_features = 10, 
+  feature_select = "highest_weights",
+  n_labels = 2,
+)
+
+
+plot_features(explanation_rf)
+
+```
+
+https://uc-r.github.io/lime
+https://cran.r-project.org/web/packages/lime/vignettes/Understanding_lime.html
+
+```{python eval=FALSE, include=FALSE}
+import wikipedia
+wikipedia.set_lang('nl')
+wikipedia.summary('Abel Tasman')
+```
+
+
+```{python}
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+```
+
+```{python}
+titanic = pd.read_csv('titanic_train.csv')
+titanic.head()
+```
+
+```{python}
+def sex_binary(x):
+  if x == 'male':
+    return 0 
+  else:
+    return 1
+titanic_dummified = pd.get_dummies(titanic,columns=['Embarked'])
+titanic_dummified['Sex_binary'] = titanic_dummified['Sex'].apply(lambda x:sex_binary(x) )
+titanic_dummified.drop(['Cabin','Ticket','Name','Sex'],axis = 1,inplace=True)
+titanic_dummified.head()
+titanic_dummified.shape
+titanic_dummified = titanic_dummified.dropna()
+titanic_dummified.isna().sum()
+```
+
+```{python}
+X = titanic_dummified.drop(['Survived'],axis=1)
+y = titanic_dummified['Survived']
+train, test, labels_train, labels_test = train_test_split(X, y, train_size=0.80)
+```
+
+```{python}
+rf = RandomForestClassifier(n_estimators=100)
+rf.fit(train,labels_train)
+rf.score(test,labels_test)
+```
+
+```{python}
+prd_ds = test.copy()
+prd_ds['actual']  = labels_test
+prd_ds['prds'] = rf.predict(test)
+
+prd_ds['wrong']  =  prd_ds['prds'] == prd_ds['actual']
+```
+
+```{python}
+import lime
+import lime.lime_tabular
+import dtreeviz
+import shap
+```
+
+```{python}
+explainer = lime.lime_tabular.LimeTabularExplainer(
+train.to_numpy(),
+feature_names = list(train.columns),
+class_names = [0,1],
+discretize_continuous = True
+)
+```
+
+```{python}
+instance = test.iloc[1,:]
+exp = explainer.explain_instance(instance,
+rf.predict_proba,
+num_features = 5,
+top_labels = 1
+)
+```
+
+```{python}
+exp.show_in_notebook(show_table = True,show_all = True)
+```
+

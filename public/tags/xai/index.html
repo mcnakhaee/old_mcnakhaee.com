@@ -83,7 +83,7 @@
   
   
   
-  <link rel="stylesheet" href="/css/academic.min.3371a302f592c16f73869078c00e5a13.css">
+  <link rel="stylesheet" href="/css/academic.min.a1e68790d54b399632e80a98649b3d14.css">
 
   
     
@@ -134,7 +134,7 @@
   <meta property="og:description" content="Personal Blog of Muhammad Chenariyan Nakhaee"><meta property="og:image" content="/img/avatar.jpg">
   <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-02-01T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2020-02-11T00:00:00&#43;00:00">
   
 
   
@@ -388,12 +388,32 @@
   
   
   <div>
+    <h2><a href="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/">What Makes a Song Popular? An Explainable Machine Learning Approach</a></h2>
+    <div class="article-style">
+      
+      library(tune)library(rsample)## Loading required package: tidyrlibrary(yardstick)## For binary classification, the first factor level is assumed to be the event.## Set the global option `yardstick.event_first` to `FALSE` to change this.library(dials)## Loading required package: scaleslibrary(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)## # A tibble: 6 x 23## track_id track_name track_artist track_popularity track_album_id## &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; ## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran 66 2oCs0DGTsRO98~## 2 0r7CVbZ~ Memories ~ Maroon 5 67 63rPSO264uRjW~## 3 1z1Hg7V~ All the T~ Zara Larsson 70 1HoSmj2eLcsrR~## 4 75Fpbth~ Call You ~ The Chainsm~ 60 1nqYsOef1yKKu~## 5 1e8PAfc~ Someone Y~ Lewis Capal~ 69 7m7vv9wlQ4i0L~## 6 7fvUMiy~ Beautiful~ Ed Sheeran 67 2yiy9cd2QktrN~## # .
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/2020-02-01-what-makes-a-song-popular/">The Map of Spotify Songs</a></h2>
     <div class="article-style">
       
       In the 4th week of the Tidy Tuesday project, a very interesting and fun dataset was proposed to the data science community. The dataset contains information about thousands of songs on Spotify’s platform and along with their metadata and audio features. You can download the dataset can using the following piece of code.
 4th week of the Tidy Tuesday project
 spotify_songs &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;)head(spotify_songs)## # A tibble: 6 x 23## track_id track_name track_artist track_popularity track_album_id## &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; ## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran 66 2oCs0DGTsRO98~## 2 0r7CVbZ~ Memories ~ Maroon 5 67 63rPSO264uRjW~## 3 1z1Hg7V~ All the T~ Zara Larsson 70 1HoSmj2eLcsrR~## 4 75Fpbth~ Call You ~ The Chainsm~ 60 1nqYsOef1yKKu~## 5 1e8PAfc~ Someone Y~ Lewis Capal~ 69 7m7vv9wlQ4i0L~## 6 7fvUMiy~ Beautiful~ Ed Sheeran 67 2yiy9cd2QktrN~## # .
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2020-01-18-optimal-rule-lists/">Optimal Rule Lists</a></h2>
+    <div class="article-style">
+      
+      AxiomThere is an inverse relationship betweenmodel accuracy and model interpretability.
+This post is heavily inspired by the Decision Rules chapter from the Interpretable Machine Learning book by Christoph Molnar.
+Some machine learning researchers argue that we should pay more attention to interpretable machine learning instead of trying to design methods to explain black box models.While reading almost any paper the field of explainable machine learning, you will notice that in that every paper almost always starts by arguing that there is a trade-off between accuracy and interpretability.
       
     </div>
   </div>
@@ -408,11 +428,38 @@ spotify_songs &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rford
   </div>
   
   <div>
+    <h2><a href="/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/">EuADS Summer School 2019: SUBJECTIVITY and VISUALIZATION</a></h2>
+    <div class="article-style">
+      
+      This talk was mainly focused on the importance of visualization and other techniques for exploring and explaining data. In other words, one approach to explainability is to first explore the input data and find interesting patterns. This can be done via:
+Association analysis ()Dimensionality reduction techniquesGraph embeddingsClusteringCommunity detection…However interesting pattern is a subjective term and there are a huge number of “interesting measures” out there.
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/2019-12-31-explainable-data-science-summer-school/">Explainable Data Science Summer School</a></h2>
     <div class="article-style">
       
       Last September, I had the opportunity to participate in the EXPLAINABLE DATA SCIENCE summer school in Kirchberg, Luxembourg. the summer school was organized by the European Association for Data Science (EuADS) and was held during 10-13 September.
 What I specifically liked about this summer school ( of course besides enjoying the the beautiful city of Luxembourg ) was the fact that it covered a vast variety of topics in the explainable machine learning (AI) literature, ranging from visualization, XAI techniques, causality to psychological aspects of explainability.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2019-11-07-contrastive-explanations/">Contrastive Explanations</a></h2>
+    <div class="article-style">
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/data-shapely/">Data Shapely</a></h2>
+    <div class="article-style">
+      
+      What is Your Data Worth? Equitable Data Valuation in Machine LearningThis paper barely mentions the term explainability although it is closely related to this domain. Actually the motivation behind this paper is not that we want to know the impact individual points on the performance of machine learning models and detect potential bias present in the dataset. On the other hand,the motivat
+The basic idea behind this paper is that we want to measure and quantify the value of individual data points.
       
     </div>
   </div>
@@ -537,6 +584,16 @@ What I specifically liked about this summer school ( of course besides enjoying 
   
   <div class="container">
     <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/otherwidget/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/otherwidget/terms/">Terms</a>
+    
+  </p>
   
 
   <p class="powered-by">

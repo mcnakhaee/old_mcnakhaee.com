@@ -83,7 +83,7 @@
   
   
   
-  <link rel="stylesheet" href="/css/academic.min.3371a302f592c16f73869078c00e5a13.css">
+  <link rel="stylesheet" href="/css/academic.min.a1e68790d54b399632e80a98649b3d14.css">
 
   
     
@@ -516,9 +516,9 @@
       <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
 <span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
 </code></pre></div><p>یک راه دیگر ساخت دیتافریم ها، استفاده از دیکشنری های است. در این حالت نام ستون های دیتافریم به صورت key های دیکشنری و مقادیر این ستون ها به صورت یک لیست به عنوان value های این دیکشنری قرار داده می شوند.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sample_dict <span style="color:#f92672">=</span> { <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">index</span><span style="color:#e6db74">&#39;</span>:range(<span style="color:#ae81ff">10</span>),
-              <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">column 1</span><span style="color:#e6db74">&#39;</span>: np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">10</span>),
-              <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">column 2</span><span style="color:#e6db74">&#39;</span>: np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">100</span>,size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>)}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sample_dict <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#39;index&#39;</span>:range(<span style="color:#ae81ff">10</span>),
+              <span style="color:#e6db74">&#39;column 1&#39;</span>: np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">10</span>),
+              <span style="color:#e6db74">&#39;column 2&#39;</span>: np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">100</span>,size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>)}
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(sample_dict)
 df
 </code></pre></div><!-- raw HTML omitted -->
@@ -532,9 +532,9 @@ df
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>rename({<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">column 1</span><span style="color:#e6db74">&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">rand_noraml_col</span><span style="color:#e6db74">&#39;</span>,
-          <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">column 2</span><span style="color:#e6db74">&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">rand_integer_col</span><span style="color:#e6db74">&#39;</span>},
-         axis <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">columns</span><span style="color:#e6db74">&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>rename({<span style="color:#e6db74">&#39;column 1&#39;</span>: <span style="color:#e6db74">&#39;rand_noraml_col&#39;</span>,
+          <span style="color:#e6db74">&#39;column 2&#39;</span>: <span style="color:#e6db74">&#39;rand_integer_col&#39;</span>},
+         axis <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;columns&#39;</span>)
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
     vertical-align: top;
@@ -546,9 +546,9 @@ df
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">index</span><span style="color:#e6db74">&#39;</span>,
-              <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">rand_noraml_col</span><span style="color:#e6db74">&#39;</span>,
-              <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">rand_integer_col</span><span style="color:#e6db74">&#39;</span>]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;index&#39;</span>,
+              <span style="color:#e6db74">&#39;rand_noraml_col&#39;</span>,
+              <span style="color:#e6db74">&#39;rand_integer_col&#39;</span>]
 df
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
@@ -562,7 +562,7 @@ df
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>columns<span style="color:#f92672">.</span>str<span style="color:#f92672">.</span>replace(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">_col</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>columns<span style="color:#f92672">.</span>str<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;_col&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
 df
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
@@ -575,7 +575,7 @@ df
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">data/house_price.csv</span><span style="color:#e6db74">&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#39;data/house_price.csv&#39;</span>)
 data<span style="color:#f92672">.</span>head()
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
@@ -613,7 +613,7 @@ data<span style="color:#f92672">.</span>head()
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<h3 id="----">برعکس کردن ترتیب ستون ها</h3>
+<h3 id="برعکس-کردن-ترتیب-ستون-ها">برعکس کردن ترتیب ستون ها</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>loc[:,::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>head()
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
@@ -715,7 +715,7 @@ dtypes: float64(3), int64(35), object(43)
 memory usage: 924.0+ KB
 </code></pre>
 <p>انتخاب ستون ها بر اساس تایپ ستون</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>select_dtypes(include <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">int64</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>head()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>select_dtypes(include <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;int64&#39;</span>)<span style="color:#f92672">.</span>head()
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
     vertical-align: top;
@@ -727,7 +727,7 @@ memory usage: 924.0+ KB
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>select_dtypes(include <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">number</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>head()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>select_dtypes(include <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;number&#39;</span>)<span style="color:#f92672">.</span>head()
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
     vertical-align: top;
@@ -739,7 +739,7 @@ memory usage: 924.0+ KB
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>select_dtypes(include <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">int64</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">object</span><span style="color:#e6db74">&#39;</span>])<span style="color:#f92672">.</span>head()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>select_dtypes(include <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;int64&#39;</span>,<span style="color:#e6db74">&#39;object&#39;</span>])<span style="color:#f92672">.</span>head()
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
     vertical-align: top;
@@ -751,7 +751,7 @@ memory usage: 924.0+ KB
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>select_dtypes(exclude<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">int64</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>head()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>select_dtypes(exclude<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;int64&#39;</span>)<span style="color:#f92672">.</span>head()
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
     vertical-align: top;
@@ -763,8 +763,8 @@ memory usage: 924.0+ KB
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<h2 id="---">تغییر تایپ ستون ها</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">titanic <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">data/titanic.csv</span><span style="color:#e6db74">&#39;</span>)
+<h2 id="تغییر-تایپ-ستون-ها">تغییر تایپ ستون ها</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">titanic <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#39;data/titanic.csv&#39;</span>)
 titanic<span style="color:#f92672">.</span>info()
 </code></pre></div><pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 1309 entries, 0 to 1308
@@ -794,7 +794,7 @@ memory usage: 143.2+ KB
 30     40
 Name: age, dtype: int64
 </code></pre>
-<h2 id="-----1">نمونه برداری تصادفی از دیتافریم</h2>
+<h2 id="نمونه-برداری-تصادفی-از-دیتافریم">نمونه برداری تصادفی از دیتافریم</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>shape
 </code></pre></div><pre><code>(1460, 81)
 </code></pre>
@@ -806,7 +806,7 @@ train<span style="color:#f92672">.</span>shape
 test<span style="color:#f92672">.</span>shape
 </code></pre></div><pre><code>(292, 81)
 </code></pre>
-<h2 id="-----">فیلتر کردن بر اساس چند معیار</h2>
+<h2 id="فیلتر-کردن-بر-اساس-چند-معیار">فیلتر کردن بر اساس چند معیار</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">titanic<span style="color:#f92672">.</span>head()
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
@@ -819,9 +819,9 @@ test<span style="color:#f92672">.</span>shape
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">titanic[(titanic[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">pclass</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&amp;</span>
-       (titanic[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sex</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">female</span><span style="color:#e6db74">&#39;</span>) <span style="color:#f92672">&amp;</span>
-       (titanic[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">survived</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)]<span style="color:#f92672">.</span>head()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">titanic[(titanic[<span style="color:#e6db74">&#39;pclass&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&amp;</span>
+       (titanic[<span style="color:#e6db74">&#39;sex&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;female&#39;</span>) <span style="color:#f92672">&amp;</span>
+       (titanic[<span style="color:#e6db74">&#39;survived&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)]<span style="color:#f92672">.</span>head()
 
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
@@ -834,8 +834,8 @@ test<span style="color:#f92672">.</span>shape
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<h1 id="------">فیلتر کردن بر اساس فراوان ترین دسته</h1>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ubar <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">data/ubar.csv</span><span style="color:#e6db74">&#39;</span>)
+<h1 id="فیلتر-کردن-بر-اساس-فراوان-ترین-دسته">فیلتر کردن بر اساس فراوان ترین دسته</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ubar <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#39;data/ubar.csv&#39;</span>)
 ubar<span style="color:#f92672">.</span>head()
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
@@ -848,7 +848,7 @@ ubar<span style="color:#f92672">.</span>head()
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">source_counts <span style="color:#f92672">=</span> ubar[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">SourceState</span><span style="color:#e6db74">&#39;</span>]<span style="color:#f92672">.</span>value_counts()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">source_counts <span style="color:#f92672">=</span> ubar[<span style="color:#e6db74">&#39;SourceState&#39;</span>]<span style="color:#f92672">.</span>value_counts()
 source_counts
 </code></pre></div><pre><code>تهران                  5343
 اصفهان                 4665
@@ -892,7 +892,7 @@ Name: SourceState, dtype: int64
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">source_counts<span style="color:#f92672">.</span>nlargest(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.</span>index
 </code></pre></div><pre><code>Index(['تهران', 'اصفهان', 'فارس'], dtype='object')
 </code></pre>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ubar[ubar[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">SourceState</span><span style="color:#e6db74">&#39;</span>]<span style="color:#f92672">.</span>isin(source_counts<span style="color:#f92672">.</span>nlargest(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.</span>index)]<span style="color:#f92672">.</span>head()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ubar[ubar[<span style="color:#e6db74">&#39;SourceState&#39;</span>]<span style="color:#f92672">.</span>isin(source_counts<span style="color:#f92672">.</span>nlargest(<span style="color:#ae81ff">3</span>)<span style="color:#f92672">.</span>index)]<span style="color:#f92672">.</span>head()
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {
     vertical-align: top;
@@ -904,8 +904,8 @@ Name: SourceState, dtype: int64
 </code></pre>
 <p><!-- raw HTML omitted --></p>
 <!-- raw HTML omitted -->
-<h1 id="-">مقادیر گمشده</h1>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">titanic <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">data/titanic.csv</span><span style="color:#e6db74">&#39;</span>,na_values <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">?</span><span style="color:#e6db74">&#39;</span>)
+<h1 id="مقادیر-گمشده">مقادیر گمشده</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">titanic <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#39;data/titanic.csv&#39;</span>,na_values <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;?&#39;</span>)
 titanic<span style="color:#f92672">.</span>head()
 </code></pre></div><!-- raw HTML omitted -->
 <pre><code>.dataframe tbody tr th {

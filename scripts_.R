@@ -113,3 +113,117 @@ rf %>%
 rf %>% 
   collect_metrics()
 ```
+
+
+
+## Sentiment Analysis
+
+```{r}
+debates_sentiment <- debates %>%
+  filter(type == 'Candidate') %>%
+  filter(!is.na(speech)) %>%
+  unnest_tokens(word, speech) %>%
+  inner_join(get_sentiments("afinn")) %>%
+  group_by(speaker, type, gender, debate) %>%
+  mutate(sentiment = sum(value),
+         speech_text = paste0(word, collapse = ' ')) %>%
+  ungroup() %>%
+  distinct(speaker, type, gender, debate, .keep_all = TRUE)
+
+head(debates_sentiment)
+```
+
+
+
+
+
+
+```{r fig.height=10, fig.width=30}
+debates_sentiment %>%
+  #filter(speaker %in% speakers)%>%
+  filter(type != 'Moderator') %>%
+  ggplot(aes(x = debate, y = sentiment, color = speaker)) +
+  #ggplot(aes(x = order,y= sentiment,color = speaker))
+  geom_line(size = 2) +
+  scale_color_tableau() +
+  gghighlight(speaker %in% speakers, label_params = list(label.size = 2,segment.color = "white"))
+```
+
+I didn't use the bing sentiment lexicon becuase interestingly it considers "trump" to be a positive word.
+```{r}
+debates_sentiment <- debates %>%
+  filter(type != 'Moderator') %>%
+  filter(!is.na(speech)) %>%
+  unnest_tokens(word, speech) %>%
+  #anti_join(stop_words) %>%
+  inner_join(get_sentiments("nrc")) %>%
+  filter(word != 'trump') %>%
+  count(speaker,sentiment)
+
+head(debates_sentiment,12)
+```
+```{r eval=FALSE, fig.height=20, fig.width=20, include=FALSE}
+debates_sentiment %>% 
+  filter(speaker %in% speakers) %>% 
+  mutate(speaker = reorder_within(speaker,n,sentiment)) %>% 
+ggplot(aes(x = speaker, y = n,fill = speaker)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~sentiment,scales = "free_y") +
+      coord_flip() +
+    scale_x_reordered() +
+  scale_fill_tableau() +
+  #scale_y_reordered() +
+  theme_fivethirtyeight() +
+    theme(
+    panel.grid.major = element_blank(),
+    panel.border = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.y = element_blank(),
+    legend.position = 'top',
+    legend.title = element_text(
+      family = 'Montserrat',
+      face = "bold",
+      size = 25,
+      hjust = 0.5,
+      margin = margin(0, 0, 20, 0),
+    ),
+    plot.title = element_text(
+      family = 'Montserrat',
+      face = "bold",
+      size = 50,
+      margin = margin(0, 0, 20, 0),
+      hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      family = 'Montserrat',
+      size = 30,
+      margin = margin(0, 0, 60, 0),
+      hjust = 0.5
+    ),
+    strip.text = element_text(
+      family = 'Montserrat',
+      size = 30,
+    ),
+    legend.text = element_text(     
+      family = 'Montserrat',
+      size = 20,
+      margin = margin(0, 20, 0, 0)
+      ),
+
+    legend.text.align = 0,
+     legend.direction = "horizontal",
+    panel.spacing = unit(2, "points")
+  )
+```
+```{r}
+library(reticulate)
+```
+
+```{python}
+import spacy
+```
+

@@ -5,78 +5,12 @@
     <link>/authors/</link>
       <atom:link href="/authors/index.xml" rel="self" type="application/rss+xml" />
     <description>Authors</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 01 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 03 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Authors</title>
       <link>/authors/</link>
     </image>
-    
-    <item>
-      <title></title>
-      <link>/authors/admin/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/authors/admin/</guid>
-      <description>&lt;p&gt;My name is Muhammad and currently I am a second year PhD student in the Data Science at the University of Twente in the Netherlands. My PhD project is funded by ProRail, the main Dutch company responsible for maintaining the railway infrastructure in the Netherlands. The goal of my PhD  project is to combine machine learning and big data techniques with formal method tools such as Fault Trees to help ProRail optimize their maintenance operations.&lt;/p&gt;
-&lt;p&gt;I began my adventure in data science 5 years ago and since then I have been involved in a wide range of related projects such as machine learning for traffic accident data, social network analysis of Telegram messaging application, stock market prediction and my personal text mining projects.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Djoerd Hiemstra</title>
-      <link>/authors/djoerd-hiemstra/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/authors/djoerd-hiemstra/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Mariëlle Stoelinga</title>
-      <link>/authors/marielle-stoelinga/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/authors/marielle-stoelinga/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Martijn van Noort</title>
-      <link>/authors/martijn-van-noort/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/authors/martijn-van-noort/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Carlos E. Budde</title>
-      <link>/authors/carlos-e.-budde/</link>
-      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      <guid>/authors/carlos-e.-budde/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Doina Bucur</title>
-      <link>/authors/doina-bucur/</link>
-      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      <guid>/authors/doina-bucur/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Enno Ruijter</title>
-      <link>/authors/enno-ruijter/</link>
-      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      <guid>/authors/enno-ruijter/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Stefano Schivo</title>
-      <link>/authors/stefano-schivo/</link>
-      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      <guid>/authors/stefano-schivo/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>
