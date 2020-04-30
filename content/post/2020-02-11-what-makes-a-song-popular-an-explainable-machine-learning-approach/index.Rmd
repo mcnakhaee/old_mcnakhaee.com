@@ -20,7 +20,14 @@ image:
  focal_point: ''
  preview_only: no
 projects: []
+
+
 ---
+
+```{r}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
 ```{r}
 library(tune)
 library(rsample)
@@ -72,7 +79,7 @@ Look at the next plot. Even The Beetles had a few not so popular songs.
 
 
 
-```{r message=FALSE, warning=FALSE}
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 library(aptheme)
 spotify_songs %>%
   filter(track_artist == 'The Beatles', track_popularity > 10) %>%

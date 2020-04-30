@@ -21,45 +21,41 @@
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;blockquote&gt;
-&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;It is not be possible for many of us to watch every 2020 Democratic Primary debate. Nevertheless, it is important for us to know what happened during a debate. In my case I usually read about debates in online newspapers or watch a highlight of a debate on Youtube. However, online newspapers and Youtube channels provide a short summary of a debate or just broadcast a portion of it that includes a heated exchange of opinions and attract attentions. This way many important issues raised by candidates are lik&lt;strong&gt;ely being ignored and forgotten in the&lt;/strong&gt; aftermath of a debate. What if we can summarize the content of a debate in such a way that My goal from this analysis is to use data science techniques to explore the content of debates and give you a comprehensive summary of topics that were discussed by each candidate. This article describes how to I used natural language processing techniques to summarize the content of debates.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://mcnakhaee.com/post/2020-02-23-the-most-eloeuent-democratic-candidate/&#34;&gt;In my last blog post&lt;/a&gt;, I explained that I had the three following goals in mind I study the 2020 Democratic Debates from:&lt;/p&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;1. Introduction&lt;/h2&gt;
+&lt;p&gt;It wasn’t possible for many of us to watch every 2020 Democratic Primary debate. It was important for some of us to know what happened during the debates. In my case, I was reading about what happened in debates in some kind of online newspapers or I watched a highlight of a debate on Youtube the next day. However, they only give a short summary of a debate or just broadcast a portion of debates that includes a heated exchange of opinions between candidates. As a result, many important issues raised by candidates will be &lt;strong&gt;ignored and forgotten in the&lt;/strong&gt; aftermath of a debate. So, it is important to summarize the content of a debate in such a way that everyone could understand what went on in a debate and what issues each candidate addressed during his/her speech. In this blog post, I will show you how I used some NLP techniques for exploring the content of debates and give you a comprehensive overview of topics that each candidate discussed.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mcnakhaee.com/post/2020-02-23-the-most-eloeuent-democratic-candidate/&#34;&gt;In my last blog post&lt;/a&gt;, I explained that I had the three following goals in mind when I started exploring the 2020 Democratic Debates :&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;Determining the most eloquent presidential candidate.&lt;/li&gt;
-&lt;li&gt;Sentiment analysis of the transcripts to find out who used positive or most negative words on the stage.&lt;/li&gt;
-&lt;li&gt;Network analysis of the transcripts.&lt;/li&gt;
+&lt;li&gt;To know how eloquent presidential candidate are.&lt;/li&gt;
+&lt;li&gt;To find out who used more positive or more negative words in his/her speech by performing sentiment analysis.&lt;/li&gt;
+&lt;li&gt;A map of topics, individuals and entities that each candidate mentioned in his/her speech by using named entity recognition and network analysis..&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Also, I only discussed how I approached the first two aspects of my experiment. Now it is time to explore the third and last aspect by applying network analysis to the transcript.&lt;/p&gt;
-&lt;p&gt;My aim from using network analysis is to determine potential allies and enemies on the debate stage. For example, &lt;a href=&#34;https://www.theguardian.com/us-news/2020/mar/04/mike-bloomberg-out-60-second-attack-elizabeth-warren-destroyed-campaign&#34;&gt;Elizabeth Warren mentioned Mike Bloomberg several times and attacked him harshly in the 9th debate&lt;/a&gt;. During the same debate, &lt;a href=&#34;https://www.independent.co.uk/news/world/americas/us-election/amy-klobuchar-pete-buttigieg-handshake-democratic-debate-video-a9348621.html&#34;&gt;Amy Klobuchar and Pete Buttigieg clashed bitterly with each other&lt;/a&gt;. But these two examples are just two instances of many other heated exchanges between the candidates.&lt;/p&gt;
+&lt;p&gt;I only discussed how I approached the first two aspects of my experiment in my last blogpost. Now it is time to investigate the third and last one.&lt;/p&gt;
+&lt;p&gt;Initially, my aim from using network analysis was to determine potential allies and enemies on the debate stage. For example, &lt;a href=&#34;https://www.theguardian.com/us-news/2020/mar/04/mike-bloomberg-out-60-second-attack-elizabeth-warren-destroyed-campaign&#34;&gt;Elizabeth Warren mentioned Mike Bloomberg several times and attacked him harshly in the 9th debate&lt;/a&gt;. During the same debate, &lt;a href=&#34;https://www.independent.co.uk/news/world/americas/us-election/amy-klobuchar-pete-buttigieg-handshake-democratic-debate-video-a9348621.html&#34;&gt;Amy Klobuchar and Pete Buttigieg clashed bitterly with each other&lt;/a&gt;. These are just two instances of many other heated exchanges between the candidates that happend over the course of 10 debates.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;To make things more clear, I transformed my goal into two questions that I would like to answer:&lt;/p&gt;
+&lt;p&gt;To make things more clear, I transformed my objective into two questions that I would like to answer:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;How many times did a candidate address (mention) other candidates during a debate?&lt;/li&gt;
-&lt;li&gt;How did he/she do it (in a friendly or unfriendly manner)?&lt;/li&gt;
+&lt;li&gt;How did he/she refer to a candidate(in a friendly or unfriendly manner)?&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;A simple approach to answer these questions is to store the names of all candidates in a variable (for example a vector in R or a list in Python), iterate through the transcript, measure the its sentiment , and count and store the number of times that a candidate’s name was brought up by another candidate.&lt;/p&gt;
-&lt;p&gt;However, adopting this solution is a little bit challenging and requires a lot of manual data pre-processing efforts. For each democratic candidate, I had to compile a comprehensive list of possible ways that may be used to address that candidate. As you can guess this solution seems to be a very time-consuming task. For example, Bernie Sanders might have been mentioned by other candidates in many different ways including Bernie, Bernie Sanders or Senator Sanders.&lt;/p&gt;
-&lt;p&gt;I realized that I can use a different but smarter approach to extract the names of candidate from the transcript and still achieve my goal. Also, using this approach not only I can find candidates’ names form the transcript, but also I can find the names of other politicians, individuals and even organization and I can extend my analysis to them.&lt;/p&gt;
-&lt;p&gt;I used a very powerful technique from Natural Language Processing (NLP) literature called Names Entity Recognition (NER) to extract the name of candidates.&lt;/p&gt;
+&lt;p&gt;A simple approach to answer these questions is to store the names of all candidates in a variable (for example a vector in R or a list in Python), iterate over the transcript, compute the sentiment, count and store the number of times that a candidate’s name was brought up by another candidate.&lt;/p&gt;
+&lt;p&gt;However, this approach is a little bit challenging and requires a lot of manual data pre-processing efforts. For each democratic candidate, one must compile a comprehensive combinations of ways that may be used to call a candidate and preparing such a list seems to be a very time-consuming task. For example, other candidates mentioned Bernie Sanders in many different ways including Bernie, Bernie Sanders or Senator Sanders.&lt;/p&gt;
+&lt;p&gt;I realized that I can use Named Entity Recognition (NER), a technique from Natural Language Processing (NLP) literature, to extract the name of candidates from the transcript and solve this problem more efficiently. By using this approach, not only I can find candidates’ names form the transcript, but I can also find the names of other politicians, individuals and even organizations and further extend my analysis to include much more topics and issues.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;workflow&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2. Workflow&lt;/h2&gt;
 &lt;p&gt;I made use of both python and R in my analysis. My workflow includes the following steps:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;I download the transcript of debates using this package (R).&lt;/li&gt;
-&lt;li&gt;I use tidytext to tokenize the transcript by splitting into multiple sentences and also for sentiment analysis (R).&lt;/li&gt;
-&lt;li&gt;I extract several pre-defined categories Named Entities from each sentence using Spacy.(Python)&lt;/li&gt;
-&lt;li&gt;I compute the sentiment of each sentence using TextBlob library (Python).&lt;/li&gt;
+&lt;li&gt;I access the transcript of debates using this package.&lt;/li&gt;
+&lt;li&gt;I use tidytext to split the transcript into multiple sentences and also for sentiment analysis.&lt;/li&gt;
+&lt;li&gt;I extract several types of Named Entities from each sentence, using Spacy,&lt;/li&gt;
+&lt;li&gt;I compute the sentiment of each sentence using TextBlob library in Python.&lt;/li&gt;
 &lt;li&gt;I transferred the results to R for visualization. There, I visualize the network of mentions and entities using ggraph and ggplot library.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;I used a very powerful Natural Langugae Processing technique called Names Entity Recognition (NER) to extract the name of candidates.&lt;/p&gt;
-&lt;p&gt;I took The following steps:
-1. I access the transcript of debates using this package.
-2. I use tidytext to split the transcript into multiple sentences and also for sentiment analysis.
-3. I extract several types of Named Entities from each sentence using Spacy,
-4. I compute the sentiment of each sentence using TextBlob library in Python.
-5. I transferred the results to R for visualization. There, I visualize the network of mentions and entities using ggraph and ggplot library.
-I could have implemented all the steps above in R. Spacyr is a . However, using python was a challenge and a personal decision for me.&lt;/p&gt;
+&lt;p&gt;Note that I could have implemented all the steps in R. For instance, Spacy has an R wrapper called Spacyr which gives the same functionality that I need for this analysis. However, I’d like to increase the number of tools that I can use. Particularly, using Python and R side by side is an interesting challenge for me.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(demdebates2020)
 library(tidytext)
 library(tidygraph)
@@ -69,7 +65,42 @@ library(gghighlight)
 library(ggthemes)
 library(kableExtra)
 library(reticulate)
-library(magrittr)&lt;/code&gt;&lt;/pre&gt;
+library(magrittr)
+library(pluralize)
+theme_set(
+  theme_graph(base_family = &amp;#39;Montserrat&amp;#39;)  +
+    theme(
+      panel.border = element_blank(),
+      plot.title = element_text(
+        family = &amp;#39;Montserrat&amp;#39;,
+        face = &amp;quot;bold&amp;quot;,
+        colour = &amp;#39;#540b0e&amp;#39;,
+        size = 42,
+        margin = ggplot2::margin(40, 40, 20, 10),
+        hjust = 0
+      ),
+      plot.subtitle =  element_text(
+        family = &amp;#39;Montserrat&amp;#39;,
+        face = &amp;quot;bold&amp;quot;,
+        colour = &amp;#39;#7d4f50&amp;#39;,
+        size = 30,
+        margin = ggplot2::margin(20, 40, 80, 10),
+        hjust = 0
+      ),
+      plot.caption =  element_text(
+        family = &amp;#39;Montserrat&amp;#39;,
+        face = &amp;quot;bold&amp;quot;,
+        colour = &amp;#39;#540b0e&amp;#39;,
+        size = 16,
+        margin = ggplot2::margin(0, 0, 20, 20),
+      ),
+      legend.position = &amp;#39;none&amp;#39;,
+      plot.background = element_rect(fill = &amp;#39;#FCF0E1&amp;#39;),
+      
+    )
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;loading-the-dataset&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2.2 Loading the dataset&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(debates) &lt;/code&gt;&lt;/pre&gt;
 &lt;table class=&#34;table table-striped table-hover table-condensed table-responsive&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
 &lt;thead&gt;
@@ -259,9 +290,10 @@ female
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;/div&gt;
 &lt;div id=&#34;tokenization&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;2. Tokenization&lt;/h3&gt;
-&lt;p&gt;As I mentioned before, I use tidytext to tokenize the transcript dataset based on sentences.For sentence tokenization, you need to set &lt;code&gt;token = &#39;sentences&#39;&lt;/code&gt; in &lt;code&gt;unnest_tokens()&lt;/code&gt; function. I think sentence tokenization is a reasonable choice because candidates might change the subject or the tone of their speech in each sentence.&lt;/p&gt;
+&lt;h3&gt;2.1. Tokenization&lt;/h3&gt;
+&lt;p&gt;As I mentioned before, I use tidytext to tokenize the transcript dataset based on sentences. For sentence tokenization, you need to set &lt;code&gt;token = &#39;sentences&#39;&lt;/code&gt; in &lt;code&gt;unnest_tokens()&lt;/code&gt; function. I think sentence tokenization is a reasonable choice because candidates might change the subject or the tone of their speech in each sentence.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;debates &amp;lt;- debates %&amp;gt;%
  unnest_tokens(sentence, speech, token = &amp;#39;sentences&amp;#39;,to_lower = FALSE)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(debates) &lt;/code&gt;&lt;/pre&gt;
@@ -459,18 +491,17 @@ NA
 &lt;/div&gt;
 &lt;div id=&#34;named-entity-recognition-using-spacy&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3. Named Entity Recognition using Spacy&lt;/h3&gt;
-&lt;p&gt;We need to install and import some python libraries.&lt;/p&gt;
+&lt;p&gt;Now we change to python for NER but before starting the analysis, we need to install and import a few python libraries.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import pandas as pd
 import spacy
 from textblob import TextBlob&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In RStudio and with the help of reticulate library, We can easily load the debate dataset from our R environment to our Python environment.&lt;/p&gt;
+&lt;p&gt;In RStudio and Rmarkdown notebooks, with the help of &lt;code&gt;reticulate&lt;/code&gt; library, we can easily load the debate dataset in our R environment to our Python environment, .&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;debates = r.debates&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;There are rows for both the candidates and the moderators who posed the questions to candidates in the transcript dataset. However, I am particularly interested in what the candidates said, so I only selected rows corresponding to the candidates.&lt;/p&gt;
+&lt;p&gt;Note that in in the transcript dataset there are rows for both the candidates and the moderators who asked questions from candidates. However, we are particularly interested in what the candidates said, so we only filter rows corresponding to candidates.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;candidates = debates[(debates[&amp;#39;type&amp;#39;] == &amp;#39;Candidate&amp;#39;) &amp;amp; (pd.notnull(debates[&amp;#39;sentence&amp;#39;])) ]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We are almost ready for extracting the named entities. But to use Spacy’s NLP features such as NER, we first need to download and load a pre-trained English language model. There are &lt;a href=&#34;https://spacy.io/usage/models&#34;&gt;several English language models&lt;/a&gt; with different sizes available in Spacy. I used the largest language model available.&lt;/p&gt;
+&lt;p&gt;We are almost ready for extracting the named entities. But to use Spacy’s NLP features such as NER, we first need to download and load a pre-trained English language model. There are &lt;a href=&#34;https://spacy.io/usage/models&#34;&gt;several English language models&lt;/a&gt; with different sizes available in Spacy. I used the largest language model available as it might be better and more accurate.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;nlp = spacy.load(&amp;#39;en_core_web_lg&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Spacy’s NER model is trained on the &lt;a href=&#34;https://catalog.ldc.upenn.edu/LDC2013T19&#34;&gt;OntoNotes 5&lt;/a&gt; corpus and it can detect several types of named entities including:
-Spacy’s NER model is trained on the &lt;a href=&#34;https://catalog.ldc.upenn.edu/LDC2013T19&#34;&gt;OntoNotes 5&lt;/a&gt; corpus and it can detect several types of named entities including:&lt;/p&gt;
+&lt;p&gt;Spacy’s NER model is trained on the &lt;a href=&#34;https://catalog.ldc.upenn.edu/LDC2013T19&#34;&gt;OntoNotes 5&lt;/a&gt; corpus and it can detect several types of named entities including:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
@@ -553,9 +584,10 @@ Spacy’s NER model is trained on the &lt;a href=&#34;https://catalog.ldc.upenn.
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;As you can see, there are many types of named entities but I limited my analysis to a handful of them including &lt;code&gt;PERSON&lt;/code&gt;, &lt;code&gt;ORG&lt;/code&gt;, &lt;code&gt;GPE&lt;/code&gt;, &lt;code&gt;NORP&lt;/code&gt;, &lt;code&gt;LAW&lt;/code&gt; and &lt;code&gt;LOC&lt;/code&gt;. When we use &lt;code&gt;nlp&lt;/code&gt;, Spacy tokenizes the documents and then for each token, its named entity clas is determined. The named enitiy labels are stored in &lt;code&gt;label_&lt;/code&gt; attribute. We&lt;/p&gt;
-&lt;p&gt;A very useful place to learn more how spacy works the spacy’s online course by one of its founders and developers.&lt;/p&gt;
-&lt;p&gt;I defined a python function that for each type of named entities explores the input transcript and extracts all named entities from that piece of text. Later, I store each extracted type of entities as a separate column in the original dataset.&lt;/p&gt;
+&lt;p&gt;As you can see, there are many types of named entities but I narrow down my analysis to just a handful of them including &lt;code&gt;PERSON&lt;/code&gt;, &lt;code&gt;ORG&lt;/code&gt;, &lt;code&gt;GPE&lt;/code&gt;, &lt;code&gt;NORP&lt;/code&gt;, &lt;code&gt;LAW&lt;/code&gt; and &lt;code&gt;LOC&lt;/code&gt;.
+The named entity labels are stored in &lt;code&gt;label_&lt;/code&gt; attribute. To do so, we need to create &lt;code&gt;Doc&lt;/code&gt; object using &lt;code&gt;nlp()&lt;/code&gt; method. When we call &lt;code&gt;nlp()&lt;/code&gt; on the input text, spacy uses the language model to tokenize the document first. Then, spacy applies a tagger, parser and named entity recognizer steps as the next components of its processing pipeline. The named entities can be accessed by &lt;code&gt;ents&lt;/code&gt; attribute of the document object.&lt;/p&gt;
+&lt;p&gt;If you are interested to learn more about Spacy and how it works, I have provided some links at the end of this post.&lt;/p&gt;
+&lt;p&gt;I define a python function that iterates over all named entities and see to which class of named entities (by default &lt;code&gt;PERSON&lt;/code&gt;) they belong. I apply this function to the transcript column in the original dataset and store each extracted type of entities as a separate column.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def extract_entities_delim(text,type_ent = &amp;#39;PERSON&amp;#39;):
   ent_text = &amp;#39;&amp;#39;
   doc = nlp(text)
@@ -572,40 +604,29 @@ candidates[&amp;#39;LOC&amp;#39;] = candidates[&amp;#39;sentence&amp;#39;].apply
 &lt;/div&gt;
 &lt;div id=&#34;sentiment-analysis&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;4. Sentiment Analysis&lt;/h3&gt;
-&lt;p&gt;Next, I use TextBlob to compute the sentiment of each sentence and store store its polarity score in a separate column called &lt;code&gt;polarity_sentiment&lt;/code&gt;. TextBlob returns a sentiment value between -1 and 1. If the value is larger than 0, it means that the sentence has a positive sentiment. On the other hand, if the returned value is smaller than 0, it indicates that the sentiment of the sentence is negative.&lt;/p&gt;
+&lt;p&gt;Next, I use TextBlob to compute the sentiment of each sentence and store store its polarity score in a separate column called &lt;code&gt;polarity_sentiment&lt;/code&gt; (TextBlob also returns a &lt;code&gt;subjectivity&lt;/code&gt; score but for simplicity, I will not use this score in my analysis). The polarity sentiment score is a value between -1 and 1. If the value is larger than 0, it means that the sentence has a positive sentiment. On the other hand, if the returned value is smaller than 0, it indicates that the sentiment of the sentence is negative.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def polarity_sentiment(text):
   blob = TextBlob(text)
   return blob.sentiment.polarity
   
 candidates[&amp;#39;polarity_sentiment&amp;#39;] = candidates.sentence.apply(lambda x:polarity_sentiment(x))&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;/div&gt;
 &lt;div id=&#34;network-visualization&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;6.Network Visualization&lt;/h2&gt;
-&lt;p&gt;A network (graph) can nicely represent how individuals and entities were mentioned by candidates in their remarks. We have two types of nodes in this network:&lt;/p&gt;
+&lt;h2&gt;5.Network Visualization&lt;/h2&gt;
+&lt;p&gt;A network (graph) can nicely represent how individuals and entities were mentioned by candidates in their speeches. We have two types of nodes in this network:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;The first set of nodes represent candidates on the debate stage (&lt;strong&gt;from nodes)&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;The second set of nodes represent named entities (including the name of candidates themselves) that the candidates referred to in their speeches (&lt;strong&gt;to&lt;/strong&gt; &lt;strong&gt;nodes&lt;/strong&gt;).&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;If a candidate speaks of a named entity in his/her speech, we connect the candidate node and the named entity node via an edge in our network. Also, It is fair to assume that the candidate-entity network should be a weighted network because candidates tend to place a varying level of importance on different issues and topics.&lt;/p&gt;
-&lt;p&gt;We have two options for specifying edges in the network:&lt;/p&gt;
+&lt;p&gt;If a candidate mentions a named entity in his/her speech, we connect the candidate node and the named entity node via an edge in our network. Also, It is fair to assume that the candidate-entity network should be a weighted network because candidates tend to place a varying level of importance on different issues, topics and people (named entities).&lt;/p&gt;
+&lt;p&gt;We have two options for specifying weights for edges in the network:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;We can use the number of times that a candidate mentioned a named entity in his/her speech. This shows how much a named entity was important to that candidate.&lt;/li&gt;
-&lt;li&gt;We can group by candidates and named entities and compute their average sentiment score. By doing so, we can measure how each candidate described these named entities.&lt;/li&gt;
+&lt;li&gt;We can group by candidates and named entities and compute their average sentiment score. By doing so, we can measure how each candidate described these named entities. However, this approach might not be as accurate as we want.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Now, it is time to go back to R and visualize the network of candidates and named entities using the &lt;a href=&#34;https://github.com/thomasp85/ggraph&#34;&gt;&lt;code&gt;ggraph&lt;/code&gt;&lt;/a&gt; and &lt;code&gt;tidygraph&lt;/code&gt; libraries. For each class of named entities, I use &lt;code&gt;as_tbl_graph()&lt;/code&gt; function and create a unique graph table dataset , and visualize the network separately.&lt;/p&gt;
-&lt;p&gt;Again, I should point out to the fact that in the beginning of the primary there were many democratic candidates in the race and also on the debate stage. If I visualize every individual that each candidate had ever mentioned, the results will become unreadable. So, just like my last blog post, I selected a few democratic candidates to show my analysis. Additionally, I only use data from the last three debates but extending my analysis to other debates is extremely easy.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;interesting_people &amp;lt;-
- c(
-  &amp;quot;Bernie Sanders&amp;quot; ,
-  &amp;quot;Elizabeth Warren&amp;quot; ,
-  &amp;quot;Mike Bloomberg&amp;quot;  ,
-  &amp;quot;Pete Buttigieg&amp;quot; ,
-  &amp;quot;Amy Klobuchar&amp;quot; ,
-  &amp;quot;Joe Biden&amp;quot;,
-  &amp;#39;Donald Trump&amp;#39;,
-  &amp;#39;Barack Obama&amp;#39;
- )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Let’s move the sentiment-entity dataset that I created in Python to R.&lt;/p&gt;
+&lt;p&gt;Having said that, it is time to go back to R and visualize the network of candidates and named entities using the &lt;a href=&#34;https://github.com/thomasp85/ggraph&#34;&gt;&lt;code&gt;ggraph&lt;/code&gt;&lt;/a&gt; and &lt;code&gt;tidygraph&lt;/code&gt; libraries. For each class of named entities, I use &lt;code&gt;as_tbl_graph()&lt;/code&gt; function and create a unique graph table dataset, and visualize the network.&lt;/p&gt;
+&lt;p&gt;So, let’s load the sentiment-entity dataset that I created in the Python environment to the R environment.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates &amp;lt;- py$candidates&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(candidates) &lt;/code&gt;&lt;/pre&gt;
 &lt;table class=&#34;table table-striped table-hover table-condensed table-responsive&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
@@ -966,9 +987,37 @@ NA
 &lt;/table&gt;
 &lt;div id=&#34;the-candidateperson-network&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;5.1 The Candidate/Person Network&lt;/h4&gt;
+&lt;p&gt;First, I will visualize the candidate/person network. However, I should remind you of the fact that in the beginning of the democratic primary many democratic candidates were competing against each other in the race and also on the debate stage. If I were to visualize every individual that each candidate had ever in the network, the results would become unreadable. So, just like my last blog post, I selected a few democratic candidates to show my analysis.&lt;/p&gt;
+&lt;p&gt;Furthermore, I will only highlight nodes corresponding to the top 6 democratic candidates and other interesting individuals including Donald Trump and Barack Obama.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;interesting_individuals &amp;lt;-
+ c(
+  &amp;quot;Bernie Sanders&amp;quot; ,
+  &amp;quot;Elizabeth Warren&amp;quot; ,
+  &amp;quot;Mike Bloomberg&amp;quot;  ,
+  &amp;quot;Pete Buttigieg&amp;quot; ,
+  &amp;quot;Amy Klobuchar&amp;quot; ,
+  &amp;quot;Joe Biden&amp;quot;,
+  &amp;#39;Donald Trump&amp;#39;,
+  &amp;#39;Barack Obama&amp;#39;
+ )
+
+
+
+custom_palette &amp;lt;-
+  c(
+    &amp;#39;Mike Bloomberg&amp;#39; = &amp;#39;#EDC948&amp;#39;,
+    &amp;#39;Amy Klobuchar&amp;#39; = &amp;#39;#59A14F&amp;#39; ,
+    &amp;#39;Joe Biden&amp;#39; = &amp;#39;#E15759&amp;#39;,
+    &amp;#39;Pete Buttigieg&amp;#39; = &amp;#39;#B07AA1&amp;#39;,
+    &amp;#39;Elizabeth Warren&amp;#39; =  &amp;#39;#F28E2B&amp;#39;,
+    &amp;#39;Bernie Sanders&amp;#39; =  &amp;#39;#4E79A7&amp;#39; ,
+    &amp;#39;Donald Trump&amp;#39; = &amp;#39;#BC3908&amp;#39;,
+    &amp;#39;Barack Obama&amp;#39; = &amp;#39;#00afb9&amp;#39;,
+    &amp;#39;Others&amp;#39; = &amp;#39;#540b0e&amp;#39;
+  )&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;persons_graph_table &amp;lt;- candidates %&amp;gt;%
  separate_rows(PERSON, sep = &amp;#39;;&amp;#39;) %&amp;gt;%
- filter(speaker %in% interesting_people,PERSON != &amp;#39;&amp;#39;, debate %in% c(8, 9, 10)) %&amp;gt;%
+ filter(speaker %in% interesting_individuals,PERSON != &amp;#39;&amp;#39;, debate %in% c(8, 9, 10)) %&amp;gt;%
  mutate(from = speaker, to = PERSON) %&amp;gt;%
  group_by(from, to) %&amp;gt;%
  summarize(n_mentions = n(),
@@ -979,49 +1028,22 @@ NA
                ) %&amp;gt;%
  ungroup() %&amp;gt;%
  as_tbl_graph() %&amp;gt;%
- mutate(interesting_people = if_else(name %in% interesting_people, name, &amp;#39;Others&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;custom_palette &amp;lt;-
- c(
-  &amp;#39;Mike Bloomberg&amp;#39; = &amp;#39;#F6E560&amp;#39;,
-  &amp;#39;Amy Klobuchar&amp;#39; = &amp;#39;#8ADDAF&amp;#39; ,
-  &amp;#39;Joe Biden&amp;#39; = &amp;#39;#C42199&amp;#39;,
-  &amp;#39;Pete Buttigieg&amp;#39; = &amp;#39;#DA8B46&amp;#39;,
-  &amp;#39;Elizabeth Warren&amp;#39; = &amp;#39;#845CCD&amp;#39;,
-  &amp;#39;Bernie Sanders&amp;#39; = &amp;#39;#409EB1&amp;#39;,
-  &amp;#39;Donald Trump&amp;#39; = &amp;#39;#1d1b21&amp;#39;,
-  &amp;#39;Barack Obama&amp;#39; = &amp;#39;#AAB3AD&amp;#39;,
-  &amp;#39;Others&amp;#39; =&amp;#39;#50514f&amp;#39;
- )
-edge_cols &amp;lt;- c(&amp;#39;#e63946&amp;#39;,&amp;#39;#f1faee&amp;#39;,&amp;#39;#457B9D&amp;#39;)
+ mutate(interesting_individuals = if_else(name %in% interesting_individuals, name, &amp;#39;Others&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;edge_cols &amp;lt;- c(&amp;#39;#e63946&amp;#39;,&amp;#39;#f1faee&amp;#39;,&amp;#39;#457B9D&amp;#39;)
 ggraph(persons_graph_table, layout = &amp;#39;kk&amp;#39;) + 
   geom_edge_link(aes(edge_width = n_mentions,colour = sent )) +
-  geom_node_point(aes(color = interesting_people ),size = 5) + 
-  geom_node_label(aes(label = name,color = interesting_people),repel = TRUE,size= 8) + 
+  geom_node_point(aes(color = interesting_individuals ),size = 5) + 
+  geom_node_label(aes(label = name,color = interesting_individuals),repel = TRUE,size= 8) + 
  scale_color_manual(values = custom_palette) +
-
-  theme_graph(foreground = &amp;#39;steelblue&amp;#39;, fg_text_colour = &amp;#39;white&amp;#39;) +
-labs(title = &amp;#39;Who Mentioned Whom in the 2020 Democratic Debates?&amp;#39;) +
-scale_edge_colour_manual(values = edge_cols) +
- theme_graph(
-       base_family = &amp;#39;Montserrat&amp;#39;,) +
- theme(
-   plot.title = element_text(
-   family = &amp;#39;Montserrat&amp;#39;,
-   face = &amp;quot;bold&amp;quot;,
-   size = 50,
-   margin = ggplot2::margin(0, 0, 20, 0),
-   hjust = 0.5
-  ),
-  legend.position = &amp;#39;none&amp;#39;
-  
- )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;If you look at the graph carefully, you will notice that there are two issues with this network. First of all, there are several nodes in the network that belong to the same individual. For example, Bernie Sanders tends to address other candidates by their first names but other (younger) candidates usually use the last name to address each other.
-Secondly, some nodes do not represent a person. The transcript dataset is full of errors and many names are misspelled. Also, although Spacy is a very powerful library for NER, sometimes it gives us wrong results and its detected named entities are not always correct t. For this reason, we also need to perform a post-precessing step in which we remove some incorrectly spelled words or replaced them with their correct forms. I found two ways to deal with issue:1. we can manually find undesirable names and replace them with what we want 2. or we can use a match naming algorithm to match the partial names of a person with its full name.&lt;/p&gt;
+  labs(title = &amp;#39;Who Mentioned Whom in the 2020 Democratic Debates?&amp;#39;) +
+  scale_edge_colour_manual(values = edge_cols) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;If you look at the graph carefully, you will notice that there are three issues with this network. First of all, the sentiment scores does not necessarily indicate how a candidate thinks about that person. For instance, the edge between Bernie Sanders and Khashoggi is red (i.e. negative sentiment) but Bernie Sanders did not talk negatively about Khashoggi at all but rather how he was murdered. Secondly, there are several nodes in the network that belong to the same individual. For example, Bernie Sanders tends to address other candidates by their first names, but other (younger) candidates usually use the last name to address each other.&lt;/p&gt;
+&lt;p&gt;The third issue is that some nodes do not represent a person. The transcript dataset is full of errors and many names are misspelled. Also, although Spacy is a very powerful library for NER, sometimes it gives us wrong results and its detected named entities are not always correct. For this reason, we also need to perform a post-processing step in which we remove some incorrectly spelled words or replaced them with their correct forms. I found two ways to deal with these issues: 1. or we can use a name matching algorithm to match the partial names of a person with its full name. This approach can be a bit challenging because we need to have a list of all possible full names, which is only available for the candidates.2. we can manually find undesirable names and replace them with what we want.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;matching-names&#34; class=&#34;section level4&#34;&gt;
-&lt;h4&gt;5.2 Matching names&lt;/h4&gt;
-&lt;p&gt;There is a python library called &lt;code&gt;fuzzywuzzy&lt;/code&gt; that can help us match two strings based on different criteria. Here, I move back the candidate dataset to our python environment. But before that, I transform the oeiginal dataset into a longer dataset where each row belongs to a pair of candidate-person (from-to) instance.&lt;/p&gt;
+&lt;div id=&#34;matching-candidate-names&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;5.1 Matching candidate names&lt;/h4&gt;
+&lt;p&gt;There is a python library called &lt;code&gt;fuzzywuzzy&lt;/code&gt; that can help us match two strings based on different similarity criteria. However, before using this library, I transform the original dataset into a longer dataset where each row belongs to a pair of candidate-person (from-to) and I move it back to our python environment.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long &amp;lt;- candidates %&amp;gt;%
  filter(PERSON != &amp;#39;&amp;#39;) %&amp;gt;%
  separate_rows(PERSON, sep = &amp;#39;;&amp;#39;) 
@@ -1041,7 +1063,9 @@ head(candidates_long)&lt;/code&gt;&lt;/pre&gt;
 # … with 5 more variables: GPE &lt;chr&gt;, NORP &lt;chr&gt;, LAW &lt;chr&gt;, LOC &lt;chr&gt;,
 # polarity_sentiment &lt;dbl&gt;&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;candidates_long = r.candidates_long&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;candidate_lists = pd.unique(candidates_long.speaker)
+&lt;p&gt;Let’s look at the full names of democratic candidates.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import pandas as pd
+candidate_lists = pd.unique(candidates_long.speaker)
 print(candidate_lists)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [&amp;#39;Amy Klobuchar&amp;#39; &amp;#39;Andrew Yang&amp;#39; &amp;#39;Bernie Sanders&amp;#39; &amp;quot;Beto O&amp;#39;Rourke&amp;quot;
 ##  &amp;#39;Bill de Blasio&amp;#39; &amp;#39;Cory Booker&amp;#39; &amp;#39;Elizabeth Warren&amp;#39; &amp;#39;Eric Swalwell&amp;#39;
@@ -1049,7 +1073,7 @@ print(candidate_lists)&lt;/code&gt;&lt;/pre&gt;
 ##  &amp;#39;Julian Castro&amp;#39; &amp;#39;Kamala Harris&amp;#39; &amp;#39;Kirsten Gillibrand&amp;#39;
 ##  &amp;#39;Marianne Williamson&amp;#39; &amp;#39;Michael Bennet&amp;#39; &amp;#39;Mike Bloomberg&amp;#39; &amp;#39;Pete Buttigieg&amp;#39;
 ##  &amp;#39;Steve Bullock&amp;#39; &amp;#39;Tim Ryan&amp;#39; &amp;#39;Tom Steyer&amp;#39; &amp;#39;Tulsi Gabbard&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I &lt;code&gt;process.extractOne&lt;/code&gt; function to select the first matched name that has at&lt;/p&gt;
+&lt;p&gt;I define a python function called &lt;code&gt;match_names&lt;/code&gt; which uses &lt;code&gt;process.extractOne&lt;/code&gt; function to select the first matched named entity that has at least 80 percent similarity to a candidate’s full name. The matched names are stored in a separate columns called &lt;code&gt;dem_candidate_full_name&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from fuzzywuzzy import fuzz 
 from fuzzywuzzy import process &lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def match_names(name):
@@ -1059,180 +1083,231 @@ from fuzzywuzzy import process &lt;/code&gt;&lt;/pre&gt;
     return None
 
 candidates_long[&amp;#39;dem_candidate_full_name&amp;#39;] = candidates_long.PERSON.apply(lambda x: match_names(x) )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long &amp;lt;- read_csv(&amp;#39;candidates_long_sentiment_entities.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
-## cols(
-##   speaker = col_character(),
-##   background = col_logical(),
-##   type = col_character(),
-##   gender = col_character(),
-##   debate = col_double(),
-##   day = col_double(),
-##   order = col_double(),
-##   sentence = col_character(),
-##   PERSON = col_character(),
-##   ORG = col_character(),
-##   GPE = col_character(),
-##   NORP = col_character(),
-##   LAW = col_character(),
-##   LOC = col_character(),
-##   polarity_sentiment = col_double(),
-##   dem_candidate_full_name = col_character()
-## )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can return to R and continue our analysis.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long &amp;lt;- py$candidates_long
 glimpse(candidates_long)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Observations: 1,732
+&lt;pre&gt;&lt;code&gt;## Observations: 3,238
 ## Variables: 16
-## $ speaker                 &amp;lt;chr&amp;gt; &amp;quot;Amy Klobuchar&amp;quot;, &amp;quot;Amy Klobuchar&amp;quot;, &amp;quot;Amy Klob...
-## $ background              &amp;lt;dbl&amp;gt; NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN...
-## $ type                    &amp;lt;chr&amp;gt; &amp;quot;Candidate&amp;quot;, &amp;quot;Candidate&amp;quot;, &amp;quot;Candidate&amp;quot;, &amp;quot;Can...
-## $ gender                  &amp;lt;chr&amp;gt; &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;fe...
-## $ debate                  &amp;lt;dbl&amp;gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2...
-## $ day                     &amp;lt;dbl&amp;gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
-## $ order                   &amp;lt;dbl&amp;gt; 11, 99, 329, 426, 427, 563, 567, 674, 725, ...
-## $ sentence                &amp;lt;chr&amp;gt; &amp;quot;And Donald Trump just sits in the White Ho...
-## $ PERSON                  &amp;lt;chr&amp;gt; &amp;quot;Donald Trump&amp;quot;, &amp;quot;Barack Obama&amp;quot;, &amp;quot;Donald Tru...
-## $ ORG                     &amp;lt;list&amp;gt; [NaN, NaN, NaN, NaN, &amp;quot;Senate;&amp;quot;, NaN, NaN, ...
-## $ GPE                     &amp;lt;list&amp;gt; [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, N...
-## $ NORP                    &amp;lt;list&amp;gt; [NaN, NaN, NaN, NaN, NaN, &amp;quot;Democrat;&amp;quot;, NaN...
-## $ LAW                     &amp;lt;list&amp;gt; [NaN, &amp;quot;the Affordable Care Act;&amp;quot;, NaN, NaN...
-## $ LOC                     &amp;lt;list&amp;gt; [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, N...
-## $ polarity_sentiment      &amp;lt;dbl&amp;gt; 0.0250000, 0.0000000, 0.5000000, 0.8000000,...
-## $ dem_candidate_full_name &amp;lt;list&amp;gt; [NaN, NaN, NaN, NaN, NaN, NaN, &amp;quot;Cory Booke...&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;non_person &amp;lt;- c(&amp;#39;y adema&amp;#39; ,&amp;#39;Appalachia&amp;#39; , &amp;#39;AUMF&amp;#39; ,&amp;#39;bias&amp;#39;,&amp;#39;nondisclosur&amp;#39; , &amp;#39;Mathew 25&amp;#39;,&amp;#39;Idlib&amp;#39;,&amp;#39;ye&amp;#39;,&amp;#39;Everytown&amp;#39;,&amp;#39;Kurd&amp;#39;,&amp;#39;Roe V.&amp;#39;,&amp;#39;Wade&amp;#39;)
-
-persons_graph_table &amp;lt;- candidates_long %&amp;gt;%
- filter(speaker %in% interesting_people, debate %in% c(7,8, 9, 10),!PERSON %in% non_person) %&amp;gt;%
- dplyr::rowwise() %&amp;gt;% 
- mutate(dem_candidate_full_name = as.character(dem_candidate_full_name)) %&amp;gt;% 
- mutate(PERSON = if_else(dem_candidate_full_name!=&amp;#39;NaN&amp;#39;,dem_candidate_full_name,PERSON)) %&amp;gt;% 
- mutate(from = speaker, to = PERSON) %&amp;gt;%
- mutate(  
-  to = case_when(
- to %in% c(&amp;#39;Donald&amp;#39;,&amp;#39;Donald Trump&amp;#39;, &amp;#39;Trump&amp;#39;, &amp;#39;President Trump&amp;#39;,&amp;quot;Donald Trump&amp;#39;s&amp;quot;) ~ &amp;#39;Donald Trump&amp;#39;,
- str_detect(to,&amp;#39;Vind&amp;#39;)~&amp;#39;Vindman&amp;#39;,
- str_detect(to,&amp;#39;Assad&amp;#39;)~&amp;#39;Assad&amp;#39;, 
- str_detect(to,&amp;#39;Trudeau&amp;#39;) ~ &amp;#39;Justin Trudeau&amp;#39;, 
- str_detect(to,&amp;#39;Bannon&amp;#39;) ~ &amp;#39;Steve Bannon&amp;#39;, 
- str_detect(to,&amp;#39;Netanyahu&amp;#39;) ~ &amp;#39;Netanyahu&amp;#39;, 
- str_detect(to,&amp;#39;Martin Luther&amp;#39;) ~ &amp;#39;Martin Luther King&amp;#39;, 
- str_detect(to,&amp;#39;Hillar&amp;#39;) ~ &amp;#39;Hillary Clinton&amp;#39;, 
- str_detect(to,&amp;#39;Obama&amp;#39;) ~ &amp;#39;Barack Obama&amp;#39;,
- str_detect(to,&amp;#39;Barack&amp;#39;) ~ &amp;#39;Barack Obama&amp;#39;,
- str_detect(to,&amp;#39;Mandela&amp;#39;) ~ &amp;#39;Mandela&amp;#39;, 
- str_detect(to,&amp;#39;Xi&amp;#39;) ~ &amp;#39;Xi Jinping&amp;#39;,
- str_detect(to,&amp;#39;Putin&amp;#39;) ~ &amp;#39;Putin&amp;#39;,
- str_detect(to,&amp;#39;Mitch&amp;#39;) ~ &amp;#39;Mitch Mcconnell&amp;#39;,
- str_detect(to,&amp;#39;Lindsey&amp;#39;) ~ &amp;#39;Lindsey Graham&amp;#39;,
- str_detect(to,&amp;#39;Romney&amp;#39;) ~ &amp;#39;Mitt Romney&amp;#39;,
- str_detect(to,&amp;#39;George&amp;#39;) ~ &amp;#39;George Bush&amp;#39;,
- str_detect(to,&amp;#39;Bush&amp;#39;) ~ &amp;#39;George Bush&amp;#39;,
- str_detect(to,&amp;#39;Turner&amp;#39;) ~ &amp;#39;Nina Turner&amp;#39;,
- str_detect(to,&amp;#39;Clyburn&amp;#39;) ~ &amp;#39;Jim Clyburn&amp;#39;, 
- str_detect(to,&amp;#39;Shaheen&amp;#39;) ~ &amp;#39;Jeanne Shaheen&amp;#39;,
- TRUE ~ to
-)) %&amp;gt;% 
- group_by(from, to) %&amp;gt;%
- summarize(n_mentions = n()) %&amp;gt;%
- ungroup() %&amp;gt;%
- as_tbl_graph() %&amp;gt;%
- mutate(interesting_people = if_else(name %in% interesting_people, name, &amp;#39;Others&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_graph &amp;lt;- function(graph_table) {
-  ggraph(graph_table, layout = &amp;#39;nicely&amp;#39;) +
-    geom_edge_link(aes(
-      edge_width = n_mentions,
-      colour = n_mentions,
-      fill = n_mentions
-    )) +
-    #geom_node_point(aes(color = interesting_people), size = 5) +
-    geom_node_label(aes(label = name, color = interesting_people),
-                    repel = TRUE,
-                    size = 8) +
-    scale_fill_manual(values = custom_palette) +
-    
-    theme_graph(foreground = &amp;#39;steelblue&amp;#39;, fg_text_colour = &amp;#39;white&amp;#39;) +
-    labs(title = &amp;#39;Who Mentioned Whom?&amp;#39; ,
-         subtitle = &amp;#39; in the 2020 Democratic Debates&amp;#39;,
-         caption = &amp;#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&amp;#39;) +
-    #scale_edge_colour_manual(values = edge_cols) +
-    scale_edge_colour_gradient2() +
-    scale_edge_fill_gradient2() +
-    theme_graph(base_family = &amp;#39;Montserrat&amp;#39;,) +
-    theme(
-      plot.title = element_text(
-        family = &amp;#39;Montserrat&amp;#39;,
-        face = &amp;quot;bold&amp;quot;,
-        size = 50,
-        margin = ggplot2::margin(0, 0, 20, 0),
-        hjust = 0.5
-      ),
-      plot.subtitle = element_text(
-        family = &amp;#39;Montserrat&amp;#39;,
-        face = &amp;quot;bold&amp;quot;,
-        size = 20,
-        margin = ggplot2::margin(0, 0, 20, 0),
-        hjust = 0.5
-      ),
-      legend.position = &amp;#39;none&amp;#39;
+## $ X1                 &amp;lt;dbl&amp;gt; 372, 372, 384, 384, 422, 422, 437, 437, 440, 440...
+## $ speaker            &amp;lt;chr&amp;gt; &amp;quot;Amy Klobuchar&amp;quot;, &amp;quot;Amy Klobuchar&amp;quot;, &amp;quot;Amy Klobuchar...
+## $ background         &amp;lt;lgl&amp;gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
+## $ type               &amp;lt;chr&amp;gt; &amp;quot;Candidate&amp;quot;, &amp;quot;Candidate&amp;quot;, &amp;quot;Candidate&amp;quot;, &amp;quot;Candidat...
+## $ gender             &amp;lt;chr&amp;gt; &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;...
+## $ debate             &amp;lt;dbl&amp;gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+## $ day                &amp;lt;dbl&amp;gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+## $ order              &amp;lt;dbl&amp;gt; 11, 11, 99, 99, 329, 329, 426, 426, 427, 427, 56...
+## $ sentence           &amp;lt;chr&amp;gt; &amp;quot;And Donald Trump just sits in the White House a...
+## $ PERSON             &amp;lt;chr&amp;gt; &amp;quot;Donald Trump&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;Barack Obama&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;Donald ...
+## $ ORG                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
+## $ GPE                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
+## $ NORP               &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
+## $ LAW                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;the Affordable Care Act;&amp;quot;, &amp;quot;the Aff...
+## $ LOC                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
+## $ polarity_sentiment &amp;lt;dbl&amp;gt; 0.0250000, 0.0250000, 0.0000000, 0.0000000, 0.50...&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;a-word-of-caution&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;A word of caution&lt;/h4&gt;
+&lt;p&gt;We need to be very careful with the results of the name matching algorithm. There are too many politicians with the name ‘John’ and a John might refer to “John McCain” or “John Bolton” not the candidate “John Hickenlooper”. So, as a post-processing step, I manually explore the dataset to correct the few mistakes that the matching algorithm had made.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long &amp;lt;- candidates_long %&amp;gt;%
+  mutate(PERSON = if_else(
+    !is.na(dem_candidate_full_name),
+    dem_candidate_full_name,
+    PERSON),
+  PERSON = case_when(PERSON == &amp;#39;John Hickenlooper&amp;#39; &amp;amp; str_detect(sentence,&amp;#39;McCain&amp;#39;) ~ &amp;#39;John McCain&amp;#39;,
+                      PERSON == &amp;#39;John Hickenlooper&amp;#39; &amp;amp; str_detect(sentence,&amp;#39;Bolton&amp;#39;) ~ &amp;#39;John Bolton&amp;#39;,
+                      PERSON == &amp;#39;John Delaney&amp;#39; &amp;amp; speaker == &amp;#39;Joe Biden&amp;#39; ~&amp;#39;John McCain&amp;#39;,
+                      PERSON == &amp;#39;John Delaney&amp;#39; &amp;amp; speaker == &amp;#39;   Amy Klobuchar&amp;#39; ~&amp;#39;John McCain&amp;#39;,
+                      TRUE ~  PERSON)
+  ) &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;manual-name-correction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;5.2 Manual name correction&lt;/h3&gt;
+&lt;p&gt;We have a better dataset now, but there are still a lot of inaccurate named entities or inconsistencies in the dataset. Let’s start by removing named entities that do not correspond with a real person.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;non_person &amp;lt;-
+  c(
+    &amp;#39;y adema&amp;#39; ,
+    &amp;#39;Appalachia&amp;#39; ,
+    &amp;#39;AUMF&amp;#39; ,
+    &amp;#39;bias&amp;#39;,
+    &amp;#39;nondisclosur&amp;#39; ,
+    &amp;#39;Mathew 25&amp;#39;,
+    &amp;#39;Idlib&amp;#39;,
+    &amp;#39;ye&amp;#39;,
+    &amp;#39;Everytown&amp;#39;,
+    &amp;#39;Kurd&amp;#39;,
+    &amp;#39;Roe V.&amp;#39;,
+    &amp;#39;Wade&amp;#39;,
+    &amp;#39;Trumpism&amp;#39;,
+    &amp;#39;Casey&amp;#39;,
+    &amp;#39;brown&amp;#39;,
+    &amp;#39;Grandpa&amp;#39;,
+    &amp;#39;Dad&amp;#39;,
+    &amp;quot;Josh&amp;quot;,
+    &amp;#39;Uighurs&amp;#39;,
+    &amp;#39;Roe&amp;#39;,
+    &amp;#39;PolitiFact&amp;#39;,
+    &amp;#39;Latinx&amp;#39;,
+    &amp;#39;Brady&amp;#39;,
+    &amp;#39;pre-K.&amp;#39;,
+    &amp;#39;Brady Bill&amp;#39;,
+    &amp;#39;pro-Israel&amp;#39;,
+    &amp;#39;ho&amp;#39;,
+    &amp;#39;Dreamer&amp;#39;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We have another problem left. Some individuals were mentioned in different ways and we have several nodes for them in the graph. To solve this issue, I simply use &lt;code&gt;str_detect&lt;/code&gt; function from &lt;code&gt;stringr&lt;/code&gt; package to manually modify the them names. I must say this was the most boring and time-consuming part of my analysis!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;persons_graph_table &amp;lt;-  candidates_long %&amp;gt;%
+  filter(speaker %in% interesting_individuals,
+         !PERSON %in% non_person,
+         nchar(PERSON)&amp;gt;1) %&amp;gt;%
+  dplyr::rowwise() %&amp;gt;%
+  mutate(dem_candidate_full_name = as.character(dem_candidate_full_name)) %&amp;gt;%
+  mutate(from = speaker, to = PERSON) %&amp;gt;%
+  mutate(
+    to = case_when(
+      to %in% c(
+        &amp;#39;Donald&amp;#39;,
+        &amp;#39;Donald Trump&amp;#39;,
+        &amp;#39;Donald trump&amp;#39;,
+        &amp;#39;Trump&amp;#39;,
+        &amp;#39;President Trump&amp;#39;,
+        &amp;quot;Donald Trump&amp;#39;s&amp;quot;
+      ) ~ &amp;#39;Donald Trump&amp;#39;,
+      to %in% c(&amp;#39;Hillar&amp;#39;,
+                &amp;#39;Clinton&amp;#39;,
+                &amp;#39;Hillary&amp;#39;) ~ &amp;#39;Hillary Clinton&amp;#39;,
+      to %in% c(&amp;#39;Obama&amp;#39;,
+                &amp;#39;Barack&amp;#39;) ~ &amp;#39;Barack Obama&amp;#39;,
+      str_detect(to, &amp;#39;Trump&amp;#39;) ~ &amp;#39;Donald Trump&amp;#39;,
+      str_detect(to, &amp;#39;Vind&amp;#39;) ~ &amp;#39;Vindman&amp;#39;,
+      str_detect(to, &amp;#39;Assad&amp;#39;) ~ &amp;#39;Assad&amp;#39;,
+      str_detect(to, &amp;#39;McCarthy&amp;#39;) ~ &amp;#39;McCarthy&amp;#39;,
+      str_detect(to, &amp;#39;Trudeau&amp;#39;) ~ &amp;#39;Justin Trudeau&amp;#39;,
+      str_detect(to, &amp;#39;Bannon&amp;#39;) ~ &amp;#39;Steve Bannon&amp;#39;,
+      str_detect(to, &amp;#39;Netanyahu&amp;#39;) ~ &amp;#39;Netanyahu&amp;#39;,
+      str_detect(to, &amp;#39;Martin Luther&amp;#39;) ~ &amp;#39;Martin Luther King&amp;#39;,
+      str_detect(to, &amp;#39;Mandela&amp;#39;) ~ &amp;#39;Mandela&amp;#39;,
+      str_detect(to, &amp;#39;Xi&amp;#39;) ~ &amp;#39;Xi Jinping&amp;#39;,
+      str_detect(to, &amp;#39;Putin&amp;#39;) ~ &amp;#39;Putin&amp;#39;,
+      str_detect(to, &amp;#39;Mitch&amp;#39;) ~ &amp;#39;Mitch Mcconnell&amp;#39;,
+      str_detect(to, &amp;#39;Lindsey&amp;#39;) ~ &amp;#39;Lindsey Graham&amp;#39;,
+      str_detect(to, &amp;#39;Romney&amp;#39;) ~ &amp;#39;Mitt Romney&amp;#39;,
+      str_detect(to, &amp;#39;George&amp;#39;) ~ &amp;#39;George Bush&amp;#39;,
+      str_detect(to, &amp;#39;Bush&amp;#39;) ~ &amp;#39;George Bush&amp;#39;,
+      str_detect(to, &amp;#39;Turner&amp;#39;) ~ &amp;#39;Nina Turner&amp;#39;,
+      str_detect(to, &amp;#39;Clyburn&amp;#39;) ~ &amp;#39;Jim Clyburn&amp;#39;,
+      str_detect(to, &amp;#39;Cheney&amp;#39;) ~ &amp;#39;Dick Cheney&amp;#39;,
+      str_detect(to, &amp;#39;Shaheen&amp;#39;) ~ &amp;#39;Jeanne Shaheen&amp;#39;,
+      str_detect(to, &amp;#39;Hart&amp;#39;) ~ &amp;#39;Quentin Hart&amp;#39;,
+      str_detect(to, &amp;#39;Cokie&amp;#39;) ~ &amp;#39;Cokie Roberts&amp;#39;,
+      str_detect(to, &amp;#39;Kelly&amp;#39;) ~ &amp;#39;Laura Kelly&amp;#39;,
+      str_detect(to, &amp;#39;Berry&amp;#39;) ~ &amp;#39;Seth Berry&amp;#39;,
+      str_detect(to, &amp;#39;Grassley&amp;#39;) ~ &amp;#39;Chuck Grassley&amp;#39;,
+      str_detect(to, &amp;#39;Tommy&amp;#39;) ~ &amp;#39;Tom Steyer&amp;#39;,
+      str_detect(to, &amp;#39;Pelosi&amp;#39;) ~ &amp;#39;Nancy Pelosi&amp;#39;,
+      str_detect(to, &amp;#39;Kim&amp;#39;) ~ &amp;#39;Kim Jong-un&amp;#39;,
+      str_detect(to, &amp;#39;Pence&amp;#39;) ~ &amp;#39;Mike Pence&amp;#39;,
+      str_detect(to, &amp;#39;Schatz&amp;#39;) ~ &amp;#39;Brian Schatz&amp;#39;,
+      str_detect(to, &amp;#39;Gates&amp;#39;) ~  &amp;#39;Robert Gates&amp;#39;,
+      str_detect(to, &amp;#39;Jill&amp;#39;) ~ &amp;#39;Jill Biden&amp;#39;,
+      str_detect(to, &amp;#39;Casey Jo&amp;#39;) ~ &amp;#39;Casey Jo&amp;#39;,
+      str_detect(to, &amp;#39;Franklin&amp;#39;) |
+      str_detect(to, &amp;#39;FDR&amp;#39;) ~ &amp;#39;Franklin D. Roosevelt&amp;#39;,
+      str_detect(to, &amp;#39;Welch&amp;#39;) ~ &amp;#39;Joseph Welch&amp;#39;,
+      str_detect(to, &amp;#39;Beau&amp;#39;) ~ &amp;#39;Beau Biden&amp;#39;,
+      str_detect(to, &amp;#39;Rudy Giuliani&amp;#39;) ~ &amp;#39;Rudy Giuliani&amp;#39;,
+      str_detect(to, &amp;#39;Bolton&amp;#39;) ~ &amp;#39;John Bolton&amp;#39;,
+      str_detect(to, &amp;#39;McCain&amp;#39;) ~ &amp;#39;John McCain&amp;#39;,
+      str_detect(to, &amp;#39;Truman&amp;#39;) ~ &amp;#39;Harry Truman&amp;#39;,
+      str_detect(to, &amp;#39;Dunford&amp;#39;) ~ &amp;#39;Joe Dunford&amp;#39;,
+      str_detect(to, &amp;#39;Breyer&amp;#39;) ~ &amp;#39;Justice Breyer&amp;#39;,
+      str_detect(to, &amp;#39;Cindy&amp;#39;) ~ &amp;#39;Cindy McCain&amp;#39;,
+      to == &amp;#39;Dick&amp;#39; ~ &amp;#39;Uncle Dick&amp;#39;,
+      to == &amp;#39;Charles&amp;#39; ~ &amp;#39;Charles Fried&amp;#39;,
+      to == &amp;#39;JFK&amp;#39; |
+        (to == &amp;#39;Kennedy&amp;#39; &amp;amp; speaker == &amp;#39;Joe Biden&amp;#39;) ~ &amp;#39;John F. Kennedy&amp;#39;,
+      to == &amp;#39;Kennedy&amp;#39; &amp;amp; speaker == &amp;#39;Amy Klobuchar&amp;#39; ~ &amp;#39;Ted Kennedy&amp;#39;,
+      to %in% c(&amp;#39;Joey&amp;#39;) ~ &amp;#39;Himself&amp;#39;,
+      to %in% c(
+        &amp;#39;Ady&amp;#39;,
+        &amp;#39;Carl&amp;#39;,
+        &amp;#39;Ady Barkan&amp;#39;,
+        &amp;#39;Derek&amp;#39;,
+        &amp;#39;Mark&amp;#39;,
+        &amp;#39;Salvador&amp;#39;,
+        &amp;#39;Rachael&amp;#39;,
+        &amp;#39;Nicole&amp;#39;
+      ) ~ &amp;#39;American Constituents&amp;#39;,
+      to %in% c(
+        &amp;#39;David&amp;#39;,
+        &amp;#39;Chuck&amp;#39;,
+        &amp;#39;Wolf&amp;#39;,
+        &amp;#39;   Wolf&amp;#39;,
+        &amp;#39;Margaret&amp;#39;,
+        &amp;#39;Brianne&amp;#39;,
+        &amp;#39;Adam&amp;#39;,
+        &amp;#39;Jake&amp;#39;,
+        &amp;#39;Norah&amp;#39;,
+        &amp;#39;Judy&amp;#39;,
+        &amp;#39;Gayle&amp;#39;,
+        &amp;#39;Dana&amp;#39;,
+        &amp;#39;Jorge - it&amp;#39;,
+        &amp;#39;Lester&amp;#39;,
+        &amp;#39;Rachel&amp;#39;
+      ) ~ &amp;#39;Moderator&amp;#39;,
+      TRUE ~ to
     )
-}
-
-
-plot_graph(persons_graph_table)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-31-1.png&#34; width=&#34;2400&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long %&amp;gt;%
-  filter(!is.na(dem_candidate_full_name)) %&amp;gt;% 
-  select(PERSON,dem_candidate_full_name,sentence) %&amp;gt;% 
-  View()&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;candidates&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;5.3 Candidates&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;all_candidates &amp;lt;- candidates_long %&amp;gt;%
- distinct(speaker)%&amp;gt;%
- pull()
+  ) %&amp;gt;%
+  group_by(from, to) %&amp;gt;%
+  summarize(n_mentions = n()) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  as_tbl_graph() %&amp;gt;%
+  mutate(interesting_individuals = if_else(name %in% interesting_individuals, name, &amp;#39;Others&amp;#39;))  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, we can visualize the network with modified node names.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;edge_cols &amp;lt;- c(&amp;#39;#e63946&amp;#39;, &amp;#39;#f1faee&amp;#39;, &amp;#39;#457B9D&amp;#39;)
+ggraph(persons_graph_table, layout = &amp;#39;nicely&amp;#39;) +
+  geom_edge_link(aes(edge_width = n_mentions, alpha = n_mentions), color = &amp;#39;#540b0e&amp;#39;) +
+  geom_node_point(aes(color = interesting_individuals),size = 6) +
+  geom_node_label(
+    aes(label = name, color = interesting_individuals),
+    repel = TRUE,
+    size = 8,
+    label.r = 0.4,
+    check_overlap = TRUE
+  ) +
+  scale_color_manual(values = custom_palette) +
+  labs(title = &amp;#39;Individuals Mentioned by Top Democratic Candidates During the Democratic Primary Debates&amp;#39;,
+       subtitle = &amp;#39;This graph shows which individuals or politicians were mentioned by top 6 democratic candidates over the course of first ten priamary debates.&amp;#39;,
+       caption = &amp;#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-31-1.png&#34; width=&#34;3840&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;candidates-interaction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;5.3 Candidates interaction&lt;/h3&gt;
+&lt;p&gt;In the last sections, I explained how the top 6 remaining candidates mentioned other individuals during their speeches on the debate stage. However, with a little bit of modification to our previous chunk of code, we can extend the analysis and investigate how all democratic candidates interacted with each other over the course of 10 debates.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#The name of all candidaes
+all_candidates &amp;lt;- candidates_long %&amp;gt;%
+  distinct(speaker) %&amp;gt;%
+  pull()
 
 candidates_graph_table &amp;lt;- candidates_long %&amp;gt;%
- filter(!is.na(dem_candidate_full_name) ) %&amp;gt;%
- rowwise() %&amp;gt;%
-  mutate(debate= as.factor(debate)) %&amp;gt;% 
-  mutate(dem_candidate_full_name = as.character(dem_candidate_full_name)) %&amp;gt;% 
- mutate(from = speaker, to = dem_candidate_full_name) %&amp;gt;%
-   group_by(from, to,debate) %&amp;gt;%
- summarize(n_mentions = n()
-               ) %&amp;gt;%
- ungroup() %&amp;gt;%
- as_tbl_graph(directed = TRUE) %&amp;gt;%
- mutate(interesting_people = if_else(name %in% interesting_people, name, &amp;#39;Others&amp;#39;)) %&amp;gt;% 
- activate(nodes) %&amp;gt;% 
- mutate(
-  bet_cent = centrality_betweenness(),
-  deg_cent = centrality_degree(),
-  
- )
-candidates_graph_table&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tbl_graph: 23 nodes and 291 edges
-## #
-## # A directed multigraph with 1 component
-## #
-## # Node Data: 23 x 4 (active)
-##   name           interesting_people bet_cent deg_cent
-##   &amp;lt;chr&amp;gt;          &amp;lt;chr&amp;gt;                 &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
-## 1 Amy Klobuchar  Amy Klobuchar         13.7        30
-## 2 Andrew Yang    Others                 4.58       14
-## 3 Bernie Sanders Bernie Sanders       116.         50
-## 4 Beto O&amp;#39;Rourke  Others                31.3        10
-## 5 Bill de Blasio Others                 1.11        4
-## 6 Cory Booker    Others                16.7        13
-## # ... with 17 more rows
-## #
-## # Edge Data: 291 x 4
-##    from    to debate n_mentions
-##   &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;       &amp;lt;int&amp;gt;
-## 1     1     1 4               1
-## 2     1     2 4               2
-## 3     1     2 8               1
-## # ... with 288 more rows&lt;/code&gt;&lt;/pre&gt;
+  filter(!is.na(dem_candidate_full_name),
+         dem_candidate_full_name == PERSON) %&amp;gt;%
+  rowwise() %&amp;gt;%
+  mutate(debate = as.factor(debate)) %&amp;gt;%
+  mutate(dem_candidate_full_name = as.character(dem_candidate_full_name)) %&amp;gt;%
+  mutate(from = speaker, to = dem_candidate_full_name) %&amp;gt;%
+  group_by(from, to, debate) %&amp;gt;%
+  summarize(n_mentions = n()) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  as_tbl_graph(directed = TRUE) %&amp;gt;%
+  mutate(interesting_individuals = if_else(name %in% interesting_individuals, name, &amp;#39;Others&amp;#39;)) %&amp;gt;%
+  activate(nodes) %&amp;gt;%
+  mutate(bet_cent = centrality_betweenness(),
+         deg_cent = centrality_degree())&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# preparing the circular layout for the network
-full_layout &amp;lt;- create_layout(graph = candidates_graph_table, layout = &amp;quot;linear&amp;quot;, circular = T)
+# Credit to https://www.timlrx.com/2018/10/14/visualising-networks-in-asoiaf-part-ii/ for helping me with the circular layout
+full_layout &amp;lt;-
+  create_layout(graph = candidates_graph_table,
+                layout = &amp;quot;linear&amp;quot;,
+                circular = T)
 
 xmin &amp;lt;- min(full_layout$x)
 xmax &amp;lt;- max(full_layout$x)
@@ -1246,53 +1321,195 @@ ggraph(
   y = y,
   circular = TRUE
 ) +
-  geom_edge_arc(
-    aes(
-      edge_width = n_mentions,
-      colour = n_mentions,
-    ),
-    
-  alpha =0.5
-  ) +
-  geom_node_point(aes(color = interesting_people, size = deg_cent)) +
+  geom_edge_arc(aes(edge_width = n_mentions,
+                    alpha = n_mentions,),
+                colour = &amp;#39;#540b0e&amp;#39;,) +
+  geom_node_point(aes(color = interesting_individuals, size = deg_cent + 40)) +
   geom_node_text(
     aes(
       label = name,
-      color = interesting_people,
+      color = interesting_individuals,
       x = x * 1.15,
       y = y * 1.15,
       angle = ifelse(
         atan(-(x / y)) * (180 / pi) &amp;lt; 0,
         90 + atan(-(x / y)) * (180 / pi),
         270 + atan(-x / y) * (180 / pi)
-      )),
-      size = 4
-    ) +
-      scale_fill_manual(values = custom_palette) +
-      
-      theme_graph(foreground = &amp;#39;steelblue&amp;#39;, fg_text_colour = &amp;#39;white&amp;#39;) +
-      labs(title = &amp;#39;How candidates interacted 2020 Democratic Debates&amp;#39;) +
-      #scale_edge_colour_manual(values = edge_cols) +
-      scale_edge_colour_gradient2() +
-      #scale_edge_fill_gradient2() +
-      #facet_edges( ~ debate, ncol = 2) +
-    expand_limits(x = c(xmin - 0.2, xmax + 0.2),
-                y = c(ymin - 0.2, ymax + 0.2)) +
-      theme_graph(base_family = &amp;#39;Montserrat&amp;#39;,) +
-      theme(
-        plot.title = element_text(
-          family = &amp;#39;Montserrat&amp;#39;,
-          face = &amp;quot;bold&amp;quot;,
-          size = 50,
-          margin = ggplot2::margin(0, 0, 20, 0),
-          hjust = 0.5
-        ),
-        legend.position = &amp;#39;none&amp;#39;
-        
-      )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-33-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;colors &amp;lt;- c(&amp;#39;#C42199&amp;#39;, &amp;#39;#409EB1&amp;#39;,&amp;#39;#845CCD&amp;#39;,&amp;#39;#DA8B46&amp;#39;, &amp;#39;#F6E560&amp;#39;, &amp;#39;#8ADDAF&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href=&#34;http://www.favstats.eu/post/demdebates/&#34; class=&#34;uri&#34;&gt;http://www.favstats.eu/post/demdebates/&lt;/a&gt;&lt;/p&gt;
+      )
+    ),
+    size = 8
+  ) +
+  scale_color_manual(values = custom_palette) +
+  labs(title = &amp;#39;The Network of Interactions Among Democratic Candidates During Democratic Primary Debates&amp;#39;,
+       #subtitle = &amp;#39;This graph shows how democtratic candidates mentioned other candidates on the debate stage.&amp;#39;,
+       caption = &amp;#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&amp;#39;) +
+  expand_limits(x = c(xmin - 0.2, xmax + 0.2),
+                y = c(ymin - 0.2, ymax + 0.2)) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-33-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The results are self-explanatory and satisfying. One also can make an animation and show the network over time.&lt;/p&gt;
+&lt;p&gt;Now, let’s repeat the same steps and visualize the network for other types of named entities.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;organization-and-companies-named-entities&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;5.4 Organization and companies named entities&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;non_org &amp;lt;- c(&amp;#39;Trump&amp;#39;,&amp;#39;Vindmen&amp;#39;,&amp;#39;a New Yorker&amp;#39;,&amp;#39;Title&amp;#39;,&amp;#39;Obama&amp;#39;,&amp;quot;Donald Trump&amp;#39;s&amp;quot;,&amp;#39;Bernie&amp;#39;,&amp;#39;state&amp;#39;,&amp;#39;Court&amp;#39;,&amp;#39;Ours&amp;#39;,&amp;#39;Education&amp;#39;)
+non_org_laws &amp;lt;- c(&amp;#39;Green New Deal&amp;#39;,&amp;#39;Federal Controlled Substance Act&amp;#39;)
+
+org_graph_table &amp;lt;- candidates %&amp;gt;%
+  separate_rows(ORG, sep = &amp;#39;;&amp;#39;) %&amp;gt;%
+  filter(!is.na(ORG)) %&amp;gt;%
+  mutate(ORG = str_remove_all(ORG, &amp;#39;the &amp;#39;),
+         ORG = str_remove_all(ORG, &amp;#39;this &amp;#39;),) %&amp;gt;%
+  filter(
+    
+    speaker %in% interesting_individuals,!ORG %in% non_org,!ORG %in% non_org_laws,
+    debate %in% c(6, 7, 8, 9, 10),
+    nchar(ORG)&amp;gt;1
+  ) %&amp;gt;%
+  mutate(from = speaker, to = ORG) %&amp;gt;%
+  group_by(from, to) %&amp;gt;%
+  summarize(n_mentions = n()) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  mutate(
+    to = case_when(
+      to %in% c(&amp;#39;United Nations&amp;#39;,
+                &amp;#39;U.N.&amp;#39;,
+                &amp;#39;UN&amp;#39;) ~ &amp;#39;United Nations&amp;#39;,
+      str_detect(to, &amp;#39;Department&amp;#39;) &amp;amp;
+        str_detect(to, &amp;#39;State&amp;#39;) ~ &amp;#39;Department of State&amp;#39;,
+      str_detect(to, &amp;#39;Department&amp;#39;) &amp;amp;
+        str_detect(to, &amp;#39;Defence&amp;#39;) ~ &amp;#39;Department of State&amp;#39;,
+      str_detect(to, &amp;#39;Supreme&amp;#39;) &amp;amp;
+        str_detect(to, &amp;#39;Court&amp;#39;) ~ &amp;#39;Supreme Court&amp;#39;,
+      str_detect(to, &amp;#39;Treasury&amp;#39;) ~ &amp;#39;Department of the Treasury&amp;#39;,
+      str_detect(to, &amp;#39;Unitetd&amp;#39;) &amp;amp;
+        str_detect(to, &amp;#39;State&amp;#39;) ~ &amp;#39;United State&amp;#39;,
+      str_detect(to, &amp;#39;Yale&amp;#39;) ~ &amp;#39;Yale&amp;#39;,
+      TRUE ~ to
+    )
+  ) %&amp;gt;%
+  as_tbl_graph() %&amp;gt;%
+  mutate(interesting_individuals = if_else(name %in% interesting_individuals, name, &amp;#39;Others&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggraph(org_graph_table, layout = &amp;#39;nicely&amp;#39;) +
+  geom_edge_link(aes(edge_width = n_mentions,alpha=n_mentions),
+    colour = &amp;#39;#540b0e&amp;#39;) +
+  geom_node_point(aes(color = interesting_individuals), size = 5) +
+  geom_node_label(aes(label = name, color = interesting_individuals),
+                  repel = TRUE,
+                  size = 7) +
+  scale_color_manual(values = custom_palette) +
+  labs(title = &amp;#39;Organizations and Institutions Mentioned by Top Democratic Candidates During the Debates&amp;#39;,
+       subtitle = &amp;#39;This plot shows which organizations and institutions were mentioned by top democratic candidates during the last 5 debates.&amp;#39;,
+       caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-35-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-network-of-named-entities-for-countries-and-cities&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;5.5 The network of named entities for countries and cities&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gpe_graph_table &amp;lt;- candidates %&amp;gt;%
+  separate_rows(GPE, sep = &amp;#39;;&amp;#39;) %&amp;gt;%
+  filter(!is.na(GPE)) %&amp;gt;%
+  mutate(GPE = str_remove_all(GPE, &amp;#39;the &amp;#39;),
+         GPE = str_remove_all(GPE, &amp;#39;this &amp;#39;)) %&amp;gt;%
+  filter(speaker %in% interesting_individuals,
+         debate %in% c(6, 7, 8, 9, 10)) %&amp;gt;%
+  mutate(from = speaker, to = GPE) %&amp;gt;%
+  group_by(from, to) %&amp;gt;%
+  summarize(n_mentions = n()) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  as_tbl_graph() %&amp;gt;%
+  mutate(interesting_individuals = if_else(name %in% interesting_individuals, name, &amp;#39;Others&amp;#39;)) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggraph(gpe_graph_table, layout = &amp;#39;nicely&amp;#39;) +
+  geom_edge_link(aes(edge_width = n_mentions, alpha = n_mentions),
+                 colour = &amp;#39;#540b0e&amp;#39;) +
+  geom_node_point(aes(color = interesting_individuals), size = 5) +
+  geom_node_label(aes(label = name, color = interesting_individuals),
+                  repel = TRUE,
+                  size = 9) +
+  scale_color_manual(values = custom_palette) +
+  labs(title = &amp;#39;Countries, Cities and States Mentioned by Top Democratic Candidates During the Last Five Primary Debates&amp;#39;,
+       subtitle = &amp;#39;&amp;#39;,
+       caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-37-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-network-of-named-entities-for-laws&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;5.6 The network of named entities for laws&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;non_law &amp;lt;-
+  c(&amp;#39;the ZIP Code&amp;#39;, &amp;quot;&amp;quot;)
+
+law_graph_table &amp;lt;- candidates %&amp;gt;%
+  separate_rows(LAW, sep = &amp;#39;;&amp;#39;) %&amp;gt;%
+  filter(!is.na(LAW)) %&amp;gt;%
+  mutate(LAW = str_remove_all(LAW, &amp;#39;the &amp;#39;)) %&amp;gt;%
+  filter(speaker %in% interesting_individuals,!LAW %in% non_law) %&amp;gt;%
+  mutate(from = speaker, to = LAW) %&amp;gt;%
+  group_by(from, to) %&amp;gt;%
+  summarize(n_mentions = n()) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  mutate(
+    to = case_when(
+      str_detect(to , &amp;#39;Constitution&amp;#39;) ~ &amp;#39;Constitution&amp;#39;,
+      str_detect(to , &amp;#39;Roe&amp;#39;) ~ &amp;#39;Roe V. Wade&amp;#39;,
+      str_detect(to , &amp;#39;War Powers Act&amp;#39;) ~ &amp;#39;War Powers Act&amp;#39;,
+      str_detect(to , &amp;#39;New START&amp;#39;) ~ &amp;#39;New START Treaty&amp;#39;,
+      TRUE ~ to
+    )
+  ) %&amp;gt;%
+  as_tbl_graph() %&amp;gt;%
+  mutate(interesting_individuals = if_else(name %in% interesting_individuals, name, &amp;#39;Others&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggraph(law_graph_table, layout = &amp;#39;nicely&amp;#39;) +
+  geom_edge_link(aes(edge_width = n_mentions, alpha = n_mentions), colour = &amp;#39;#540b0e&amp;#39;) +
+  geom_node_point(aes(color = interesting_individuals), size = 5) +
+  geom_node_label(aes(label = name, color = interesting_individuals),
+                  repel = TRUE,
+                  size = 7) +
+  scale_color_manual(values = custom_palette) +
+  labs(title = &amp;#39;Laws Mentioned by Top Democratic Candidates During the First Ten Primary Debates&amp;#39;,
+       subtitle = &amp;#39;&amp;#39;,
+       caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-39-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-network-of-named-entities-for-nationalities-religious-or-political-groups&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;5.7 The network of named entities for nationalities, religious or political groups&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;non_norp &amp;lt;- c(&amp;#39;Coronavirus&amp;#39;, &amp;#39;&amp;#39;)
+norp_graph_table &amp;lt;- candidates %&amp;gt;%
+  separate_rows(NORP, sep = &amp;#39;;&amp;#39;) %&amp;gt;%
+  filter(!is.na(NORP)) %&amp;gt;%
+  mutate(NORP = singularize(NORP)) %&amp;gt;%
+  filter(speaker %in% interesting_individuals,!NORP %in% non_norp,
+         debate %in% c(6, 7, 8, 9, 10)) %&amp;gt;%
+  mutate(from = speaker, to = NORP) %&amp;gt;%
+  group_by(from, to) %&amp;gt;%
+  summarize(n_mentions = n()) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  mutate(
+    to = case_when(
+      str_detect(to, &amp;#39;African&amp;#39;) &amp;amp;
+        str_detect(to, &amp;#39;American&amp;#39;) ~ &amp;#39;African-American&amp;#39;,
+      str_detect(to, &amp;#39;republican&amp;#39;) ~ &amp;#39;Republican&amp;#39;,
+      str_detect(to, &amp;#39;Democrat&amp;#39;) ~ &amp;#39;Democrat&amp;#39;,
+      str_detect(to, &amp;#39;Jew&amp;#39;) ~ &amp;#39;Jew&amp;#39;,
+      str_detect(to, &amp;#39;Palestinian&amp;#39;) ~ &amp;#39;Palestinian&amp;#39;,
+      TRUE ~ to
+    )
+  ) %&amp;gt;%
+  as_tbl_graph() %&amp;gt;%
+  mutate(interesting_individuals = if_else(name %in% interesting_individuals, name, &amp;#39;Others&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggraph(norp_graph_table, layout = &amp;#39;nicely&amp;#39;) +
+  geom_edge_link(aes(edge_width = n_mentions, alpha = n_mentions), colour = &amp;#39;#540b0e&amp;#39;) +
+  geom_node_point(aes(color = interesting_individuals), size = 5) +
+  geom_node_label(aes(label = name, color = interesting_individuals),
+                  repel = TRUE,
+                  size = 10) +
+  scale_color_manual(values = custom_palette) +
+  labs(title = &amp;#39;Nationalities, religious or Political Groups Mentioned by Top Democratic Candidates During the Last Five Primary Debates&amp;#39;,
+       subtitle = &amp;#39;&amp;#39;,
+       caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-41-1.png&#34; width=&#34;3840&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;##Resources:
+A very useful place to learn more how spacy works the spacy’s online course by one of its founders and developers.
+[1] &lt;a href=&#34;https://course.spacy.io/en/&#34; class=&#34;uri&#34;&gt;https://course.spacy.io/en/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] &lt;a href=&#34;https://www.youtube.com/watch?v=IqOJU1-_Fi0&amp;amp;t=676s&#34; class=&#34;uri&#34;&gt;https://www.youtube.com/watch?v=IqOJU1-_Fi0&amp;amp;t=676s&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There is
+&lt;a href=&#34;http://www.favstats.eu/post/demdebates/&#34; class=&#34;uri&#34;&gt;http://www.favstats.eu/post/demdebates/&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

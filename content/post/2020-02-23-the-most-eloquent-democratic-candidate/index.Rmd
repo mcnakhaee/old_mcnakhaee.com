@@ -21,6 +21,10 @@ image:
 projects: []
 ---
 
+```{r include = FALSE }
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+
+```
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 #devtools::install_github("favstats/demdebates2020")
@@ -103,6 +107,7 @@ debate_vocab_df <- debates %>%
   summarize(stop_word_ratio = sum(is_stop_word) / n(),
             vocab_size = n_distinct(word)/ n())  %>% 
   arrange(stop_word_ratio) 
+
 #show the output  
 head(debate_vocab_df)  %>% 
 kable() %>%
@@ -175,6 +180,7 @@ head(debate_senteneces_sentiment,3) %>%
 kable() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
+
 ```{r, fig.height=15,fig.width=15}
 debate_senteneces_sentiment %>%
 group_by(speaker,debate,sentiment)%>%
@@ -190,7 +196,6 @@ scale_color_manual(values = custom_palette) +
        color = '',
        x = '') +
 facet_wrap(sentiment ~ . ,ncol = 1,scales = 'free') +
-#theme_tufte() +
 theme(strip.text = element_text(size = 20),
       strip.background = element_rect(fill = 'gray80') ,
      legend.text = element_text(size = 15),
@@ -227,7 +232,6 @@ scale_fill_manual(values = custom_palette) +
 
 ```{r eval=FALSE, include=FALSE}
 debates %>%
-  #group_by(debate,day,order,background) %>% 
   arrange(debate,day,order) %>%
   mutate(text = lead(speech , n = 1)) %>% 
   filter(background == '(APPLAUSE)') 
@@ -252,7 +256,7 @@ Performing sentiment analysis in tidytext is straightforward and easy, but somet
 
 # Further Reading
 
-If you are interested to learn more about tidy text mining in r, these links can be specially useful:
+If you are interested to learn more about tidy text mining in r, the following links can be helpful:
 
 https://www.tidytextmining.com/tidytext.html
 

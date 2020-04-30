@@ -22,6 +22,10 @@ image:
 projects: []
 ---
 
+```{r include = FALSE }
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
 In the [4th week of the Tidy Tuesday project](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md), a very interesting and fun dataset was proposed to the data science community. The dataset contains information about thousands of songs on Spotify's platform and along with their metadata and audio features. You can download the dataset can using the following piece of code.
 
 [4th week of the Tidy Tuesday project](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md)
@@ -288,11 +292,12 @@ Now, it was time to plot the results of UMAP embeddings using ``ggplot`` and [``
 
 ### Setting 1
 
-Nearest neighbors: 50
+- Nearest neighbors: 50
 
-Minimum distance: 0.09
+- Minimum distance: 0.09
 
-Distance metric: Euclidean
+- Distance metric: Euclidean
+
 
 ```{r eval=TRUE, fig.height=35, fig.width=35, warning=FALSE, include=TRUE}
 spotify_songs_emb %>%
@@ -314,11 +319,12 @@ spotify_songs_emb %>%
 
 ### Setting 2
 
-Nearest neighbors: 50
+- Nearest neighbors: 50
 
-Minimum distance: 0.09
+- Minimum distance: 0.09
 
-Distance metric: Hamming
+- Distance metric: Hamming
+
 
 
 
@@ -341,11 +347,12 @@ spotify_songs_emb %>%
 
 ### Setting 3
 
-Nearest neighbors: 150
+- Nearest neighbors: 150
 
-Minimum distance: 0.09
+- Minimum distance: 0.09
 
-Distance metric: Euclidean
+- Distance metric: Euclidean
+
 
 
 
@@ -354,7 +361,6 @@ spotify_songs_emb %>%
  ggplot(aes(x = nn_.150.md_.0.09.metric.euclidean.1, y = nn_.150.md_.0.09.metric.euclidean.2,color = playlist_genre )) +
  geom_point(size = 5.3,alpha =0.8) +
  gghighlight(selected_artist != "",unhighlighted_params = list(alpha = 0.3,size=0.8, color = '#FFE66D')) +
- #scale_color_manual(values = c('#5BC0EB','#FDE74C','#7FB800','#E55934','#FA7921','#1A936F' ,'#F0A6CA','#B8BEDD'))+
  scale_color_tableau() +
  guides(size = FALSE,
   color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
@@ -369,11 +375,12 @@ spotify_songs_emb %>%
 
 ### Setting 4
 
-Nearest neighbors: 15
+- Nearest neighbors: 15
 
-Minimum distance: 0.09
+- Minimum distance: 0.09
 
-Distance metric: Euclidean
+- Distance metric: Euclidean
+
 
 
 ```{r eval=TRUE, fig.height=35, fig.width=35, warning=FALSE, include=TRUE}
@@ -381,7 +388,6 @@ spotify_songs_emb %>%
  ggplot(aes(x = nn_.15.md_.0.09.metric.euclidean.1, y = nn_.15.md_.0.09.metric.euclidean.2,color = playlist_genre )) +
  geom_point(size = 5.3,alpha =0.8) +
  gghighlight(selected_artist != "",unhighlighted_params = list(alpha = 0.3,size=0.8, color = '#FFE66D')) +
- #scale_color_manual(values = c('#5BC0EB','#FDE74C','#7FB800','#E55934','#FA7921','#1A936F' ,'#F0A6CA','#B8BEDD'))+
  scale_color_tableau() +
  guides(size = FALSE,
   color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
@@ -397,11 +403,12 @@ spotify_songs_emb %>%
 
 ### Setting 5
 
-Nearest neighbors: 150
+- Nearest neighbors: 150
 
-Minimum distance: 0.001
+- Minimum distance: 0.001
 
-Distance metric: Euclidean
+- Distance metric: Euclidean
+
 
 
 ```{r eval=TRUE, fig.height=35, fig.width=35, warning=FALSE, include=TRUE}
@@ -409,7 +416,6 @@ spotify_songs_emb %>%
  ggplot(aes(x = nn_.150.md_.0.001.metric.euclidean.1, y = nn_.150.md_.0.001.metric.euclidean.2,color = playlist_genre )) +
  geom_point(size = 5.3,alpha =0.8) +
  gghighlight(selected_artist != "",unhighlighted_params = list(alpha = 0.3,size=0.8, color = '#FFE66D')) +
- #scale_color_manual(values = c('#5BC0EB','#FDE74C','#7FB800','#E55934','#FA7921','#1A936F' ,'#F0A6CA','#B8BEDD'))+
  scale_color_tableau() +
  guides(size = FALSE,
   color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
@@ -425,11 +431,12 @@ spotify_songs_emb %>%
 
 ### Setting 6
 
-Nearest neighbors: 15
+- Nearest neighbors: 15
 
-Minimum distance: 0.09
+- Minimum distance: 0.09
 
-Distance metric: Hamming
+- Distance metric: Hamming
+
 
 
 ```{r eval=TRUE, fig.height=35, fig.width=35, warning=FALSE, include=TRUE}
@@ -449,14 +456,14 @@ spotify_songs_emb %>%
     color = '') 
 ```
 
-For the most part both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embedding with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen. 
+For the most part, both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embeddings with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen. 
 We can observe that the most influential hyper-parameter seems to be distance metric. Additionally,  when we decrease the value of ``min_dist``, the projection becomes less compact and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music and We need to incorporate other aspects of songs such as lyrics to be able to differentiate between genres. For instance, Kaylin Pavlik in her blogpost explained how she based on similar audio features trained several machine learning models to classify songs into 6 main categories (EDM, Latin, Pop, R&B, Rap, & Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset  but I couldn't achieve higher performance.
 
 ## Supervised UMAP
 
-UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a [supervised algorithm](https://umap-learn.readthedocs.io/en/latest/supervised.html).
+UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a [supervised algorithm](https://umap-learn.readthedocs.io/en/latest/supervised.html) by specifying the target variable. To make this happen in UWOT, we can just give the target column (playlist_genre) as an input to `y` argument.  
 
-```{r eval=FALSE, include=FALSE}
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 
 audio_feature = normalized_features %>%
  select(c(12:23)) 
@@ -465,11 +472,7 @@ supervised_umap_embedding <- uwot::umap(audio_feature,y = normalized_features$pl
 
 ```
 
-## Supervised UMAP
-
-UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a [supervised algorithm](https://umap-learn.readthedocs.io/en/latest/supervised.html).
-
-```{r eval=FALSE, warning=FALSE, include=TRUE}
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
 supervised_umap_embedding_df <- 
   spotify_songs %>% 
   select(-c(12:22)) %>% 
@@ -485,13 +488,13 @@ supervised_umap_embedding_df <-
   distinct(track_name, .keep_all = TRUE)
 ```
 
-```{r warning=FALSE, include=FALSE}
+```{r  message=FALSE, warning=FALSE, include=FALSE}
 #supervised_umap_embedding_df %>% write_csv('supervised_umap_embedding_df.csv')
 supervised_umap_embedding_df <- read_csv('supervised_umap_embedding_df.csv')
 ```
 
 
-```{r eval=TRUE, fig.height=35, fig.width=35, include=TRUE}
+```{r  message=FALSE, warning=FALSE, eval=TRUE, fig.height=35, fig.width=35, include=TRUE}
 supervised_umap_embedding_df %>%
   ggplot(aes(x = umap_1, y = umap_2 ,color = playlist_genre )) +
   geom_point(size = 5.3,alpha =0.8 ) +
@@ -509,4 +512,7 @@ supervised_umap_embedding_df %>%
 ```
 
 It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.
+
+
+
 

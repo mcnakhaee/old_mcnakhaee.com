@@ -18,15 +18,17 @@ library(cowplot)
 
 ```{r}
 #setwd('D:\\app\\Downloads\\netherlands-latest-free.shp')
-places_import <- read_sf("C:/Datasets/netherlands/gis_osm_places_free_1.shp")
-roads_import <- read_sf("C:/Datasets/netherlands/gis_osm_roads_free_1.shp")
-water_import <- read_sf("C:/Datasets/netherlands/gis_osm_water_a_free_1.shp")
-building_import <- read_sf("C:/Datasets/netherlands/gis_osm_buildings_a_free_1.shp")
-railways_import <- read_sf( "D:\\app\\Downloads\\netherlands-latest-free.shp\\gis_osm_railways_free_1.shp")
+#places_import <- read_sf("C:/datasets/netherlands-latest-free.shp/gis_osm_places_free_1.shp")
+roads_import <- read_sf("C:/datasets/netherlands-latest-free.shp/gis_osm_roads_free_1.shp")
+water_import <- read_sf("C:/datasets/netherlands-latest-free.shp/gis_osm_water_a_free_1.shp")
+#building_import <- read_sf("C:/Datasets/netherlands/gis_osm_buildings_a_free_1.shp")
+#railways_import <- read_sf( "D:\\app\\Downloads\\netherlands-latest-free.shp\\gis_osm_railways_free_1.shp")
 
 dim(water_import)
-places_import <- read_sf('D:\\app\\Downloads\\netherlands-latest-free.shp\\gis_osm_places_free_1.shp')
+#places_import <- read_sf('D:\\app\\Downloads\\netherlands-latest-free.shp\\gis_osm_places_free_1.shp')
 ```
+
+https://expatinfoholland.nl/help-guides/arrival-settling/common-dutch-street-names/
 
 ```{r}
 plotcolors <-  c('straat' = '#59c8e5', 'weg' = '#ff9223', 'laan' ='#fe9ea5', 'plein' = '#fed032', 'singel' = '#0a7abf',
@@ -69,7 +71,7 @@ roads_import <- roads_import %>%
 
 
 ```{r}
-radius <- 3000 #radius, in meters, around the center point to map
+radius <- 4000 #radius, in meters, around the center point to map
 crs <- 102013 
 city_roads_map_df <- function(roads_import, lat,long,radius){
   pt <- data.frame(lat = lat, long = long)
@@ -110,6 +112,10 @@ hengelo_g
 ```
 
 ```{r fig.height=10,fig.width=10}
+
+plotcolors <-  c('straat' = '#59c8e5', 'weg' = '#ff9223'  , 'laan' ='#fe9ea5', 'plein' = '#0a7abf', 'singel' = '#B91372',
+                 'dijk' = '#2e968c', 'kade' = '#fed032', 'pad' = '#4cb580', 'diep' = "#ff9223", 'others' = '#cccccc','gracht'  ='#fe4d64')
+
 lat <- 52.2215 #center point latitude
 long <- 6.8937 #center point longitude
 
@@ -118,10 +124,12 @@ enschede_water <-  city_water_map_df(water_import, lat,long,radius)
 
 enschede_g <- ggplot() +
   geom_sf(data  = enschede_road,aes(color = street_name) ,alpha = 0.7,size = 1) +
-  scale_color_tableau()+ 
+  #scale_color_tableau()+ 
+  scale_color_manual(values = plotcolors) +
   #gghighlight(street_name != 'others') +
   geom_sf(data = enschede_water,fill = '#41D3BD',color = '#41D3BD', alpha =0.3,size = 1) +
-  theme_void() 
+  theme_void() +
+  theme(legend.position = 'top')
 
 enschede_g
 ```

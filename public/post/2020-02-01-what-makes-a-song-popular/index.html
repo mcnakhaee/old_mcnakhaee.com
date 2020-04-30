@@ -467,7 +467,7 @@ spotify_songs &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rford
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    18 min read
+    17 min read
   </span>
   
 
@@ -737,9 +737,7 @@ tsne_embeddings &lt;- spotify_songs %&gt;%
     title = &#39;The Map of Spotify Songs Based on T-SNE Algorithm\n&#39;,
     subtitle = &#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&#39;,
     color = &#39;&#39;) </code></pre>
-<pre><code>## label_key: selected_artist</code></pre>
-<pre><code>## Too many data points, skip labeling</code></pre>
-<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-11-1.png" width="3360" /></p>
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-12-1.png" width="3360" /></p>
 <p>As you can see in this projection, songs that belong to the same artists are placed close to each other. It seems that T-SNE is able to preserve the local topological structure of songs. Now I will look at how T-SNE distinguishes different genres of music.</p>
 <pre class="r"><code>tsne_embeddings %&gt;%
  ggplot(aes(x = tsne_1, y = tsne_2 ,color = playlist_genre )) +
@@ -757,9 +755,7 @@ tsne_embeddings &lt;- spotify_songs %&gt;%
     title = &#39;The Map of Spotify Songs Based on T-SNE Algorithm\n&#39;,
     subtitle = &#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&#39;,
     color = &#39;&#39;) </code></pre>
-<pre><code>## label_key: playlist_genre</code></pre>
-<pre><code>## Too many data points, skip labeling</code></pre>
-<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-12-1.png" width="3360" /></p>
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-13-1.png" width="3360" /></p>
 </div>
 <div id="umap" class="section level2">
 <h2>UMAP</h2>
@@ -808,9 +804,11 @@ for (nn in n_neighbors) {
 <p>Now, it was time to plot the results of UMAP embeddings using <code>ggplot</code> and <a href="https://github.com/yutannihilation/gghighlight"><code>gghighlight</code></a>.</p>
 <div id="setting-1" class="section level3">
 <h3>Setting 1</h3>
-<p>Nearest neighbors: 50</p>
-<p>Minimum distance: 0.09</p>
-<p>Distance metric: Euclidean</p>
+<ul>
+<li><p>Nearest neighbors: 50</p></li>
+<li><p>Minimum distance: 0.09</p></li>
+<li><p>Distance metric: Euclidean</p></li>
+</ul>
 <pre class="r"><code>spotify_songs_emb %&gt;%
  ggplot(aes(x = nn_.50.md_.0.09.metric.euclidean.1, y = nn_.50.md_.0.09.metric.euclidean.2 ,color = selected_artist )) +
  geom_point(size = 5.3,alpha =0.8) +
@@ -825,15 +823,15 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &quot;&quot;, y = &quot;&quot; ,
     color = &#39;&#39;) </code></pre>
-<pre><code>## label_key: selected_artist</code></pre>
-<pre><code>## Too many data points, skip labeling</code></pre>
-<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-16-1.png" width="3360" /></p>
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-17-1.png" width="3360" /></p>
 </div>
 <div id="setting-2" class="section level3">
 <h3>Setting 2</h3>
-<p>Nearest neighbors: 50</p>
-<p>Minimum distance: 0.09</p>
-<p>Distance metric: Hamming</p>
+<ul>
+<li><p>Nearest neighbors: 50</p></li>
+<li><p>Minimum distance: 0.09</p></li>
+<li><p>Distance metric: Hamming</p></li>
+</ul>
 <pre class="r"><code>spotify_songs_emb %&gt;%
  ggplot(aes(x = nn_.50.md_.0.09.metric.hamming.1, y = nn_.50.md_.0.09.metric.hamming.2,color = selected_artist )) +
  geom_point(size = 5.3,alpha =0.8) +
@@ -848,20 +846,19 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &quot;&quot;, y = &quot;&quot; ,
     color = &#39;&#39;) </code></pre>
-<pre><code>## label_key: selected_artist</code></pre>
-<pre><code>## Too many data points, skip labeling</code></pre>
-<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-17-1.png" width="3360" /></p>
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-18-1.png" width="3360" /></p>
 </div>
 <div id="setting-3" class="section level3">
 <h3>Setting 3</h3>
-<p>Nearest neighbors: 150</p>
-<p>Minimum distance: 0.09</p>
-<p>Distance metric: Euclidean</p>
+<ul>
+<li><p>Nearest neighbors: 150</p></li>
+<li><p>Minimum distance: 0.09</p></li>
+<li><p>Distance metric: Euclidean</p></li>
+</ul>
 <pre class="r"><code>spotify_songs_emb %&gt;%
  ggplot(aes(x = nn_.150.md_.0.09.metric.euclidean.1, y = nn_.150.md_.0.09.metric.euclidean.2,color = playlist_genre )) +
  geom_point(size = 5.3,alpha =0.8) +
  gghighlight(selected_artist != &quot;&quot;,unhighlighted_params = list(alpha = 0.3,size=0.8, color = &#39;#FFE66D&#39;)) +
- #scale_color_manual(values = c(&#39;#5BC0EB&#39;,&#39;#FDE74C&#39;,&#39;#7FB800&#39;,&#39;#E55934&#39;,&#39;#FA7921&#39;,&#39;#1A936F&#39; ,&#39;#F0A6CA&#39;,&#39;#B8BEDD&#39;))+
  scale_color_tableau() +
  guides(size = FALSE,
   color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
@@ -872,20 +869,19 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &quot;&quot;, y = &quot;&quot; ,
     color = &#39;&#39;) </code></pre>
-<pre><code>## label_key: playlist_genre</code></pre>
-<pre><code>## Too many data points, skip labeling</code></pre>
-<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-18-1.png" width="3360" /></p>
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-19-1.png" width="3360" /></p>
 </div>
 <div id="setting-4" class="section level3">
 <h3>Setting 4</h3>
-<p>Nearest neighbors: 15</p>
-<p>Minimum distance: 0.09</p>
-<p>Distance metric: Euclidean</p>
+<ul>
+<li><p>Nearest neighbors: 15</p></li>
+<li><p>Minimum distance: 0.09</p></li>
+<li><p>Distance metric: Euclidean</p></li>
+</ul>
 <pre class="r"><code>spotify_songs_emb %&gt;%
  ggplot(aes(x = nn_.15.md_.0.09.metric.euclidean.1, y = nn_.15.md_.0.09.metric.euclidean.2,color = playlist_genre )) +
  geom_point(size = 5.3,alpha =0.8) +
  gghighlight(selected_artist != &quot;&quot;,unhighlighted_params = list(alpha = 0.3,size=0.8, color = &#39;#FFE66D&#39;)) +
- #scale_color_manual(values = c(&#39;#5BC0EB&#39;,&#39;#FDE74C&#39;,&#39;#7FB800&#39;,&#39;#E55934&#39;,&#39;#FA7921&#39;,&#39;#1A936F&#39; ,&#39;#F0A6CA&#39;,&#39;#B8BEDD&#39;))+
  scale_color_tableau() +
  guides(size = FALSE,
   color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
@@ -896,20 +892,19 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &quot;&quot;, y = &quot;&quot; ,
     color = &#39;&#39;) </code></pre>
-<pre><code>## label_key: playlist_genre</code></pre>
-<pre><code>## Too many data points, skip labeling</code></pre>
-<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-19-1.png" width="3360" /></p>
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-20-1.png" width="3360" /></p>
 </div>
 <div id="setting-5" class="section level3">
 <h3>Setting 5</h3>
-<p>Nearest neighbors: 150</p>
-<p>Minimum distance: 0.001</p>
-<p>Distance metric: Euclidean</p>
+<ul>
+<li><p>Nearest neighbors: 150</p></li>
+<li><p>Minimum distance: 0.001</p></li>
+<li><p>Distance metric: Euclidean</p></li>
+</ul>
 <pre class="r"><code>spotify_songs_emb %&gt;%
  ggplot(aes(x = nn_.150.md_.0.001.metric.euclidean.1, y = nn_.150.md_.0.001.metric.euclidean.2,color = playlist_genre )) +
  geom_point(size = 5.3,alpha =0.8) +
  gghighlight(selected_artist != &quot;&quot;,unhighlighted_params = list(alpha = 0.3,size=0.8, color = &#39;#FFE66D&#39;)) +
- #scale_color_manual(values = c(&#39;#5BC0EB&#39;,&#39;#FDE74C&#39;,&#39;#7FB800&#39;,&#39;#E55934&#39;,&#39;#FA7921&#39;,&#39;#1A936F&#39; ,&#39;#F0A6CA&#39;,&#39;#B8BEDD&#39;))+
  scale_color_tableau() +
  guides(size = FALSE,
   color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
@@ -920,15 +915,15 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &quot;&quot;, y = &quot;&quot; ,
     color = &#39;&#39;) </code></pre>
-<pre><code>## label_key: playlist_genre</code></pre>
-<pre><code>## Too many data points, skip labeling</code></pre>
-<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-20-1.png" width="3360" /></p>
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-21-1.png" width="3360" /></p>
 </div>
 <div id="setting-6" class="section level3">
 <h3>Setting 6</h3>
-<p>Nearest neighbors: 15</p>
-<p>Minimum distance: 0.09</p>
-<p>Distance metric: Hamming</p>
+<ul>
+<li><p>Nearest neighbors: 15</p></li>
+<li><p>Minimum distance: 0.09</p></li>
+<li><p>Distance metric: Hamming</p></li>
+</ul>
 <pre class="r"><code>spotify_songs_emb %&gt;%
  ggplot(aes(x = nn_.15.md_.0.09.metric.hamming.1, y = nn_.15.md_.0.09.metric.hamming.2,color = playlist_genre )) +
  geom_point(size = 5.3,alpha =0.8) +
@@ -943,20 +938,14 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &quot;&quot;, y = &quot;&quot; ,
     color = &#39;&#39;) </code></pre>
-<pre><code>## label_key: playlist_genre</code></pre>
-<pre><code>## Too many data points, skip labeling</code></pre>
-<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-21-1.png" width="3360" /></p>
-<p>For the most part both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embedding with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen.
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-22-1.png" width="3360" /></p>
+<p>For the most part, both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embeddings with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen.
 We can observe that the most influential hyper-parameter seems to be distance metric. Additionally, when we decrease the value of <code>min_dist</code>, the projection becomes less compact and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music and We need to incorporate other aspects of songs such as lyrics to be able to differentiate between genres. For instance, Kaylin Pavlik in her blogpost explained how she based on similar audio features trained several machine learning models to classify songs into 6 main categories (EDM, Latin, Pop, R&amp;B, Rap, &amp; Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset but I couldn’t achieve higher performance.</p>
 </div>
 </div>
 <div id="supervised-umap" class="section level2">
 <h2>Supervised UMAP</h2>
-<p>UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a <a href="https://umap-learn.readthedocs.io/en/latest/supervised.html">supervised algorithm</a>.</p>
-</div>
-<div id="supervised-umap-1" class="section level2">
-<h2>Supervised UMAP</h2>
-<p>UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a <a href="https://umap-learn.readthedocs.io/en/latest/supervised.html">supervised algorithm</a>.</p>
+<p>UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a <a href="https://umap-learn.readthedocs.io/en/latest/supervised.html">supervised algorithm</a> by specifying the target variable. To make this happen in UWOT, we can just give the target column (playlist_genre) as an input to <code>y</code> argument.</p>
 <pre class="r"><code>supervised_umap_embedding_df &lt;- 
   spotify_songs %&gt;% 
   select(-c(12:22)) %&gt;% 
@@ -984,16 +973,7 @@ We can observe that the most influential hyper-parameter seems to be distance me
     min.segment.length = 0.1) +
   labs(x = &quot;&quot;, y = &quot;&quot; ,
        color = &#39;&#39;) </code></pre>
-<pre><code>## Warning: Tried to calculate with group_by(), but the calculation failed.
-## Falling back to ungrouped filter operation...</code></pre>
-<pre><code>## label_key: playlist_genre</code></pre>
-<pre><code>## Too many data points, skip labeling</code></pre>
-<pre><code>## Warning: Removed 249 rows containing missing values (geom_text_repel).</code></pre>
-<pre><code>## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-## family not found in Windows font database</code></pre>
-<pre><code>## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database</code></pre>
-<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-25-1.png" width="3360" /></p>
+<p><img src="/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-26-1.png" width="3360" /></p>
 <p>It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.</p>
 </div>
 

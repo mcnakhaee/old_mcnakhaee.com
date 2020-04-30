@@ -20,19 +20,18 @@ image:
  focal_point: ''
  preview_only: no
 projects: []
+
+
 ---
 
 
 
+<pre class="r"><code>knitr::opts_chunk$set(warning = FALSE, message = FALSE)</code></pre>
 <pre class="r"><code>library(tune)
-library(rsample)</code></pre>
-<pre><code>## Loading required package: tidyr</code></pre>
-<pre class="r"><code>library(yardstick)</code></pre>
-<pre><code>## For binary classification, the first factor level is assumed to be the event.
-## Set the global option `yardstick.event_first` to `FALSE` to change this.</code></pre>
-<pre class="r"><code>library(dials)</code></pre>
-<pre><code>## Loading required package: scales</code></pre>
-<pre class="r"><code>library(workflows)
+library(rsample)
+library(yardstick)
+library(dials)
+library(workflows)
 library(parsnip)
 library(infer)</code></pre>
 <pre class="r"><code>#devtools::install_github(&quot;tidymodels/tidymodels&quot;)
@@ -68,13 +67,6 @@ head(spotify_songs)</code></pre>
 <pre class="r"><code>spotify_songs &lt;- py$spotify_songs</code></pre>
 <p>Have you ever wondered why some songs from an artist become so popular and others are just total failure?
 Look at the next plot. Even The Beetles had a few not so popular songs.</p>
-<pre class="r"><code>library(aptheme)
-spotify_songs %&gt;%
-  filter(track_artist == &#39;The Beatles&#39;, track_popularity &gt; 10) %&gt;%
-  ggplot(aes(x = track_popularity)) +
- geom_histogram() +
-  theme_ap() + theme(legend.position = &#39;bottom&#39;)</code></pre>
-<p><img src="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>So what can be the recipe for popularity? Or why does a song become(un)popular? Is it solely releated to the artists that play a song? Can it be the song’s audio features?</p>
 <p>##Exploratory Data Analysis</p>
 <div id="machine-learning" class="section level2">
@@ -123,15 +115,11 @@ My designed workflow consists of the following step:</p>
  select(track_popularity, c(12:23)) %&gt;% 
  correlate() %&gt;% 
   network_plot(min_cor = 0.1,color = c(&#39;#1a535c&#39;,&#39;#4ecdc4&#39;,&#39;#f7fff7&#39;,&#39;#ff6b6b&#39;,&#39;#ffe66d&#39;)) </code></pre>
-<pre><code>## 
-## Correlation method: &#39;pearson&#39;
-## Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
-<p><img src="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-8-1.png" width="768" /></p>
+<p><img src="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-9-1.png" width="768" /></p>
 <pre class="r"><code>spotify_songs %&gt;% 
  ggplot(aes(track_popularity)) +
  geom_histogram(fill = &#39;indianred&#39;) </code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 </div>
 <div id="shap" class="section level2">

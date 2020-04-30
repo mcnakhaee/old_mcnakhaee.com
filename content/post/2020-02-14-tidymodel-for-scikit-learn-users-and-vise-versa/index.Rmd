@@ -58,6 +58,22 @@ they make your code  much shorter
 data leakage
 
 
+## Unsupervised Learning
+
+### PCA
+
+```{r eval=FALSE, include=FALSE}
+ranking_rec <- recipe(points ~ ., data = ranking_df) %>%
+  update_role(title, artist, new_role = "id") %>%
+  step_log(points) %>%
+  step_normalize(all_predictors()) %>%
+  step_pca(all_predictors())
+
+tidied_pca <- tidy(ranking_prep, 3)
+
+```
+
+
 ## Pre-Processing
 inverse transform
 
@@ -69,4 +85,12 @@ My preferable way
 Automatic machine learning
 
 parellal processing
+
+Things that are unique to Scikit-learn
+
+
+Things that are unique to Tidymodels
+
+
+https://juliasilge.com/blog/best-hip-hop/
 
