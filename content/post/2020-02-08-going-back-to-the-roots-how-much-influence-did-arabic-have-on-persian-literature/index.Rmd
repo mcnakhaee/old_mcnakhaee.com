@@ -1,0 +1,365 @@
+---
+title: Going Back to the Roots! How Much Influence Did Arabic Have on Persian Literature?
+author: Muhammad Chenariyan Nakhaee
+date: '2020-02-08'
+slug: []
+categories:
+  - R
+  - NLP
+  - Python
+tags:
+  - NLP
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-02-08T17:09:04+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+Since the [conquest of Persia (now Iran) by the Muslim forces in the 7th century](https://en.wikipedia.org/wiki/Muslim_conquest_of_Persia), Arabic culture and language have had a huge influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its main language, but the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost use the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language.
+Over the past 100 years, a very few (narrowly-minded and mostly racist)  scholars have tried to erase Arabic words from the Persian literature. Since I was a kid I have always wanted to  I put my data science skills and tools to 
+
+I decided to start a  small project and determine how much influence Arabic has had on the Persian Lieterature and poetry over time. To put it simply, my goal is to look at every word used in poems ad determind wether it comes from Arabic or it is  originally a Persian word. Then I count the occurance of each of them and compute their ratio. 
+
+However, this is not an easy task for several reasons. Although determing the origin of a word is not difficult for a well-educated person, there are  millions of words in Persian literary works.So, labaling each word manually is not feasible and I tried  smarter ways (but less accurate ).  Similar to many other languages, Persian poems are different from daily written or spoken Persian and therefore common NLP methods are not as effective as before.
+
+Ideally, we need a complete dataset of word with Araabic roots that are used in Persian to solve this task. But this dataset does not exist and I must use other approaches:
+1. There are a number of rules and exceptions that can be used to distinguish Persian words from Arabic words. For example, unlike Persian, Arabic does not have four letters representing "p", "j" such as Japan, "g" such as game and "ch" in its  alphabet. It means that any word that consists of one of these letters it is definitely a non-Arabic word. On the other hand, we do not have any letter in the Persian alphabet for representing the 'th' letter (and a few other letters) in Arabic. Therefore, words that consist of  these letters are likely to be Arabic words.
+```{python}
+# fa --> Farsi (Persian)
+# ar ---> Arabic
+# un ----> Unkown
+def arabic_word(word):
+    if 'ث' in word:
+        return 'ar'
+    elif 'ح' in word:
+        return 'ar' 
+    elif 'ص' in word:
+        return 'ar' 
+    if 'ض' in word:
+        return 'ar'
+    elif 'ظ' in word:
+        return 'ar' 
+    elif 'ع' in word:
+        return 'ar' 
+    elif 'ط' in word:
+        return 'ar' 
+    elif 'ق' in word:
+        return 'ar' 
+    elif 'ژ' in word:
+        return 'fa'
+    elif 'گ' in word:
+        return 'fa' 
+    elif 'چ' in word:
+        return 'fa' 
+    elif 'پ' in word:
+        return 'fa' 
+    else:
+        return 'un'
+```
+
+
+2. Unfortunately, the rules mentioned above are not comprehensive and the origin of many words cannot be determined by them. So,I turned to the python port of the popular [``Langdetect``](https://github.com/Mimino666/langdetect) library for help. Here, if the origin of a word can not be determined by the above rules, I will ask this library to identify the language. I should mention that langdetect can be sometimes wrong so the final results might not be 100% accurate.
+
+
+
+```{python eval = FALSE, echo=FALSE}
+from langdetect import detect
+x = 'from langdetect import detect'
+# The word for "people" in Persian
+print(detect("مردم"))
+# A word used both in Arabic and also Persian
+print(detect("عقل"))
+
+x
+```
+
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(ggpage)
+library(ggthemes)
+library(gganimate)
+library(wordcloud)
+library(scales)
+library(reticulate)
+```
+
+
+```{r eval=FALSE, include=FALSE}
+library(extrafont)
+font_import()
+windowsFonts()
+loadfonts(device = "win")
+```
+
+
+```{r eval=FALSE, include=FALSE,}
+all_poets <- read_csv('e:\\all_poet_eng.csv')
+lang_ratio_df <- all_poets %>%
+  filter(lang %in% c('ar', 'fa')) %>%
+  count(poet, century, lang) %>%
+  pivot_wider(names_from = lang,
+              values_from  = n)  %>%
+  mutate(
+    ratio = ar / fa,
+    poet = fct_reorder(poet, ratio),
+    period = case_when(
+      between(century, 3, 5) ~ 'Khorasani Style',
+      between(century, 6, 9) ~ 'Iraqi Style',
+      between(century, 10, 13) ~ 'Indian Style',
+      between(century, 14, 15) ~ 'Contemporary'),
+    period = factor(
+      period,
+      levels = c('Khorasani Style','Iraqi Style','Indian Style','Contemporary' )
+    ))
+lang_ratio_df %>% 
+  write_csv('lang_ratio_df.csv')
+
+
+sample_poets_df %>% 
+  select(-text)%>%
+  write_csv('sample_poets.csv')
+```
+I must also mention that I performed a few preprocessing steps such as removing stopwords on the poetry corpus. A few other operations such as stemming could have been performed but my initial assessment was that they might not significantly change the final results. 
+After preprocessing, I stored all the information about the ratio of Arabic and Persian words for each poet in a separate dataset.
+
+```{r warning=FALSE, paged.print=TRUE}
+lang_ratio_df <- read_csv('lang_ratio_df.csv')
+head(lang_ratio_df)
+```
+I visualized the ratio of words for each poet using the `ggplot` library in R.
+
+```{r echo=TRUE, fig.height=9, fig.width=15, message=FALSE, warning=FALSE}
+ lang_ratio_df %>%
+    mutate(
+    poet = fct_reorder(poet, ratio),
+
+    period = factor(
+      period,
+      levels = c('Khorasani Style','Iraqi Style','Indian Style','Contemporary' )
+    )) %>% 
+  ggplot(aes(x = poet, y = ratio , color = period)) +
+  geom_point(size = 4) +
+  geom_segment(aes(
+    y = 0, yend = ratio, x = poet, xend = poet), size = 1) +
+  geom_text(
+    aes(x = poet,  y = ratio,label = scales::percent(ratio)), size = 5, nudge_y = .2,family = 'Montserrat') +
+  labs( x = '', y = '', title = 'The Estimated Ratio of Arabic Words Used by Famous Persion Poets') +
+  scale_color_tableau() +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  coord_flip() +
+  facet_wrap( ~ period, scales = "free_y", ncol = 2) +
+  theme_tufte() +
+  theme(
+    text = element_text(family = 'Montserrat'),
+    legend.title =  element_text(size = 20),
+    axis.ticks.x = element_blank(),
+    legend.text = element_text(
+      size = 15,
+    margin = ggplot2::margin(0, 20, 0, 0)),
+    plot.title = element_text(
+      face = "bold",
+      color = 'gray',
+      size = 22,
+      margin = ggplot2::margin(0, 20, 20, 0),
+      hjust = 0.5,
+      vjust = 0.5),
+        strip.text = element_text(
+      color = 'gray80',
+      size = 18 ,
+      margin = ggplot2::margin(1, 0, 1, 0)),
+    legend.position = 'none',
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_text(size = 12, color = 'gray'),
+    plot.background = element_rect(fill = "black", color = "black"),
+    panel.background = element_rect(fill = "black", color = "black"),
+    panel.border = element_rect(fill = NA, color = NA))
+```
+
+As you can see above, every poet used at least a sizable number of Arabic words in his/her work. Most notably, Ferdowsi who wrote [Shahname (the Book of Kings)](https://en.wikipedia.org/wiki/Shahnameh), which recount the  myths and legends of Persian Kings and Heroes and is the oldest piece of poetry analyzed in my experiment also includes a considerable number of Arabic words. Other top Persian poets such as [Hafez](https://en.wikipedia.org/wiki/Hafez), [Saadi](https://en.wikipedia.org/wiki/Saadi_Shirazi) and [Rumi](https://en.wikipedia.org/wiki/Rumis) used Arabic words in almost 40%-50% of their works.
+
+Nothing better can show this than the following plot which made by the [`ggpage`](https://emilhvitfeldt.github.io/ggpage/) package in R. The plot shows the distribution of words and their origins for several top Persian poets. Note that in this plot I used a only random subset of words from the works of each poet and not their whole works of poetry.
+
+```{r warning=FALSE, include=FALSE}
+sample_poets_df <- read_csv('sample_poets.csv')
+
+plotcolors <-  c('ar' = 'indianred', 'fa' = 'gray76')
+sample_poets_list <- sample_poets_df %>%
+  distinct(poet) %>%
+  pull(poet)
+
+create_ggpage <- function(p) {
+  df <- sample_poets_df %>%
+    mutate(text = word) %>%
+    filter(poet == p)
+  df %>%
+    ggpage_build(align = 'both', lpp = 20) %>%
+    left_join(df, by = 'word') %>%
+    filter(!is.na(lang)) %>%
+    filter(
+      !is.na(word))
+}
+
+
+
+ggpage_df <- create_ggpage(sample_poets_list[1])
+
+for (p in sample_poets_list[2:12]) {
+  ggpage_df <- bind_rows(ggpage_df, create_ggpage(p))
+}
+```
+
+```{r message=FALSE, warning=FALSE}
+sample_poets_df <- read_csv('sample_poets.csv')
+head(sample_poets_df)
+```
+
+```{r fig.height=20, fig.width=20, message=FALSE, warning=FALSE}
+ggpage_df %>%
+  mutate(poet = fct_reorder(poet, century)) %>%
+  ggpage_plot(aes(fill = lang)) +
+  
+  labs(title = 'Distribution of Persian and Arabic Words Used by Top Persian Poets', fill = '') +
+  scale_fill_manual(values = plotcolors,
+                    guide = 'legend' ,
+                    labels = c('Arabic','Persian')) +
+  
+  facet_wrap(~ poet, nrow = 3) +
+  theme(
+    strip.text = element_text(
+      size = 15,
+      face = "bold",
+      margin = ggplot2::margin(1, 1, 1, 1, "cm"),
+      color = 'white'
+    ),
+        text = element_text(family = 'Montserrat'),
+
+    legend.position = 'top',
+    legend.text = element_text(
+      size = 15,
+      margin = ggplot2::margin(10, 10, 10, 10)
+    ),
+    panel.spacing = unit(1, "points"),
+    plot.title = element_text(
+      face = "bold",
+      size = 22,
+      margin = ggplot2::margin(30, 0, 30, 0),
+      hjust = 0.5
+    ),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    strip.background = element_rect(fill = '#000F2B'),
+    panel.border = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.y = element_blank(),
+  )
+```
+
+### Conclusion
+How Much Influence Did Arabic Have on Persian Literature has been one of my questions since I started to read and study literature. Nobody had been able to answer this question and I could not have answered it without the help of data science. 
+
+My analysis shows that the Arabic language has contributed significantly to our literature and culture. In fact, the golden era of Persian poetry can be seen as a result of its  integration with Arabic. Persian also made its contribution to the Arabic language and Arabic poetry. So, talking about erasing one language from the other is not helpful or wise and I hope everyone realizes that. 
+
+
+```{r eval=FALSE, include=FALSE}
+all_poets <- read_csv('e:\\poetry_lang_word_df.csv')
+poets_list
+sample_poets_df %>% 
+  filter(poet %in% all_poets_list[1:61]) %>% 
+  filter(poet != all_poets_list[22],
+       poet != all_poets_list[26],
+      poet !=  all_poets_list[19],
+      poet != all_poets_list[27],
+     poet !=  all_poets_list[33],
+    poet !=    all_poets_list[20] )%>% 
+  mutate(poet = fct_recode(poet ,
+                Ferdowsi = all_poets_list[2] ,
+              Rudaki = all_poets_list[1],
+         `Naser Khosrow` = all_poets_list[4],
+        Kisai = all_poets_list[3],
+        `Farrukhi Sistani` = all_poets_list[6],
+        `Abusaeid Abolkheir` = all_poets_list[8],
+        Hujviri = all_poets_list[12],
+        Sanai = all_poets_list [16],
+        Manuchihri = all_poets_list[5],
+        Khayyam = all_poets_list[13],
+        `Baba Tahir` = all_poets_list[9],
+          `Masud Sa'd Salman` = all_poets_list[7],
+        `Asadi Tusi` = all_poets_list[11],
+        Nizami = all_poets_list[14],
+        `Fakhruddin Gurgani` = all_poets_list[10],
+        Anvari = all_poets_list[18],
+        Attar = all_poets_list[15],
+        Khaqani = all_poets_list[17],
+          Mahsati = all_poets_list[21],
+          Rumi = all_poets_list[23],
+          Saadi = all_poets_list[24],
+          `Khwaju Kermani` = all_poets_list[25],
+          `Mahmoud Shabestari` = all_poets_list[30] ,
+          Awhadi = all_poets_list[29],
+          Hafez = all_poets_list[28],
+         `Amir Khusrow` = all_poets_list[32],
+          `Ubayd Zakani` = all_poets_list[31],
+          Jami = all_poets_list[35],
+          `Sheikh Bahaii` =all_poets_list[39] ,
+          Vahshi = all_poets_list[37],
+          Hilali = all_poets_list[36],
+        `Saib Tabrizi` = all_poets_list[42],
+        `Hatef Esfehani` = all_poets_list[45],
+          `Mohammad-Taghi Bahar` = all_poets_list[50],
+          Qaani = all_poets_list[47],
+            Iqbal  = all_poets_list[53],
+            `Ahmad Shamlou` = all_poets_list[57],
+            `Forough Farrokhzad` = all_poets_list[59],
+            `Parvin E'tesami` = all_poets_list[49],
+            `Rahi Mo'ayeri` = all_poets_list[52],
+            `Nima Yushij` = all_poets_list[56],
+            `Sohrab Sepehri` = all_poets_list[58],
+            `Akhavan-Sales` = all_poets_list[61],
+            `Simin Behbahani` = all_poets_list[60],
+              
+              Shahriar =all_poets_list[51] ,
+        Bidel =all_poets_list[44] ,
+        `Shah Nimatullah Wali`=all_poets_list[34] ,
+      Mohtasham = all_poets_list[38],
+      Bastami = all_poets_list[46],
+      Monshi = all_poets_list[20] ,
+        `Salman Savoji` = all_poets_list[33],
+      Artimani =  all_poets_list[41],
+      Feyz = all_poets_list[43],
+      Jebelli = all_poets_list[19],
+      `Mola-Hadi Sabzevari` = all_poets_list[48],
+      Iraqi = all_poets_list[26],
+      Orfi = all_poets_list[40],
+      Seyf = all_poets_list[27],
+      `Shater-Abbas` = all_poets_list[55],
+      Khalil = all_poets_list[54],
+      `Baba-Afzal` = all_poets_list[22],
+        ),
+) %>% 
+  write_csv('e:\\sample_poets_df.csv')
+
+ # arrange(poet)  %>% 
+  pull(poet) 
+all_poets_list[1:61]                
+'' = 'Shaykh Bahai'
+all_poets_list <- all_poets %>% 
+  distinct(poet) %>% 
+  pull(poet)
+
+all_poets_list
+```
+
+

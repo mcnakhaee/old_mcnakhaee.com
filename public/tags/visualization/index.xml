@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visualization | Muhammad Chenariyan Nakhaee</title>
+    <link>/tags/visualization/</link>
+      <atom:link href="/tags/visualization/index.xml" rel="self" type="application/rss+xml" />
+    <description>Visualization</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 12 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>Visualization</title>
+      <link>/tags/visualization/</link>
+    </image>
+    
+    <item>
+      <title>Analyzing Football Data</title>
+      <link>/post/2020-02-12-analyzing-football-data/</link>
+      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-12-analyzing-football-data/</guid>
+      <description>
+
+
+&lt;p&gt;names(html_table)&amp;lt;- col_names
+names(table_wiki)
+View(as_tibble(table_wiki,.name_repair = “minimal”)[1,1])&lt;/p&gt;
+&lt;p&gt;t &amp;lt;- as_tibble(table_wiki,.name_repair = “minimal”)[1,1]
+as.vector(t)
+table_wiki[1:10]&lt;/p&gt;
+&lt;p&gt;col_names &amp;lt;- url %&amp;gt;%
+read_html() %&amp;gt;%
+html_nodes(xpath = paste(’//*&lt;span class=&#34;citation&#34;&gt;[@id=&#34;stats_standard_ks_3260&#34;]&lt;/span&gt;’)) %&amp;gt;%
+html_table(header = NA,fill = TRUE) %&amp;gt;%
+as.data.frame() %&amp;gt;%
+slice(1)&lt;/p&gt;
+&lt;p&gt;```&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Map of Spotify Songs</title>
+      <link>/post/2020-02-01-what-makes-a-song-popular/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-01-what-makes-a-song-popular/</guid>
+      <description>
+
+
+&lt;p&gt;In the &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md&#34;&gt;4th week of the Tidy Tuesday project&lt;/a&gt;, a very interesting and fun dataset was proposed to the data science community. The dataset contains information about thousands of songs on Spotify’s platform and along with their metadata and audio features. You can download the dataset can using the following piece of code.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md&#34;&gt;4th week of the Tidy Tuesday project&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&amp;#39;)
+head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 23
+##   track_id track_name track_artist track_popularity track_album_id
+##   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         
+## 1 6f807x0~ I Don&amp;#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
+## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
+## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
+## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
+## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
+## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
+## # ... with 18 more variables: track_album_name &amp;lt;chr&amp;gt;,
+## #   track_album_release_date &amp;lt;chr&amp;gt;, playlist_name &amp;lt;chr&amp;gt;, playlist_id &amp;lt;chr&amp;gt;,
+## #   playlist_genre &amp;lt;chr&amp;gt;, playlist_subgenre &amp;lt;chr&amp;gt;, danceability &amp;lt;dbl&amp;gt;,
+## #   energy &amp;lt;dbl&amp;gt;, key &amp;lt;dbl&amp;gt;, loudness &amp;lt;dbl&amp;gt;, mode &amp;lt;dbl&amp;gt;, speechiness &amp;lt;dbl&amp;gt;,
+## #   acousticness &amp;lt;dbl&amp;gt;, instrumentalness &amp;lt;dbl&amp;gt;, liveness &amp;lt;dbl&amp;gt;, valence &amp;lt;dbl&amp;gt;,
+## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For this week’s tidy Tuesday, I decided to use a rather different approach from my previous submission. Instead of focusing entirely on the visualization aspect of my submission, I tried to use other tools from tidy model universe for machine learning model development.&lt;/p&gt;
+&lt;p&gt;Each song has around 12 columns representing audio features. The Github’s page for this dataset describes these features as follows:&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;19%&#34; /&gt;
+&lt;col width=&#34;7%&#34; /&gt;
+&lt;col width=&#34;73%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;variable&lt;/th&gt;
+&lt;th&gt;class&lt;/th&gt;
+&lt;th&gt;description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;danceability&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;energy&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;key&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;The estimated overall key of the track. Integers map to pitches using standard Pitch Class notation . E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;loudness&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;mode&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;speechiness&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;acousticness&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;instrumentalness&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;liveness&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;valence&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;tempo&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;duration_ms&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;td&gt;Duration of song in milliseconds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;It would be very helpful to compare songs based on the combination of their audio features and have an overall picture of where each song is placed. Unfortunately, we can only visualize 2 or 3 audio features at the same time and It is not possible to put all these features on a 2D or 3D space. So, I tried to use unsupervised machine learning for the purpose of visualizing songs on a 2D space by transforming their high-dimensional audio features into a more compressed form.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(tidymodels)
+library(workflows)
+library(gghighlight)
+library(hrbrthemes)
+library(ggthemes)
+library(lubridate)
+library(reticulate)
+library(ggrepel)
+library(plotly)
+library(uwot)
+
+
+theme_update(legend.position = &amp;#39;top&amp;#39;,
+   legend.text  = element_text(size = 32,color = &amp;#39;gray75&amp;#39; ),
+   legend.key = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+   legend.background= element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+   plot.title = element_text(family = &amp;#39;Montserrat&amp;#39;, face = &amp;quot;bold&amp;quot;, size = 60,hjust = 0.5,vjust = 0.5,color = &amp;#39;#FFE66D&amp;#39;,margin = ggplot2::margin(40,0,0,0)),
+   plot.subtitle = element_text(
+   family = &amp;#39;Montserrat&amp;#39;, size = 30, hjust = 0.5),
+   strip.background = element_blank(),
+   plot.background = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+   panel.background = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+   panel.grid.major.x =element_blank(),
+   panel.grid.major.y =element_blank(),
+   panel.grid.minor =element_blank(),
+   axis.text.x.bottom = element_blank(),
+   axis.ticks.x = element_blank(), 
+   axis.ticks.y = element_blank(),
+   axis.text.x = element_blank(),
+   axis.text.y.left = element_blank()) &lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;dimensionality-reduction-and-umap&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Dimensionality Reduction and UMAP&lt;/h2&gt;
+&lt;p&gt;My initial idea was to use some clustering algorithms to cluster songs based on their audio feature and find songs that are similar to each other. Yet, it was difficult to visualize these clusters in a two dimensional space. Of course you can do that by using hierarchal clustering but even then visualizing a few thousands samples (songs) seems to be impractical. So, I decided to to use other unsupervised techniques to compress these high-dimensional audio features and transform them into a more compact 2D space.&lt;/p&gt;
+&lt;p&gt;There are a number of dimensionality reduction algorithms such as PCA, t-SNE UMAP. The main purpose of these algorithm is to give us a compressed representation of the input data, which is obtained with the least possible information loss. PCA is a linear dimensionality reduction method while both t-SNE and UMAP are non-linear methods.&lt;/p&gt;
+&lt;p&gt;In this post, I will use UMAP and t-SNE, two widely used dimensionality reduction algorithms. When the input dataset is large T-SNE becomes very slow and is not an efficient algorithm anymore. On the other hand, UMAP can handle larger datasets much more easily. Moreover, not only UMAP can preserve the underlying local structure present in the data, but it can also represent the global structure of the data more accurately. What do we mean by local and global structure? For example, in the song dataset, persevering local structure means that songs that belong to an artist are clustered together. Similarly, global structure means that songs belonging to more related genres (e.g. hard rock, album rock and classic rock) will be placed in a close proximity of each other on the new projection&lt;/p&gt;
+&lt;p&gt;UMAP achieves this goal by employing some advanced optimization techniques and mathematical concept. Understanding how UMAP uses these techniques and projects the input data into a more compressed representation is not crucial, but If you are curios to know more about the theory behind UMAP and its difference with T-SNE, I recommend &lt;a href=&#34;https://pair-code.github.io/understanding-umap/&#34;&gt;this wonderful blogpost&lt;/a&gt; by Andy Coenen and Adam Pearce.&lt;/p&gt;
+&lt;div id=&#34;data-preprocessing&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Data Preprocessing&lt;/h3&gt;
+&lt;p&gt;Both UMAP and T-SNE compute a distance metric between samples. This distance metric should be meaningful and reasonable. If we do not scale the input features before ru some features might have higher (unfair) influence than other features on the computation of distance between samples. For this reason, it is necessary to normalize input features before implementing a them,&lt;/p&gt;
+&lt;p&gt;I create a data preprocessing recipe using the &lt;code&gt;recipe&lt;/code&gt; package and I add a normalization step to scale the audio features. Note that since I implement an unsupervised algorithm, there is no need to split the dataset into a training and testing dataset.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;normalized_features &amp;lt;- spotify_songs %&amp;gt;%
+ recipe() %&amp;gt;% 
+ step_normalize( danceability,
+  energy,
+  key,
+  loudness,
+  mode,
+  speechiness,
+  acousticness,
+  instrumentalness,
+  liveness,
+  valence,
+  tempo,
+  duration_ms) %&amp;gt;% 
+ prep() %&amp;gt;% 
+ juice()
+
+head(normalized_features)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 23
+##   track_id track_name track_artist track_popularity track_album_id
+##   &amp;lt;fct&amp;gt;    &amp;lt;fct&amp;gt;      &amp;lt;fct&amp;gt;                   &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;         
+## 1 6f807x0~ I Don&amp;#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
+## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
+## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
+## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
+## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
+## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
+## # ... with 18 more variables: track_album_name &amp;lt;fct&amp;gt;,
+## #   track_album_release_date &amp;lt;fct&amp;gt;, playlist_name &amp;lt;fct&amp;gt;, playlist_id &amp;lt;fct&amp;gt;,
+## #   playlist_genre &amp;lt;fct&amp;gt;, playlist_subgenre &amp;lt;fct&amp;gt;, danceability &amp;lt;dbl&amp;gt;,
+## #   energy &amp;lt;dbl&amp;gt;, key &amp;lt;dbl&amp;gt;, loudness &amp;lt;dbl&amp;gt;, mode &amp;lt;dbl&amp;gt;, speechiness &amp;lt;dbl&amp;gt;,
+## #   acousticness &amp;lt;dbl&amp;gt;, instrumentalness &amp;lt;dbl&amp;gt;, liveness &amp;lt;dbl&amp;gt;, valence &amp;lt;dbl&amp;gt;,
+## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;t-sne&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;T-SNE&lt;/h2&gt;
+&lt;p&gt;Both UMAP and T-SNE have several hyper-parameters that can influence the resulting embedding output. However, T-SNE is a notoriously slow algorithm and the opportunity for trial and error with different sets of hyper-parameter values are limited. For the sake of simplicity, I stick to default settings for hyper-parameter in T-SNE.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(Rtsne)
+tsne_embedding &amp;lt;- normalized_features %&amp;gt;%
+ select(c(12:23)) %&amp;gt;%
+ Rtsne(check_duplicates = FALSE)
+
+tsne_embeddings &amp;lt;- spotify_songs %&amp;gt;% 
+ select(-c(12:22)) %&amp;gt;% 
+ bind_cols(tsne_embedding$Y %&amp;gt;% as_tibble()) %&amp;gt;% = element_rect(fill = &amp;quot;black&amp;quot;, color = &amp;quot;black&amp;quot;),
+ dplyr::rename(tsne_1 = V1, tsne_2 = V2) %&amp;gt;% &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Even though I managed to transform a high dimensional dataset into a 2D space, still it was very challenging to visualize every song and every artists all at once. So, I just select a few famous artists that I have heard about. Each artist in this list more or less represents at least a genre of music and it can perfectly show that an artist (or a band) made several genres of music and how difficult our task is.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;selected_artists &amp;lt;- c(&amp;#39;Queen&amp;#39;,&amp;#39;Drake&amp;#39;,&amp;#39;Rihanna&amp;#39;,&amp;#39;Taylor Swift&amp;#39;,&amp;#39;Eminem&amp;#39;,&amp;#39;Snoop Dogg&amp;#39;,&amp;#39;Katy Perry&amp;#39;,&amp;#39;The Beatles&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tsne_embeddings &amp;lt;- tsne_embeddings%&amp;gt;% 
+ mutate(
+  selected_artist = if_else( track_artist %in% selected_artists, as.character(track_artist), &amp;quot;&amp;quot;),
+  track_name_selected_artist = if_else(track_artist %in% selected_artists, track_name, NULL),
+  genre_selected_artist = if_else(track_artist %in% selected_artists,playlist_genre, NULL),
+  popular_tracks_selected_artist = if_else(
+   track_artist %in% selected_artists &amp;amp; track_popularity &amp;gt; 65,shorter_names, NULL )) %&amp;gt;%
+ distinct(track_name, .keep_all = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tsne_embeddings %&amp;gt;%
+ ggplot(aes(x = tsne_1, y = tsne_2 ,color = selected_artist )) +
+ geom_point(size = 5.3,alpha =0.8) +
+ gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.3,size = 0.8, color = &amp;#39;#FFE66D&amp;#39;)) +
+ scale_color_manual(values = c(&amp;#39;#5BC0EB&amp;#39;,&amp;#39;#FDE74C&amp;#39;,&amp;#39;#7FB800&amp;#39;,&amp;#39;#E55934&amp;#39;,&amp;#39;#FA7921&amp;#39;,&amp;#39;#1A936F&amp;#39; ,&amp;#39;#F0A6CA&amp;#39;,&amp;#39;#B8BEDD&amp;#39;))+
+ guides(size = FALSE,
+  color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+  geom_text_repel(aes(label = popular_tracks_selected_artist),size = 7, family = &amp;#39;Montserrat&amp;#39;,
+  point.padding = 2.2,
+  box.padding = .5,
+  force = 1,
+  min.segment.length = 0.1) +
+ labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+    title = &amp;#39;The Map of Spotify Songs Based on T-SNE Algorithm\n&amp;#39;,
+    subtitle = &amp;#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
+    color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As you can see in this projection, songs that belong to the same artists are placed close to each other. It seems that T-SNE is able to preserve the local topological structure of songs. Now I will look at how T-SNE distinguishes different genres of music.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tsne_embeddings %&amp;gt;%
+ ggplot(aes(x = tsne_1, y = tsne_2 ,color = playlist_genre )) +
+ geom_point(size = 5.3,alpha =0.8) +
+ gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.3,size = 0.8, color = &amp;#39;#FFE66D&amp;#39;)) +
+ scale_color_tableau() +
+ guides(size = FALSE,
+  color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+  geom_text_repel(aes(label = popular_tracks_selected_artist),size = 7, family = &amp;#39;Montserrat&amp;#39;,
+  point.padding = 2.2,
+  box.padding = .5,
+  force = 1,
+  min.segment.length = 0.1) +
+ labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+    title = &amp;#39;The Map of Spotify Songs Based on T-SNE Algorithm\n&amp;#39;,
+    subtitle = &amp;#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
+    color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;umap&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;UMAP&lt;/h2&gt;
+&lt;p&gt;Just like t-SNE, UMAP is a dimensionality reduction algorithm but it is much more computationally efficient and faster that t-SNE. The UMAP algorithm was &lt;a href=&#34;https://github.com/lmcinnes/umap&#34;&gt;originally implemented in Python&lt;/a&gt;. But there are also several libraries in R such as &lt;a href=&#34;https://github.com/ropenscilabs/umapr&#34;&gt;umapr&lt;/a&gt;, &lt;a href=&#34;https://cran.r-project.org/web/packages/umap/vignettes/umap.html&#34;&gt;umap&lt;/a&gt; and &lt;a href=&#34;https://github.com/jlmelville/uwot&#34;&gt;uwot&lt;/a&gt; that also provide an implementation of the UMAP algorithm. &lt;a href=&#34;https://github.com/ropenscilabs/umapr&#34;&gt;&lt;code&gt;umapr&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://cran.r-project.org/web/packages/umap/vignettes/umap.html&#34;&gt;&lt;code&gt;umap&lt;/code&gt;&lt;/a&gt; use the &lt;a href=&#34;https://cran.r-project.org/web/packages/reticulate/index.html&#34;&gt;&lt;code&gt;reticulate&lt;/code&gt;&lt;/a&gt; package and provide a wrapper function around the original &lt;code&gt;umap-learn&lt;/code&gt; python library. Also, &lt;code&gt;umap&lt;/code&gt; and &lt;code&gt;uwot&lt;/code&gt; library have their own R implementation and they do not require the python package to be installed beforehand. For this specific experiment, I will use the &lt;code&gt;uwot&lt;/code&gt; library.&lt;/p&gt;
+&lt;p&gt;we can change and tune a few hyper-parameters in the implementation of UMAP in the uwot library, These hyperparameter can change the embedding outcome. However, there are two hyper-parameters that have a much more important impact on the structure of the low-dimensional representation:&lt;code&gt;n_neighbors&lt;/code&gt;, &lt;code&gt;min_dist&lt;/code&gt; and &lt;code&gt;metric&lt;/code&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;n_neighbors&lt;/code&gt; determines the number of nearest neighbor data points that we use to compute and construct the embedding.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;min_dist&lt;/code&gt; controls the minimum distance between data points in the low dimensional space (embedding). That means a low value of &lt;code&gt;min_dist&lt;/code&gt; results in a more compact clusters of data points. On the other hand, with larger values of &lt;code&gt;min_dist&lt;/code&gt;, the projection will be less compact and tend to preserve the global structure.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;metric&lt;/code&gt;: We can use different metrics (e.g.. cosine or Euclidean) to compute the distance between data points and to find the nearest neighbors.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The choice of hyperparameter values can be very important for the final projection. However,choosing the right set of hyper-parameters in UMAP is extremely difficult because UMAP is an unsupervised algorithm and we do not have a baseline to evaluate its performance. Fortunately, UMAP is vary fast and scalable algorithm. It means that we can run UMAP with different hyperparameter settings and decide which set of values best serves our purpose.&lt;/p&gt;
+&lt;p&gt;My main goal from running UMAP is to visualize songs and their audio features on a 2D space and I can use a trick to decrease UMAP’s computation time. According to uwot’s documentation, if my only purpose is visualization, I can set the value of &lt;code&gt;fast_sgd&lt;/code&gt; hyper-parameter to &lt;code&gt;TRUE&lt;/code&gt; to speed up UMAP’s convergence and running time.
+Next, I create a grid of values for these three hyper-parameters and each time I will learn a new UMAP embedding based on different combinations of these values.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;n_neighbors &amp;lt;- c(15,30,50,100,150)
+min_distance &amp;lt;- c( 0.001, 0.003, 0.009,0.03,0.09)
+metrics &amp;lt;- c(&amp;quot;euclidean&amp;quot; ,&amp;quot;cosine&amp;quot;,&amp;quot;hamming&amp;quot;)
+
+#make a copy of the dataset
+spotify_songs_emb &amp;lt;- spotify_songs
+
+for (nn in n_neighbors) {
+ for (md in min_distance) {
+  for (metric in metrics) {
+  umap_embedding &amp;lt;- normalized_features %&amp;gt;%
+  select(c(12:23)) %&amp;gt;%
+  umap(n_neighbors = nn,min_dist = md,metric = metric, fast_sgd = TRUE)
+  spotify_songs_emb &amp;lt;- spotify_songs_emb %&amp;gt;% 
+  bind_cols(umap_embedding[,1]%&amp;gt;% as_tibble() ) %&amp;gt;% 
+  bind_cols(umap_embedding[,2] %&amp;gt;% as_tibble() )
+  names(spotify_songs_emb)[names(spotify_songs_emb) == &amp;#39;value&amp;#39; ] = paste(&amp;#39;nn_&amp;#39;,nn,&amp;#39;md_&amp;#39;,md,&amp;#39;metric&amp;#39;,metric,&amp;#39;1&amp;#39;,sep = &amp;#39;.&amp;#39;)
+  names(spotify_songs_emb)[names(spotify_songs_emb) == &amp;#39;value1&amp;#39; ] = paste(&amp;#39;nn_&amp;#39;,nn,&amp;#39;md_&amp;#39;,md,&amp;#39;metric&amp;#39;,metric,&amp;#39;2&amp;#39;,sep = &amp;#39;.&amp;#39;)
+  }
+ }
+ 
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Just like what I did for T-SNE, I will focus on the same list of artists.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs_emb &amp;lt;- spotify_songs_emb%&amp;gt;% 
+ mutate(
+  selected_artist = if_else( track_artist %in% selected_artists, as.character(track_artist), &amp;quot;&amp;quot;),
+  point_size_selected_artist = if_else(track_artist %in% selected_artists, 0.5, 0.1),
+  track_name_selected_artist = if_else(track_artist %in% selected_artists, track_name, NULL),
+  genre_selected_artist = if_else(track_artist %in% selected_artists,playlist_genre, NULL),
+  popular_tracks_selected_artist = if_else(
+   track_artist %in% selected_artists &amp;amp; track_popularity &amp;gt; 65,shorter_names, NULL )) %&amp;gt;%
+ distinct(track_name, .keep_all = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, it was time to plot the results of UMAP embeddings using &lt;code&gt;ggplot&lt;/code&gt; and &lt;a href=&#34;https://github.com/yutannihilation/gghighlight&#34;&gt;&lt;code&gt;gghighlight&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;div id=&#34;setting-1&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Setting 1&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Nearest neighbors: 50&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Minimum distance: 0.09&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Distance metric: Euclidean&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs_emb %&amp;gt;%
+ ggplot(aes(x = nn_.50.md_.0.09.metric.euclidean.1, y = nn_.50.md_.0.09.metric.euclidean.2 ,color = selected_artist )) +
+ geom_point(size = 5.3,alpha =0.8) +
+ gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.3,size=0.8, color = &amp;#39;#FFE66D&amp;#39;)) +
+ scale_color_manual(values = c(&amp;#39;#5BC0EB&amp;#39;,&amp;#39;#FDE74C&amp;#39;,&amp;#39;#7FB800&amp;#39;,&amp;#39;#E55934&amp;#39;,&amp;#39;#FA7921&amp;#39;,&amp;#39;#1A936F&amp;#39; ,&amp;#39;#F0A6CA&amp;#39;,&amp;#39;#B8BEDD&amp;#39;))+
+ guides(size = FALSE,
+  color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+  geom_text_repel(aes(label = popular_tracks_selected_artist),size = 8, family = &amp;#39;Montserrat&amp;#39;,
+  point.padding = 2.2,
+  box.padding = .5,
+  force = 1,
+  min.segment.length = 0.1) +
+ labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+    color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;setting-2&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Setting 2&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Nearest neighbors: 50&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Minimum distance: 0.09&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Distance metric: Hamming&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs_emb %&amp;gt;%
+ ggplot(aes(x = nn_.50.md_.0.09.metric.hamming.1, y = nn_.50.md_.0.09.metric.hamming.2,color = selected_artist )) +
+ geom_point(size = 5.3,alpha =0.8) +
+ gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.3,size=0.8, color = &amp;#39;#FFE66D&amp;#39;)) +
+ scale_color_manual(values = c(&amp;#39;#5BC0EB&amp;#39;,&amp;#39;#FDE74C&amp;#39;,&amp;#39;#7FB800&amp;#39;,&amp;#39;#E55934&amp;#39;,&amp;#39;#FA7921&amp;#39;,&amp;#39;#1A936F&amp;#39; ,&amp;#39;#F0A6CA&amp;#39;,&amp;#39;#B8BEDD&amp;#39;))+
+ guides(size = FALSE,
+  color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+  geom_text_repel(aes(label = popular_tracks_selected_artist),size = 8, family = &amp;#39;Montserrat&amp;#39;,
+  point.padding = 2.2,
+  box.padding = .5,
+  force = 1,
+  min.segment.length = 0.1) +
+ labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+    color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;setting-3&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Setting 3&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Nearest neighbors: 150&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Minimum distance: 0.09&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Distance metric: Euclidean&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs_emb %&amp;gt;%
+ ggplot(aes(x = nn_.150.md_.0.09.metric.euclidean.1, y = nn_.150.md_.0.09.metric.euclidean.2,color = playlist_genre )) +
+ geom_point(size = 5.3,alpha =0.8) +
+ gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.3,size=0.8, color = &amp;#39;#FFE66D&amp;#39;)) +
+ scale_color_tableau() +
+ guides(size = FALSE,
+  color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+  geom_text_repel(aes(label = popular_tracks_selected_artist),size = 8, family = &amp;#39;Montserrat&amp;#39;,
+  point.padding = 2.2,
+  box.padding = .5,
+  force = 1,
+  min.segment.length = 0.1) +
+ labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+    color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;setting-4&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Setting 4&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Nearest neighbors: 15&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Minimum distance: 0.09&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Distance metric: Euclidean&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs_emb %&amp;gt;%
+ ggplot(aes(x = nn_.15.md_.0.09.metric.euclidean.1, y = nn_.15.md_.0.09.metric.euclidean.2,color = playlist_genre )) +
+ geom_point(size = 5.3,alpha =0.8) +
+ gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.3,size=0.8, color = &amp;#39;#FFE66D&amp;#39;)) +
+ scale_color_tableau() +
+ guides(size = FALSE,
+  color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+  geom_text_repel(aes(label = popular_tracks_selected_artist),size = 8, family = &amp;#39;Montserrat&amp;#39;,
+  point.padding = 2.2,
+  box.padding = .5,
+  force = 1,
+  min.segment.length = 0.1) +
+ labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+    color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;setting-5&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Setting 5&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Nearest neighbors: 150&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Minimum distance: 0.001&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Distance metric: Euclidean&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs_emb %&amp;gt;%
+ ggplot(aes(x = nn_.150.md_.0.001.metric.euclidean.1, y = nn_.150.md_.0.001.metric.euclidean.2,color = playlist_genre )) +
+ geom_point(size = 5.3,alpha =0.8) +
+ gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.3,size=0.8, color = &amp;#39;#FFE66D&amp;#39;)) +
+ scale_color_tableau() +
+ guides(size = FALSE,
+  color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+  geom_text_repel(aes(label = popular_tracks_selected_artist),size = 8, family = &amp;#39;Montserrat&amp;#39;,
+  point.padding = 2.2,
+  box.padding = .5,
+  force = 1,
+  min.segment.length = 0.1) +
+ labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+    color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;setting-6&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Setting 6&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Nearest neighbors: 15&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Minimum distance: 0.09&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Distance metric: Hamming&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs_emb %&amp;gt;%
+ ggplot(aes(x = nn_.15.md_.0.09.metric.hamming.1, y = nn_.15.md_.0.09.metric.hamming.2,color = playlist_genre )) +
+ geom_point(size = 5.3,alpha =0.8) +
+ gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.3,size=0.8, color = &amp;#39;#FFE66D&amp;#39;)) +
+ scale_color_tableau() +
+ guides(size = FALSE,
+  color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+  geom_text_repel(aes(label = popular_tracks_selected_artist),size = 8, family = &amp;#39;Montserrat&amp;#39;,
+  point.padding = 2.2,
+  box.padding = .5,
+  force = 1,
+  min.segment.length = 0.1) +
+ labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+    color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;For the most part, both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embeddings with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen.
+We can observe that the most influential hyper-parameter seems to be distance metric. Additionally, when we decrease the value of &lt;code&gt;min_dist&lt;/code&gt;, the projection becomes less compact and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music and We need to incorporate other aspects of songs such as lyrics to be able to differentiate between genres. For instance, Kaylin Pavlik in her blogpost explained how she based on similar audio features trained several machine learning models to classify songs into 6 main categories (EDM, Latin, Pop, R&amp;amp;B, Rap, &amp;amp; Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset but I couldn’t achieve higher performance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;supervised-umap&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Supervised UMAP&lt;/h2&gt;
+&lt;p&gt;UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a &lt;a href=&#34;https://umap-learn.readthedocs.io/en/latest/supervised.html&#34;&gt;supervised algorithm&lt;/a&gt; by specifying the target variable. To make this happen in UWOT, we can just give the target column (playlist_genre) as an input to &lt;code&gt;y&lt;/code&gt; argument.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;supervised_umap_embedding_df &amp;lt;- 
+  spotify_songs %&amp;gt;% 
+  select(-c(12:22)) %&amp;gt;% 
+  bind_cols(supervised_umap_embedding %&amp;gt;% as_tibble()) %&amp;gt;% 
+  dplyr::rename(umap_1 = V1, umap_2 = V2) %&amp;gt;% 
+  mutate(
+    selected_artist = if_else( track_artist %in% selected_artists, as.character(track_artist), &amp;quot;&amp;quot;),
+    point_size_selected_artist = if_else(track_artist %in% selected_artists, 0.5, 0.1),
+    track_name_selected_artist = if_else(track_artist %in% selected_artists, track_name, NULL),
+    genre_selected_artist = if_else(track_artist %in% selected_artists,playlist_genre, NULL),
+    popular_tracks_selected_artist = if_else(
+      track_artist %in% selected_artists &amp;amp; track_popularity &amp;gt; 70,shorter_names, NULL )) %&amp;gt;%
+  distinct(track_name, .keep_all = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;supervised_umap_embedding_df %&amp;gt;%
+  ggplot(aes(x = umap_1, y = umap_2 ,color = playlist_genre )) +
+  geom_point(size = 5.3,alpha =0.8 ) +
+  gghighlight(selected_artist != &amp;quot;&amp;quot;,unhighlighted_params = list(alpha = 0.3,size = 0.8, color = &amp;#39;#FFE66D&amp;#39;)) +
+  scale_color_tableau() +
+  guides(size = FALSE,
+    color = guide_legend(override.aes = list(alpha = 0.9,size = 12))) +
+    geom_text_repel(aes(label = popular_tracks_selected_artist),size = 7, family = &amp;#39;Montserrat&amp;#39;,
+    point.padding = 2.2,
+    box.padding = .5,
+    force = 1,
+    min.segment.length = 0.1) +
+  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
+       color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Some Fun with Maps</title>
+      <link>/post/2020-01-24-some-fun-with-maps/</link>
+      <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-01-24-some-fun-with-maps/</guid>
+      <description>
+
+
+
+</description>
+    </item>
+    
+    <item>
+      <title>EuADS Summer School 2019: SUBJECTIVITY and VISUALIZATION</title>
+      <link>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</link>
+      <pubDate>Sat, 04 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</guid>
+      <description>
+
+
+&lt;p&gt;This talk was mainly focused on the importance of visualization and other techniques for exploring and explaining data. In other words, one approach to explainability is to first explore the input data and find interesting patterns. This can be done via:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Association analysis ()&lt;/li&gt;
+&lt;li&gt;Dimensionality reduction techniques&lt;/li&gt;
+&lt;li&gt;Graph embeddings&lt;/li&gt;
+&lt;li&gt;Clustering&lt;/li&gt;
+&lt;li&gt;Community detection&lt;/li&gt;
+&lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However interesting pattern is a subjective term and there are a huge number of “interesting measures” out there. What you find interesting as a data mining researcher may be different from another researcher. For example, in the case of community detection what we can define as an interesting community can vary. An interesting community might be a densely connected set of nodes or a set of nodes that have few outside neighbors.&lt;/p&gt;
+&lt;p&gt;Why interestingness measures are subjective? Because as a user we compare patterns with our prior beliefs or expectations and in if a pattern &lt;span style=&#34;color:blue&#34;&gt; contrasts&lt;/span&gt; with them and &lt;span style=&#34;color:blue&#34;&gt; can be described easily&lt;/span&gt;, we consider it as interesting.&lt;/p&gt;
+&lt;p&gt;The challenge is to come up with a metric or formalize a metric that measures ’true interestingness&#34; for us.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

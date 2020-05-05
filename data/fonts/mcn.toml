@@ -1,0 +1,15 @@
+# Font style metadata
+name = "jim"
+
+# Optional Google font URL
+google_fonts = "Scheherazade"
+
+# Font families
+heading_font = "Scheherazade"
+body_font = "Scheherazade"
+nav_font = "Scheherazade"
+mono_font = "Scheherazade"
+
+# Font size
+font_size = "18"
+font_size_small = "16"

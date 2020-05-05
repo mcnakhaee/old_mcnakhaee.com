@@ -1,0 +1,89 @@
+---
+title: Analyzing Football Data
+author: Muhammad Chenariyan Nakhaee
+date: '2020-02-12'
+slug: []
+categories:
+  - R
+tags:
+  - football
+  - R
+  - Visualization
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-02-12T01:23:17+01:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+```{r eval=FALSE, include=FALSE}
+#install.packages("polite")
+library(tidyverse)
+library(rvest)
+library(polite)
+```
+```{r eval=FALSE, include=FALSE}
+url <- "https://fbref.com/en/squads/d609edc0/Internazionale"
+
+read_table_wiki <- function(url,n_tbl = 2){
+  table_wiki <- url %>%
+    read_html() %>%
+    html_nodes(xpath = paste('//*[@id="stats_standard_ks_3260"]')) %>%
+  html_table(header = NA,fill = TRUE) %>% 
+    as.data.frame() 
+  table_wiki
+  
+}
+
+
+session <- bow("https://fbref.com/en/squads/d609edc0/Internazionale", force = TRUE)
+result <- scrape(session, query=list(t="semi-soft",per_page=100)) %>%
+    read_html() %>%
+    html_nodes(xpath = paste('//*[@id="stats_standard_ks_3260"]')) %>%
+  html_table(header = NA,fill = TRUE) %>% 
+    as.data.frame()
+
+result
+session <- bow(url, force = TRUE)
+session$robotstxt$permissions
+read_table_wiki(url)
+
+
+col_names <- c('Plyaer','Nation','Pos','Age',
+               'Playing_Time_MP','Playing_Time_Start', 'Playing_Time_Min', 
+               'Goals','Assists','Penalty_kicks',
+   'Penalty_kick_Attempts' ,'Yellow_Cards','Red_Cards', 'Goals_Per_Game','Assists_Per_Game', 'Goal_Assists_Per_Game' ,'Goal_Minus_PKs_Per_Game','Goal_Assits_Minus_PKs_Per_Game','Expected_Goals',
+   'Expected_Non_PK_Goals',
+   'Expected_Assists','Expected_Goals_Per_Game','Expected_Assists_Per_Game', 'Expected_Goal_Assists_Per_Game' ,'Expected_Goal_Minus_PKs_Per_Game','Expected_Goal_Assits_Minus_PKs_Per_Game','Matches')
+
+
+
+inter <- read_table_wiki(url)
+names(inter) <- col_names
+inter
+```
+
+names(html_table)<- col_names
+names(table_wiki)
+View(as_tibble(table_wiki,.name_repair = "minimal")[1,1])
+
+t <- as_tibble(table_wiki,.name_repair = "minimal")[1,1]
+as.vector(t)
+table_wiki[1:10]
+
+col_names <- url %>%
+    read_html() %>%
+    html_nodes(xpath = paste('//*[@id="stats_standard_ks_3260"]')) %>%
+  html_table(header = NA,fill = TRUE) %>% 
+    as.data.frame() %>% 
+    slice(1) 
+
+```
+

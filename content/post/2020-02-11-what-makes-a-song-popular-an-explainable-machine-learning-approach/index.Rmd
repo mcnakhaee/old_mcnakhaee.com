@@ -1,0 +1,405 @@
+---
+title: What Makes a Song Popular? An Explainable Machine Learning Approach
+author: Muhammad Chenariyan Nakhaee
+date: '2020-02-11'
+slug: []
+categories:
+ - XAI
+ - R
+tags:
+ - XAI
+ - Python
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-02-11T22:27:18+01:00'
+featured: no
+draft: true
+image:
+ caption: ''
+ focal_point: ''
+ preview_only: no
+projects: []
+
+
+---
+
+```{r}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tune)
+library(rsample)
+library(yardstick)
+library(dials)
+library(workflows)
+library(parsnip)
+library(infer)
+
+```
+
+```{r message=FALSE, warning=FALSE}
+#devtools::install_github("tidymodels/tidymodels")
+#remotes::install_github("wilkelab/ggtext",build = 'binary')
+library(tidyverse)
+library(tidymodels)
+library(lubridate)
+library(corrr)
+library(pins)
+library(genius)
+library(reticulate)
+
+spotify_songs <- pin(read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv'))
+head(spotify_songs)
+```
+
+
+```{r}
+spotify_songs <- spotify_songs %>%  
+  dplyr::rowwise() %>% 
+  mutate(shorter_names = unlist(str_split(track_name,'-'))[1]) 
+```
+
+
+```{python include=FALSE}
+import pandas as pd
+spotify_songs = r.spotify_songs
+spotify_songs['shorter_names'] = spotify_songs.shorter_names.apply(lambda x: x.split('(')[0])
+```
+```{r}
+spotify_songs <- py$spotify_songs
+```
+
+
+Have you ever wondered why some songs from an artist become so popular and others are just total failure? 
+Look at the next plot. Even The Beetles had a few not so popular songs.
+
+
+
+
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+library(aptheme)
+spotify_songs %>%
+  filter(track_artist == 'The Beatles', track_popularity > 10) %>%
+  ggplot(aes(x = track_popularity)) +
+ geom_histogram() +
+  theme_ap() + theme(legend.position = 'bottom')
+```
+
+
+So what can be the recipe for popularity? Or why does a song become(un)popular? Is it solely releated to the artists that play a song? Can it be the song's audio features?
+
+##Exploratory Data Analysis
+
+
+
+## Machine Learning
+
+Another more complex way to look at this problem is to use machine learning algorithms. We can train a machine learning model to accurately predict the popularity of a song. Now if we look inside the patterns that this model learning model has learned, we might be able to find out why a song has become popular or unpopular.
+In the second part of this post, I will demonstrate how I designed a machine learning workflow to predict the popularity of songs based on several audio features. Here my goal from using an ML model is not just to predict popularity but rather to figure out which factors contribute to it.
+
+However, peeking inside an ML algorithm and discovering how it makes prediction is not alwayse straighforward. Only the inner-workings of a few ML algorithms such as decision trees and linear modelsare transparent. These algorithms are very simple and might be powerful enough to model the complexities and the common knowledge is that they are not accurate. Of course you can make a decision tree fairly accurate by increasing its depth but the resulting tree would become exteremly messy and hard to understand.In addition, deeper tree are more likely to overfit.
+
+There are also more powerful and more accurate algorithms such as random forests, xgboost or deep neural networks but understanding how they make predictions is very challenging (sometimes they are called black-box models). That is translated to a widespread belief amont ML community that there is a trade-off between the accuracy and the interpretability of an ML algorithm. However, a few other researchers reject this claim and believe it is just a popular myth and you can indeed find an interpretable and accurate ML algorithm. 
+
+Anyways, over the past five years a lot of methods have been proposed to some "approximate" how an ML algorithm predicts an outcome. Two popular methods that are widely used to interpret machine learning algorithms are LIME and SHAP.
+
+We can look inside a machine learning algorithms from two aspects:
+
+Based on what feature values, an ML algorithm has made prediction about the popularity of "a particular" song. Local explanations 
+Global explanations such as feature importance scores to understand to the popularity of songs.
+
+
+In this part of my post, first I will train a random forest and an XGBoost model to predict song popularity and then I will discover how they make prediction using SHAP, LIME and feature importance scores. Hopefully, these patterns can help us better understand which factors might contribute to a song's popularity.
+
+To use a explainable machine learning methods for this purpose, it is important to obtain a reasonable performance on the prediction task. Otherwise, the result would be unreliable and useless.
+
+I won't use common pre-processing steps such as normalization because random forest and XGBoost are not sensitive to non-normalized data. Also, some pre-processing steps might make the interpretation of the results less intuitive.
+
+I have mainly used scikit-learn for training ML models but recently I have become passionately interested in the Tidymodels ecosystem. So, here I have decided to use Tidymodels and its features for model development. 
+Workflows are similar to `pipelines` in scikit-learn.
+My designed workflow consists of the following step:
+
+1. I create a preprocessing recipe using the `recipe` package.
+
+2. I split the input dataset into a training and testing set
+
+3. I build a random forest and an XGBoost model using the `parsnip` package.
+
+4. I use `tune` package  and tuning the hyper-paramters of the random forest and the XGBoost model.
+
+5. I use`rsample` package to perform cross-validation and train both models.   
+
+6. I evaluate the performance of the trained models based on metrics from the `yardstick` package and select the best model.
+
+https://tidymodels.github.io/yardstick/reference/index.html
+
+7. Finally, I explain the predictions of the machine learning model in hope of finding interesting patterns that might tell us something about why a song  becomes popular. Not that this step is not implemented as a part of the Tidymodel workflow.
+
+
+
+```{r eval=FALSE, include=FALSE}
+
+I find it to be an interesting question that can be answered to some extent by machine learning algorithms and explainable machine learning methods.
+Therefore, over the past few years, interpretability and explainability I will use several explainable machine learning methods such as LIME and SHAP to peek inside my trained machine learning models. Having done that, we can better understand what
+
+(of course you can make a decision tree very accurate by increasing its depth but )
+
+```
+
+
+## Machine Learning
+
+### pre-processing
+
+
+### Bulding the ML models
+
+first we need to specify the type of the model that we want to train and if necessary its hyper-paramters. Then we have to determine the mode of the ML task that we would like to solve. Our problem is a regression problem, so we set the mode as `regression`. 
+
+set the engine or the implementation of the model (Ranger)
+
+4.set the mode of the ML task (Regression)
+
+### Exploratory data analysis
+
+
+```{r fig.height=8,fig.width=8}
+spotify_songs %>% 
+ select(track_popularity, c(12:23)) %>% 
+ correlate() %>% 
+  network_plot(min_cor = 0.1,color = c('#1a535c','#4ecdc4','#f7fff7','#ff6b6b','#ffe66d')) 
+
+```
+
+
+
+```{r}
+spotify_songs %>% 
+ ggplot(aes(track_popularity)) +
+ geom_histogram(fill = 'indianred') 
+```
+
+
+
+```{r}
+
+```
+
+```{r eval=FALSE, include=FALSE}
+spotify_songs_ds <- spotify_songs %>%
+  filter(!is.na(track_artist)) %>%
+  mutate(track_artist = fct_lump(track_artist, n = 150),
+         release_year = year(as_date(track_album_release_date))) %>%
+  mutate(release_year = ifelse(!is.na(release_year),
+                               release_year,
+                               track_album_release_date)) %>%
+  filter(!is.na(release_year)) %>%
+  select(
+    track_name,
+    track_popularity,
+    track_artist,
+    release_year,
+    playlist_subgenre,
+    c(12:22)
+  )
+
+dim(spotify_songs_ds)
+```
+
+
+```{r eval=FALSE, include=FALSE}
+
+data_split <- initial_split(spotify_songs_ds,prop = 0.7)
+training_set <- data_split %>% 
+ training()
+test_set <- data_split %>% 
+ testing()
+
+ml_recipe <- training_set %>% 
+  recipe(track_popularity ~.) %>% 
+  step_rm(track_name) %>% 
+  #step_log(track_popularity) %>% 
+  step_naomit(track_artist) %>% 
+  step_dummy(playlist_subgenre,track_artist) %>% 
+  prep() 
+
+tr_set <- ml_recipe %>% 
+  juice()
+
+ts_set <- ml_recipe %>% 
+  bake(test_set)
+
+cv_folds <- vfold_cv(tr_set,v = 3)
+#cv_folds <- vfold_cv(training_set,v = 3)
+
+#ctrl <- control_grid(save_pred = TRUE)
+
+rf_tuned <- rand_forest(trees = tune(),min_n = tune()) %>% 
+  set_mode(mode = 'regression') %>% 
+ set_engine("ranger")
+
+
+spotify_workflow <- workflow() %>% 
+ #add_recipe(ml_recipe) %>% 
+ add_formula(track_popularity ~. ) %>% 
+ add_model(rf_tuned)
+
+
+
+tuning_results <-  tune_grid(
+      spotify_workflow,
+      resamples = cv_folds,
+      grid = 3,
+      metrics = metric_set(rsq),
+      #control = ctrl
+) 
+tuning_results
+
+tuning_results %>% 
+ show_best()
+
+best_model <- 
+ tuning_results %>% 
+ select_best()
+
+
+
+
+final_workflow <- 
+  spotify_workflow %>% 
+  finalize_workflow(best_model) %>% 
+  fit(data = training_set)
+
+```
+
+
+```{r eval=FALSE, include=FALSE}
+test_predictions <- final_workflow %>% 
+  predict(ts_set) %>% 
+  head()
+  bind_cols()
+  
+test_set_ <- test_set %>% filter(is.na(release_year))  
+
+
+dim(training_set)  
+```
+
+
+```{r eval=FALSE, include=FALSE}
+
+rf_cv <- rand_forest(trees = 100) %>%
+ set_mode(mode = 'regression') %>% 
+ set_engine("ranger") 
+
+
+
+cv_folds <- vfold_cv(trianing_set,v = 5)
+
+fit_resamples(spotify_workflow,
+       resamples = cv_folds
+ 
+)
+
+
+xgb <- xgb_train() %>% 
+  set_mode(mode = 'regression') %>% 
+  set_engine()
+
+
+
+ml_recipe <- spotify_songs_ds %>% 
+  recipe(track_popularity ~.)
+
+
+
+
+rf_tuned <- rand_forest(trees = tune(),min_n = tune()) %>% 
+  set_mode(mode = 'regression') %>% 
+ set_engine("ranger")
+
+
+spotify_workflow <- workflow() %>% 
+ add_recipe(ml_recipe) %>% 
+ #add_formula(track_popularity ~. ) %>% 
+ add_model(rf_tuned)
+
+
+
+
+tuning_results <- spotify_workflow%>% 
+tune_grid(resamples = cv_folds,) 
+
+
+tuning_results%>% 
+ collect_metrics()
+
+tuning_results %>% 
+ show_best()
+
+best_model <- 
+ tuning_results %>% 
+ select_best()
+
+
+
+
+
+
+metric_set()
+
+library(lime)
+
+explainer <- lime(trianing_set, rf, n_bins = 5)
+
+summary(explainer)
+
+trees()
+step_zv
+```
+
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+explanation_caret <- explain(
+ x = test_set[2,], 
+ explainer = explainer, 
+ n_permutations = 5000,
+ dist_fun = "gower",
+ kernel_width = .75,
+ n_features = 10, 
+ feature_select = "highest_weights",
+ labels = "Yes"
+ )
+
+plot_features(explanation_caret)
+```
+
+## Shap
+
+```{r eval=FALSE, include=FALSE}
+devtools::install_github("ModelOriented/shapper")
+```
+
+### Machine Learning
+
+
+```{r}
+
+#rf <- rand_forest(trees = 100, mode = 'regression') %>% 
+ #set_engine("randomForest") %>% 
+ #fit(Species ~. ,data = iris_training)
+
+```
+
+
+## References and further readings
+
+https://www.kaylinpavlik.com/classifying-songs-genres/
+
+https://konradsemsch.netlify.com/2019/10/testing-the-tune-package-from-tidymodels-analysing-the-relationship-between-the-upsampling-ratio-and-model-performance/

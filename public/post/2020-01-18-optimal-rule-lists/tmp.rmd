@@ -1,0 +1,95 @@
+ Rule lists not regression
+
+binned ( you always lose information)
+
+ the most interpretable prediction models
+
+Their IF-THEN structure semantically resembles natural language and the way we think,
+
+The length of  the condition must be short
+
+the number of rules must be low.
+
+relate it to causal 
+
+default rule? An exception is the default rule that has no explicit IF-part and that applies when no other rule applies,
+
+The usefulness of a decision rule is usually summarized in two numbers: Support and accuracy.
+
+
+
+**Support or coverage of a rule**:The percentage of instances to which the condition of a rule applies is called the support.The prediction (THEN-part) is not important for the calculation of support.
+
+
+
+**Accuracy or confidence of a rule**:The accuracy of a rule is a measure of how accurate the rule is in predicting the correct class for the instances to which the condition of the rule applies. Usually there is a trade-off between accuracy and support: By adding more features to the condition, we can achieve higher accuracy, but lose support.
+
+In the context of explainability shortness and accuracy are the most important measuures
+
+
+
+
+
+Shortness?
+
+To create a good classifier for predicting the value of a house you might need to learn not only one rule, but maybe 10 or 20. Then things can get more complicated and you can run into one of the following problems:
+
+- Rules can overlap: What if I want to predict the value of a house and two or more rules apply and they give me contradictory predictions?
+- No rule applies: What if I want to predict the value of a house and none of the rules apply?
+
+There are two main strategies for combining multiple rules: Decision lists (ordered) and decision sets (unordered). Both strategies imply different solutions to the problem of overlapping rules.
+
+A **decision list** introduces an order to the decision rules. If the condition of the first rule is true for an instance, we use the prediction of the first rule. If not, we go to the next rule and check if it applies and so on. Decision lists solve the problem of overlapping rules by only returning the prediction of the first rule in the list that applies.
+
+A **decision set** resembles a democracy of the rules, except that some rules might have a higher voting power. In a set, the rules are either mutually exclusive, or there is a strategy for resolving conflicts, such as majority voting, which may be weighted by the individual rule accuracies or other quality measures. Interpretability suffers potentially when several rules apply.
+
+1. **OneR** learns rules from a single feature. OneR is characterized by its simplicity, interpretability and its use as a benchmark.
+2. **Sequential covering** is a general procedure that iteratively learns rules and removes the data points that are covered by the new rule. This procedure is used by many rule learning algorithms.
+3. **Bayesian Rule Lists** combine pre-mined frequent patterns into a decision list using Bayesian statistics. Using pre-mined patterns is a common approach used by many rule learning algorithms.
+
+### Learn Rules from a Single Feature (OneR) 
+
+From all the features, OneR selects the one that carries the most information about the outcome of interest and creates decision rules from this feature.
+
+the algorithm generates more than one rule: It is actually one rule per unique feature value of the selected best feature
+
+The algorithm is simple and fast:
+
+1. Discretize the continuous features by choosing appropriate intervals.
+2. For each feature:
+   - Create a cross table between the feature values and the (categorical) outcome.
+   - For each value of the feature, create a rule which predicts the most frequent class of the instances that have this particular feature value (can be read from the cross table).
+   - Calculate the total error of the rules for the feature.
+3. Select the feature with the smallest total error.
+
+OneR always covers all instances of the dataset, since it uses all levels of the selected feature. Missing values can be either treated as an additional feature value or be imputed beforehand.
+
+A OneR model is a decision tree with only one split. (draw dt)
+
+The split is not necessarily binary as in CART, but depends on the number of unique feature values.
+
+OneR prefers features with many possible levels, because those features can overfit the target more easily. (compare different 
+
+OneR does not support regression tasks.)
+
+### 4.5.2 Sequential Covering
+
+The idea is simple: First, find a good rule that applies to some of the data points. Remove all data points which are covered by the rule. A data point is covered when the conditions apply, regardless of whether the points are classified correctly or not. Repeat the rule-learning and removal of covered points with the remaining points until no more points are left or another stop condition is met. The result is a decision list. This approach of repeated rule-learning and removal of covered data points is called “separate-and-conquer”.
+
+Suppose we already have an algorithm that can create a single rule that covers part of the data. The sequential covering algorithm for two classes (one positive, one negative) works like this:
+
+- Start with an empty list of rules (rlist).
+- Learn a rule r.
+- While the list of rules is below a certain quality threshold (or positive examples are not yet covered):
+  - Add rule r to rlist.
+  - Remove all data points covered by rule r.
+  - Learn another rule on the remaining data.
+- Return the decision list.
+- For multi-class settings, the approach must be modified. First, the classes are ordered by increasing prevalence. The sequential covering algorithm starts with the least common class, learns a rule for it, removes all covered instances, then moves on to the second least common class and so on. The current class is always treated as the positive class and all classes with a higher prevalence are combined in the negative class. The last class is the default rule. This is also referred to as one-versus-all strategy in classification.
+
+RIPPER (Repeated Incremental Pruning to Produce Error Reduction) (rule pruning) to optimize the decision list (or set). RIPPER can run in ordered or unordered mode a
+
+###  Bayesian Rule Lists
+
+1. Pre-mine frequent patterns from the data that can be used as conditions for the decision rules.
+2. Learn a decision list from a selection of the pre-mined rules.

@@ -1,0 +1,96 @@
+---
+title: Tidymodel for Scikit-Learn Users and Vise Versa
+author: Muhammad Chenariyan Nakhaee
+date: '2020-02-14'
+slug: []
+categories:
+  - R
+  - Python
+  - Machine Learning
+tags:
+  - R
+  - Machine Learning
+  - Python
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-02-14T00:25:41+01:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+Advantages
+There are many ways to do one thing
+The output is a table which you can use as an input to everything that works with a table
+
+
+Disadvantages
+
+
+##Classification Models
+
+
+
+
+## Regression Models
+
+
+
+### Making Prediction
+
+
+### Model selection
+
+reasonable defaults for tidymodel
+
+tidymodel by default tuning paramters are set for us. We can also specify them ourselves.
+
+you can even tune the preprocessing steps in Tidymodel.
+
+## Pipelines
+pipelines are handy: 
+they make your code  much shorter
+data leakage
+
+
+## Unsupervised Learning
+
+### PCA
+
+```{r eval=FALSE, include=FALSE}
+ranking_rec <- recipe(points ~ ., data = ranking_df) %>%
+  update_role(title, artist, new_role = "id") %>%
+  step_log(points) %>%
+  step_normalize(all_predictors()) %>%
+  step_pca(all_predictors())
+
+tidied_pca <- tidy(ranking_prep, 3)
+
+```
+
+
+## Pre-Processing
+inverse transform
+
+###
+
+My preferable way
+
+
+Automatic machine learning
+
+parellal processing
+
+Things that are unique to Scikit-learn
+
+
+Things that are unique to Tidymodels
+
+
+https://juliasilge.com/blog/best-hip-hop/
+

@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/courses/example/example1/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/courses/example/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/slider/</loc>
+  </url>
+  
+  <url>
+    <loc>/courses/example/example2/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/hero/</loc>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/demo/</loc>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/experience/</loc>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/accomplishments/</loc>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/projects/</loc>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/people/</loc>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/talks/</loc>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/featured/</loc>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>/talk/example/</loc>
+    <lastmod>2030-06-01T13:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/talk/</loc>
+    <lastmod>2030-06-01T13:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/nlp/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/nlp/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/python/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/social-network-analysis/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-02-23-the-most-eloquent-democratic-candidate/</loc>
+    <lastmod>2020-02-23T17:15:22+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/machine-learning/</loc>
+    <lastmod>2020-02-14T00:25:41+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/machine-learning/</loc>
+    <lastmod>2020-02-14T00:25:41+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/</loc>
+    <lastmod>2020-02-14T00:25:41+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-02-12-analyzing-football-data/</loc>
+    <lastmod>2020-02-12T01:23:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/football/</loc>
+    <lastmod>2020-02-12T01:23:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/visualization/</loc>
+    <lastmod>2020-02-12T01:23:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/</loc>
+    <lastmod>2020-02-11T22:27:18+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/xai/</loc>
+    <lastmod>2020-02-11T22:27:18+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/xai/</loc>
+    <lastmod>2020-02-11T22:27:18+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/</loc>
+    <lastmod>2020-02-08T17:09:04+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-02-01-what-makes-a-song-popular/</loc>
+    <lastmod>2020-02-01T17:12:06+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-01-24-some-fun-with-maps/</loc>
+    <lastmod>2020-01-24T21:51:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-01-18-optimal-rule-lists/</loc>
+    <lastmod>2020-01-18T18:46:22+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-01-05-euads-summer-school-explanations-in-philosophy-and-psychology/</loc>
+    <lastmod>2020-01-05T13:29:59+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</loc>
+    <lastmod>2020-01-04T14:28:27+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/2020-01-01-how-do-people-share-on-telegram/</loc>
+    <lastmod>2020-02-13T01:28:15+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/</loc>
+    <lastmod>2020-02-13T01:28:15+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/social-network-analysis/</loc>
+    <lastmod>2020-02-13T01:28:15+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2019-12-31-explainable-data-science-summer-school/</loc>
+    <lastmod>2019-12-31T12:46:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/tidy-tuesday/</loc>
+    <lastmod>2019-12-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/2019-12-29-tidy-tuesday-submissions/</loc>
+    <lastmod>2019-12-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/tidytuesday/</loc>
+    <lastmod>2019-12-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2019-11-07-contrastive-explanations/</loc>
+    <lastmod>2019-12-29T12:41:22+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/admin/</loc>
+    <lastmod>2019-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/academic/</loc>
+    <lastmod>2019-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/</loc>
+    <lastmod>2019-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/data-shapely/</loc>
+    <lastmod>2019-10-03T14:43:44+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/demo/</loc>
+    <lastmod>2019-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2019-10-03-glm-in-farsi/</loc>
+    <lastmod>2019-10-03T00:39:24+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/pandas/</loc>
+    <lastmod>2019-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/courses/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/slides/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/slides/example/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/djoerd-hiemstra/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/marielle-stoelinga/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/martijn-van-noort/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/railway-maintenance/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication/ict-open/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication/rssrail/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/contact/</loc>
+    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/privacy/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/terms/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/carlos-e.-budde/</loc>
+    <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/doina-bucur/</loc>
+    <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/enno-ruijter/</loc>
+    <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/fault-trees/</loc>
+    <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication/ffort/</loc>
+    <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/stefano-schivo/</loc>
+    <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication_types/</loc>
+  </url>
+  
+</urlset>

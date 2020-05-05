@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>football | Muhammad Chenariyan Nakhaee</title>
+    <link>/tags/football/</link>
+      <atom:link href="/tags/football/index.xml" rel="self" type="application/rss+xml" />
+    <description>football</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 12 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>football</title>
+      <link>/tags/football/</link>
+    </image>
+    
+    <item>
+      <title>Analyzing Football Data</title>
+      <link>/post/2020-02-12-analyzing-football-data/</link>
+      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-12-analyzing-football-data/</guid>
+      <description>
+
+
+&lt;p&gt;names(html_table)&amp;lt;- col_names
+names(table_wiki)
+View(as_tibble(table_wiki,.name_repair = “minimal”)[1,1])&lt;/p&gt;
+&lt;p&gt;t &amp;lt;- as_tibble(table_wiki,.name_repair = “minimal”)[1,1]
+as.vector(t)
+table_wiki[1:10]&lt;/p&gt;
+&lt;p&gt;col_names &amp;lt;- url %&amp;gt;%
+read_html() %&amp;gt;%
+html_nodes(xpath = paste(’//*&lt;span class=&#34;citation&#34;&gt;[@id=&#34;stats_standard_ks_3260&#34;]&lt;/span&gt;’)) %&amp;gt;%
+html_table(header = NA,fill = TRUE) %&amp;gt;%
+as.data.frame() %&amp;gt;%
+slice(1)&lt;/p&gt;
+&lt;p&gt;```&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,350 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+library(tidyverse)
+library(sf)
+library(lubridate)
+library(gghighlight)
+library(ggthemes)
+library(hrbrthemes)
+library(reticulate)
+library(cowplot)
+```
+
+```{r}
+#setwd('D:\\app\\Downloads\\netherlands-latest-free.shp')
+#places_import <- read_sf("C:/datasets/netherlands-latest-free.shp/gis_osm_places_free_1.shp")
+roads_import <- read_sf("C:/datasets/netherlands-latest-free.shp/gis_osm_roads_free_1.shp")
+water_import <- read_sf("C:/datasets/netherlands-latest-free.shp/gis_osm_water_a_free_1.shp")
+#building_import <- read_sf("C:/Datasets/netherlands/gis_osm_buildings_a_free_1.shp")
+#railways_import <- read_sf( "D:\\app\\Downloads\\netherlands-latest-free.shp\\gis_osm_railways_free_1.shp")
+
+dim(water_import)
+#places_import <- read_sf('D:\\app\\Downloads\\netherlands-latest-free.shp\\gis_osm_places_free_1.shp')
+```
+
+https://expatinfoholland.nl/help-guides/arrival-settling/common-dutch-street-names/
+
+```{r}
+plotcolors <-  c('straat' = '#59c8e5', 'weg' = '#ff9223', 'laan' ='#fe9ea5', 'plein' = '#fed032', 'singel' = '#0a7abf',
+                 'dijk' = '#2e968c', 'kade' = '#fe9ea5', 'pad' = '#4cb580', 'diep' = "#ff9223", 'others' = '#cccccc','gracht'  ='#fe4d64')
+
+
+roads_import <- roads_import %>% 
+  mutate(name = stringr::str_to_lower(name)) %>% 
+    mutate(street_name = case_when(
+    str_detect(name,'straat') ~ 'straat',
+    str_detect(name,'weg') ~ 'weg',
+    str_detect(name,'laan') ~ 'laan',
+    str_detect(name,'plein') ~ 'plein',
+    str_detect(name,'laan') ~ 'laan',
+    str_detect(name,'singel') ~ 'singel',
+    str_detect(name,'dijk') ~ 'dijk',
+    #str_detect(name,'wijk') ~ 'wijk',
+    #str_detect(name,'park') ~ 'park',
+    #str_detect(name,'brug') ~ 'brug',
+    #str_detect(name,'allee') ~ 'allee',
+    #str_detect(name,'baan') ~ 'baan',
+    #str_detect(name,'kolk') ~ 'kolk',
+    #str_detect(name,'veld') ~ 'veld',
+    str_detect(name,'pad') ~ 'pad',
+    str_detect(name,'diep') ~ 'diep',
+    #str_detect(name,'beek') ~ 'beek',
+    str_detect(name,'gracht') ~ 'gracht',
+    #str_detect(name,'rijbaan') ~ 'rijbaan',
+    #str_detect(name,'poort') ~ 'poort',
+    str_detect(name,'kade') ~ 'kade',
+    #str_detect(name,'dreef') ~ 'dreef',
+    #str_detect(name,'plaats') ~ 'plaats',
+    
+    TRUE ~ 'others'
+  )) %>% 
+
+  filter(!is.na(name))
+
+```
+
+
+```{r}
+radius <- 4000 #radius, in meters, around the center point to map
+crs <- 102013 
+city_roads_map_df <- function(roads_import, lat,long,radius){
+  pt <- data.frame(lat = lat, long = long)
+  pt <- pt %>% st_as_sf(coords = c("long", "lat"), crs = 4326) %>%  st_transform(crs) 
+  circle <- st_buffer(pt, dist = radius)
+  circle <- circle %>% st_transform(st_crs(roads_import))
+  city_roads <- st_intersection(circle, roads_import)
+  city_roads
+}
+
+city_water_map_df <- function(water_import, lat,long,radius){
+  pt <- data.frame(lat = lat, long = long)
+  pt <- pt %>% st_as_sf(coords = c("long", "lat"), crs = 4326) %>%  st_transform(crs) 
+  circle <- st_buffer(pt, dist = radius)
+  circle <- circle %>% st_transform(st_crs(roads_import))
+  city_water <- st_intersection(circle, water_import) 
+  city_water
+}
+
+
+
+```
+```{r fig.height=10,fig.width=10}
+lat <- 52.2574 #center point latitude
+long <- 6.7928 #center point longitude
+
+hengelo_road <- city_roads_map_df(roads_import, lat,long,radius)
+hengelo_water <-  city_water_map_df(water_import, lat,long,radius) 
+
+hengelo_g <- ggplot() +
+  geom_sf(data  = hengelo_road,aes(color = street_name) ,alpha = 0.05) +
+  scale_color_colorblind() + 
+  #gghighlight(street_name == 'baan')  + 
+  geom_sf(data = hengelo_water,fill = '#41D3BD',color = '#41D3BD') +
+  theme_void()
+
+hengelo_g
+```
+
+```{r fig.height=10,fig.width=10}
+
+plotcolors <-  c('straat' = '#59c8e5', 'weg' = '#ff9223'  , 'laan' ='#fe9ea5', 'plein' = '#0a7abf', 'singel' = '#B91372',
+                 'dijk' = '#2e968c', 'kade' = '#fed032', 'pad' = '#4cb580', 'diep' = "#ff9223", 'others' = '#cccccc','gracht'  ='#fe4d64')
+
+lat <- 52.2215 #center point latitude
+long <- 6.8937 #center point longitude
+
+enschede_road <- city_roads_map_df(roads_import, lat,long,radius)
+enschede_water <-  city_water_map_df(water_import, lat,long,radius) 
+
+enschede_g <- ggplot() +
+  geom_sf(data  = enschede_road,aes(color = street_name) ,alpha = 0.7,size = 1) +
+  #scale_color_tableau()+ 
+  scale_color_manual(values = plotcolors) +
+  #gghighlight(street_name != 'others') +
+  geom_sf(data = enschede_water,fill = '#41D3BD',color = '#41D3BD', alpha =0.3,size = 1) +
+  theme_void() +
+  theme(legend.position = 'top')
+
+enschede_g
+```
+
+
+```{r fig.height=20,fig.width=20}
+plot_grid(enschede_g, hengelo_g, labels = c('Enschede', 'Hengelo'), label_size = 12)
+```
+
+
+
+```{r fig.height=10,fig.width=10}
+create_map <- function(city_lat, city_long,name_ = NULL,title = NULL) {
+  
+  city_road <- city_roads_map_df(roads_import, lat,long,radius)
+  city_water <-  city_water_map_df(water_import, lat,long,radius) 
+
+city_g <- ggplot() +
+  geom_sf(data  = city_road,aes(fill =street_name, color = street_name) ,alpha = 0.05,size = 1) +
+  scale_color_manual(values = plotcolors) +
+  scale_fill_manual(values = plotcolors, guide = "legend") +
+  #gghighlight(street_name != 'others') +
+  geom_sf(data = city_water,color = '#41D3BD', fill = '#41D3BD' ,size = 0.5,alpha = 0.3) +
+  labs(title = name_) +
+  theme_void() +
+  theme(legend.position = 'top',
+        text = element_text(family = 'Montserrat'),
+      plot.title = element_text(
+      face = "bold",
+      color = 'gray30',
+      size = 22,
+      margin = ggplot2::margin(0, 20, 20, 0),
+      hjust = 0.5,
+      vjust = 0.5),
+    plot.background = element_rect(fill = "black", color = "black"),
+    panel.background = element_rect(fill = "black", color = "black")
+      )
+
+city_g
+  
+}
+
+```
+
+
+```{r fig.height=30,fig.width=30}
+nl_map <- ggplot() +
+  geom_sf(data  = places_import,aes(color = fclass,size = population) ,alpha = 0.5)+
+  gghighlight(name  %in% c('Enschede', 'Utrecht', 'Amsterdam', 'Groningen','Den Haag', 'Rotterdam','Eindhoven','Maastricht','Nijmegen'),aes(size = population)) +
+  scale_color_tableau()+ 
+  theme_void()  +
+  theme(legend.position = 'none')
+
+lat <- 52.2215 #center point latitude
+long <- 6.8937 #center point longitude
+
+
+enschede_map <- create_map(lat,long,'Enschede') + theme(legend.position = 'none',)
+
+lat <- 52.0907 #center point latitude
+long <- 5.1214 #center point longitude
+
+utrecht_map <- create_map(lat,long,'Utrecht') + theme(legend.position = 'none')
+
+
+
+lat <- 52.3667 #center point latitude
+long <- 4.8945 #center point longitude
+amsterdam_map <- create_map(lat,long,'Amsterdam')+ theme(legend.position = 'none')
+
+
+
+lat <- 51.9244 #center point latitude
+long <- 4.4777 #center point longitude
+rotterdam_map <- create_map(lat,long,'Rotterdam') + theme(legend.position = 'none')
+rotterdam_map
+
+lat <- 52.0705 #center point latitude
+long <- 4.3007 #center point longitude
+thehauge_map <- create_map(lat,long, 'The Hauge') + theme(legend.position = 'none')
+
+
+lat <- 53.2194 #center point latitude
+long <- 6.5665 #center point longitude
+groningen_map <- create_map(lat,long, 'Groningen') + theme(legend.position = 'none')
+
+#51.4416° N, 5.4697
+lat <- 51.4416 #center point latitude
+long <- 5.4697 #center point longitude
+eindhoven_map <- create_map(lat,long,'Eindhoven') + theme(legend.position = 'none')
+
+
+#50.8514° N, 5.6910
+lat <- 50.8514 #center point latitude
+long <- 5.6910 #center point longitude
+maastricht_map <- create_map(lat,long,'Maastricht') + 
+  guides(color = guide_legend(override.aes = list(size = 15,shape = 15))) 
+maastricht_map_a <- maastricht_map + theme(legend.position = 'none')
+
+
+
+g1<-ggplot()
+g2 <- ggplot()
+
+ plot_grid(
+          g1,
+          legend,
+          g2,
+          utrecht_map,
+          enschede_map,
+          thehauge_map,
+          rotterdam_map,
+          nl_map,
+          groningen_map,
+          amsterdam_map,
+          eindhoven_map,
+          maastricht_map,
+          rel_widths= c(1,1,1), nrow = 4,ncol = 3)
+
+
+x <- plot_grid(utrecht_map,enschede_map,rel_widths= c(1,1), nrow = 2,cols = 2) 
+x
+
+legend <- get_legend(
+  # create some space to the left of the legend
+  maastricht_map +  
+  guides(color = guide_legend(override.aes = list(size = 15,shape = 15))) +
+    theme(legend.position = 'top')
+)
+
+
+
+plotcolors <-  c('straat' = '#59c8e5', 'weg' = '#ff9223'  , 'laan' ='#fe9ea5', 'plein' = '#0a7abf', 'singel' = '#B91372',
+                 'dijk' = '#2e968c', 'kade' = '#fed032', 'pad' = '#4cb580', 'diep' = "#ff9223", 'others' = '#cccccc','gracht'  ='#fe4d64')
+
+
+plot_grid(x, legend, rel_widths = c(3, 1)) 
+
+```
+
+
+```{r}
+plot_grid(utrecht_map,nl_map,enschede_map,rel_widths= c(1,2,1), nrow = 1,cols = 3) +
+  theme_bw()
+```
+
+
+
+
+```{r fig.height=40,fig.width=40}
+
+
+lat <- 52.0907 #center point latitude
+long <- 5.1214 #center point longitude
+
+
+ggplot() +
+  geom_sf(data  = places_import,aes(color = fclass,size = population) ,alpha = 0.4)+
+  gghighlight(name  %in% c('Enschede', 'Utrecht', 'Amsterdam', 'Groningen','Den Haag', 'Rotterdam'),aes(size = population)) +
+  scale_color_tableau()+ 
+  scale_x_continuous(limits = c(2,8)) +
+  theme_void()  +
+  theme(legend.position = 'none') +
+  annotation_custom(ggplotGrob(enschede_map), xmin = 6.5, xmax = 8.5, ymin = 50, ymax = 54) +
+  annotation_custom(ggplotGrob(utrecht_map), xmin = 4.1, xmax = 6, ymin = 51, ymax = 53)
+
+
+```
+
+```{r,fig.height=10,fig.width=10, message=FALSE, warning=FALSE }
+
+#52.2398° N, 6.8500° E
+
+
+lat <- 52.2398 #center point latitude
+long <- 6.8500 #center point longitude
+
+twente_road <- city_roads_map_df(roads_import, lat,long,1000)
+twente_water <-  city_water_map_df(water_import, lat,long,1000) 
+
+twente_g <- ggplot() +
+  geom_sf(data  = twente_road ,alpha = 0.7,size = 1.5,color = "#C7B18A") +
+  #geom_sf(data = filter(twente_road, fclass == 'path'), alpha = 0.4, show.legend = F) +
+  #geom_sf(data = filter(twente_road, fclass == 'residential'), alpha = 0.5, show.legend = F) +
+  #geom_sf(data = filter(twente_road, fclass == 'secondary'), alpha = 0.9, show.legend = F) +
+  #scale_color_tableau()+ 
+  #gghighlight(street_name != 'others') +
+  geom_sf(data = twente_water,fill = '#41D3BD',color = '#E4D9C6', alpha =0.4,size = 1) +
+  #coord_flip( ) +
+  #theme_void() +
+  #theme_modern_rc() 
+  
+  
+  scale_colour_manual(values =  c("path" = "#70838B", 
+                                  "residential" = "#0A5D81", 
+                                  "secondary" = "#0A5D81")) +
+  labs(caption = "University of Twente",
+       y = "") +
+  theme_minimal() +
+  theme(
+    plot.background = element_rect(fill = "#E4D9C6", color = NA),
+    panel.background = element_rect(fill = "#E4D9C6",  color = NA),
+    panel.grid = element_blank(), 
+    axis.text = element_text(colour = "#C7B18A", family = "Ubuntu Mono"),
+    axis.ticks = element_blank(), 
+    panel.border = element_blank(), 
+    plot.caption = element_text(family = "Ubuntu Mono", size = 85, vjust = -0.2, color = '#C7B18A'), 
+    plot.margin = margin(22,10,22,10, "mm"))
+twente_g
+
+
+```
+
+```{python}
+
+import pandas as pd
+```
+
