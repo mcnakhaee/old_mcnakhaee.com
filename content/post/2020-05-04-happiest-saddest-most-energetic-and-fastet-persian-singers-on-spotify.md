@@ -23,7 +23,6 @@ projects: []
 
 
 
-
 ```{r message=FALSE, warning=FALSE}
 library(gargle)
 library(tidyverse)
@@ -46,7 +45,7 @@ extrafont::font_import()
 
 ```{r}
 
-songs_audio_plus_pop <- read_csv('songs_audio_plus_pop_06_04_2020_v9.csv')
+songs_audio_plus_pop <- read_csv('https://raw.githubusercontent.com/mcnakhaee/datasets/master/Persian_Songs_Spotify.csv')
 songs_audio_plus_pop <- songs_audio_plus_pop %>%
   filter(
     !artist_name %in% c(
@@ -124,14 +123,10 @@ artists <- factor(artists, levels = levels)
 order <- c(
   "valence",
   "energy",
-
   "tempo",
-  
   "loudness",
-  'speechiness',
   "acousticness",
   "instrumentalness",
-
   "danceability"
 )
 
@@ -146,14 +141,9 @@ normalized_features_long <- songs_audio_plus_pop %>%
     cols = c(
       "valence",
       "energy",
-      
       "tempo",
-      
       "loudness",
-      'speechiness',
       "acousticness",
-      #"instrumentalness",
-
 
       "danceability"),
     values_to = 'value'
@@ -204,13 +194,10 @@ p_main <- ggplot() +
   scale_x_discrete(
     limits = order,
     labels = c(
-      
-            "Happy",
+      "Happy",
       "Energy",
       "Fast",
-      
       "Loud",
-      'Speechiness',
       "Acoustic",
       "Instrumental",
       "Danceable"  ) )+
@@ -262,7 +249,7 @@ p_main <- ggplot() +
       hjust = .5,
       margin = ggplot2::margin(30, 0, 20, 0),
     ),
-    #plot.background = element_rect(fill = '#FCF0E1'),
+    plot.background = element_rect(fill = '#FCF0E1'),
     #panel.background = element_rect(fill = '#FCF0E1'),
     #panel.border = element_rect(fill = '#FCF0E1'),
   ) 
@@ -270,11 +257,7 @@ p_main <- ggplot() +
 p_main
 ```
 
-```{r}
-ggsave('audio_feature.png',p_main,width = 30, height = 35,dpi = 480)
-```
-
-
+Let's compare Persian Singers with S
 
 ```{r}
 eng_spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv')
@@ -337,9 +320,6 @@ normalized_features_long <- eng_spotify_songs %>%
     values_to = 'value'
   )
 ```
-
-
-
 
 
 ```{r fig.height=32,fig.width=22,dpi = 1000}
@@ -444,190 +424,10 @@ p_main
 
 
 
-
-
-
-
-
-
-
-```{r}
-normalized_features_long_pop <- normalized_features_long %>%
-  filter(
-    artist_name %in% c(
-      'Mohammadreza Shajarian',
-      'Homayoun Shajarian',
-      'Alireza Ghorbani',
-      'Alireza Eftekhari',
-      'Shahram Nazeri',
-       'Hesameddin Seraj' 
-    )
-  )  %>%  
-  group_by(artist_name_farsi, metric) %>%
-      summarise_at(c("value"), mean) %>%
-      arrange(factor(metric, levels = order)) %>%
-      ungroup()
-
-```
-
-
-```{r fig.height=20,fig.width=12}
-
-custom_pal <- c('#ef476f','#ffd166','#06d6a0','#118ab2','#9C89B8','#F77F00')
-
-subtitle <-'میزان تاثیرپذیری همایون شجریان از پدرش همیشه یکی از مباحث داغ موسیقی سنتی بوده است. در این نمودار میانگین شاخصه های صوتی شش خوانده مطرح سبک سنتی از جمله محمدرضا شجریان، فرزندش همایون شجریان و حسام الدین سراج که یکی از شاگردانش بوده با هم مقایسه شده اند.  '
-
-subtitle <- str_wrap(subtitle,width = 100)
-
-g_title <- ggplot() +
-   labs(title = "پسر کو ندارد نشان از  پدر",
-        subtitle =subtitle ,
-       caption = '',
-       color = '',fill ='') +
-  theme_void() +
-        theme(axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        axis.text.y = element_blank(),
-        axis.text.x = element_text(family =  'B Tehran',size = 15),
-        plot.title = element_text(family ='B Mitra',
-                                      hjust=.5, 
-                                  margin = ggplot2::margin(20, 0, 20, 0),
-                                      size=45,
-                                  color = 'gray20'
-                                  ),
-        plot.subtitle = element_text(family='B Mitra',
-                                         size=16,
-                                         hjust = 0.5,
-                                      margin = ggplot2::margin(0, 0, 20, 0),
-                                     color = 'gray40'
-                                  ),
-        text = element_text(family =  'B Mitra'),
-        legend.position = 'top',
-        ) 
-
-
-g_mean_all <- normalized_features_long_pop %>%  ggplot() +
-
-  geom_polygon(
-    data = . %>%  group_by(artist_name_farsi, metric) %>%
-      summarise_at(c("value"), mean) %>%
-      arrange(factor(metric, levels = order)) %>%
-      ungroup(),
-    aes(
-      x = metric,
-      y = value,
-      group = artist_name_farsi,
-      color = artist_name_farsi  ,
-      fill = artist_name_farsi
-    ),
-    alpha = .24,
-    size = 1.5,
-    show.legend = T,
-  ) +
-    scale_x_discrete(
-    limits = order,
-    labels = c(
-      "آکوستیک",
-      "ملودی",
-      'گفتاری',
-      "سریع",
-      "بلندی",
-      "شاد",
-      'انرژی',
-      "رقص آوری"
-      #'مدت زمان'
-    )
-  ) +
-  coord_polar(clip = 'off') +
-  scale_fill_manual(values = custom_pal) +
-  scale_color_manual(values = custom_pal) +
-   guides(size = FALSE,
-  color = guide_legend(override.aes = list(alpha = 0.9,size = 9))) +
-  theme_minimal() +
-  ylim(0,8)+
-  labs(
-       caption = '',
-       color = '',fill ='') +
-      theme(axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        axis.text.y = element_blank(),
-        axis.text.x = element_text(family =  'B Tehran',size = 15,color = 'gray40',margin = ggplot2::margin(20, 0, 20, 0),vjust=1),
-        text = element_text(family =  'B Mitra',color = 'gray40'),
-        legend.position = 'top',
-        legend.text = element_text(size = 13,color = 'gray40'),
-)
-g_mean_all
-```
-
-```{r fig.height=10,fig.width=10}
-g_mean_ind <-  normalized_features_long_pop %>%  ggplot(aes(x=metric,y=value,group=interaction(artist_name_farsi,metric))) +
-  scale_x_discrete(
-    limits = order,
-    labels = c(
-      "آکوستیک",
-      "ملودی",
-      'گفتاری',
-      "سرعت",
-      "بلندی",
-      "شادی",
-      'انرژی',
-      "رقص آوری" )
-  ) +
-  geom_polygon(
-    data = normalized_features_long_pop %>%  group_by(artist_name_farsi, metric) %>%
-      summarise_at(c("value"), mean) %>%
-      arrange(factor(metric, levels = order)) %>%
-      ungroup(),
-    aes(
-      x = metric,
-      y = value,
-      group = artist_name_farsi,
-      color = artist_name_farsi  ,
-      fill = artist_name_farsi
-    ),
-    alpha = .24,
-    size = 1.5,
-    show.legend = T,
-  ) +
-  ylim(0,8)+
-  coord_polar(clip = 'off') +
-  labs(title ='') +
-  facet_wrap(~artist_name_farsi,nrow = 2) +
-  scale_fill_manual(values = custom_pal) +
-  scale_color_manual(values = custom_pal) +
-  theme_minimal() +
-  labs(title = "",color = '',fill ='',
-    caption = 'منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی') +
-      theme(axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        axis.text.y = element_blank(),
-        axis.text.x = element_text(family =  'B Tehran',size = 12,color = 'gray40'),
-        plot.caption = element_text(family ='B Mitra',
-                                  margin = ggplot2::margin(30, 0, 10, 0),
-                                      size = 14,
-                                  color = 'gray70') ,
-        
-        text = element_text(family =  'B Mitra'),
-        legend.position = 'none',
-        panel.spacing.x=unit(3.5, "lines"),
-        strip.text = element_text(family =  'B Tehran',size = 15),
-        #plot.background = element_rect(fill="#516869")
-        
-
-  )  
-
-g_mean_ind
-```
-```{r fig.height=20,fig.width=10}
-plot_grid(g_title,g_mean_all,g_mean_ind,nrow = 3,rel_heights = c(1,3,3))
-```
-
-
-
 # Jitter
 
 
-```{r}
+```{r eval=FALSE,}
 songs_audio_plus_pop_jitter <- songs_audio_plus_pop %>% 
   filter(artist_name %in% artists) %>% 
   mutate(is_popular = !is.na(popularity)) %>%
@@ -640,7 +440,7 @@ songs_audio_plus_pop_jitter <- songs_audio_plus_pop %>%
 
 
 
-```{r fig.height=30, fig.width=20,dpi=2000}
+```{r eval=FALSE, fig.height=30, fig.width=20,dpi=2000}
 songs_audio_plus_pop_jitter %>%
   ggplot(aes(x = artist_name_farsi, y = valence)) +
   geom_jitter(
@@ -683,47 +483,13 @@ songs_audio_plus_pop_jitter %>%
     subtitle = '',
      caption = 'منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی') +
   scale_y_continuous(sec.axis = dup_axis()) +
-  coord_flip() +
-  theme_void() +
-  theme(
-    text = element_text(family =  'B Mitra'),
-    axis.text.x = element_text(
-      family = 'B Mitra',
-      margin = ggplot2::margin(30, 0, 20, 0),
-      color = 'gray80',
-      size = 20
-    ),
-    axis.text.y = element_text(
-      family = 'B Mitra',
-      margin = ggplot2::margin(30, 0, 20, 20),
-      color = 'gray80',
-      size = 20
-    ),
-    axis.title.x = element_text(
-      family = 'B Mitra',
-      margin = ggplot2::margin(30, 0, 20, 0),
-      size = 27,
-      color = 'gray80'
-    ),
-    plot.title = element_text(
-      family = 'B Mitra',
-      hjust = .5,
-      margin = ggplot2::margin(40, 0, 40, 0),
-      size = 35,
-      color = 'gray80'
-    ),
-    plot.caption = element_text(family ='B Mitra',
-                                  margin = ggplot2::margin(30, 0, 20, 20),
-                                      size = 20,
-                                  color = 'gray70') ,
-    legend.position = 'none',
-    plot.background = element_rect(fill = "#516869")
-  )
+  coord_flip()
+
 
 ```
 
 
-```{r fig.height=30, fig.width=20}
+```{r eval=FALSE, fig.height=30, fig.width=20}
 songs_audio_plus_pop_jitter %>%
   ggplot(aes(x = artist_name_farsi, y = energy)) +
   geom_jitter(
@@ -809,7 +575,7 @@ songs_audio_plus_pop_jitter %>%
 
 
 
-```{r fig.height=30, fig.width=20}
+```{r eval=FALSE, fig.height=30, fig.width=20, include=FALSE}
 songs_audio_plus_pop_jitter %>%
   ggplot(aes(x = artist_name_farsi, y = acousticness)) +
   geom_jitter(
@@ -897,7 +663,7 @@ songs_audio_plus_pop_jitter %>%
 ```
 
 
-```{r fig.height=30, fig.width=20}
+```{r eval=FALSE, fig.height=30, fig.width=20}
 songs_audio_plus_pop_jitter %>%
   ggplot(aes(x = artist_name_farsi, y = danceability)) +
   geom_jitter(
@@ -986,7 +752,7 @@ songs_audio_plus_pop_jitter %>%
 
 
 
-```{r fig.height=30, fig.width=20}
+```{r eval=FALSE, fig.height=30, fig.width=20}
 songs_audio_plus_pop_jitter %>%
   ggplot(aes(x = artist_name_farsi, y = loudness)) +
   geom_jitter(
@@ -1074,7 +840,7 @@ songs_audio_plus_pop_jitter %>%
 
 ## Most Popular Songs
 
-```{r fig.width=20,fig.height=30}
+```{r eval=FALSE,fig.width=20,fig.height=30}
 songs_audio_plus_pop <-
   read_csv('songs_audio_plus_pop_06_04_2020_v9.csv')
 songs_audio_plus_pop <- songs_audio_plus_pop %>%
@@ -1192,7 +958,7 @@ songs_audio_plus_pop %>%
 
 # Over Time
 
-```{r,fig.height=20,fig.width=20}
+```{r eval=FALSE,fig.height=20,fig.width=20}
 
 years <- normalized_features %>% 
   distinct(album_release_year) %>% 
@@ -1220,3 +986,8 @@ normalized_features %>%
 ```
 
 
+https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd
+
+https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R
+
+http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-
