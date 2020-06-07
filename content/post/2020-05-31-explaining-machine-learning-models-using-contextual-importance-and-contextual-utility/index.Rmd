@@ -1,0 +1,242 @@
+---
+
+title: Explaining Machine Learning Models Using Contextual Importance and Contextual Utility
+author: Muhammad Chenariyan Nakhaee
+date: '2020-05-31'
+slug: explaining-machine-learning-models-using-contextual-importance-and-contextual-utility
+categories:
+  - XAI
+tags:
+  - XAI
+  - Machine Learning
+  - R
+  - Python
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-01-18T18:46:22+01:00'
+featured: no
+draft: FALSE 
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+output:
+  blogdown::html_page:
+    toc: true
+---
+## Introduction
+Explainablity is a very hot topics in the machine learning research community these days. over the past few years, many methods have been introduced to just understand how a machine learning model makes prediction. However, explainablity is not an entirely new concept and it was actually started a few decades ago. In this blogpost, I will introduce you to a rather unknown but simple technique which was introduced almost 20 years ago. This technique is called [Contextual Importance and Utility (CIU)](https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility) for explaining ML models and show you how we can explain any types of machine learning.
+
+## What Kinds of explanation does CIU generate?
+
+1. It is a [***model-agnostic***](https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html) methods and  it can explain the output of any "black-box" machine learning model.
+2. It produces [***local***](https://christophm.github.io/interpretable-ml-book/scope-of-interpretability.html) explanations which means that the explanations are generated for individual instances (not the whole model) and they just show which features are more important with respect to an individual observation.
+3. It gives us [***post-hoc***](https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html) explanations as it is a method that processes the output of a machine learning model after training.
+
+ Unlike LIME and many other techniques, CIU does not approximate or transforms what a model predicts but rather directly explain predictions. It can also provide a contrastive explanation. For instance, why did the model predict rainy and not cloudy? 
+
+## How does CIIU work?
+
+CIT estimates two values that aim to explain the context in which a machine learning model predicts:
+
+**Contextual Importance (CI)** is a measure of how much of change in the range an output  values can be attributed to one (or several) input variables. CU is based on the notion that a variable which results in a wider ranger of output values would be more important. Formally, CIU is defined as follows:
+
+CI = (Cmax - Cmin)/(absmax - absmin)
+
+
+
+Contextual Utility (CU) indicates how favorable the current value of one (or several) input variables is for a high output value. CU is computed using the following formula.
+
+
+
+CU = (out - Cmin)/(Cmax - Cmin)
+
+
+
+Cmax and Cmin are the highest and lowest values that the output of an ML model *can* take by changing the input feature(s). Obtaining Cmax and Cmin  is computationally  and mathematically is not a trivial task.  Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of  machine learning models and are between 0 and 1. 
+
+
+CIU is implemented both in [**python**](https://github.com/TimKam/py-ciu) and [R](https://github.com/KaryFramling/ciu). For simplicity, I will use its python implementation (*py-ciu library*) in this blogpost.
+
+```{r include=FALSE}
+#devtools::install_github("rstudio/reticulate")
+
+library(reticulate)
+```
+
+You can install py-ciu using the pip command:
+
+```{bash, eval = FALSE}
+pip install py-ciu
+```
+
+## A toy example: predicting breast
+
+I will use breast cancer dataset  in scikit-learn to show how we can use CIU. I will train three different machine learning models including a decision tree, a random forest and a gradient boosting algorithm on this dataset and compute CI and CU values for a single instance from test dataset.
+
+First we need to load necessary libraries and modules.
+
+```{python}
+from ciu import determine_ciu
+from sklearn.ensemble import GradientBoostingClassifier,RandomForestClassifier
+from sklearn.inspection import permutation_importance
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+# for reproducability
+np.random.seed(123)
+```
+
+Then we split the dataset into a training and test set. We train our machine learning models on the training dataset and evaluate their performance on the test dataset. Note that for explaining ML models, we also use samples from the test dataset and not the training dataset.
+
+```{python}
+X = pd.DataFrame(load_breast_cancer()['data'])
+y = load_breast_cancer()['target']
+X.columns = load_breast_cancer()['feature_names']
+```
+
+```{python}
+X_train,X_test, y_train,y_test = train_test_split(X,y,stratify = y)
+```
+
+
+```{python}
+def fit_evaluate_model(clf):
+  clf = clf.fit(X_train, y_train)
+  print(' Accuracy on test dataset {}'.format(clf.score(X_test,y_test)))
+  return clf
+```
+
+### Permutation feature importance
+
+As I mentioned before, CIU only generates local explanations and doesn't give us an global overview of how a model makes prediction. To gain a better understanding of the global importance of the model let us compute permutation feature importance scores that is implemented in scikit-learn.
+
+```{python}
+def print_permutation_importance(model):
+  imp_features = []
+  pi = permutation_importance(model, X_test, y_test,
+                            n_repeats=30,
+                           random_state=0)
+  for i in pi.importances_mean.argsort()[::-1]:
+       if pi.importances_mean[i] - 2 * pi.importances_std[i] > 0:
+           print(f"{X_test.columns[i]:<8} "
+                 f"{pi.importances_mean[i]:.3f} "
+                 f" +/- {pi.importances_std[i]:.3f}")
+           imp_features.append(pi.importances_mean[i])
+           if len(imp_features) == 0:
+                print('no important features')
+```
+
+### Decision Tree Classifier
+
+Since it is just a toy example, I won't be very picky about hyper-parameters of my models and leave them to their default values in sklearn.
+
+```{python}
+dt = DecisionTreeClassifier()
+dt_fit = fit_evaluate_model(dt)
+```
+
+
+```{python}
+print_permutation_importance(dt_fit)
+```
+
+### Random Forest Classifier
+
+```{python}
+rf = RandomForestClassifier(
+)
+rf_fit = fit_evaluate_model(rf)
+```
+
+```{python}
+print_permutation_importance(rf_fit)
+```
+
+### Gradient Boosting Classifier
+```{python}
+gb = GradientBoostingClassifier()
+gb_fit = fit_evaluate_model(gb)
+```
+
+```{python}
+print_permutation_importance(gb_fit)
+```
+
+The random forest and gradient boosting classifiers have exactly the same accuracy score, however their most important features are different.
+
+
+### Explaining a single observation
+
+Now lets explain how each model makes prediction on a single example (observation) from the test dataset.
+
+```{python}
+example = X_test.iloc[1,:]
+example_prediction = gb.predict(example.values.reshape(1, -1))
+example_prediction_prob = gb.predict_proba(example.values.reshape(1, -1))
+prediction_index = 0 if example_prediction > 0.5 else 1
+print(f'Prediction {example_prediction}; Probability: {example_prediction_prob}')
+```
+
+To obtain CIU score, we need to compute minimum and maximum observed value of each feature in the dataset first.
+
+```{python}
+def min_max_features(X_train):
+  min_max = dict()
+  for i in range(len(X_train.columns)):
+      min_max[X_train.columns[i]] =[X_train.iloc[:,i].min(),X_train.iloc[:,i].max(),False]
+  return min_max
+  
+min_max = min_max_features(X_train)
+```
+
+
+```{python}
+def explain_ciu(example,model):
+  ciu = determine_ciu(
+      example.to_dict(),
+      model.predict_proba,
+      min_max,
+      1000,
+      prediction_index,
+  )
+  return ciu
+```
+
+```{python}
+dt_ciu = explain_ciu(example,dt_fit)
+rf_ciu = explain_ciu(example,rf_fit)
+gb_ciu = explain_ciu(example,gb_fit)
+```
+
+## Generating Textual Explanations
+
+We can obtain a textual explanation of CIU which indicates which feature(s) can be important for our test example
+
+
+```{python}
+dt_ciu.text_explain()
+```
+
+
+```{python}
+rf_ciu.text_explain()
+```
+
+
+
+```{python}
+gb_ciu.text_explain()
+```
+
+### Drawbacks
+
+1. In regression problems, the range of possible values for the target variable can be infinite, which somehow does not make sense when we want to compute CIU. The authors said that they have put a limit on the range of values.
+
+2. Computing the range of values can be a little bit misleading especially when we have outliers in the dataset.
+3. It is not clear how we can get a  global explanation for the model using CIU.

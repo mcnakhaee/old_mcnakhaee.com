@@ -1,0 +1,225 @@
+---
+
+title: Explaining Machine Learning Models Using Contextual Importance and Contextual Utility
+author: Muhammad Chenariyan Nakhaee
+date: '2020-05-31'
+slug: explaining-machine-learning-models-using-contextual-importance-and-contextual-utility
+categories:
+  - XAI
+tags:
+  - XAI
+  - Machine Learning
+  - R
+  - Python
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-01-18T18:46:22+01:00'
+featured: no
+draft: FALSE 
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#what-kinds-of-explanation-does-ciu-generate">What Kinds of explanation does CIU generate?</a></li>
+<li><a href="#how-does-ciiu-work">How does CIIU work?</a></li>
+<li><a href="#a-toy-example-predicting-breast">A toy example: predicting breast</a><ul>
+<li><a href="#permutation-feature-importance">Permutation feature importance</a></li>
+<li><a href="#decision-tree-classifier">Decision Tree Classifier</a></li>
+<li><a href="#random-forest-classifier">Random Forest Classifier</a></li>
+<li><a href="#gradient-boosting-classifier">Gradient Boosting Classifier</a></li>
+<li><a href="#explaining-a-single-observation">Explaining a single observation</a></li>
+</ul></li>
+<li><a href="#generating-textual-explanations">Generating Textual Explanations</a><ul>
+<li><a href="#drawbacks">Drawbacks</a></li>
+</ul></li>
+</ul>
+</div>
+
+<hr />
+<p>title: Explaining Machine Learning Models Using Contextual Importance and Contextual Utility
+author: Muhammad Chenariyan Nakhaee
+date: ‘2020-05-31’
+slug: explaining-machine-learning-models-using-contextual-importance-and-contextual-utility
+categories:
+- XAI
+tags:
+- XAI
+- Machine Learning
+- R
+- Python
+subtitle: ’’
+summary: ’’
+authors: []
+lastmod: ‘2020-01-18T18:46:22+01:00’
+featured: no
+draft: FALSE
+image:
+caption: ’’
+focal_point: ’’
+preview_only: no
+projects: []
+output:
+blogdown::html_page:
+toc: true
+—
+## Introduction
+Explainablity is a very hot topics in the machine learning research community these days. over the past few years, many methods have been introduced to just understand how a machine learning model makes prediction. However, explainablity is not an entirely new concept and it was actually started a few decades ago. In this blogpost, I will introduce you to a rather unknown but simple technique which was introduced almost 20 years ago. This technique is called <a href="https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility">Contextual Importance and Utility (CIU)</a> for explaining ML models and show you how we can explain any types of machine learning.</p>
+<div id="what-kinds-of-explanation-does-ciu-generate" class="section level2">
+<h2>What Kinds of explanation does CIU generate?</h2>
+<ol style="list-style-type: decimal">
+<li>It is a <a href="https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html"><strong><em>model-agnostic</em></strong></a> methods and it can explain the output of any “black-box” machine learning model.</li>
+<li>It produces <a href="https://christophm.github.io/interpretable-ml-book/scope-of-interpretability.html"><strong><em>local</em></strong></a> explanations which means that the explanations are generated for individual instances (not the whole model) and they just show which features are more important with respect to an individual observation.</li>
+<li>It gives us <a href="https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html"><strong><em>post-hoc</em></strong></a> explanations as it is a method that processes the output of a machine learning model after training.</li>
+</ol>
+<p>Unlike LIME and many other techniques, CIU does not approximate or transforms what a model predicts but rather directly explain predictions. It can also provide a contrastive explanation. For instance, why did the model predict rainy and not cloudy?</p>
+</div>
+<div id="how-does-ciiu-work" class="section level2">
+<h2>How does CIIU work?</h2>
+<p>CIT estimates two values that aim to explain the context in which a machine learning model predicts:</p>
+<p><strong>Contextual Importance (CI)</strong> is a measure of how much of change in the range an output values can be attributed to one (or several) input variables. CU is based on the notion that a variable which results in a wider ranger of output values would be more important. Formally, CIU is defined as follows:</p>
+<p>CI = (Cmax - Cmin)/(absmax - absmin)</p>
+<p>Contextual Utility (CU) indicates how favorable the current value of one (or several) input variables is for a high output value. CU is computed using the following formula.</p>
+<p>CU = (out - Cmin)/(Cmax - Cmin)</p>
+<p>Cmax and Cmin are the highest and lowest values that the output of an ML model <em>can</em> take by changing the input feature(s). Obtaining Cmax and Cmin is computationally and mathematically is not a trivial task. Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of machine learning models and are between 0 and 1.</p>
+<p>CIU is implemented both in <a href="https://github.com/TimKam/py-ciu"><strong>python</strong></a> and <a href="https://github.com/KaryFramling/ciu">R</a>. For simplicity, I will use its python implementation (<em>py-ciu library</em>) in this blogpost.</p>
+<p>You can install py-ciu using the pip command:</p>
+<pre class="bash"><code>pip install py-ciu</code></pre>
+</div>
+<div id="a-toy-example-predicting-breast" class="section level2">
+<h2>A toy example: predicting breast</h2>
+<p>I will use breast cancer dataset in scikit-learn to show how we can use CIU. I will train three different machine learning models including a decision tree, a random forest and a gradient boosting algorithm on this dataset and compute CI and CU values for a single instance from test dataset.</p>
+<p>First we need to load necessary libraries and modules.</p>
+<pre class="python"><code>from ciu import determine_ciu
+from sklearn.ensemble import GradientBoostingClassifier,RandomForestClassifier
+from sklearn.inspection import permutation_importance
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+# for reproducability
+np.random.seed(123)</code></pre>
+<p>Then we split the dataset into a training and test set. We train our machine learning models on the training dataset and evaluate their performance on the test dataset. Note that for explaining ML models, we also use samples from the test dataset and not the training dataset.</p>
+<pre class="python"><code>X = pd.DataFrame(load_breast_cancer()[&#39;data&#39;])
+y = load_breast_cancer()[&#39;target&#39;]
+X.columns = load_breast_cancer()[&#39;feature_names&#39;]</code></pre>
+<pre class="python"><code>X_train,X_test, y_train,y_test = train_test_split(X,y,stratify = y)</code></pre>
+<pre class="python"><code>def fit_evaluate_model(clf):
+  clf = clf.fit(X_train, y_train)
+  print(&#39; Accuracy on test dataset {}&#39;.format(clf.score(X_test,y_test)))
+  return clf</code></pre>
+<div id="permutation-feature-importance" class="section level3">
+<h3>Permutation feature importance</h3>
+<p>As I mentioned before, CIU only generates local explanations and doesn’t give us an global overview of how a model makes prediction. To gain a better understanding of the global importance of the model let us compute permutation feature importance scores that is implemented in scikit-learn.</p>
+<pre class="python"><code>def print_permutation_importance(model):
+  imp_features = []
+  pi = permutation_importance(model, X_test, y_test,
+                            n_repeats=30,
+                           random_state=0)
+  for i in pi.importances_mean.argsort()[::-1]:
+       if pi.importances_mean[i] - 2 * pi.importances_std[i] &gt; 0:
+           print(f&quot;{X_test.columns[i]:&lt;8} &quot;
+                 f&quot;{pi.importances_mean[i]:.3f} &quot;
+                 f&quot; +/- {pi.importances_std[i]:.3f}&quot;)
+           imp_features.append(pi.importances_mean[i])
+           if len(imp_features) == 0:
+                print(&#39;no important features&#39;)</code></pre>
+</div>
+<div id="decision-tree-classifier" class="section level3">
+<h3>Decision Tree Classifier</h3>
+<p>Since it is just a toy example, I won’t be very picky about hyper-parameters of my models and leave them to their default values in sklearn.</p>
+<pre class="python"><code>dt = DecisionTreeClassifier()
+dt_fit = fit_evaluate_model(dt)</code></pre>
+<pre><code>##  Accuracy on test dataset 0.9370629370629371</code></pre>
+<pre class="python"><code>print_permutation_importance(dt_fit)</code></pre>
+<pre><code>## worst perimeter 0.173  +/- 0.019
+## worst concave points 0.145  +/- 0.023
+## worst concavity 0.135  +/- 0.017
+## worst area 0.063  +/- 0.014
+## radius error 0.036  +/- 0.014
+## worst smoothness 0.018  +/- 0.008
+## mean area 0.017  +/- 0.006</code></pre>
+</div>
+<div id="random-forest-classifier" class="section level3">
+<h3>Random Forest Classifier</h3>
+<pre class="python"><code>rf = RandomForestClassifier(
+)
+rf_fit = fit_evaluate_model(rf)</code></pre>
+<pre><code>##  Accuracy on test dataset 0.972027972027972</code></pre>
+<pre class="python"><code>print_permutation_importance(rf_fit)</code></pre>
+<pre><code>## worst texture 0.023  +/- 0.004
+## mean texture 0.013  +/- 0.006
+## worst smoothness 0.010  +/- 0.004
+## mean concavity 0.010  +/- 0.005
+## worst fractal dimension 0.006  +/- 0.003</code></pre>
+</div>
+<div id="gradient-boosting-classifier" class="section level3">
+<h3>Gradient Boosting Classifier</h3>
+<pre class="python"><code>gb = GradientBoostingClassifier()
+gb_fit = fit_evaluate_model(gb)</code></pre>
+<pre><code>##  Accuracy on test dataset 0.9790209790209791</code></pre>
+<pre class="python"><code>print_permutation_importance(gb_fit)</code></pre>
+<pre><code>## worst concave points 0.024  +/- 0.011
+## mean concave points 0.021  +/- 0.010</code></pre>
+<p>The random forest and gradient boosting classifiers have exactly the same accuracy score, however their most important features are different.</p>
+</div>
+<div id="explaining-a-single-observation" class="section level3">
+<h3>Explaining a single observation</h3>
+<p>Now lets explain how each model makes prediction on a single example (observation) from the test dataset.</p>
+<pre class="python"><code>example = X_test.iloc[1,:]
+example_prediction = gb.predict(example.values.reshape(1, -1))
+example_prediction_prob = gb.predict_proba(example.values.reshape(1, -1))
+prediction_index = 0 if example_prediction &gt; 0.5 else 1
+print(f&#39;Prediction {example_prediction}; Probability: {example_prediction_prob}&#39;)</code></pre>
+<pre><code>## Prediction [1]; Probability: [[0.10952357 0.89047643]]</code></pre>
+<p>To obtain CIU score, we need to compute minimum and maximum observed value of each feature in the dataset first.</p>
+<pre class="python"><code>def min_max_features(X_train):
+  min_max = dict()
+  for i in range(len(X_train.columns)):
+      min_max[X_train.columns[i]] =[X_train.iloc[:,i].min(),X_train.iloc[:,i].max(),False]
+  return min_max
+  
+min_max = min_max_features(X_train)</code></pre>
+<pre class="python"><code>def explain_ciu(example,model):
+  ciu = determine_ciu(
+      example.to_dict(),
+      model.predict_proba,
+      min_max,
+      1000,
+      prediction_index,
+  )
+  return ciu</code></pre>
+<pre class="python"><code>dt_ciu = explain_ciu(example,dt_fit)
+rf_ciu = explain_ciu(example,rf_fit)
+gb_ciu = explain_ciu(example,gb_fit)</code></pre>
+</div>
+</div>
+<div id="generating-textual-explanations" class="section level2">
+<h2>Generating Textual Explanations</h2>
+<p>We can obtain a textual explanation of CIU which indicates which feature(s) can be important for our test example</p>
+<pre class="python"><code>dt_ciu.text_explain()</code></pre>
+<pre><code>## [&#39;The feature &quot;mean radius&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean texture&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean perimeter&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean area&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean smoothness&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean compactness&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean concavity&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean concave points&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean symmetry&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean fractal dimension&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;radius error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;texture error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;perimeter error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;area error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;smoothness error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;compactness error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;concavity error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;concave points error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;symmetry error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;fractal dimension error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;worst radius&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;worst texture&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;worst perimeter&quot;, which is highly important (CI=100.0%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;worst area&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;worst smoothness&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;worst compactness&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;worst concavity&quot;, which is highly important (CI=100.0%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;worst concave points&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;worst symmetry&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;worst fractal dimension&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;]</code></pre>
+<pre class="python"><code>rf_ciu.text_explain()</code></pre>
+<pre><code>## [&#39;The feature &quot;mean radius&quot;, which is important (CI=32.26%), is very typical for its class (CU=90.0%).&#39;, &#39;The feature &quot;mean texture&quot;, which is important (CI=35.48%), is unlikely for its class (CU=27.27%).&#39;, &#39;The feature &quot;mean perimeter&quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&#39;, &#39;The feature &quot;mean area&quot;, which is not important (CI=19.35%), is unlikely for its class (CU=33.33%).&#39;, &#39;The feature &quot;mean smoothness&quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&#39;, &#39;The feature &quot;mean compactness&quot;, which is not important (CI=9.68%), is unlikely for its class (CU=33.33%).&#39;, &#39;The feature &quot;mean concavity&quot;, which is not important (CI=16.13%), is not typical for its class (CU=20.0%).&#39;, &#39;The feature &quot;mean concave points&quot;, which is not important (CI=19.35%), is not typical for its class (CU=16.67%).&#39;, &#39;The feature &quot;mean symmetry&quot;, which is important (CI=38.71%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;mean fractal dimension&quot;, which is not important (CI=6.45%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;radius error&quot;, which is not important (CI=22.58%), is typical for its class (CU=71.43%).&#39;, &#39;The feature &quot;texture error&quot;, which is not important (CI=22.58%), is very typical for its class (CU=85.71%).&#39;, &#39;The feature &quot;perimeter error&quot;, which is not important (CI=22.58%), is unlikely for its class (CU=42.86%).&#39;, &#39;The feature &quot;area error&quot;, which is important (CI=38.71%), is unlikely for its class (CU=33.33%).&#39;, &#39;The feature &quot;smoothness error&quot;, which is not important (CI=3.23%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;compactness error&quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&#39;, &#39;The feature &quot;concavity error&quot;, which is not important (CI=6.45%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;concave points error&quot;, which is not important (CI=9.68%), is typical for its class (CU=66.67%).&#39;, &#39;The feature &quot;symmetry error&quot;, which is not important (CI=6.45%), is typical for its class (CU=50.0%).&#39;, &#39;The feature &quot;fractal dimension error&quot;, which is not important (CI=19.35%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;worst radius&quot;, which is very important (CI=51.61%), is very typical for its class (CU=87.5%).&#39;, &#39;The feature &quot;worst texture&quot;, which is very important (CI=67.74%), is unlikely for its class (CU=33.33%).&#39;, &#39;The feature &quot;worst perimeter&quot;, which is very important (CI=70.97%), is typical for its class (CU=63.64%).&#39;, &#39;The feature &quot;worst area&quot;, which is very important (CI=61.29%), is typical for its class (CU=57.89%).&#39;, &#39;The feature &quot;worst smoothness&quot;, which is not important (CI=6.45%), is typical for its class (CU=50.0%).&#39;, &#39;The feature &quot;worst compactness&quot;, which is not important (CI=9.68%), is unlikely for its class (CU=33.33%).&#39;, &#39;The feature &quot;worst concavity&quot;, which is very important (CI=64.52%), is very typical for its class (CU=85.0%).&#39;, &#39;The feature &quot;worst concave points&quot;, which is important (CI=38.71%), is not typical for its class (CU=16.67%).&#39;, &#39;The feature &quot;worst symmetry&quot;, which is important (CI=25.81%), is typical for its class (CU=50.0%).&#39;, &#39;The feature &quot;worst fractal dimension&quot;, which is not important (CI=3.23%), is not typical for its class (CU=0.1%).&#39;]</code></pre>
+<pre class="python"><code>gb_ciu.text_explain()</code></pre>
+<pre><code>## [&#39;The feature &quot;mean radius&quot;, which is not important (CI=16.49%), is not typical for its class (CU=0.65%).&#39;, &#39;The feature &quot;mean texture&quot;, which is highly important (CI=90.14%), is not typical for its class (CU=3.76%).&#39;, &#39;The feature &quot;mean perimeter&quot;, which is not important (CI=2.63%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean area&quot;, which is not important (CI=3.36%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;mean smoothness&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean compactness&quot;, which is important (CI=37.26%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;mean concavity&quot;, which is not important (CI=4.0%), is not typical for its class (CU=8.92%).&#39;, &#39;The feature &quot;mean concave points&quot;, which is important (CI=38.25%), is not typical for its class (CU=3.57%).&#39;, &#39;The feature &quot;mean symmetry&quot;, which is not important (CI=8.91%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;mean fractal dimension&quot;, which is not important (CI=1.54%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;radius error&quot;, which is not important (CI=10.53%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;texture error&quot;, which is not important (CI=6.53%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;perimeter error&quot;, which is not important (CI=1.48%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;area error&quot;, which is very important (CI=57.97%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;smoothness error&quot;, which is not important (CI=16.51%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;compactness error&quot;, which is not important (CI=4.39%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;concavity error&quot;, which is not important (CI=4.03%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;concave points error&quot;, which is not important (CI=5.76%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;symmetry error&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;fractal dimension error&quot;, which is not important (CI=21.47%), is not typical for its class (CU=17.33%).&#39;, &#39;The feature &quot;worst radius&quot;, which is not important (CI=1.27%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;worst texture&quot;, which is very important (CI=60.61%), is not typical for its class (CU=13.75%).&#39;, &#39;The feature &quot;worst perimeter&quot;, which is important (CI=41.37%), is not typical for its class (CU=23.17%).&#39;, &#39;The feature &quot;worst area&quot;, which is not important (CI=19.51%), is typical for its class (CU=67.91%).&#39;, &#39;The feature &quot;worst smoothness&quot;, which is not important (CI=18.24%), is unlikely for its class (CU=48.97%).&#39;, &#39;The feature &quot;worst compactness&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;worst concavity&quot;, which is not important (CI=10.79%), is very typical for its class (CU=100.0%).&#39;, &#39;The feature &quot;worst concave points&quot;, which is important (CI=42.94%), is not typical for its class (CU=4.32%).&#39;, &#39;The feature &quot;worst symmetry&quot;, which is not important (CI=5.86%), is not typical for its class (CU=0.1%).&#39;, &#39;The feature &quot;worst fractal dimension&quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&#39;]</code></pre>
+<div id="drawbacks" class="section level3">
+<h3>Drawbacks</h3>
+<ol style="list-style-type: decimal">
+<li><p>In regression problems, the range of possible values for the target variable can be infinite, which somehow does not make sense when we want to compute CIU. The authors said that they have put a limit on the range of values.</p></li>
+<li><p>Computing the range of values can be a little bit misleading especially when we have outliers in the dataset.</p></li>
+<li><p>It is not clear how we can get a global explanation for the model using CIU.</p></li>
+</ol>
+</div>
+</div>

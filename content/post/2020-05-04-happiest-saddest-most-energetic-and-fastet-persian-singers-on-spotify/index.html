@@ -1,0 +1,560 @@
+---
+title: Happiest, Saddest, Most Energetic and Fastet Persian Singers on Spotify
+author: ''
+date: '2020-05-04'
+slug: happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify
+categories:
+  - R
+tags:
+  - Spotiify
+  - R
+  - Visualization
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-05-04T22:47:57-07:00'
+featured: no
+draft: TRUE 
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<pre class="r"><code>library(gargle)
+library(tidyverse)
+library(googlesheets4)
+library(tidymodels)
+library(gghighlight)
+library(hrbrthemes)
+library(ggthemes)
+library(ggrepel)
+library(ggalt)
+library(extrafont)
+library(ggtext)
+library(ggforce)
+library(cowplot)</code></pre>
+<div id="data-collection" class="section level2">
+<h2>Data Collection</h2>
+<pre class="r"><code>songs_audio_plus_pop &lt;- read_csv(&#39;https://raw.githubusercontent.com/mcnakhaee/datasets/master/Persian_Songs_Spotify.csv&#39;)
+songs_audio_plus_pop &lt;- songs_audio_plus_pop %&gt;%
+  filter(
+    !artist_name %in% c(
+      &#39;Hatam Asgari&#39;,
+      &#39;Kaveh Deylami&#39;,
+      &#39;Nasser Abdollahi&#39;,
+      &#39;Peyman Yazdanian&#39;,
+      &#39;Abbas Ghaderi&#39;,
+      &#39;Mohammad Golriz&#39;,
+      &#39;Hamid Hami&#39;,
+      &#39;Koveyti Poor&#39;,
+      &#39;Mohsen Sharifian&#39;
+    )
+  )</code></pre>
+<div id="overall-song-features" class="section level3">
+<h3>Overall Song Features</h3>
+<p>This plot was inspired by the
+inspired me to create a similar plot for Persian singers</p>
+<pre class="r"><code>artists &lt;-
+  c( &#39;Sirvan Khosravi&#39;,
+     &#39;Hesameddin Seraj&#39;,
+     &#39;Rastak&#39;,
+     &#39;Shahram Nazeri&#39;,
+    &#39;Hossein Alizadeh&#39;,
+    &#39;Reza Sadeghi&#39;,
+    &#39;Alireza Eftekhari&#39;,
+    &#39;Mohammadreza Shajarian&#39; ,
+    &#39;Salar Aghili&#39;,
+    &#39;Morteza Pashaei&#39;,
+    &#39;Alireza Ghorbani&#39;,
+    &#39;Homayoun Shajarian&#39;,
+    &#39;Mohsen Yeganeh&#39; ,
+    &#39;Morteza Pashaei&#39;,
+    &#39;Moein&#39;,
+     &#39;Farzad Farzin&#39;,
+     &#39;Babak Jahanbakhsh&#39;,
+    &#39;Ehsan Khajeh Amiri&#39;,
+    &#39;Siavash Ghomayshi&#39;,
+    &#39;Xaniar Khosravi&#39;,
+    &#39;Tohi&#39; ,
+    &#39;Mohsen Chavoshi&#39;,
+    &#39;Abbas Ghaderi&#39;,
+    &#39;Amir Tataloo&#39;,
+    &#39;Hamed Homayoun&#39;,
+    &#39;Kayhan Kalhor&#39;
+ )
+
+order &lt;- c(
+  &quot;valence&quot;,
+  &quot;energy&quot;,
+  &quot;tempo&quot;,
+  &quot;loudness&quot;,
+  &quot;acousticness&quot;,
+  &quot;instrumentalness&quot;,
+  &quot;danceability&quot;
+)
+
+normalized_features_long &lt;- songs_audio_plus_pop %&gt;%
+  mutate_at(order, scales::rescale, to = c(0, 7)) %&gt;%
+  filter(!is.na(popularity)) %&gt;%
+  filter(artist_name %in% artists) %&gt;%
+  mutate(artist_name = factor(artist_name, levels = levels))  %&gt;%
+  pivot_longer(
+    names_to = &#39;metric&#39;,
+    cols = c(
+      &quot;valence&quot;,
+      &quot;energy&quot;,
+      &quot;tempo&quot;,
+      &quot;loudness&quot;,
+      &quot;acousticness&quot;,
+      &quot;danceability&quot;),
+    values_to = &#39;value&#39;
+  ) </code></pre>
+<p>Every singer or composer has his/her own distinct musical style and audio charactristics. Based on 8 audio features extracted from Spotify’s API, this plot compares several well-known Persian singers and musicians.These artists are compared by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs.</p>
+<pre class="r"><code>p_main &lt;- ggplot() +
+  geom_polygon(
+    data = normalized_features_long %&gt;%  group_by(artist_name, metric) %&gt;%
+      summarise_at(c(&quot;value&quot;), mean) %&gt;%
+      arrange(factor(metric, levels = order)) %&gt;%
+      ungroup(),
+    aes(x = metric, y = value, group = artist_name, ),
+    alpha = .54,
+    size = 1.5,
+    show.legend = T,
+    fill = &#39;#FF1654&#39;
+  ) +
+  geom_polygon(
+    data = normalized_features_long %&gt;%  group_by(artist_name, metric) %&gt;%
+      summarise_at(c(&quot;value&quot;), max) %&gt;%
+      arrange(factor(metric, levels = order)) %&gt;%
+      ungroup(),
+    aes(x = metric, y = value, group = artist_name, ),
+    alpha = .44,
+    size = 1.5,
+    show.legend = T,
+    fill = &#39;#FFE066&#39;
+  ) +
+  geom_polygon(
+    data = normalized_features_long %&gt;%  group_by(artist_name, metric) %&gt;%
+      summarise_at(c(&quot;value&quot;), min) %&gt;%
+      arrange(factor(metric, levels = order)) %&gt;%
+      ungroup(),
+    aes(x = metric, y = value, group = artist_name, ),
+    alpha = .84,
+    size = 1.5,
+    show.legend = T,
+    fill =  &quot;#EF476F&quot;
+  ) +
+  scale_x_discrete(
+    limits = order,
+    labels = c(
+      &quot;Happy&quot;,
+      &quot;Energy&quot;,
+      &quot;Fast&quot;,
+      &quot;Loud&quot;,
+      &quot;Acoustic&quot;,
+      &quot;Instrumental&quot;,
+      &quot;Danceable&quot;
+    )
+  ) +
+  coord_polar(clip = &#39;off&#39;) +
+  theme_minimal() +
+  labs(title = &quot;Persian Singers and Their Audio Characteristics&quot;,
+       caption = &#39;Source: Spotify \n Visualization: mcnakhaee&#39;) +
+  
+  ylim(0, 8) +
+  facet_wrap(~ artist_name, ncol = 4) +
+  theme(
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.y = element_blank(),
+    axis.text.x = element_text(
+      family =  &#39;Montserrat&#39;,
+      size = 13.5,
+      margin = ggplot2::margin(30, 0, 20, 0)
+    ),
+    
+    plot.caption = element_text(
+      family = &#39;Montserrat&#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 11,
+      color = &#39;grey80&#39;
+    ) ,
+    text = element_text(family =  &#39;Montserrat&#39;),
+    strip.text = element_text(family =  &#39;Montserrat&#39;, size = 18),
+    strip.text.x = element_text(margin = ggplot2::margin(1, 1, 1, 1, &quot;cm&quot;)),
+    panel.spacing = unit(3.5, &quot;lines&quot;),
+    panel.grid = element_blank(),
+    plot.title = element_text(
+      family = &#39;Montserrat&#39;,
+      hjust = .5,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 32,
+      color = &#39;gray10&#39;
+    ),
+    plot.background = element_rect(fill = &#39;#FCF0E1&#39;)
+  ) 
+
+p_main</code></pre>
+</div>
+<div id="jitter" class="section level3">
+<h3>Jitter</h3>
+<pre class="r"><code>theme_set(  theme_void() +
+  theme(
+    text = element_text(family =  &#39;B Mitra&#39;),
+    axis.text.x = element_text(
+      family = &#39;B Mitra&#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      color = &#39;gray80&#39;,
+      size = 20
+    ),
+    axis.text.y = element_text(
+      family = &#39;B Mitra&#39;,
+      margin = ggplot2::margin(30, 0, 20, 20),
+      color = &#39;gray80&#39;,
+      size = 20
+    ),
+    axis.title.x = element_text(
+      family = &#39;B Mitra&#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 27,
+      color = &#39;gray80&#39;
+    ),
+    plot.title = element_text(
+      family = &#39;B Mitra&#39;,
+      hjust = .5,
+      margin = ggplot2::margin(40, 0, 40, 0),
+      size = 35,
+      color = &#39;gray80&#39;
+    ),
+    plot.caption = element_text(family =&#39;B Mitra&#39;,
+                                  margin = ggplot2::margin(30, 0, 20, 20),
+                                      size = 20,
+                                  color = &#39;gray70&#39;) ,
+    legend.position = &#39;none&#39;,
+    plot.background = element_rect(fill = &quot;#516869&quot;)
+  ))</code></pre>
+<pre class="r"><code>songs_audio_plus_pop_jitter &lt;- songs_audio_plus_pop %&gt;% 
+  filter(artist_name %in% artists) %&gt;% 
+  mutate(is_popular = !is.na(popularity)) %&gt;%
+  distinct(artist_name_farsi,track_name,.keep_all = T) %&gt;% 
+  mutate(is_popular_size = if_else(!is.na(popularity),popularity,25),
+         is_popular_alpha = if_else(!is.na(popularity),0.8,0.5)) %&gt;% 
+  mutate(track_name_farsi = str_wrap(track_name_farsi, width = 15)) %&gt;% 
+  mutate(track_farsi_avail = if_else(!is.na(track_name_farsi)&amp; !is.na(popularity) &amp; nchar(track_name_farsi) &lt; 20 &amp; !explicit,track_name_farsi,&#39;&#39;)) </code></pre>
+<pre class="r"><code>songs_audio_plus_pop_jitter %&gt;%
+  ggplot(aes(x = artist_name_farsi, y = valence)) +
+  geom_jitter(
+    aes(
+      color = is_popular,
+      size = is_popular_size,
+      alpha = is_popular_alpha
+    ),
+    size = 6,
+    width = 0.2,
+    
+  ) +
+  geom_text_repel(
+    aes(label = track_farsi_avail , x = artist_name_farsi , y = valence),
+    family = &#39;B Mitra&#39;,
+    color = &#39;gray99&#39;,
+    size = 7,
+    force = 0.6,
+    max.iter = 2000,
+    box.padding = 0.4,
+    point.padding = 0.6,
+    min.segment.length = 0.15,
+    nudge_y      = 0.001,
+    hjust = 0.5,
+    segment.alpha = 0.6,
+    segment.size = 0.6
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = &#39;point&#39;,
+    color = &#39;#FF9F1C&#39;,
+    size = 5,
+    aes(group = artist_name_farsi)
+  ) +
+  scale_color_manual(values = c(&#39;#FFD166&#39;, &#39;#EF476F&#39;)) +
+  labs(
+    x = &#39;&#39;,
+    y = &#39;شادی&#39;,
+    title = &#39;مقایسه ای بین شادی در آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&#39;,
+    subtitle = &#39;&#39;,
+     caption = &#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&#39;) +
+  scale_y_continuous(sec.axis = dup_axis()) +
+  coord_flip()</code></pre>
+<pre class="r"><code>songs_audio_plus_pop_jitter %&gt;%
+  ggplot(aes(x = artist_name_farsi, y = energy)) +
+  geom_jitter(
+    aes(
+      color = is_popular,
+      size = is_popular_size,
+      alpha = is_popular_alpha
+    ),
+    size = 6,
+    width = 0.2,
+    
+  ) +
+  geom_text_repel(
+    aes(label = track_farsi_avail , x = artist_name_farsi , y = energy),
+    family = &#39;B Mitra&#39;,
+    color = &#39;gray90&#39;,
+    size = 6,
+    force = 0.6,
+    max.iter = 2000,
+    box.padding = 0.4,
+    point.padding = 0.6,
+    min.segment.length = 0.15,
+    nudge_y      = 0.001,
+    hjust = 0.5,
+    segment.alpha = 0.6,
+    segment.size = 0.6
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = &#39;point&#39;,
+    color = &#39;#FF9F1C&#39;,
+    size = 5,
+    aes(group = artist_name_farsi)
+  ) +
+  scale_color_manual(values = c(&#39;#EF476F&#39;, &#39;#EF476F&#39;)) +
+  labs(
+    x = &#39;&#39;,
+    y = &#39;انرژی&#39;,
+    title = &#39;مقایسه ای بین انرژی در آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&#39;,
+    subtitle = &#39;&#39;,
+     caption = &#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&#39;) +
+  scale_y_continuous(sec.axis = dup_axis()) +
+  coord_flip() </code></pre>
+<pre class="r"><code>songs_audio_plus_pop_jitter %&gt;%
+  ggplot(aes(x = artist_name_farsi, y = danceability)) +
+  geom_jitter(
+    aes(
+      color = is_popular,
+      size = is_popular_size,
+      alpha = is_popular_alpha
+    ),
+    size = 6,
+    width = 0.2,
+    
+  ) +
+  geom_text_repel(
+    aes(label = track_farsi_avail , x = artist_name_farsi , y = danceability),
+    family = &#39;B Mitra&#39;,
+    color = &#39;gray90&#39;,
+    size = 6,
+    force = 0.6,
+    max.iter = 2000,
+    box.padding = 0.4,
+    point.padding = 0.6,
+    min.segment.length = 0.15,
+    nudge_y      = 0.001,
+    hjust = 0.5,
+    segment.alpha = 0.6,
+    segment.size = 0.6
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = &#39;point&#39;,
+    color = &#39;#FF9F1C&#39;,
+    size = 5,
+    aes(group = artist_name_farsi)
+  ) +
+  scale_color_manual(values = c(&#39;#A5668B&#39;, &#39;#EF476F&#39;)) +
+  labs(
+    x = &#39;&#39;,
+    y = &#39;رقص آوری&#39;,
+    title = &#39;مقایسه ای بین میزان رقص آوری در آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&#39;,
+    subtitle = &#39;&#39;,
+    caption = &#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&#39;
+  ) +
+  scale_y_continuous(sec.axis = dup_axis()) +
+  coord_flip()</code></pre>
+<pre class="r"><code>songs_audio_plus_pop_jitter %&gt;%
+  ggplot(aes(x = artist_name_farsi, y = loudness)) +
+  geom_jitter(
+    aes(
+      color = is_popular,
+      size = is_popular_size,
+      alpha = is_popular_alpha
+    ),
+    size = 6,
+    width = 0.2,
+    
+  ) +
+  geom_text_repel(
+    aes(label = track_farsi_avail , x = artist_name_farsi , y = loudness),
+    family = &#39;B Mitra&#39;,
+    color = &#39;gray90&#39;,
+    size = 6,
+    force = 0.6,
+    max.iter = 2000,
+    box.padding = 0.4,
+    point.padding = 0.6,
+    min.segment.length = 0.15,
+    nudge_y      = 0.001,
+    hjust = 0.5,
+    segment.alpha = 0.6,
+    segment.size = 0.6
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = &#39;point&#39;,
+    color = &#39;#FF9F1C&#39;,
+    size = 5,
+    aes(group = artist_name_farsi)
+  ) +
+  #&#39;#EF476F&#39;
+  scale_color_manual(values = c(&#39;#06D6A0&#39;, &#39;#EF476F&#39;)) +
+  labs(
+    x = &#39;&#39;,
+    y = &#39;بلندی&#39;,
+    title = &#39;مقایسه ای بین میزان بلندی آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&#39;,
+    subtitle = &#39;&#39;,
+    caption = &#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&#39;
+  ) +
+  scale_y_continuous(sec.axis = dup_axis()) +
+  coord_flip() </code></pre>
+</div>
+</div>
+<div id="most-popular-songs" class="section level2">
+<h2>Most Popular Songs</h2>
+<pre class="r"><code>songs_audio_plus_pop &lt;- songs_audio_plus_pop %&gt;%
+  filter(
+    !artist_name %in% c(
+      &#39;Hatam Asgari&#39;,
+      &#39;Kaveh Deylami&#39;,
+      &#39;Nasser Abdollahi&#39;,
+      &#39;Peyman Yazdanian&#39;,
+      &#39;Abbas Ghaderi&#39;,
+      &#39;Mohammad Golriz&#39;,
+      &#39;Hamid Hami&#39;,
+      &#39;Koveyti Poor&#39;,
+      &#39;Mohsen Sharifian&#39;,
+      &#39;Soheil Nafissi&#39;
+    )
+  )
+s0 &lt;-
+  &quot;با های آهنگ اسپاتیفای در زبان فارسی نوازندگان و خوانندگان برتر آهنگ 10 میان از&quot;
+s1 &lt;-
+  &quot;&lt;br/&gt; دارند اسپاتیفای کاربران میان در را محبوبیت میانگین بالاترین مانکن ساسی های آهنگ ،خاص طور به .اند شده مرتب (نوازنده) خواننده هر محبوبیت میانگین اساس بر اسامی.&quot;
+s2 &lt;- &quot; اند شده نمایش نمودار این در محبوبیت مقدار&quot;
+s3 &lt;- &quot;&lt;span style=&#39;color:#118ab2&#39;&gt; بیشترین&lt;/span&gt; &quot;
+s4 &lt;- &quot;&lt;span style=&#39;color:#ef476f&#39;&gt; کمترین و &lt;/span&gt;&quot;
+s_ &lt;- paste0(s2, s4, s3, s0, collapse = &#39; &#39;)
+s_ &lt;- paste0(s1, s_, collapse = &#39;&lt;/br&gt;&#39;)
+songs_audio_plus_pop %&gt;%
+  filter(!is.na(popularity)) %&gt;%
+  mutate(track_name = if_else(!is.na(track_name), track_name, track_name)) %&gt;%
+  group_by(artist_name) %&gt;%
+  
+  filter(artist_name != &#39;سایر&#39;) %&gt;%
+  summarize(
+    avg_pop = mean(popularity),
+    min_pop = min(popularity),
+    max_pop = max(popularity),
+    most_popular = track_name[which.max(popularity)],
+    least_popular = track_name[which.min(popularity)]
+  ) %&gt;%
+  mutate(
+    artist_name = fct_reorder(artist_name, avg_pop),
+    size_text = if_else(str_detect(least_popular, &#39;When&#39;), 12, 12)
+  ) %&gt;%
+  
+  ggplot(aes(x = min_pop , xend = max_pop, y = artist_name)) +
+  geom_dumbbell(
+    colour_x = &#39;#ef476f&#39;,
+    colour_xend = &#39;#118ab2&#39;,
+    size_x = 7,
+    size_xend = 7
+  ) +
+  geom_text(
+    aes(x = min_pop - 1, y = artist_name, label = least_popular),
+    size = 7,
+    family = &#39;B Tehran&#39;,
+    hjust = 1
+  ) +
+  geom_text(
+    aes(x = max_pop + 1, y = artist_name, label = most_popular),
+    size = 7,
+    family = &#39;B Tehran&#39;,
+    hjust = 0
+  ) +
+  labs(title = &#39;محبوب ترین آهنگ ها و خواننده های ایرانی در اسپاتیفای&#39;,
+       subtitle = s_,
+       x = &#39;محبوبیت&#39;,
+       caption = &#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&#39;) +
+  scale_x_continuous(sec.axis = dup_axis()) +
+  theme_tufte() +
+  theme(
+    plot.title = element_text(
+      family = &#39;B Mitra&#39;,
+      hjust = .5,
+      margin = ggplot2::margin(0, 0, 40, 0),
+      size = 45
+    ),
+    plot.subtitle = element_markdown(
+      family = &#39;B Mitra&#39;,
+      size = 15,
+      margin = ggplot2::margin(20, 0, 40, 0),
+      hjust = 1
+      
+    ),
+    axis.text.x = element_text(
+      family = &#39;B Mitra&#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 20
+    ),
+    
+    axis.text.y = element_text(
+      family = &#39;B Mitra&#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 20
+    ),
+    axis.title.x = element_text(
+      family = &#39;B Mitra&#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 30
+    ),
+    plot.caption = element_text(family =&#39;B Mitra&#39;,
+                                  margin = ggplot2::margin(30, 0, 20, 20),
+                                      size = 20,
+                                  color = &#39;gray20&#39;) ,
+    axis.title.y = element_blank(),
+    plot.background = element_rect(fill = &#39;#FCF0E1&#39;),
+    plot.margin = unit(c(1, 1, 1.5, 1.2), &quot;cm&quot;)
+  )</code></pre>
+</div>
+<div id="over-time" class="section level1">
+<h1>Over Time</h1>
+<pre class="r"><code>years &lt;- normalized_features %&gt;% 
+  distinct(album_release_year) %&gt;% 
+  filter(album_release_year &gt;1984) %&gt;% 
+  pull()
+
+normalized_features %&gt;%
+  select(album_release_year, danceability, energy, loudness, speechiness, liveness, valence, tempo, duration_ms,popularity
+         ) %&gt;% 
+  mutate_at(vars(-album_release_year),scale) %&gt;% 
+  group_by(album_release_year) %&gt;% 
+  summarise_at(vars(everything()),mean,na.rm = TRUE) %&gt;% 
+  pivot_longer(names_to = &#39;metric&#39;,cols =c(danceability, energy, loudness, speechiness, liveness, valence, tempo, duration_ms,popularity
+                                           ),
+           values_to = &#39;value&#39;) %&gt;% 
+  ggplot(aes(album_release_year,y= value,color = metric)) +
+  geom_line(color = &#39;indianred&#39;,size = 1.5,alpha = 1) + 
+  gghighlight( use_direct_label = FALSE,unhighlighted_params = list(size = 1.5,width = 0.5,color =&#39;#F6DAB4&#39;,alpha  = 0.7)) +
+  scale_x_continuous(breaks = years,labels = years,limits = c(1985,2020)) +
+  facet_wrap(~ metric,
+          #   scales = &#39;free_y&#39;
+           ncol = 2 ) +
+  theme_fivethirtyeight()</code></pre>
+<p><a href="https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd" class="uri">https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd</a></p>
+<p><a href="https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R" class="uri">https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R</a></p>
+<p><a href="http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-" class="uri">http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-</a></p>
+</div>
