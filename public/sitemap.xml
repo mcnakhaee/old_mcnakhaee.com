@@ -68,12 +68,72 @@
   </url>
   
   <url>
-    <loc>/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/</loc>
+    <loc>/categories/</loc>
+    <lastmod>2020-05-04T22:47:57-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/explaining-machine-learning-models-using-contextual-importance-and-contextual-utility/</loc>
+    <lastmod>2020-01-18T18:46:22+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/machine-learning/</loc>
+    <lastmod>2020-02-14T00:25:41+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-05-04T22:47:57-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
     <lastmod>2020-03-08T00:10:58+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>/tags/r/</loc>
+    <lastmod>2020-05-04T22:47:57-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-05-04T22:47:57-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/xai/</loc>
+    <lastmod>2020-02-11T22:27:18+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/xai/</loc>
+    <lastmod>2020-02-11T22:27:18+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/</loc>
+    <lastmod>2020-05-04T22:47:57-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2020-05-04T22:47:57-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/spotiify/</loc>
+    <lastmod>2020-05-04T22:47:57-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/visualization/</loc>
+    <lastmod>2020-05-04T22:47:57-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/</loc>
     <lastmod>2020-03-08T00:10:58+01:00</lastmod>
   </url>
   
@@ -88,27 +148,7 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/python/</loc>
-    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/categories/python/</loc>
-    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/r/</loc>
     <lastmod>2020-03-08T00:10:58+01:00</lastmod>
   </url>
   
@@ -118,18 +158,8 @@
   </url>
   
   <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/post/2020-02-23-the-most-eloquent-democratic-candidate/</loc>
     <lastmod>2020-02-23T17:15:22+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/machine-learning/</loc>
-    <lastmod>2020-02-14T00:25:41+01:00</lastmod>
   </url>
   
   <url>
@@ -153,22 +183,7 @@
   </url>
   
   <url>
-    <loc>/tags/visualization/</loc>
-    <lastmod>2020-02-12T01:23:17+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/</loc>
-    <lastmod>2020-02-11T22:27:18+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/xai/</loc>
-    <lastmod>2020-02-11T22:27:18+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/xai/</loc>
     <lastmod>2020-02-11T22:27:18+01:00</lastmod>
   </url>
   

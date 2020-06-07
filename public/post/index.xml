@@ -5,12 +5,761 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 08 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 31 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
+    
+    <item>
+      <title>Explaining Machine Learning Models Using Contextual Importance and Contextual Utility</title>
+      <link>/post/explaining-machine-learning-models-using-contextual-importance-and-contextual-utility/</link>
+      <pubDate>Sun, 31 May 2020 00:00:00 +0000</pubDate>
+      <guid>/post/explaining-machine-learning-models-using-contextual-importance-and-contextual-utility/</guid>
+      <description>
+
+&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#what-kinds-of-explanation-does-ciu-generate&#34;&gt;What Kinds of explanation does CIU generate?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#how-does-ciiu-work&#34;&gt;How does CIIU work?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#a-toy-example-predicting-breast&#34;&gt;A toy example: predicting breast&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#permutation-feature-importance&#34;&gt;Permutation feature importance&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#decision-tree-classifier&#34;&gt;Decision Tree Classifier&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#random-forest-classifier&#34;&gt;Random Forest Classifier&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#gradient-boosting-classifier&#34;&gt;Gradient Boosting Classifier&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#explaining-a-single-observation&#34;&gt;Explaining a single observation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#generating-textual-explanations&#34;&gt;Generating Textual Explanations&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#drawbacks&#34;&gt;Drawbacks&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;title: Explaining Machine Learning Models Using Contextual Importance and Contextual Utility
+author: Muhammad Chenariyan Nakhaee
+date: ‘2020-05-31’
+slug: explaining-machine-learning-models-using-contextual-importance-and-contextual-utility
+categories:
+- XAI
+tags:
+- XAI
+- Machine Learning
+- R
+- Python
+subtitle: ’’
+summary: ’’
+authors: []
+lastmod: ‘2020-01-18T18:46:22+01:00’
+featured: no
+image:
+caption: ’’
+focal_point: ’’
+preview_only: no
+projects: []
+output:
+blogdown::html_page:
+toc: true
+—
+## Introduction
+Explainablity is a very hot topics in the machine learning research community these days. over the past few years, many methods have been introduced to just understand how a machine learning model makes prediction. However, explainablity is not an entirely new concept and it was actually started a few decades ago. In this blogpost, I will introduce you to a rather unknown but simple technique which was introduced almost 20 years ago. This technique is called &lt;a href=&#34;https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility&#34;&gt;Contextual Importance and Utility (CIU)&lt;/a&gt; for explaining ML models and show you how we can explain any types of machine learning.&lt;/p&gt;
+&lt;div id=&#34;what-kinds-of-explanation-does-ciu-generate&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What Kinds of explanation does CIU generate?&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;It is a &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html&#34;&gt;&lt;strong&gt;&lt;em&gt;model-agnostic&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; methods and it can explain the output of any “black-box” machine learning model.&lt;/li&gt;
+&lt;li&gt;It produces &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/scope-of-interpretability.html&#34;&gt;&lt;strong&gt;&lt;em&gt;local&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; explanations which means that the explanations are generated for individual instances (not the whole model) and they just show which features are more important with respect to an individual observation.&lt;/li&gt;
+&lt;li&gt;It gives us &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html&#34;&gt;&lt;strong&gt;&lt;em&gt;post-hoc&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; explanations as it is a method that processes the output of a machine learning model after training.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Unlike LIME and many other techniques, CIU does not approximate or transforms what a model predicts but rather directly explain predictions. It can also provide a contrastive explanation. For instance, why did the model predict rainy and not cloudy?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-does-ciiu-work&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;How does CIIU work?&lt;/h2&gt;
+&lt;p&gt;CIT estimates two values that aim to explain the context in which a machine learning model predicts:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Contextual Importance (CI)&lt;/strong&gt; is a measure of how much of change in the range an output values can be attributed to one (or several) input variables. CU is based on the notion that a variable which results in a wider ranger of output values would be more important. Formally, CIU is defined as follows:&lt;/p&gt;
+&lt;p&gt;CI = (Cmax - Cmin)/(absmax - absmin)&lt;/p&gt;
+&lt;p&gt;Contextual Utility (CU) indicates how favorable the current value of one (or several) input variables is for a high output value. CU is computed using the following formula.&lt;/p&gt;
+&lt;p&gt;CU = (out - Cmin)/(Cmax - Cmin)&lt;/p&gt;
+&lt;p&gt;Cmax and Cmin are the highest and lowest values that the output of an ML model &lt;em&gt;can&lt;/em&gt; take by changing the input feature(s). Obtaining Cmax and Cmin is computationally and mathematically is not a trivial task. Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of machine learning models and are between 0 and 1.&lt;/p&gt;
+&lt;p&gt;CIU is implemented both in &lt;a href=&#34;https://github.com/TimKam/py-ciu&#34;&gt;&lt;strong&gt;python&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/KaryFramling/ciu&#34;&gt;R&lt;/a&gt;. For simplicity, I will use its python implementation (&lt;em&gt;py-ciu library&lt;/em&gt;) in this blogpost.&lt;/p&gt;
+&lt;p&gt;You can install py-ciu using the pip command:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pip install py-ciu&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;a-toy-example-predicting-breast&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;A toy example: predicting breast&lt;/h2&gt;
+&lt;p&gt;I will use breast cancer dataset in scikit-learn to show how we can use CIU. I will train three different machine learning models including a decision tree, a random forest and a gradient boosting algorithm on this dataset and compute CI and CU values for a single instance from test dataset.&lt;/p&gt;
+&lt;p&gt;First we need to load necessary libraries and modules.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from ciu import determine_ciu
+from sklearn.ensemble import GradientBoostingClassifier,RandomForestClassifier
+from sklearn.inspection import permutation_importance
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+# for reproducability
+np.random.seed(123)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then we split the dataset into a training and test set. We train our machine learning models on the training dataset and evaluate their performance on the test dataset. Note that for explaining ML models, we also use samples from the test dataset and not the training dataset.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;X = pd.DataFrame(load_breast_cancer()[&amp;#39;data&amp;#39;])
+y = load_breast_cancer()[&amp;#39;target&amp;#39;]
+X.columns = load_breast_cancer()[&amp;#39;feature_names&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;X_train,X_test, y_train,y_test = train_test_split(X,y,stratify = y)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def fit_evaluate_model(clf):
+  clf = clf.fit(X_train, y_train)
+  print(&amp;#39; Accuracy on test dataset {}&amp;#39;.format(clf.score(X_test,y_test)))
+  return clf&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;permutation-feature-importance&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Permutation feature importance&lt;/h3&gt;
+&lt;p&gt;As I mentioned before, CIU only generates local explanations and doesn’t give us an global overview of how a model makes prediction. To gain a better understanding of the global importance of the model let us compute permutation feature importance scores that is implemented in scikit-learn.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def print_permutation_importance(model):
+  imp_features = []
+  pi = permutation_importance(model, X_test, y_test,
+                            n_repeats=30,
+                           random_state=0)
+  for i in pi.importances_mean.argsort()[::-1]:
+       if pi.importances_mean[i] - 2 * pi.importances_std[i] &amp;gt; 0:
+           print(f&amp;quot;{X_test.columns[i]:&amp;lt;8} &amp;quot;
+                 f&amp;quot;{pi.importances_mean[i]:.3f} &amp;quot;
+                 f&amp;quot; +/- {pi.importances_std[i]:.3f}&amp;quot;)
+           imp_features.append(pi.importances_mean[i])
+           if len(imp_features) == 0:
+                print(&amp;#39;no important features&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;decision-tree-classifier&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Decision Tree Classifier&lt;/h3&gt;
+&lt;p&gt;Since it is just a toy example, I won’t be very picky about hyper-parameters of my models and leave them to their default values in sklearn.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;dt = DecisionTreeClassifier()
+dt_fit = fit_evaluate_model(dt)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  Accuracy on test dataset 0.9370629370629371&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;print_permutation_importance(dt_fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## worst perimeter 0.173  +/- 0.019
+## worst concave points 0.145  +/- 0.023
+## worst concavity 0.135  +/- 0.017
+## worst area 0.063  +/- 0.014
+## radius error 0.036  +/- 0.014
+## worst smoothness 0.018  +/- 0.008
+## mean area 0.017  +/- 0.006&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;random-forest-classifier&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Random Forest Classifier&lt;/h3&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;rf = RandomForestClassifier(
+)
+rf_fit = fit_evaluate_model(rf)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  Accuracy on test dataset 0.972027972027972&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;print_permutation_importance(rf_fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## worst texture 0.023  +/- 0.004
+## mean texture 0.013  +/- 0.006
+## worst smoothness 0.010  +/- 0.004
+## mean concavity 0.010  +/- 0.005
+## worst fractal dimension 0.006  +/- 0.003&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;gradient-boosting-classifier&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Gradient Boosting Classifier&lt;/h3&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;gb = GradientBoostingClassifier()
+gb_fit = fit_evaluate_model(gb)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  Accuracy on test dataset 0.9790209790209791&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;print_permutation_importance(gb_fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## worst concave points 0.024  +/- 0.011
+## mean concave points 0.021  +/- 0.010&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The random forest and gradient boosting classifiers have exactly the same accuracy score, however their most important features are different.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;explaining-a-single-observation&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Explaining a single observation&lt;/h3&gt;
+&lt;p&gt;Now lets explain how each model makes prediction on a single example (observation) from the test dataset.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;example = X_test.iloc[1,:]
+example_prediction = gb.predict(example.values.reshape(1, -1))
+example_prediction_prob = gb.predict_proba(example.values.reshape(1, -1))
+prediction_index = 0 if example_prediction &amp;gt; 0.5 else 1
+print(f&amp;#39;Prediction {example_prediction}; Probability: {example_prediction_prob}&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Prediction [1]; Probability: [[0.10952357 0.89047643]]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To obtain CIU score, we need to compute minimum and maximum observed value of each feature in the dataset first.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def min_max_features(X_train):
+  min_max = dict()
+  for i in range(len(X_train.columns)):
+      min_max[X_train.columns[i]] =[X_train.iloc[:,i].min(),X_train.iloc[:,i].max(),False]
+  return min_max
+  
+min_max = min_max_features(X_train)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def explain_ciu(example,model):
+  ciu = determine_ciu(
+      example.to_dict(),
+      model.predict_proba,
+      min_max,
+      1000,
+      prediction_index,
+  )
+  return ciu&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;dt_ciu = explain_ciu(example,dt_fit)
+rf_ciu = explain_ciu(example,rf_fit)
+gb_ciu = explain_ciu(example,gb_fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;generating-textual-explanations&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Generating Textual Explanations&lt;/h2&gt;
+&lt;p&gt;We can obtain a textual explanation of CIU which indicates which feature(s) can be important for our test example&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;dt_ciu.text_explain()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [&amp;#39;The feature &amp;quot;mean radius&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean texture&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean perimeter&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean area&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean smoothness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean compactness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concavity&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concave points&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean symmetry&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean fractal dimension&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;radius error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;texture error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;perimeter error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;area error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;smoothness error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;compactness error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concavity error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concave points error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;symmetry error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;fractal dimension error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst radius&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst texture&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst perimeter&amp;quot;, which is highly important (CI=100.0%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst area&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst smoothness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst compactness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concavity&amp;quot;, which is highly important (CI=100.0%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concave points&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst symmetry&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst fractal dimension&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;rf_ciu.text_explain()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [&amp;#39;The feature &amp;quot;mean radius&amp;quot;, which is important (CI=32.26%), is very typical for its class (CU=90.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean texture&amp;quot;, which is important (CI=35.48%), is unlikely for its class (CU=27.27%).&amp;#39;, &amp;#39;The feature &amp;quot;mean perimeter&amp;quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean area&amp;quot;, which is not important (CI=19.35%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;mean smoothness&amp;quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean compactness&amp;quot;, which is not important (CI=9.68%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concavity&amp;quot;, which is not important (CI=16.13%), is not typical for its class (CU=20.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concave points&amp;quot;, which is not important (CI=19.35%), is not typical for its class (CU=16.67%).&amp;#39;, &amp;#39;The feature &amp;quot;mean symmetry&amp;quot;, which is important (CI=38.71%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean fractal dimension&amp;quot;, which is not important (CI=6.45%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;radius error&amp;quot;, which is not important (CI=22.58%), is typical for its class (CU=71.43%).&amp;#39;, &amp;#39;The feature &amp;quot;texture error&amp;quot;, which is not important (CI=22.58%), is very typical for its class (CU=85.71%).&amp;#39;, &amp;#39;The feature &amp;quot;perimeter error&amp;quot;, which is not important (CI=22.58%), is unlikely for its class (CU=42.86%).&amp;#39;, &amp;#39;The feature &amp;quot;area error&amp;quot;, which is important (CI=38.71%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;smoothness error&amp;quot;, which is not important (CI=3.23%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;compactness error&amp;quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;concavity error&amp;quot;, which is not important (CI=6.45%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;concave points error&amp;quot;, which is not important (CI=9.68%), is typical for its class (CU=66.67%).&amp;#39;, &amp;#39;The feature &amp;quot;symmetry error&amp;quot;, which is not important (CI=6.45%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;fractal dimension error&amp;quot;, which is not important (CI=16.13%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst radius&amp;quot;, which is very important (CI=51.61%), is very typical for its class (CU=87.5%).&amp;#39;, &amp;#39;The feature &amp;quot;worst texture&amp;quot;, which is very important (CI=67.74%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst perimeter&amp;quot;, which is very important (CI=70.97%), is typical for its class (CU=63.64%).&amp;#39;, &amp;#39;The feature &amp;quot;worst area&amp;quot;, which is very important (CI=61.29%), is typical for its class (CU=57.89%).&amp;#39;, &amp;#39;The feature &amp;quot;worst smoothness&amp;quot;, which is not important (CI=6.45%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst compactness&amp;quot;, which is not important (CI=9.68%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concavity&amp;quot;, which is very important (CI=64.52%), is very typical for its class (CU=85.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concave points&amp;quot;, which is important (CI=38.71%), is not typical for its class (CU=16.67%).&amp;#39;, &amp;#39;The feature &amp;quot;worst symmetry&amp;quot;, which is important (CI=25.81%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst fractal dimension&amp;quot;, which is not important (CI=3.23%), is not typical for its class (CU=0.1%).&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;gb_ciu.text_explain()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [&amp;#39;The feature &amp;quot;mean radius&amp;quot;, which is not important (CI=16.49%), is not typical for its class (CU=0.65%).&amp;#39;, &amp;#39;The feature &amp;quot;mean texture&amp;quot;, which is highly important (CI=90.14%), is not typical for its class (CU=3.76%).&amp;#39;, &amp;#39;The feature &amp;quot;mean perimeter&amp;quot;, which is not important (CI=2.63%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean area&amp;quot;, which is not important (CI=3.36%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean smoothness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean compactness&amp;quot;, which is important (CI=37.26%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concavity&amp;quot;, which is not important (CI=4.0%), is not typical for its class (CU=8.92%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concave points&amp;quot;, which is important (CI=38.25%), is not typical for its class (CU=3.57%).&amp;#39;, &amp;#39;The feature &amp;quot;mean symmetry&amp;quot;, which is not important (CI=8.91%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean fractal dimension&amp;quot;, which is not important (CI=1.54%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;radius error&amp;quot;, which is not important (CI=10.53%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;texture error&amp;quot;, which is not important (CI=6.53%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;perimeter error&amp;quot;, which is not important (CI=1.48%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;area error&amp;quot;, which is very important (CI=57.97%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;smoothness error&amp;quot;, which is not important (CI=16.51%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;compactness error&amp;quot;, which is not important (CI=4.39%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concavity error&amp;quot;, which is not important (CI=4.03%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concave points error&amp;quot;, which is not important (CI=5.76%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;symmetry error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;fractal dimension error&amp;quot;, which is not important (CI=21.47%), is not typical for its class (CU=17.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst radius&amp;quot;, which is not important (CI=1.27%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst texture&amp;quot;, which is very important (CI=60.61%), is not typical for its class (CU=13.75%).&amp;#39;, &amp;#39;The feature &amp;quot;worst perimeter&amp;quot;, which is important (CI=41.37%), is not typical for its class (CU=23.17%).&amp;#39;, &amp;#39;The feature &amp;quot;worst area&amp;quot;, which is not important (CI=19.51%), is typical for its class (CU=67.91%).&amp;#39;, &amp;#39;The feature &amp;quot;worst smoothness&amp;quot;, which is not important (CI=18.24%), is unlikely for its class (CU=48.97%).&amp;#39;, &amp;#39;The feature &amp;quot;worst compactness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concavity&amp;quot;, which is not important (CI=10.79%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concave points&amp;quot;, which is important (CI=42.94%), is not typical for its class (CU=4.32%).&amp;#39;, &amp;#39;The feature &amp;quot;worst symmetry&amp;quot;, which is not important (CI=5.86%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst fractal dimension&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;drawbacks&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Drawbacks&lt;/h3&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;In regression problems, the range of possible values for the target variable can be infinite, which somehow does not make sense when we want to compute CIU. The authors said that they have put a limit on the range of values.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Computing the range of values can be a little bit misleading especially when we have outliers in the dataset.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It is not clear how we can get a global explanation for the model using CIU.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Happiest, Saddest, Most Energetic and Fastet Persian Singers on Spotify</title>
+      <link>/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/</link>
+      <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
+      <guid>/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(gargle)
+library(tidyverse)
+library(googlesheets4)
+library(tidymodels)
+library(gghighlight)
+library(hrbrthemes)
+library(ggthemes)
+library(ggrepel)
+library(ggalt)
+library(extrafont)
+library(ggtext)
+library(ggforce)
+library(cowplot)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;data-collection&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data Collection&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- read_csv(&amp;#39;https://raw.githubusercontent.com/mcnakhaee/datasets/master/Persian_Songs_Spotify.csv&amp;#39;)
+songs_audio_plus_pop &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+  filter(
+    !artist_name %in% c(
+      &amp;#39;Hatam Asgari&amp;#39;,
+      &amp;#39;Kaveh Deylami&amp;#39;,
+      &amp;#39;Nasser Abdollahi&amp;#39;,
+      &amp;#39;Peyman Yazdanian&amp;#39;,
+      &amp;#39;Abbas Ghaderi&amp;#39;,
+      &amp;#39;Mohammad Golriz&amp;#39;,
+      &amp;#39;Hamid Hami&amp;#39;,
+      &amp;#39;Koveyti Poor&amp;#39;,
+      &amp;#39;Mohsen Sharifian&amp;#39;
+    )
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;overall-song-features&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Overall Song Features&lt;/h3&gt;
+&lt;p&gt;This plot was inspired by the
+inspired me to create a similar plot for Persian singers&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;artists &amp;lt;-
+  c( &amp;#39;Sirvan Khosravi&amp;#39;,
+     &amp;#39;Hesameddin Seraj&amp;#39;,
+     &amp;#39;Rastak&amp;#39;,
+     &amp;#39;Shahram Nazeri&amp;#39;,
+    &amp;#39;Hossein Alizadeh&amp;#39;,
+    &amp;#39;Reza Sadeghi&amp;#39;,
+    &amp;#39;Alireza Eftekhari&amp;#39;,
+    &amp;#39;Mohammadreza Shajarian&amp;#39; ,
+    &amp;#39;Salar Aghili&amp;#39;,
+    &amp;#39;Morteza Pashaei&amp;#39;,
+    &amp;#39;Alireza Ghorbani&amp;#39;,
+    &amp;#39;Homayoun Shajarian&amp;#39;,
+    &amp;#39;Mohsen Yeganeh&amp;#39; ,
+    &amp;#39;Morteza Pashaei&amp;#39;,
+    &amp;#39;Moein&amp;#39;,
+     &amp;#39;Farzad Farzin&amp;#39;,
+     &amp;#39;Babak Jahanbakhsh&amp;#39;,
+    &amp;#39;Ehsan Khajeh Amiri&amp;#39;,
+    &amp;#39;Siavash Ghomayshi&amp;#39;,
+    &amp;#39;Xaniar Khosravi&amp;#39;,
+    &amp;#39;Tohi&amp;#39; ,
+    &amp;#39;Mohsen Chavoshi&amp;#39;,
+    &amp;#39;Abbas Ghaderi&amp;#39;,
+    &amp;#39;Amir Tataloo&amp;#39;,
+    &amp;#39;Hamed Homayoun&amp;#39;,
+    &amp;#39;Kayhan Kalhor&amp;#39;
+ )
+
+order &amp;lt;- c(
+  &amp;quot;valence&amp;quot;,
+  &amp;quot;energy&amp;quot;,
+  &amp;quot;tempo&amp;quot;,
+  &amp;quot;loudness&amp;quot;,
+  &amp;quot;acousticness&amp;quot;,
+  &amp;quot;instrumentalness&amp;quot;,
+  &amp;quot;danceability&amp;quot;
+)
+
+normalized_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+  mutate_at(order, scales::rescale, to = c(0, 7)) %&amp;gt;%
+  filter(!is.na(popularity)) %&amp;gt;%
+  filter(artist_name %in% artists) %&amp;gt;%
+  mutate(artist_name = factor(artist_name, levels = levels))  %&amp;gt;%
+  pivot_longer(
+    names_to = &amp;#39;metric&amp;#39;,
+    cols = c(
+      &amp;quot;valence&amp;quot;,
+      &amp;quot;energy&amp;quot;,
+      &amp;quot;tempo&amp;quot;,
+      &amp;quot;loudness&amp;quot;,
+      &amp;quot;acousticness&amp;quot;,
+      &amp;quot;danceability&amp;quot;),
+    values_to = &amp;#39;value&amp;#39;
+  ) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Every singer or composer has his/her own distinct musical style and audio charactristics. Based on 8 audio features extracted from Spotify’s API, this plot compares several well-known Persian singers and musicians.These artists are compared by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p_main &amp;lt;- ggplot() +
+  geom_polygon(
+    data = normalized_features_long %&amp;gt;%  group_by(artist_name, metric) %&amp;gt;%
+      summarise_at(c(&amp;quot;value&amp;quot;), mean) %&amp;gt;%
+      arrange(factor(metric, levels = order)) %&amp;gt;%
+      ungroup(),
+    aes(x = metric, y = value, group = artist_name, ),
+    alpha = .54,
+    size = 1.5,
+    show.legend = T,
+    fill = &amp;#39;#FF1654&amp;#39;
+  ) +
+  geom_polygon(
+    data = normalized_features_long %&amp;gt;%  group_by(artist_name, metric) %&amp;gt;%
+      summarise_at(c(&amp;quot;value&amp;quot;), max) %&amp;gt;%
+      arrange(factor(metric, levels = order)) %&amp;gt;%
+      ungroup(),
+    aes(x = metric, y = value, group = artist_name, ),
+    alpha = .44,
+    size = 1.5,
+    show.legend = T,
+    fill = &amp;#39;#FFE066&amp;#39;
+  ) +
+  geom_polygon(
+    data = normalized_features_long %&amp;gt;%  group_by(artist_name, metric) %&amp;gt;%
+      summarise_at(c(&amp;quot;value&amp;quot;), min) %&amp;gt;%
+      arrange(factor(metric, levels = order)) %&amp;gt;%
+      ungroup(),
+    aes(x = metric, y = value, group = artist_name, ),
+    alpha = .84,
+    size = 1.5,
+    show.legend = T,
+    fill =  &amp;quot;#EF476F&amp;quot;
+  ) +
+  scale_x_discrete(
+    limits = order,
+    labels = c(
+      &amp;quot;Happy&amp;quot;,
+      &amp;quot;Energy&amp;quot;,
+      &amp;quot;Fast&amp;quot;,
+      &amp;quot;Loud&amp;quot;,
+      &amp;quot;Acoustic&amp;quot;,
+      &amp;quot;Instrumental&amp;quot;,
+      &amp;quot;Danceable&amp;quot;
+    )
+  ) +
+  coord_polar(clip = &amp;#39;off&amp;#39;) +
+  theme_minimal() +
+  labs(title = &amp;quot;Persian Singers and Their Audio Characteristics&amp;quot;,
+       caption = &amp;#39;Source: Spotify \n Visualization: mcnakhaee&amp;#39;) +
+  
+  ylim(0, 8) +
+  facet_wrap(~ artist_name, ncol = 4) +
+  theme(
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.y = element_blank(),
+    axis.text.x = element_text(
+      family =  &amp;#39;Montserrat&amp;#39;,
+      size = 13.5,
+      margin = ggplot2::margin(30, 0, 20, 0)
+    ),
+    
+    plot.caption = element_text(
+      family = &amp;#39;Montserrat&amp;#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 11,
+      color = &amp;#39;grey80&amp;#39;
+    ) ,
+    text = element_text(family =  &amp;#39;Montserrat&amp;#39;),
+    strip.text = element_text(family =  &amp;#39;Montserrat&amp;#39;, size = 18),
+    strip.text.x = element_text(margin = ggplot2::margin(1, 1, 1, 1, &amp;quot;cm&amp;quot;)),
+    panel.spacing = unit(3.5, &amp;quot;lines&amp;quot;),
+    panel.grid = element_blank(),
+    plot.title = element_text(
+      family = &amp;#39;Montserrat&amp;#39;,
+      hjust = .5,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 32,
+      color = &amp;#39;gray10&amp;#39;
+    ),
+    plot.background = element_rect(fill = &amp;#39;#FCF0E1&amp;#39;)
+  ) 
+
+p_main&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;jitter&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Jitter&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theme_set(  theme_void() +
+  theme(
+    text = element_text(family =  &amp;#39;B Mitra&amp;#39;),
+    axis.text.x = element_text(
+      family = &amp;#39;B Mitra&amp;#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      color = &amp;#39;gray80&amp;#39;,
+      size = 20
+    ),
+    axis.text.y = element_text(
+      family = &amp;#39;B Mitra&amp;#39;,
+      margin = ggplot2::margin(30, 0, 20, 20),
+      color = &amp;#39;gray80&amp;#39;,
+      size = 20
+    ),
+    axis.title.x = element_text(
+      family = &amp;#39;B Mitra&amp;#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 27,
+      color = &amp;#39;gray80&amp;#39;
+    ),
+    plot.title = element_text(
+      family = &amp;#39;B Mitra&amp;#39;,
+      hjust = .5,
+      margin = ggplot2::margin(40, 0, 40, 0),
+      size = 35,
+      color = &amp;#39;gray80&amp;#39;
+    ),
+    plot.caption = element_text(family =&amp;#39;B Mitra&amp;#39;,
+                                  margin = ggplot2::margin(30, 0, 20, 20),
+                                      size = 20,
+                                  color = &amp;#39;gray70&amp;#39;) ,
+    legend.position = &amp;#39;none&amp;#39;,
+    plot.background = element_rect(fill = &amp;quot;#516869&amp;quot;)
+  ))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter &amp;lt;- songs_audio_plus_pop %&amp;gt;% 
+  filter(artist_name %in% artists) %&amp;gt;% 
+  mutate(is_popular = !is.na(popularity)) %&amp;gt;%
+  distinct(artist_name_farsi,track_name,.keep_all = T) %&amp;gt;% 
+  mutate(is_popular_size = if_else(!is.na(popularity),popularity,25),
+         is_popular_alpha = if_else(!is.na(popularity),0.8,0.5)) %&amp;gt;% 
+  mutate(track_name_farsi = str_wrap(track_name_farsi, width = 15)) %&amp;gt;% 
+  mutate(track_farsi_avail = if_else(!is.na(track_name_farsi)&amp;amp; !is.na(popularity) &amp;amp; nchar(track_name_farsi) &amp;lt; 20 &amp;amp; !explicit,track_name_farsi,&amp;#39;&amp;#39;)) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter %&amp;gt;%
+  ggplot(aes(x = artist_name_farsi, y = valence)) +
+  geom_jitter(
+    aes(
+      color = is_popular,
+      size = is_popular_size,
+      alpha = is_popular_alpha
+    ),
+    size = 6,
+    width = 0.2,
+    
+  ) +
+  geom_text_repel(
+    aes(label = track_farsi_avail , x = artist_name_farsi , y = valence),
+    family = &amp;#39;B Mitra&amp;#39;,
+    color = &amp;#39;gray99&amp;#39;,
+    size = 7,
+    force = 0.6,
+    max.iter = 2000,
+    box.padding = 0.4,
+    point.padding = 0.6,
+    min.segment.length = 0.15,
+    nudge_y      = 0.001,
+    hjust = 0.5,
+    segment.alpha = 0.6,
+    segment.size = 0.6
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = &amp;#39;point&amp;#39;,
+    color = &amp;#39;#FF9F1C&amp;#39;,
+    size = 5,
+    aes(group = artist_name_farsi)
+  ) +
+  scale_color_manual(values = c(&amp;#39;#FFD166&amp;#39;, &amp;#39;#EF476F&amp;#39;)) +
+  labs(
+    x = &amp;#39;&amp;#39;,
+    y = &amp;#39;شادی&amp;#39;,
+    title = &amp;#39;مقایسه ای بین شادی در آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&amp;#39;,
+    subtitle = &amp;#39;&amp;#39;,
+     caption = &amp;#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&amp;#39;) +
+  scale_y_continuous(sec.axis = dup_axis()) +
+  coord_flip()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter %&amp;gt;%
+  ggplot(aes(x = artist_name_farsi, y = energy)) +
+  geom_jitter(
+    aes(
+      color = is_popular,
+      size = is_popular_size,
+      alpha = is_popular_alpha
+    ),
+    size = 6,
+    width = 0.2,
+    
+  ) +
+  geom_text_repel(
+    aes(label = track_farsi_avail , x = artist_name_farsi , y = energy),
+    family = &amp;#39;B Mitra&amp;#39;,
+    color = &amp;#39;gray90&amp;#39;,
+    size = 6,
+    force = 0.6,
+    max.iter = 2000,
+    box.padding = 0.4,
+    point.padding = 0.6,
+    min.segment.length = 0.15,
+    nudge_y      = 0.001,
+    hjust = 0.5,
+    segment.alpha = 0.6,
+    segment.size = 0.6
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = &amp;#39;point&amp;#39;,
+    color = &amp;#39;#FF9F1C&amp;#39;,
+    size = 5,
+    aes(group = artist_name_farsi)
+  ) +
+  scale_color_manual(values = c(&amp;#39;#EF476F&amp;#39;, &amp;#39;#EF476F&amp;#39;)) +
+  labs(
+    x = &amp;#39;&amp;#39;,
+    y = &amp;#39;انرژی&amp;#39;,
+    title = &amp;#39;مقایسه ای بین انرژی در آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&amp;#39;,
+    subtitle = &amp;#39;&amp;#39;,
+     caption = &amp;#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&amp;#39;) +
+  scale_y_continuous(sec.axis = dup_axis()) +
+  coord_flip() &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter %&amp;gt;%
+  ggplot(aes(x = artist_name_farsi, y = danceability)) +
+  geom_jitter(
+    aes(
+      color = is_popular,
+      size = is_popular_size,
+      alpha = is_popular_alpha
+    ),
+    size = 6,
+    width = 0.2,
+    
+  ) +
+  geom_text_repel(
+    aes(label = track_farsi_avail , x = artist_name_farsi , y = danceability),
+    family = &amp;#39;B Mitra&amp;#39;,
+    color = &amp;#39;gray90&amp;#39;,
+    size = 6,
+    force = 0.6,
+    max.iter = 2000,
+    box.padding = 0.4,
+    point.padding = 0.6,
+    min.segment.length = 0.15,
+    nudge_y      = 0.001,
+    hjust = 0.5,
+    segment.alpha = 0.6,
+    segment.size = 0.6
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = &amp;#39;point&amp;#39;,
+    color = &amp;#39;#FF9F1C&amp;#39;,
+    size = 5,
+    aes(group = artist_name_farsi)
+  ) +
+  scale_color_manual(values = c(&amp;#39;#A5668B&amp;#39;, &amp;#39;#EF476F&amp;#39;)) +
+  labs(
+    x = &amp;#39;&amp;#39;,
+    y = &amp;#39;رقص آوری&amp;#39;,
+    title = &amp;#39;مقایسه ای بین میزان رقص آوری در آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&amp;#39;,
+    subtitle = &amp;#39;&amp;#39;,
+    caption = &amp;#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&amp;#39;
+  ) +
+  scale_y_continuous(sec.axis = dup_axis()) +
+  coord_flip()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter %&amp;gt;%
+  ggplot(aes(x = artist_name_farsi, y = loudness)) +
+  geom_jitter(
+    aes(
+      color = is_popular,
+      size = is_popular_size,
+      alpha = is_popular_alpha
+    ),
+    size = 6,
+    width = 0.2,
+    
+  ) +
+  geom_text_repel(
+    aes(label = track_farsi_avail , x = artist_name_farsi , y = loudness),
+    family = &amp;#39;B Mitra&amp;#39;,
+    color = &amp;#39;gray90&amp;#39;,
+    size = 6,
+    force = 0.6,
+    max.iter = 2000,
+    box.padding = 0.4,
+    point.padding = 0.6,
+    min.segment.length = 0.15,
+    nudge_y      = 0.001,
+    hjust = 0.5,
+    segment.alpha = 0.6,
+    segment.size = 0.6
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = &amp;#39;point&amp;#39;,
+    color = &amp;#39;#FF9F1C&amp;#39;,
+    size = 5,
+    aes(group = artist_name_farsi)
+  ) +
+  #&amp;#39;#EF476F&amp;#39;
+  scale_color_manual(values = c(&amp;#39;#06D6A0&amp;#39;, &amp;#39;#EF476F&amp;#39;)) +
+  labs(
+    x = &amp;#39;&amp;#39;,
+    y = &amp;#39;بلندی&amp;#39;,
+    title = &amp;#39;مقایسه ای بین میزان بلندی آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&amp;#39;,
+    subtitle = &amp;#39;&amp;#39;,
+    caption = &amp;#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&amp;#39;
+  ) +
+  scale_y_continuous(sec.axis = dup_axis()) +
+  coord_flip() &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;most-popular-songs&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Most Popular Songs&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+  filter(
+    !artist_name %in% c(
+      &amp;#39;Hatam Asgari&amp;#39;,
+      &amp;#39;Kaveh Deylami&amp;#39;,
+      &amp;#39;Nasser Abdollahi&amp;#39;,
+      &amp;#39;Peyman Yazdanian&amp;#39;,
+      &amp;#39;Abbas Ghaderi&amp;#39;,
+      &amp;#39;Mohammad Golriz&amp;#39;,
+      &amp;#39;Hamid Hami&amp;#39;,
+      &amp;#39;Koveyti Poor&amp;#39;,
+      &amp;#39;Mohsen Sharifian&amp;#39;,
+      &amp;#39;Soheil Nafissi&amp;#39;
+    )
+  )
+s0 &amp;lt;-
+  &amp;quot;با های آهنگ اسپاتیفای در زبان فارسی نوازندگان و خوانندگان برتر آهنگ 10 میان از&amp;quot;
+s1 &amp;lt;-
+  &amp;quot;&amp;lt;br/&amp;gt; دارند اسپاتیفای کاربران میان در را محبوبیت میانگین بالاترین مانکن ساسی های آهنگ ،خاص طور به .اند شده مرتب (نوازنده) خواننده هر محبوبیت میانگین اساس بر اسامی.&amp;quot;
+s2 &amp;lt;- &amp;quot; اند شده نمایش نمودار این در محبوبیت مقدار&amp;quot;
+s3 &amp;lt;- &amp;quot;&amp;lt;span style=&amp;#39;color:#118ab2&amp;#39;&amp;gt; بیشترین&amp;lt;/span&amp;gt; &amp;quot;
+s4 &amp;lt;- &amp;quot;&amp;lt;span style=&amp;#39;color:#ef476f&amp;#39;&amp;gt; کمترین و &amp;lt;/span&amp;gt;&amp;quot;
+s_ &amp;lt;- paste0(s2, s4, s3, s0, collapse = &amp;#39; &amp;#39;)
+s_ &amp;lt;- paste0(s1, s_, collapse = &amp;#39;&amp;lt;/br&amp;gt;&amp;#39;)
+songs_audio_plus_pop %&amp;gt;%
+  filter(!is.na(popularity)) %&amp;gt;%
+  mutate(track_name = if_else(!is.na(track_name), track_name, track_name)) %&amp;gt;%
+  group_by(artist_name) %&amp;gt;%
+  
+  filter(artist_name != &amp;#39;سایر&amp;#39;) %&amp;gt;%
+  summarize(
+    avg_pop = mean(popularity),
+    min_pop = min(popularity),
+    max_pop = max(popularity),
+    most_popular = track_name[which.max(popularity)],
+    least_popular = track_name[which.min(popularity)]
+  ) %&amp;gt;%
+  mutate(
+    artist_name = fct_reorder(artist_name, avg_pop),
+    size_text = if_else(str_detect(least_popular, &amp;#39;When&amp;#39;), 12, 12)
+  ) %&amp;gt;%
+  
+  ggplot(aes(x = min_pop , xend = max_pop, y = artist_name)) +
+  geom_dumbbell(
+    colour_x = &amp;#39;#ef476f&amp;#39;,
+    colour_xend = &amp;#39;#118ab2&amp;#39;,
+    size_x = 7,
+    size_xend = 7
+  ) +
+  geom_text(
+    aes(x = min_pop - 1, y = artist_name, label = least_popular),
+    size = 7,
+    family = &amp;#39;B Tehran&amp;#39;,
+    hjust = 1
+  ) +
+  geom_text(
+    aes(x = max_pop + 1, y = artist_name, label = most_popular),
+    size = 7,
+    family = &amp;#39;B Tehran&amp;#39;,
+    hjust = 0
+  ) +
+  labs(title = &amp;#39;محبوب ترین آهنگ ها و خواننده های ایرانی در اسپاتیفای&amp;#39;,
+       subtitle = s_,
+       x = &amp;#39;محبوبیت&amp;#39;,
+       caption = &amp;#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&amp;#39;) +
+  scale_x_continuous(sec.axis = dup_axis()) +
+  theme_tufte() +
+  theme(
+    plot.title = element_text(
+      family = &amp;#39;B Mitra&amp;#39;,
+      hjust = .5,
+      margin = ggplot2::margin(0, 0, 40, 0),
+      size = 45
+    ),
+    plot.subtitle = element_markdown(
+      family = &amp;#39;B Mitra&amp;#39;,
+      size = 15,
+      margin = ggplot2::margin(20, 0, 40, 0),
+      hjust = 1
+      
+    ),
+    axis.text.x = element_text(
+      family = &amp;#39;B Mitra&amp;#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 20
+    ),
+    
+    axis.text.y = element_text(
+      family = &amp;#39;B Mitra&amp;#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 20
+    ),
+    axis.title.x = element_text(
+      family = &amp;#39;B Mitra&amp;#39;,
+      margin = ggplot2::margin(30, 0, 20, 0),
+      size = 30
+    ),
+    plot.caption = element_text(family =&amp;#39;B Mitra&amp;#39;,
+                                  margin = ggplot2::margin(30, 0, 20, 20),
+                                      size = 20,
+                                  color = &amp;#39;gray20&amp;#39;) ,
+    axis.title.y = element_blank(),
+    plot.background = element_rect(fill = &amp;#39;#FCF0E1&amp;#39;),
+    plot.margin = unit(c(1, 1, 1.5, 1.2), &amp;quot;cm&amp;quot;)
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;over-time&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Over Time&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;years &amp;lt;- normalized_features %&amp;gt;% 
+  distinct(album_release_year) %&amp;gt;% 
+  filter(album_release_year &amp;gt;1984) %&amp;gt;% 
+  pull()
+
+normalized_features %&amp;gt;%
+  select(album_release_year, danceability, energy, loudness, speechiness, liveness, valence, tempo, duration_ms,popularity
+         ) %&amp;gt;% 
+  mutate_at(vars(-album_release_year),scale) %&amp;gt;% 
+  group_by(album_release_year) %&amp;gt;% 
+  summarise_at(vars(everything()),mean,na.rm = TRUE) %&amp;gt;% 
+  pivot_longer(names_to = &amp;#39;metric&amp;#39;,cols =c(danceability, energy, loudness, speechiness, liveness, valence, tempo, duration_ms,popularity
+                                           ),
+           values_to = &amp;#39;value&amp;#39;) %&amp;gt;% 
+  ggplot(aes(album_release_year,y= value,color = metric)) +
+  geom_line(color = &amp;#39;indianred&amp;#39;,size = 1.5,alpha = 1) + 
+  gghighlight( use_direct_label = FALSE,unhighlighted_params = list(size = 1.5,width = 0.5,color =&amp;#39;#F6DAB4&amp;#39;,alpha  = 0.7)) +
+  scale_x_continuous(breaks = years,labels = years,limits = c(1985,2020)) +
+  facet_wrap(~ metric,
+          #   scales = &amp;#39;free_y&amp;#39;
+           ncol = 2 ) +
+  theme_fivethirtyeight()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&#34; class=&#34;uri&#34;&gt;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R&#34; class=&#34;uri&#34;&gt;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-&#34; class=&#34;uri&#34;&gt;http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Analyzing the 2020 Democratic Presidential Debates - Part 2</title>
