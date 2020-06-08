@@ -26,7 +26,11 @@ output:
     toc: true
 ---
 ## Introduction
-Explainablity is a very hot topics in the machine learning research community these days. over the past few years, many methods have been introduced to just understand how a machine learning model makes prediction. However, explainablity is not an entirely new concept and it was actually started a few decades ago. In this blogpost, I will introduce you to a rather unknown but simple technique which was introduced almost 20 years ago. This technique is called [Contextual Importance and Utility (CIU)](https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility) for explaining ML models and show you how we can explain any types of machine learning.
+Explainablity is a very hot topics in the machine learning research community these days. over the past few years, many methods have been introduced to just understand how a machine learning model makes prediction. However, explainablity is not an entirely new concept and it was actually started a few decades ago. In this blogpost, I will introduce you to a rather unknown but simple technique which was introduced almost 20 years ago. This technique is called [Contextual Importance and Utility (CIU)](https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility) for explaining ML models and show you how we can explain any types of machine learning. This method relies on the notion of context is important
+
+For example, imagine we are trying to predict house prices from a set of features such as number of bedrooms and number of pools. If every house in the dataset has no pool (the current context), then the feature corresponding to it has no usefulness and no importance for the prediction of a model. On the other hand, in a city where the majority of houses have one or two bedrooms (again the current context), houses with three or more bedrooms are more special.
+
+
 
 ## What Kinds of explanation does CIU generate?
 
@@ -46,7 +50,7 @@ CI = (Cmax - Cmin)/(absmax - absmin)
 
 
 
-Contextual Utility (CU) indicates how favorable the current value of one (or several) input variables is for a high output value. CU is computed using the following formula.
+Contextual Utility (CU) indicates how favorable the current value of one (or several) input variables is for a high output value. CU is computed using the following formula:
 
 
 
@@ -54,7 +58,7 @@ CU = (out - Cmin)/(Cmax - Cmin)
 
 
 
-Cmax and Cmin are the highest and lowest values that the output of an ML model *can* take by changing the input feature(s). Obtaining Cmax and Cmin  is computationally  and mathematically is not a trivial task.  Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of  machine learning models and are between 0 and 1. 
+Cmax and Cmin are the highest and lowest values that the output of an ML model *can* take by changing the input feature(s). Obtaining Cmax and Cmin  is computationally and mathematically is not a trivial task. In the original paper, these values are computed using a Monte Carlo simulation where a a lot observations were generated. Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of  machine learning models and are between 0 and 1. 
 
 
 CIU is implemented both in [**python**](https://github.com/TimKam/py-ciu) and [R](https://github.com/KaryFramling/ciu). For simplicity, I will use its python implementation (*py-ciu library*) in this blogpost.
@@ -234,6 +238,8 @@ gb_ciu.text_explain()
 ```
 
 ### Drawbacks
+
+Although CIU is a brilliant and simple technique, I believe it has the following drawbacks:
 
 1. In regression problems, the range of possible values for the target variable can be infinite, which somehow does not make sense when we want to compute CIU. The authors said that they have put a limit on the range of values.
 

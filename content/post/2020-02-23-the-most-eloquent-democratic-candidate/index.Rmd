@@ -23,7 +23,7 @@ projects: []
 
 ```{r include = FALSE }
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
-
+library(reticulate)
 ```
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
@@ -165,6 +165,20 @@ The vocabulary size metric shows a different trend as Mike Bloomberg has the hig
 ```
 
 So, there is no outright winner in terms of language skills among Democratic candidates. Bernie Sanders had the best score in terms of vocabulary complexity, but he has the least ratio of unique words among his competitors. Also, one can argue that being eloquent might not be advantage to a candidate and win them an election ( look at the person who is the current president). Finally, I must emphasize that my metrics are rather arbitrary and should be taken with a grain of salt.
+
+### Textual Complexity
+
+```{r, eval=FALSE}
+devtools::install_github("chainsawriot/textplex")
+```
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+library(textplex)
+library(spacyr)
+spacy_initialize(model = 'en_core_web_lg')
+
+```
+
 
 ### Sentiment analysis
 In this part of my blog post, I examine how the language used by each top candidate had changed over the course of debates. I will use the tidy text approach to measure sentiment in the text. There are four main sentiment lexicons in the tidytext library, but in this experiment I am just using the [Loughran lexicon](https://rdrr.io/cran/textdata/man/lexicon_loughran.html). 

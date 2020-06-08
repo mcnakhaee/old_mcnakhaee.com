@@ -6,6 +6,6 @@ py_config()
 
 blogdown::build_site()
 blogdown::serve_site()
-servr::daemon_stop(1) 
+servr::daemon_stop(1)
 servr::daemon_stop(2) 
 pagedown::html_resume()
