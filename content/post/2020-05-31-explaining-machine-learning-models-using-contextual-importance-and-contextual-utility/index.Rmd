@@ -1,5 +1,4 @@
 ---
-
 title: Explaining Machine Learning Models Using Contextual Importance and Contextual Utility
 author: Muhammad Chenariyan Nakhaee
 date: '2020-05-31'
@@ -37,7 +36,7 @@ Explainablity is a very hot topics in the machine learning research community th
 
  Unlike LIME and many other techniques, CIU does not approximate or transforms what a model predicts but rather directly explain predictions. It can also provide a contrastive explanation. For instance, why did the model predict rainy and not cloudy? 
 
-## How does CIIU work?
+## How does CIU work?
 
 CIT estimates two values that aim to explain the context in which a machine learning model predicts:
 
@@ -214,7 +213,7 @@ rf_ciu = explain_ciu(example,rf_fit)
 gb_ciu = explain_ciu(example,gb_fit)
 ```
 
-## Generating Textual Explanations
+### Generating Textual Explanations
 
 We can obtain a textual explanation of CIU which indicates which feature(s) can be important for our test example
 
