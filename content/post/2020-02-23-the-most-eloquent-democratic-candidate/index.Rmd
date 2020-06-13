@@ -160,24 +160,9 @@ The vocabulary size metric shows a different trend as Mike Bloomberg has the hig
   scale_fill_manual(values = custom_palette) +
   labs(title = "The ratio of unique Words used by Democratic candidates in the Debates",
        caption = 'Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020')
-
-
 ```
 
 So, there is no outright winner in terms of language skills among Democratic candidates. Bernie Sanders had the best score in terms of vocabulary complexity, but he has the least ratio of unique words among his competitors. Also, one can argue that being eloquent might not be advantage to a candidate and win them an election ( look at the person who is the current president). Finally, I must emphasize that my metrics are rather arbitrary and should be taken with a grain of salt.
-
-### Textual Complexity
-
-```{r, eval=FALSE}
-devtools::install_github("chainsawriot/textplex")
-```
-
-```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-library(textplex)
-library(spacyr)
-spacy_initialize(model = 'en_core_web_lg')
-
-```
 
 
 ### Sentiment analysis

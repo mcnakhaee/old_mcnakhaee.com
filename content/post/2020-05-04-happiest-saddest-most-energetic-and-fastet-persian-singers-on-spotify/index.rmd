@@ -472,7 +472,7 @@ songs_audio_plus_pop_jitter %>%
 
 ## Most Popular Songs
 
-```{r eval=TRUE,fig.width=30,fig.height=30}
+```{r eval=TRUE, fig.height=30, fig.width=30, message=FALSE, warning=FALSE}
 songs_audio_plus_pop <- songs_audio_plus_pop %>%
   filter(
     !artist_name %in% c(

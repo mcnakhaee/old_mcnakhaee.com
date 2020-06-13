@@ -1707,10 +1707,6 @@ debate_vocab_df %&amp;gt;%
 &lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;So, there is no outright winner in terms of language skills among Democratic candidates. Bernie Sanders had the best score in terms of vocabulary complexity, but he has the least ratio of unique words among his competitors. Also, one can argue that being eloquent might not be advantage to a candidate and win them an election ( look at the person who is the current president). Finally, I must emphasize that my metrics are rather arbitrary and should be taken with a grain of salt.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;textual-complexity&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Textual Complexity&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::install_github(&amp;quot;chainsawriot/textplex&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
 &lt;div id=&#34;sentiment-analysis&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Sentiment analysis&lt;/h3&gt;
 &lt;p&gt;In this part of my blog post, I examine how the language used by each top candidate had changed over the course of debates. I will use the tidy text approach to measure sentiment in the text. There are four main sentiment lexicons in the tidytext library, but in this experiment I am just using the &lt;a href=&#34;https://rdrr.io/cran/textdata/man/lexicon_loughran.html&#34;&gt;Loughran lexicon&lt;/a&gt;.&lt;/p&gt;
@@ -1868,7 +1864,7 @@ theme(strip.text = element_text(size = 20),
      axis.text.x = element_text(size = 15),
      axis.ticks.y = element_blank(),
      axis.title.y = element_blank())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;An the overall sentiment score for each candidate:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;debate_senteneces_sentiment %&amp;gt;%
 group_by(speaker,sentiment)%&amp;gt;%
@@ -1886,7 +1882,7 @@ scale_fill_manual(values = custom_palette) +
      legend.position = &amp;#39;none&amp;#39;,
      axis.title.y = element_blank(),
      axis.title.x = element_blank())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It seems that negativity has been the most predominant emotion during Democratic debates (which absolutely makes sense since they want to unseat a president). Bernie Sanders used the highest number of words with negative sentiment in his remarks.&lt;/p&gt;
 &lt;p&gt;Performing sentiment analysis in tidytext is straightforward and easy, but sometimes the results are not what we hope and what the candidate actually meant. So, also take these results with a grain of salt.&lt;/p&gt;
 &lt;/div&gt;

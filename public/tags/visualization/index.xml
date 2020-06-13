@@ -18,9 +18,10 @@
       <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
       <guid>/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(gargle)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(kableExtra)
 library(tidyverse)
 library(googlesheets4)
 library(tidymodels)
@@ -35,55 +36,889 @@ library(ggforce)
 library(cowplot)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;data-collection&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Data Collection&lt;/h2&gt;
+&lt;p&gt;I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using &lt;code&gt;spotifyr&lt;/code&gt; which gives us access to Spotify’s API. This process was cumbersome as sometimes I wasn’t getting what I was looking for. For instance, sometimes songs belonging to another random artist were being retrieved. In the end, I collected information over more than 10000 songs (of course some of them are duplicates in the Spoitfy’s playlist or just a remix)&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- read_csv(&amp;#39;https://raw.githubusercontent.com/mcnakhaee/datasets/master/Persian_Songs_Spotify.csv&amp;#39;)
-songs_audio_plus_pop &amp;lt;- songs_audio_plus_pop %&amp;gt;%
-  filter(
-    !artist_name %in% c(
-      &amp;#39;Hatam Asgari&amp;#39;,
-      &amp;#39;Kaveh Deylami&amp;#39;,
-      &amp;#39;Nasser Abdollahi&amp;#39;,
-      &amp;#39;Peyman Yazdanian&amp;#39;,
-      &amp;#39;Abbas Ghaderi&amp;#39;,
-      &amp;#39;Mohammad Golriz&amp;#39;,
-      &amp;#39;Hamid Hami&amp;#39;,
-      &amp;#39;Koveyti Poor&amp;#39;,
-      &amp;#39;Mohsen Sharifian&amp;#39;
-    )
-  )&lt;/code&gt;&lt;/pre&gt;
+
+head(songs_audio_plus_pop) %&amp;gt;% 
+  kable() %&amp;gt;%
+  kable_styling(bootstrap_options = c(&amp;quot;striped&amp;quot;, &amp;quot;hover&amp;quot;, &amp;quot;condensed&amp;quot;, &amp;quot;responsive&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table table-striped table-hover table-condensed table-responsive&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+track_id
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+poet
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+lyrics
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+lyrics source
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+disc_number
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+duration_ms
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+explicit
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+track_name
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+track_name_farsi
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+artist_name
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+artist_name_farsi
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+popularity
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+track_number
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+album_href
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+album_id
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+album_name
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+album_release_date
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+album_total_tracks
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+album_release_year
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+track_href
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+danceability
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+energy
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+key
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+loudness
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+mode
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+speechiness
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+acousticness
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+instrumentalness
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+liveness
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+valence
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+tempo
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+time_signature
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+key_name
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+mode_name
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+key_mode
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+artist_id
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+lyrics_1
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+poet_1
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+lyric source
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+genre
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+31iPeC6I0AiRW8InOxNKzm
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+446880
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+FALSE
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Ghazale Taze
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Salar Aghili
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+سالار عقیلی
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+6GcmAWrnnMb2BuVriPhBLa
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Va Eshgh Amad
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020-02-03
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+&lt;a href=&#34;https://api.spotify.com/v1/tracks/31iPeC6I0AiRW8InOxNKzm&#34; class=&#34;uri&#34;&gt;https://api.spotify.com/v1/tracks/31iPeC6I0AiRW8InOxNKzm&lt;/a&gt;
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.437
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.390
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-7.170
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0299
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.839
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3.51e-05
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1360
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.330
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+131.913
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+minor
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C minor
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+4Fi46ha8teWYTwk0b8fNPi
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+851920
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+FALSE
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Ayeeneye Hosn
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Salar Aghili
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+سالار عقیلی
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+6GcmAWrnnMb2BuVriPhBLa
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Va Eshgh Amad
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020-02-03
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+&lt;a href=&#34;https://api.spotify.com/v1/tracks/4Fi46ha8teWYTwk0b8fNPi&#34; class=&#34;uri&#34;&gt;https://api.spotify.com/v1/tracks/4Fi46ha8teWYTwk0b8fNPi&lt;/a&gt;
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.379
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.146
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-10.008
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0414
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.970
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3.60e-04
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0812
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.346
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+105.634
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+F
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+major
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+F major
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+0lQAe6EslKA7CUsS7SCW6Q
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+293160
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+FALSE
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Tarke Eshgh
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Salar Aghili
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+سالار عقیلی
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+6GcmAWrnnMb2BuVriPhBLa
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Va Eshgh Amad
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020-02-03
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+&lt;a href=&#34;https://api.spotify.com/v1/tracks/0lQAe6EslKA7CUsS7SCW6Q&#34; class=&#34;uri&#34;&gt;https://api.spotify.com/v1/tracks/0lQAe6EslKA7CUsS7SCW6Q&lt;/a&gt;
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.437
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.453
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-5.392
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0349
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.664
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2.07e-03
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1100
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.501
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+94.651
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+F
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+minor
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+F minor
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+6dAFmJdVsKk5ksCpGqnKgO
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+648720
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+FALSE
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Moghbacheye Bade Foroosh
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Salar Aghili
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+سالار عقیلی
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+6GcmAWrnnMb2BuVriPhBLa
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Va Eshgh Amad
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020-02-03
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+&lt;a href=&#34;https://api.spotify.com/v1/tracks/6dAFmJdVsKk5ksCpGqnKgO&#34; class=&#34;uri&#34;&gt;https://api.spotify.com/v1/tracks/6dAFmJdVsKk5ksCpGqnKgO&lt;/a&gt;
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.488
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.138
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-12.287
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0451
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.915
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+6.58e-03
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.2120
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.445
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+110.967
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+D
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+minor
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+D minor
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+4VSDJGyEdSMB8UL4fDSCvv
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+273480
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+FALSE
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Bigharar
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Salar Aghili
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+سالار عقیلی
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+6GcmAWrnnMb2BuVriPhBLa
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Va Eshgh Amad
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2020-02-03
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+&lt;a href=&#34;https://api.spotify.com/v1/tracks/4VSDJGyEdSMB8UL4fDSCvv&#34; class=&#34;uri&#34;&gt;https://api.spotify.com/v1/tracks/4VSDJGyEdSMB8UL4fDSCvv&lt;/a&gt;
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.301
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.443
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-5.702
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0334
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.657
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+8.50e-06
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1200
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.410
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+148.053
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+minor
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C minor
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1tqsOZ3fGtMXL0r2ySBpvA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+260754
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+FALSE
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Negar
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Salar Aghili
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+سالار عقیلی
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+09Hepb4NioQ6sO87tsDyiz
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Negar
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2019-10-30
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2019
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+&lt;a href=&#34;https://api.spotify.com/v1/tracks/1tqsOZ3fGtMXL0r2ySBpvA&#34; class=&#34;uri&#34;&gt;https://api.spotify.com/v1/tracks/1tqsOZ3fGtMXL0r2ySBpvA&lt;/a&gt;
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.577
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.366
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-6.668
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0368
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.834
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3.90e-06
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1110
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.367
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+77.453
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+minor
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C minor
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;div id=&#34;overall-song-features&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Overall Song Features&lt;/h3&gt;
-&lt;p&gt;This plot was inspired by the
-inspired me to create a similar plot for Persian singers&lt;/p&gt;
+&lt;p&gt;Aside from metafeatures for each song, including the album that a song belongs, its date of release Spotify gives us more than 10 features corresponding the
+This plot was inspired by the
+I’m only interested in some of these features such as:&lt;/p&gt;
+&lt;p&gt;inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;artists &amp;lt;-
-  c( &amp;#39;Sirvan Khosravi&amp;#39;,
-     &amp;#39;Hesameddin Seraj&amp;#39;,
-     &amp;#39;Rastak&amp;#39;,
-     &amp;#39;Shahram Nazeri&amp;#39;,
-    &amp;#39;Hossein Alizadeh&amp;#39;,
-    &amp;#39;Reza Sadeghi&amp;#39;,
-    &amp;#39;Alireza Eftekhari&amp;#39;,
-    &amp;#39;Mohammadreza Shajarian&amp;#39; ,
-    &amp;#39;Salar Aghili&amp;#39;,
-    &amp;#39;Morteza Pashaei&amp;#39;,
-    &amp;#39;Alireza Ghorbani&amp;#39;,
-    &amp;#39;Homayoun Shajarian&amp;#39;,
-    &amp;#39;Mohsen Yeganeh&amp;#39; ,
-    &amp;#39;Morteza Pashaei&amp;#39;,
-    &amp;#39;Moein&amp;#39;,
-     &amp;#39;Farzad Farzin&amp;#39;,
-     &amp;#39;Babak Jahanbakhsh&amp;#39;,
-    &amp;#39;Ehsan Khajeh Amiri&amp;#39;,
-    &amp;#39;Siavash Ghomayshi&amp;#39;,
-    &amp;#39;Xaniar Khosravi&amp;#39;,
-    &amp;#39;Tohi&amp;#39; ,
-    &amp;#39;Mohsen Chavoshi&amp;#39;,
-    &amp;#39;Abbas Ghaderi&amp;#39;,
-    &amp;#39;Amir Tataloo&amp;#39;,
-    &amp;#39;Hamed Homayoun&amp;#39;,
-    &amp;#39;Kayhan Kalhor&amp;#39;
- )
-
-order &amp;lt;- c(
+  c( &amp;#39;Sirvan Khosravi&amp;#39;,&amp;#39;Hesameddin Seraj&amp;#39;,&amp;#39;Rastak&amp;#39;,&amp;#39;Shahram Nazeri&amp;#39;,&amp;#39;Hossein Alizadeh&amp;#39;,&amp;#39;Reza Sadeghi&amp;#39;,&amp;#39;Alireza Eftekhari&amp;#39;,&amp;#39;Mohammadreza Shajarian&amp;#39;,
+     &amp;#39;Salar Aghili&amp;#39;,&amp;#39;Morteza Pashaei&amp;#39;, &amp;#39;Alireza Ghorbani&amp;#39;,&amp;#39;Homayoun Shajarian&amp;#39;, &amp;#39;Mohsen Yeganeh&amp;#39; ,&amp;#39;Morteza Pashaei&amp;#39;,&amp;#39;Moein&amp;#39;,&amp;#39;Farzad Farzin&amp;#39;,
+     &amp;#39;Babak Jahanbakhsh&amp;#39;, &amp;#39;Ehsan Khajeh Amiri&amp;#39;,&amp;#39;Siavash Ghomayshi&amp;#39;,&amp;#39;Xaniar Khosravi&amp;#39;,&amp;#39;Tohi&amp;#39; ,&amp;#39;Mohsen Chavoshi&amp;#39;,&amp;#39;Amir Tataloo&amp;#39;,
+     &amp;#39;Hamed Homayoun&amp;#39;,&amp;#39;Kayhan Kalhor&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I’ll the average, the minimum and the maximum value of each feature for each singer. That gives use a good picture of how different their audio characteristcs are from each other. However, we must make the right adjustment to the dataset to visualize it:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;First, we need to transform the original dataset into a long form, whcih can be done by &lt;code&gt;pivot_longer&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt; package.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Then we shoud rescale each audio features, otherwise the plot wouldn’t make any senes.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;order &amp;lt;- c(
   &amp;quot;valence&amp;quot;,
   &amp;quot;energy&amp;quot;,
   &amp;quot;tempo&amp;quot;,
@@ -93,11 +928,11 @@ order &amp;lt;- c(
   &amp;quot;danceability&amp;quot;
 )
 
-normalized_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+scaled_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
   mutate_at(order, scales::rescale, to = c(0, 7)) %&amp;gt;%
   filter(!is.na(popularity)) %&amp;gt;%
   filter(artist_name %in% artists) %&amp;gt;%
-  mutate(artist_name = factor(artist_name, levels = levels))  %&amp;gt;%
+  mutate(artist_name = factor(artist_name))  %&amp;gt;%
   pivot_longer(
     names_to = &amp;#39;metric&amp;#39;,
     cols = c(
@@ -107,38 +942,40 @@ normalized_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
       &amp;quot;loudness&amp;quot;,
       &amp;quot;acousticness&amp;quot;,
       &amp;quot;danceability&amp;quot;),
-    values_to = &amp;#39;value&amp;#39;
-  ) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Every singer or composer has his/her own distinct musical style and audio charactristics. Based on 8 audio features extracted from Spotify’s API, this plot compares several well-known Persian singers and musicians.These artists are compared by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p_main &amp;lt;- ggplot() +
+    values_to = &amp;#39;value&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can visualize the results for each artist. A are compared by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
+  ### This plots the average of each audio feature
   geom_polygon(
-    data = normalized_features_long %&amp;gt;%  group_by(artist_name, metric) %&amp;gt;%
+    data = scaled_features_long %&amp;gt;%  group_by(artist_name, metric) %&amp;gt;%
       summarise_at(c(&amp;quot;value&amp;quot;), mean) %&amp;gt;%
       arrange(factor(metric, levels = order)) %&amp;gt;%
       ungroup(),
-    aes(x = metric, y = value, group = artist_name, ),
+    aes(x = metric, y = value, group = artist_name,),
     alpha = .54,
     size = 1.5,
     show.legend = T,
     fill = &amp;#39;#FF1654&amp;#39;
   ) +
+  ### This plots the maximum of each audio feature
   geom_polygon(
-    data = normalized_features_long %&amp;gt;%  group_by(artist_name, metric) %&amp;gt;%
+    data = scaled_features_long %&amp;gt;%  group_by(artist_name, metric) %&amp;gt;%
       summarise_at(c(&amp;quot;value&amp;quot;), max) %&amp;gt;%
       arrange(factor(metric, levels = order)) %&amp;gt;%
       ungroup(),
-    aes(x = metric, y = value, group = artist_name, ),
+    aes(x = metric, y = value, group = artist_name,),
     alpha = .44,
     size = 1.5,
     show.legend = T,
     fill = &amp;#39;#FFE066&amp;#39;
   ) +
+  ### This plots the mimumn of each audio feature
   geom_polygon(
-    data = normalized_features_long %&amp;gt;%  group_by(artist_name, metric) %&amp;gt;%
+    data = scaled_features_long %&amp;gt;%  group_by(artist_name, metric) %&amp;gt;%
       summarise_at(c(&amp;quot;value&amp;quot;), min) %&amp;gt;%
       arrange(factor(metric, levels = order)) %&amp;gt;%
       ungroup(),
-    aes(x = metric, y = value, group = artist_name, ),
+    aes(x = metric, y = value, group = artist_name,),
     alpha = .84,
     size = 1.5,
     show.legend = T,
@@ -160,9 +997,8 @@ normalized_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
   theme_minimal() +
   labs(title = &amp;quot;Persian Singers and Their Audio Characteristics&amp;quot;,
        caption = &amp;#39;Source: Spotify \n Visualization: mcnakhaee&amp;#39;) +
-  
   ylim(0, 8) +
-  facet_wrap(~ artist_name, ncol = 4) +
+  facet_wrap( ~ artist_name, ncol = 4) +
   theme(
     axis.title = element_blank(),
     axis.ticks = element_blank(),
@@ -172,7 +1008,6 @@ normalized_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
       size = 13.5,
       margin = ggplot2::margin(30, 0, 20, 0)
     ),
-    
     plot.caption = element_text(
       family = &amp;#39;Montserrat&amp;#39;,
       margin = ggplot2::margin(30, 0, 20, 0),
@@ -190,43 +1025,43 @@ normalized_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
       margin = ggplot2::margin(30, 0, 20, 0),
       size = 32,
       color = &amp;#39;gray10&amp;#39;
-    ),
-    plot.background = element_rect(fill = &amp;#39;#FCF0E1&amp;#39;)
-  ) 
-
-p_main&lt;/code&gt;&lt;/pre&gt;
+    )
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;2112&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;jitter&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Jitter&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theme_set(  theme_void() +
+&lt;p&gt;The
+It gave us&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theme_set(theme_void() +
   theme(
-    text = element_text(family =  &amp;#39;B Mitra&amp;#39;),
+    text = element_text(family =  &amp;#39;Montserrat&amp;#39;),
     axis.text.x = element_text(
-      family = &amp;#39;B Mitra&amp;#39;,
+      family = &amp;#39;Montserrat&amp;#39;,
       margin = ggplot2::margin(30, 0, 20, 0),
       color = &amp;#39;gray80&amp;#39;,
-      size = 20
+      size = 18
     ),
     axis.text.y = element_text(
-      family = &amp;#39;B Mitra&amp;#39;,
+      family = &amp;#39;Montserrat&amp;#39;,
       margin = ggplot2::margin(30, 0, 20, 20),
       color = &amp;#39;gray80&amp;#39;,
       size = 20
     ),
     axis.title.x = element_text(
-      family = &amp;#39;B Mitra&amp;#39;,
+      family = &amp;#39;Montserrat&amp;#39;,
       margin = ggplot2::margin(30, 0, 20, 0),
-      size = 27,
+      size = 22,
       color = &amp;#39;gray80&amp;#39;
     ),
     plot.title = element_text(
-      family = &amp;#39;B Mitra&amp;#39;,
+      family = &amp;#39;Montserrat&amp;#39;,
       hjust = .5,
       margin = ggplot2::margin(40, 0, 40, 0),
       size = 35,
       color = &amp;#39;gray80&amp;#39;
     ),
-    plot.caption = element_text(family =&amp;#39;B Mitra&amp;#39;,
+    plot.caption = element_text(family =&amp;#39;Montserrat&amp;#39;,
                                   margin = ggplot2::margin(30, 0, 20, 20),
                                       size = 20,
                                   color = &amp;#39;gray70&amp;#39;) ,
@@ -236,13 +1071,16 @@ p_main&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter &amp;lt;- songs_audio_plus_pop %&amp;gt;% 
   filter(artist_name %in% artists) %&amp;gt;% 
   mutate(is_popular = !is.na(popularity)) %&amp;gt;%
-  distinct(artist_name_farsi,track_name,.keep_all = T) %&amp;gt;% 
+  distinct(artist_name,track_name,.keep_all = T) %&amp;gt;% 
   mutate(is_popular_size = if_else(!is.na(popularity),popularity,25),
          is_popular_alpha = if_else(!is.na(popularity),0.8,0.5)) %&amp;gt;% 
-  mutate(track_name_farsi = str_wrap(track_name_farsi, width = 15)) %&amp;gt;% 
-  mutate(track_farsi_avail = if_else(!is.na(track_name_farsi)&amp;amp; !is.na(popularity) &amp;amp; nchar(track_name_farsi) &amp;lt; 20 &amp;amp; !explicit,track_name_farsi,&amp;#39;&amp;#39;)) &lt;/code&gt;&lt;/pre&gt;
+  mutate(track_name= str_wrap(track_name, width = 15)) %&amp;gt;% 
+  mutate(popular_track_name = if_else(!is.na(track_name_farsi)&amp;amp; !is.na(popularity) &amp;amp; nchar(track_name) &amp;lt; 20 &amp;amp; !explicit,track_name,&amp;#39;&amp;#39;)) &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;happiness&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Happiness&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter %&amp;gt;%
-  ggplot(aes(x = artist_name_farsi, y = valence)) +
+  ggplot(aes(x = artist_name, y = valence)) +
   geom_jitter(
     aes(
       color = is_popular,
@@ -251,13 +1089,12 @@ p_main&lt;/code&gt;&lt;/pre&gt;
     ),
     size = 6,
     width = 0.2,
-    
   ) +
   geom_text_repel(
-    aes(label = track_farsi_avail , x = artist_name_farsi , y = valence),
-    family = &amp;#39;B Mitra&amp;#39;,
+    aes(label = popular_track_name , x = artist_name , y = valence),
+    family = &amp;#39;Montserrat&amp;#39;,
     color = &amp;#39;gray99&amp;#39;,
-    size = 7,
+    size = 5,
     force = 0.6,
     max.iter = 2000,
     box.padding = 0.4,
@@ -273,19 +1110,16 @@ p_main&lt;/code&gt;&lt;/pre&gt;
     geom = &amp;#39;point&amp;#39;,
     color = &amp;#39;#FF9F1C&amp;#39;,
     size = 5,
-    aes(group = artist_name_farsi)
-  ) +
+    aes(group = artist_name)) +
   scale_color_manual(values = c(&amp;#39;#FFD166&amp;#39;, &amp;#39;#EF476F&amp;#39;)) +
-  labs(
-    x = &amp;#39;&amp;#39;,
-    y = &amp;#39;شادی&amp;#39;,
-    title = &amp;#39;مقایسه ای بین شادی در آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&amp;#39;,
-    subtitle = &amp;#39;&amp;#39;,
-     caption = &amp;#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&amp;#39;) +
   scale_y_continuous(sec.axis = dup_axis()) +
   coord_flip()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;energy&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Energy&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter %&amp;gt;%
-  ggplot(aes(x = artist_name_farsi, y = energy)) +
+  ggplot(aes(x = artist_name, y = energy)) +
   geom_jitter(
     aes(
       color = is_popular,
@@ -294,11 +1128,10 @@ p_main&lt;/code&gt;&lt;/pre&gt;
     ),
     size = 6,
     width = 0.2,
-    
   ) +
   geom_text_repel(
-    aes(label = track_farsi_avail , x = artist_name_farsi , y = energy),
-    family = &amp;#39;B Mitra&amp;#39;,
+    aes(label = popular_track_name , x = artist_name , y = energy),
+    family = &amp;#39;Montserrat&amp;#39;,
     color = &amp;#39;gray90&amp;#39;,
     size = 6,
     force = 0.6,
@@ -316,19 +1149,17 @@ p_main&lt;/code&gt;&lt;/pre&gt;
     geom = &amp;#39;point&amp;#39;,
     color = &amp;#39;#FF9F1C&amp;#39;,
     size = 5,
-    aes(group = artist_name_farsi)
+    aes(group = artist_name)
   ) +
   scale_color_manual(values = c(&amp;#39;#EF476F&amp;#39;, &amp;#39;#EF476F&amp;#39;)) +
-  labs(
-    x = &amp;#39;&amp;#39;,
-    y = &amp;#39;انرژی&amp;#39;,
-    title = &amp;#39;مقایسه ای بین انرژی در آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&amp;#39;,
-    subtitle = &amp;#39;&amp;#39;,
-     caption = &amp;#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&amp;#39;) +
   scale_y_continuous(sec.axis = dup_axis()) +
   coord_flip() &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;acousticness&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Acousticness&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter %&amp;gt;%
-  ggplot(aes(x = artist_name_farsi, y = danceability)) +
+  ggplot(aes(x = artist_name, y = acousticness)) +
   geom_jitter(
     aes(
       color = is_popular,
@@ -337,11 +1168,10 @@ p_main&lt;/code&gt;&lt;/pre&gt;
     ),
     size = 6,
     width = 0.2,
-    
   ) +
   geom_text_repel(
-    aes(label = track_farsi_avail , x = artist_name_farsi , y = danceability),
-    family = &amp;#39;B Mitra&amp;#39;,
+    aes(label = popular_track_name , x = artist_name , y = acousticness),
+    family = &amp;#39;Montserrat&amp;#39;,
     color = &amp;#39;gray90&amp;#39;,
     size = 6,
     force = 0.6,
@@ -359,20 +1189,56 @@ p_main&lt;/code&gt;&lt;/pre&gt;
     geom = &amp;#39;point&amp;#39;,
     color = &amp;#39;#FF9F1C&amp;#39;,
     size = 5,
-    aes(group = artist_name_farsi)
+    aes(group = artist_name)
+  ) +
+  scale_color_manual(values = c(&amp;#39;#118AB2&amp;#39;, &amp;#39;#06D6A0&amp;#39;)) +
+  scale_y_continuous(sec.axis = dup_axis()) +
+  coord_flip() &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;danceability&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Danceability&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter %&amp;gt;%
+  ggplot(aes(x = artist_name, y = danceability)) +
+  geom_jitter(
+    aes(
+      color = is_popular,
+      size = is_popular_size,
+      alpha = is_popular_alpha
+    ),
+    size = 6,
+    width = 0.2,
+  ) +
+  geom_text_repel(
+    aes(label = popular_track_name , x = artist_name , y = danceability),
+    family = &amp;#39;Montserrat&amp;#39;,
+    color = &amp;#39;gray90&amp;#39;,
+    size = 6,
+    force = 0.6,
+    max.iter = 2000,
+    box.padding = 0.4,
+    point.padding = 0.6,
+    min.segment.length = 0.15,
+    nudge_y      = 0.001,
+    hjust = 0.5,
+    segment.alpha = 0.6,
+    segment.size = 0.6
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = &amp;#39;point&amp;#39;,
+    color = &amp;#39;#FF9F1C&amp;#39;,
+    size = 5,
+    aes(group = artist_name)
   ) +
   scale_color_manual(values = c(&amp;#39;#A5668B&amp;#39;, &amp;#39;#EF476F&amp;#39;)) +
-  labs(
-    x = &amp;#39;&amp;#39;,
-    y = &amp;#39;رقص آوری&amp;#39;,
-    title = &amp;#39;مقایسه ای بین میزان رقص آوری در آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&amp;#39;,
-    subtitle = &amp;#39;&amp;#39;,
-    caption = &amp;#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&amp;#39;
-  ) +
   scale_y_continuous(sec.axis = dup_axis()) +
   coord_flip()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;loudness&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Loudness&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter %&amp;gt;%
-  ggplot(aes(x = artist_name_farsi, y = loudness)) +
+  ggplot(aes(x = artist_name, y = loudness)) +
   geom_jitter(
     aes(
       color = is_popular,
@@ -384,8 +1250,8 @@ p_main&lt;/code&gt;&lt;/pre&gt;
     
   ) +
   geom_text_repel(
-    aes(label = track_farsi_avail , x = artist_name_farsi , y = loudness),
-    family = &amp;#39;B Mitra&amp;#39;,
+    aes(label = popular_track_name , x = artist_name , y = loudness),
+    family = &amp;#39;Montserrat&amp;#39;,
     color = &amp;#39;gray90&amp;#39;,
     size = 6,
     force = 0.6,
@@ -403,7 +1269,7 @@ p_main&lt;/code&gt;&lt;/pre&gt;
     geom = &amp;#39;point&amp;#39;,
     color = &amp;#39;#FF9F1C&amp;#39;,
     size = 5,
-    aes(group = artist_name_farsi)
+    aes(group = artist_name)
   ) +
   #&amp;#39;#EF476F&amp;#39;
   scale_color_manual(values = c(&amp;#39;#06D6A0&amp;#39;, &amp;#39;#EF476F&amp;#39;)) +
@@ -432,24 +1298,11 @@ p_main&lt;/code&gt;&lt;/pre&gt;
       &amp;#39;Hamid Hami&amp;#39;,
       &amp;#39;Koveyti Poor&amp;#39;,
       &amp;#39;Mohsen Sharifian&amp;#39;,
-      &amp;#39;Soheil Nafissi&amp;#39;
-    )
-  )
-s0 &amp;lt;-
-  &amp;quot;با های آهنگ اسپاتیفای در زبان فارسی نوازندگان و خوانندگان برتر آهنگ 10 میان از&amp;quot;
-s1 &amp;lt;-
-  &amp;quot;&amp;lt;br/&amp;gt; دارند اسپاتیفای کاربران میان در را محبوبیت میانگین بالاترین مانکن ساسی های آهنگ ،خاص طور به .اند شده مرتب (نوازنده) خواننده هر محبوبیت میانگین اساس بر اسامی.&amp;quot;
-s2 &amp;lt;- &amp;quot; اند شده نمایش نمودار این در محبوبیت مقدار&amp;quot;
-s3 &amp;lt;- &amp;quot;&amp;lt;span style=&amp;#39;color:#118ab2&amp;#39;&amp;gt; بیشترین&amp;lt;/span&amp;gt; &amp;quot;
-s4 &amp;lt;- &amp;quot;&amp;lt;span style=&amp;#39;color:#ef476f&amp;#39;&amp;gt; کمترین و &amp;lt;/span&amp;gt;&amp;quot;
-s_ &amp;lt;- paste0(s2, s4, s3, s0, collapse = &amp;#39; &amp;#39;)
-s_ &amp;lt;- paste0(s1, s_, collapse = &amp;#39;&amp;lt;/br&amp;gt;&amp;#39;)
+      &amp;#39;Soheil Nafissi&amp;#39;))
 songs_audio_plus_pop %&amp;gt;%
   filter(!is.na(popularity)) %&amp;gt;%
   mutate(track_name = if_else(!is.na(track_name), track_name, track_name)) %&amp;gt;%
   group_by(artist_name) %&amp;gt;%
-  
-  filter(artist_name != &amp;#39;سایر&amp;#39;) %&amp;gt;%
   summarize(
     avg_pop = mean(popularity),
     min_pop = min(popularity),
@@ -459,7 +1312,6 @@ songs_audio_plus_pop %&amp;gt;%
   ) %&amp;gt;%
   mutate(
     artist_name = fct_reorder(artist_name, avg_pop),
-    size_text = if_else(str_detect(least_popular, &amp;#39;When&amp;#39;), 12, 12)
   ) %&amp;gt;%
   
   ggplot(aes(x = min_pop , xend = max_pop, y = artist_name)) +
@@ -481,59 +1333,88 @@ songs_audio_plus_pop %&amp;gt;%
     family = &amp;#39;B Tehran&amp;#39;,
     hjust = 0
   ) +
-  labs(title = &amp;#39;محبوب ترین آهنگ ها و خواننده های ایرانی در اسپاتیفای&amp;#39;,
-       subtitle = s_,
-       x = &amp;#39;محبوبیت&amp;#39;,
-       caption = &amp;#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&amp;#39;) +
   scale_x_continuous(sec.axis = dup_axis()) +
   theme_tufte() +
   theme(
     plot.title = element_text(
-      family = &amp;#39;B Mitra&amp;#39;,
+      family = &amp;#39;Montserrat&amp;#39;,
       hjust = .5,
       margin = ggplot2::margin(0, 0, 40, 0),
       size = 45
     ),
     plot.subtitle = element_markdown(
-      family = &amp;#39;B Mitra&amp;#39;,
+      family = &amp;#39;Montserrat&amp;#39;,
       size = 15,
       margin = ggplot2::margin(20, 0, 40, 0),
       hjust = 1
       
     ),
     axis.text.x = element_text(
-      family = &amp;#39;B Mitra&amp;#39;,
+      family = &amp;#39;Montserrat&amp;#39;,
       margin = ggplot2::margin(30, 0, 20, 0),
       size = 20
     ),
     
     axis.text.y = element_text(
-      family = &amp;#39;B Mitra&amp;#39;,
+      family = &amp;#39;Montserrat&amp;#39;,
       margin = ggplot2::margin(30, 0, 20, 0),
       size = 20
     ),
     axis.title.x = element_text(
-      family = &amp;#39;B Mitra&amp;#39;,
+      family = &amp;#39;Montserrat&amp;#39;,
       margin = ggplot2::margin(30, 0, 20, 0),
       size = 30
     ),
-    plot.caption = element_text(family =&amp;#39;B Mitra&amp;#39;,
-                                  margin = ggplot2::margin(30, 0, 20, 20),
-                                      size = 20,
-                                  color = &amp;#39;gray20&amp;#39;) ,
+    plot.caption = element_text(family =&amp;#39;Montserrat&amp;#39;,
+                                margin = ggplot2::margin(30, 0, 20, 20),
+                                size = 20,
+                                color = &amp;#39;gray20&amp;#39;) ,
     axis.title.y = element_blank(),
     plot.background = element_rect(fill = &amp;#39;#FCF0E1&amp;#39;),
     plot.margin = unit(c(1, 1, 1.5, 1.2), &amp;quot;cm&amp;quot;)
   )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family not
+## found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;over-time&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Over Time&lt;/h1&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;years &amp;lt;- normalized_features %&amp;gt;% 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;years &amp;lt;- songs_audio_plus_pop %&amp;gt;% 
   distinct(album_release_year) %&amp;gt;% 
   filter(album_release_year &amp;gt;1984) %&amp;gt;% 
   pull()
 
-normalized_features %&amp;gt;%
+songs_audio_plus_pop %&amp;gt;%
   select(album_release_year, danceability, energy, loudness, speechiness, liveness, valence, tempo, duration_ms,popularity
          ) %&amp;gt;% 
   mutate_at(vars(-album_release_year),scale) %&amp;gt;% 
@@ -548,8 +1429,11 @@ normalized_features %&amp;gt;%
   scale_x_continuous(breaks = years,labels = years,limits = c(1985,2020)) +
   facet_wrap(~ metric,
           #   scales = &amp;#39;free_y&amp;#39;
-           ncol = 2 ) +
+           ncol = 1 ) +
   theme_fivethirtyeight()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 72 row(s) containing missing values (geom_path).&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 8 row(s) containing missing values (geom_path).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&#34; class=&#34;uri&#34;&gt;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R&#34; class=&#34;uri&#34;&gt;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-&#34; class=&#34;uri&#34;&gt;http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-&lt;/a&gt;&lt;/p&gt;
