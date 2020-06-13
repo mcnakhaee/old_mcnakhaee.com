@@ -12,6 +12,7 @@ tags:
 subtitle: ''
 summary: ''
 authors: []
+draft: TRUE
 lastmod: '2020-05-04T22:47:57-07:00'
 featured: no
 image:
