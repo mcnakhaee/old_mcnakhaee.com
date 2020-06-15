@@ -317,9 +317,9 @@ My designed workflow consists of the following step:&lt;/p&gt;
     
     <item>
       <title>The Map of Spotify Songs</title>
-      <link>/post/2020-02-01-what-makes-a-song-popular/</link>
+      <link>/post/2020-02-01-the-map-of-spotify-songs/</link>
       <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-02-01-what-makes-a-song-popular/</guid>
+      <guid>/post/2020-02-01-the-map-of-spotify-songs/</guid>
       <description>
 
 
@@ -535,7 +535,7 @@ tsne_embeddings &amp;lt;- spotify_songs %&amp;gt;%
     title = &amp;#39;The Map of Spotify Songs Based on T-SNE Algorithm\n&amp;#39;,
     subtitle = &amp;#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;As you can see in this projection, songs that belong to the same artists are placed close to each other. It seems that T-SNE is able to preserve the local topological structure of songs. Now I will look at how T-SNE distinguishes different genres of music.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tsne_embeddings %&amp;gt;%
  ggplot(aes(x = tsne_1, y = tsne_2 ,color = playlist_genre )) +
@@ -553,7 +553,7 @@ tsne_embeddings &amp;lt;- spotify_songs %&amp;gt;%
     title = &amp;#39;The Map of Spotify Songs Based on T-SNE Algorithm\n&amp;#39;,
     subtitle = &amp;#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;umap&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;UMAP&lt;/h2&gt;
@@ -621,7 +621,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-2&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 2&lt;/h3&gt;
@@ -644,7 +644,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-3&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 3&lt;/h3&gt;
@@ -667,7 +667,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-4&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 4&lt;/h3&gt;
@@ -690,7 +690,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-5&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 5&lt;/h3&gt;
@@ -713,7 +713,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-6&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 6&lt;/h3&gt;
@@ -736,7 +736,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;For the most part, both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embeddings with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen.
 We can observe that the most influential hyper-parameter seems to be distance metric. Additionally, when we decrease the value of &lt;code&gt;min_dist&lt;/code&gt;, the projection becomes less compact and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music and We need to incorporate other aspects of songs such as lyrics to be able to differentiate between genres. For instance, Kaylin Pavlik in her blogpost explained how she based on similar audio features trained several machine learning models to classify songs into 6 main categories (EDM, Latin, Pop, R&amp;amp;B, Rap, &amp;amp; Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset but I couldn’t achieve higher performance.&lt;/p&gt;
 &lt;/div&gt;
@@ -771,7 +771,7 @@ We can observe that the most influential hyper-parameter seems to be distance me
     min.segment.length = 0.1) +
   labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
        color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.&lt;/p&gt;
 &lt;/div&gt;
 </description>

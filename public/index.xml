@@ -344,7 +344,7 @@ gb_ciu = explain_ciu(example,gb_fit)&lt;/code&gt;&lt;/pre&gt;
     </item>
     
     <item>
-      <title>Happiest, Saddest, Most Energetic and Fastet Persian Singers on Spotify</title>
+      <title>The Happiest, Saddest, Most Energetic and Most Popular Persian Singers on Spotify</title>
       <link>/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/</link>
       <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
       <guid>/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/</guid>
@@ -352,6 +352,11 @@ gb_ciu = explain_ciu(example,gb_fit)&lt;/code&gt;&lt;/pre&gt;
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
 
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;How different Persian singers are from each other based on their audio characteristics&lt;/li&gt;
+&lt;li&gt;What are the most danceable and least danceable Persian songs?&lt;/li&gt;
+&lt;li&gt;Who is the most popular Persian singer and what is the most popular song?&lt;/li&gt;
+&lt;/ol&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(kableExtra)
 library(tidyverse)
 library(googlesheets4)
@@ -367,7 +372,7 @@ library(ggforce)
 library(cowplot)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;data-collection&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Data Collection&lt;/h2&gt;
-&lt;p&gt;I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using &lt;code&gt;spotifyr&lt;/code&gt; which gives us access to Spotify’s API. This process was cumbersome as sometimes I wasn’t getting what I was looking for. For instance, sometimes songs belonging to another random artist were being retrieved. In the end, I collected information over more than 10000 songs (of course some of them are duplicates in the Spoitfy’s playlist or just a remix)&lt;/p&gt;
+&lt;p&gt;I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using &lt;code&gt;spotifyr&lt;/code&gt; which gives us access to Spotify’s API. This process was cumbersome as sometimes I wasn’t getting what I was looking for. For instance, sometimes songs that belonged to another random artist were retrieved.For each singer, we can only retrieve the top 10 popular songs. It means that the rest of songs have no popularity scores. Nevertheless, I collected several types of information about more than 10000 songs (of course some of them are duplicates in the Spoitfy’s playlist or just a remix).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- read_csv(&amp;#39;https://raw.githubusercontent.com/mcnakhaee/datasets/master/Persian_Songs_Spotify.csv&amp;#39;)
 
 head(songs_audio_plus_pop) %&amp;gt;% 
@@ -1235,19 +1240,27 @@ NA
 &lt;/table&gt;
 &lt;div id=&#34;overall-song-features&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Overall Song Features&lt;/h3&gt;
-&lt;p&gt;Aside from metafeatures for each song, including the album that a song belongs, its date of release Spotify gives us more than 10 features corresponding the
-This plot was inspired by the
-I’m only interested in some of these features such as:&lt;/p&gt;
-&lt;p&gt;inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.&lt;/p&gt;
+&lt;p&gt;Aside from variables such the album that a song belongs to and its date of release, Spotify’s API can gives us several features that capture different audio characteristics of a song.&lt;/p&gt;
+&lt;p&gt;You can see a full list of these features in this link. However, I’m only interested in some of these features such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;valence&lt;/strong&gt; measures the happiness of a song.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;energy&lt;/strong&gt; is quite self-explanatory.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;tempo&lt;/strong&gt; measures the speed of a song.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;loudness&lt;/strong&gt; is also self-explanatory.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;acousticness&lt;/strong&gt; identifies whether the track is acoustic&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;instrumentalness&lt;/strong&gt; shows whether a track contains no vocals.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;danceability&lt;/strong&gt; determines how good a song is for dancing.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&#34;&gt;This wonderful visualization&lt;/a&gt; inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;artists &amp;lt;-
   c( &amp;#39;Sirvan Khosravi&amp;#39;,&amp;#39;Hesameddin Seraj&amp;#39;,&amp;#39;Rastak&amp;#39;,&amp;#39;Shahram Nazeri&amp;#39;,&amp;#39;Hossein Alizadeh&amp;#39;,&amp;#39;Reza Sadeghi&amp;#39;,&amp;#39;Alireza Eftekhari&amp;#39;,&amp;#39;Mohammadreza Shajarian&amp;#39;,
      &amp;#39;Salar Aghili&amp;#39;,&amp;#39;Morteza Pashaei&amp;#39;, &amp;#39;Alireza Ghorbani&amp;#39;,&amp;#39;Homayoun Shajarian&amp;#39;, &amp;#39;Mohsen Yeganeh&amp;#39; ,&amp;#39;Morteza Pashaei&amp;#39;,&amp;#39;Moein&amp;#39;,&amp;#39;Farzad Farzin&amp;#39;,
      &amp;#39;Babak Jahanbakhsh&amp;#39;, &amp;#39;Ehsan Khajeh Amiri&amp;#39;,&amp;#39;Siavash Ghomayshi&amp;#39;,&amp;#39;Xaniar Khosravi&amp;#39;,&amp;#39;Tohi&amp;#39; ,&amp;#39;Mohsen Chavoshi&amp;#39;,&amp;#39;Amir Tataloo&amp;#39;,
      &amp;#39;Hamed Homayoun&amp;#39;,&amp;#39;Kayhan Kalhor&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I’ll the average, the minimum and the maximum value of each feature for each singer. That gives use a good picture of how different their audio characteristcs are from each other. However, we must make the right adjustment to the dataset to visualize it:&lt;/p&gt;
+&lt;p&gt;I’ll plot the average, the minimum and the maximum value of each feature for each singer. That gives us a good picture of how different their audio characteristics are from each other. However, we must make the right adjustments to the dataset before visualizing it:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;First, we need to transform the original dataset into a long form, whcih can be done by &lt;code&gt;pivot_longer&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt; package.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Then we shoud rescale each audio features, otherwise the plot wouldn’t make any senes.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We need to transform the original dataset into a long form, which can be done by &lt;code&gt;pivot_longer&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt; package.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We should rescale each audio features, otherwise the plot wouldn’t make any sense.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;order &amp;lt;- c(
   &amp;quot;valence&amp;quot;,
@@ -1274,7 +1287,7 @@ scaled_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
       &amp;quot;acousticness&amp;quot;,
       &amp;quot;danceability&amp;quot;),
     values_to = &amp;#39;value&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we can visualize the results for each artist. A are compared by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs&lt;/p&gt;
+&lt;p&gt;Now, we can visualize the results for each artist. As I mentioned before, I’ll compare artists by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
   ### This plots the average of each audio feature
   geom_polygon(
@@ -1360,11 +1373,11 @@ scaled_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
   )&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;2112&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;jitter&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Jitter&lt;/h3&gt;
-&lt;p&gt;The
-It gave us&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theme_set(theme_void() +
+&lt;div id=&#34;looking-more-closely-at-each-audio-feature&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Looking more closely at each audio feature&lt;/h3&gt;
+&lt;p&gt;My first plot is informative but it only gives us an overall picture of audio features but I would like to have a more detailed picture of singers and the audio features for each of their songs. For this reason, I’ll also make a plot of .&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Set a custom theme for our plots
+theme_set(theme_void() +
   theme(
     text = element_text(family =  &amp;#39;Montserrat&amp;#39;),
     axis.text.x = element_text(
@@ -1399,6 +1412,7 @@ It gave us&lt;/p&gt;
     legend.position = &amp;#39;none&amp;#39;,
     plot.background = element_rect(fill = &amp;quot;#516869&amp;quot;)
   ))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Again here I’ll change the dataset to make it ready for visualization.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter &amp;lt;- songs_audio_plus_pop %&amp;gt;% 
   filter(artist_name %in% artists) %&amp;gt;% 
   mutate(is_popular = !is.na(popularity)) %&amp;gt;%
@@ -1617,6 +1631,7 @@ It gave us&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;most-popular-songs&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Most Popular Songs&lt;/h2&gt;
+&lt;p&gt;As I mentioned previously, we can only retrieve his/her top 10 popular songs for each artist. The popularity of a track is a value between 0 (least popular) and 100 (most popular). Spotify uses an algorithm to calculate popularity scores which is heavily influenced by the total number of times that a song has been played recently. You can read more about it in this &lt;a href=&#34;https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/&#34;&gt;link&lt;/a&gt;. Now we can visualize songs and artists that have been popular and played recently.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- songs_audio_plus_pop %&amp;gt;%
   filter(
     !artist_name %in% c(
@@ -1705,6 +1720,108 @@ songs_audio_plus_pop %&amp;gt;%
     plot.margin = unit(c(1, 1, 1.5, 1.2), &amp;quot;cm&amp;quot;)
   )&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This plot shows the most popular song of each artist and also the least popular track among his top 10 songs. The artists are also sorted based on their average popularity.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+    mutate(
+    track_name_farsi_na = if_else(
+      is.na(track_name_farsi),
+      track_name,
+      &amp;#39;&amp;#39;
+    ))
+popular_songs &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+  filter(!(is.na(popularity))) %&amp;gt;% 
+  filter(!(is.na(track_name_farsi))) %&amp;gt;% 
+  group_by(artist_name) %&amp;gt;% 
+  arrange(desc(popularity)) %&amp;gt;% 
+  slice(1)
+
+least &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+  arrange(energy) %&amp;gt;%
+  slice(1:10)  %&amp;gt;%
+  mutate(energy = energy + 0.02)
+
+
+most &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+  arrange(desc(energy)) %&amp;gt;%
+  slice(1:10) %&amp;gt;%
+  mutate(energy = energy + 0.02)
+
+df &amp;lt;- most %&amp;gt;%
+  bind_rows(popular_songs %&amp;gt;% mutate(energy = energy + 0.02)) %&amp;gt;%
+  bind_rows(least) %&amp;gt;%
+  mutate(
+    is_popular = !is.na(popularity),
+    track_name_farsi_no_na = if_else(
+      is.na(track_name_farsi),
+      &amp;#39;&amp;#39;,
+      paste(&amp;#39;-&amp;#39; , track_name_farsi, sep = &amp;#39;&amp;#39;)
+    )
+  ) %&amp;gt;%
+  arrange(energy) %&amp;gt;%
+  distinct(artist_name_farsi, track_name_farsi, .keep_all = TRUE)
+
+df$id &amp;lt;- c(1:nrow(df))
+
+# calculate the ANGLE of the labels
+number_of_bar &amp;lt;- nrow(df)
+angle &amp;lt;- 180 + 90 - 360 * (df$id - .5)  / number_of_bar
+
+df$angle &amp;lt;- angle
+df &amp;lt;- df %&amp;gt;%
+  mutate(angle = if_else(angle &amp;lt; 180, angle, angle + 180)) %&amp;gt;%
+  mutate(
+    angle = if_else(angle &amp;lt; 180 &amp;amp;
+                      angle &amp;gt; 97, angle + 180, angle),
+    label = paste(artist_name_farsi, track_name_farsi, sep = &amp;#39; - &amp;#39;)
+  )
+
+df %&amp;gt;%
+  
+  ggplot(aes(
+    x = fct_reorder(track_name, energy),
+    y = energy,
+    fill = is_popular
+  )) +
+  
+  geom_bar(position = &amp;quot;stack&amp;quot;,
+           stat = &amp;quot;identity&amp;quot;,
+           alpha = 0.8) +
+  
+  scale_fill_manual(values = c(&amp;#39;#EF476F&amp;#39;, &amp;#39;#06D6A0&amp;#39;)) +
+  geom_text(
+    aes(label = label,
+        x = id,
+        y = energy + 0.6, ),
+    family = &amp;#39;B Nazanin&amp;#39;,
+    angle = df$angle,
+    size = 5.5,
+    hjust = 0.5,
+    color = &amp;#39;gray80&amp;#39;
+  ) +
+  theme_fivethirtyeight() +
+  ylim(-1.5, 2) +
+  coord_polar(direction = 2,
+              clip = &amp;quot;off&amp;quot;) +
+  annotate(
+    geom = &amp;quot;text&amp;quot;,
+    x = 0,
+    y = -0.9,
+    hjust = .5,
+    vjust = 1,
+    label = &amp;quot;The Most and Least Energetic\n Persian Songs&amp;quot;,
+    size = 8,
+    lineheight = .8,
+    family = &amp;quot;B Tehran&amp;quot;,
+    color = &amp;quot;#EF476F&amp;quot;
+  ) +
+  theme_void() +
+  theme(
+    axis.text.y.left = element_blank(),
+    axis.ticks  = element_blank(),
+    legend.position = &amp;#39;none&amp;#39;,
+    plot.background = element_rect(fill = &amp;quot;#516869&amp;quot;)
+  ) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;over-time&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Over Time&lt;/h1&gt;
@@ -1732,10 +1849,7 @@ songs_audio_plus_pop %&amp;gt;%
   theme_fivethirtyeight()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: Removed 72 row(s) containing missing values (geom_path).&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: Removed 8 row(s) containing missing values (geom_path).&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&#34; class=&#34;uri&#34;&gt;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R&#34; class=&#34;uri&#34;&gt;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-&#34; class=&#34;uri&#34;&gt;http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -4003,9 +4117,9 @@ head(sample_poets_df)&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>The Map of Spotify Songs</title>
-      <link>/post/2020-02-01-what-makes-a-song-popular/</link>
+      <link>/post/2020-02-01-the-map-of-spotify-songs/</link>
       <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-02-01-what-makes-a-song-popular/</guid>
+      <guid>/post/2020-02-01-the-map-of-spotify-songs/</guid>
       <description>
 
 
@@ -4221,7 +4335,7 @@ tsne_embeddings &amp;lt;- spotify_songs %&amp;gt;%
     title = &amp;#39;The Map of Spotify Songs Based on T-SNE Algorithm\n&amp;#39;,
     subtitle = &amp;#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;As you can see in this projection, songs that belong to the same artists are placed close to each other. It seems that T-SNE is able to preserve the local topological structure of songs. Now I will look at how T-SNE distinguishes different genres of music.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tsne_embeddings %&amp;gt;%
  ggplot(aes(x = tsne_1, y = tsne_2 ,color = playlist_genre )) +
@@ -4239,7 +4353,7 @@ tsne_embeddings &amp;lt;- spotify_songs %&amp;gt;%
     title = &amp;#39;The Map of Spotify Songs Based on T-SNE Algorithm\n&amp;#39;,
     subtitle = &amp;#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;umap&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;UMAP&lt;/h2&gt;
@@ -4307,7 +4421,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-2&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 2&lt;/h3&gt;
@@ -4330,7 +4444,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-3&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 3&lt;/h3&gt;
@@ -4353,7 +4467,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-4&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 4&lt;/h3&gt;
@@ -4376,7 +4490,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-5&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 5&lt;/h3&gt;
@@ -4399,7 +4513,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-6&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 6&lt;/h3&gt;
@@ -4422,7 +4536,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;For the most part, both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embeddings with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen.
 We can observe that the most influential hyper-parameter seems to be distance metric. Additionally, when we decrease the value of &lt;code&gt;min_dist&lt;/code&gt;, the projection becomes less compact and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music and We need to incorporate other aspects of songs such as lyrics to be able to differentiate between genres. For instance, Kaylin Pavlik in her blogpost explained how she based on similar audio features trained several machine learning models to classify songs into 6 main categories (EDM, Latin, Pop, R&amp;amp;B, Rap, &amp;amp; Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset but I couldn’t achieve higher performance.&lt;/p&gt;
 &lt;/div&gt;
@@ -4457,7 +4571,7 @@ We can observe that the most influential hyper-parameter seems to be distance me
     min.segment.length = 0.1) +
   labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
        color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.&lt;/p&gt;
 &lt;/div&gt;
 </description>
@@ -5130,465 +5244,6 @@ Official Repository for the paper:
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>Pandas</title>
-      <link>/post/pandas/</link>
-      <pubDate>Thu, 03 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/post/pandas/</guid>
-      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pandas &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt; pd
-&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; numpy &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt; np
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;یک راه دیگر ساخت دیتافریم ها، استفاده از دیکشنری های است. در این حالت نام ستون های دیتافریم به صورت key های دیکشنری و مقادیر این ستون ها به صورت یک لیست به عنوان value های این دیکشنری قرار داده می شوند.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;sample_dict &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; { &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;index&amp;#39;&lt;/span&gt;:range(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;),
-              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;column 1&amp;#39;&lt;/span&gt;: np&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;rand(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;),
-              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;column 2&amp;#39;&lt;/span&gt;: np&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randint(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;,size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DataFrame(sample_dict)
-df
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;rename({&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;column 1&amp;#39;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rand_noraml_col&amp;#39;&lt;/span&gt;,
-          &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;column 2&amp;#39;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rand_integer_col&amp;#39;&lt;/span&gt;},
-         axis &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;columns&amp;#39;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;columns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;index&amp;#39;&lt;/span&gt;,
-              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rand_noraml_col&amp;#39;&lt;/span&gt;,
-              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rand_integer_col&amp;#39;&lt;/span&gt;]
-df
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;columns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;columns&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;str&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;replace(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_col&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;)
-df
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_csv(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;data/house_price.csv&amp;#39;&lt;/span&gt;)
-data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;p&gt;برعکس کردن ترتیب سطرها&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;loc[::&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;loc[::&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;reset_index(drop &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; True)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;h3 id=&#34;برعکس-کردن-ترتیب-ستون-ها&#34;&gt;برعکس کردن ترتیب ستون ها&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;loc[:,::&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;class &#39;pandas.core.frame.DataFrame&#39;&amp;gt;
-RangeIndex: 1460 entries, 0 to 1459
-Data columns (total 81 columns):
-Id               1460 non-null int64
-MSSubClass       1460 non-null int64
-MSZoning         1460 non-null object
-LotFrontage      1201 non-null float64
-LotArea          1460 non-null int64
-Street           1460 non-null object
-Alley            91 non-null object
-LotShape         1460 non-null object
-LandContour      1460 non-null object
-Utilities        1460 non-null object
-LotConfig        1460 non-null object
-LandSlope        1460 non-null object
-Neighborhood     1460 non-null object
-Condition1       1460 non-null object
-Condition2       1460 non-null object
-BldgType         1460 non-null object
-HouseStyle       1460 non-null object
-OverallQual      1460 non-null int64
-OverallCond      1460 non-null int64
-YearBuilt        1460 non-null int64
-YearRemodAdd     1460 non-null int64
-RoofStyle        1460 non-null object
-RoofMatl         1460 non-null object
-Exterior1st      1460 non-null object
-Exterior2nd      1460 non-null object
-MasVnrType       1452 non-null object
-MasVnrArea       1452 non-null float64
-ExterQual        1460 non-null object
-ExterCond        1460 non-null object
-Foundation       1460 non-null object
-BsmtQual         1423 non-null object
-BsmtCond         1423 non-null object
-BsmtExposure     1422 non-null object
-BsmtFinType1     1423 non-null object
-BsmtFinSF1       1460 non-null int64
-BsmtFinType2     1422 non-null object
-BsmtFinSF2       1460 non-null int64
-BsmtUnfSF        1460 non-null int64
-TotalBsmtSF      1460 non-null int64
-Heating          1460 non-null object
-HeatingQC        1460 non-null object
-CentralAir       1460 non-null object
-Electrical       1459 non-null object
-1stFlrSF         1460 non-null int64
-2ndFlrSF         1460 non-null int64
-LowQualFinSF     1460 non-null int64
-GrLivArea        1460 non-null int64
-BsmtFullBath     1460 non-null int64
-BsmtHalfBath     1460 non-null int64
-FullBath         1460 non-null int64
-HalfBath         1460 non-null int64
-BedroomAbvGr     1460 non-null int64
-KitchenAbvGr     1460 non-null int64
-KitchenQual      1460 non-null object
-TotRmsAbvGrd     1460 non-null int64
-Functional       1460 non-null object
-Fireplaces       1460 non-null int64
-FireplaceQu      770 non-null object
-GarageType       1379 non-null object
-GarageYrBlt      1379 non-null float64
-GarageFinish     1379 non-null object
-GarageCars       1460 non-null int64
-GarageArea       1460 non-null int64
-GarageQual       1379 non-null object
-GarageCond       1379 non-null object
-PavedDrive       1460 non-null object
-WoodDeckSF       1460 non-null int64
-OpenPorchSF      1460 non-null int64
-EnclosedPorch    1460 non-null int64
-3SsnPorch        1460 non-null int64
-ScreenPorch      1460 non-null int64
-PoolArea         1460 non-null int64
-PoolQC           7 non-null object
-Fence            281 non-null object
-MiscFeature      54 non-null object
-MiscVal          1460 non-null int64
-MoSold           1460 non-null int64
-YrSold           1460 non-null int64
-SaleType         1460 non-null object
-SaleCondition    1460 non-null object
-SalePrice        1460 non-null int64
-dtypes: float64(3), int64(35), object(43)
-memory usage: 924.0+ KB
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;انتخاب ستون ها بر اساس تایپ ستون&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;select_dtypes(include &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;int64&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;select_dtypes(include &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;number&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;select_dtypes(include &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;int64&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;object&amp;#39;&lt;/span&gt;])&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;select_dtypes(exclude&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;int64&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;h2 id=&#34;تغییر-تایپ-ستون-ها&#34;&gt;تغییر تایپ ستون ها&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;titanic &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_csv(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;data/titanic.csv&amp;#39;&lt;/span&gt;)
-titanic&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;class &#39;pandas.core.frame.DataFrame&#39;&amp;gt;
-RangeIndex: 1309 entries, 0 to 1308
-Data columns (total 14 columns):
-pclass       1309 non-null int64
-survived     1309 non-null int64
-name         1309 non-null object
-sex          1309 non-null object
-age          1309 non-null object
-sibsp        1309 non-null int64
-parch        1309 non-null int64
-ticket       1309 non-null object
-fare         1309 non-null object
-cabin        1309 non-null object
-embarked     1309 non-null object
-boat         1309 non-null object
-body         1309 non-null object
-home.dest    1309 non-null object
-dtypes: int64(4), object(10)
-memory usage: 143.2+ KB
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value_counts(titanic&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;age)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;?     263
-24     47
-22     43
-21     41
-30     40
-Name: age, dtype: int64
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;نمونه-برداری-تصادفی-از-دیتافریم&#34;&gt;نمونه برداری تصادفی از دیتافریم&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;(1460, 81)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;train &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sample(frac&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.8&lt;/span&gt;, random_state&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1111&lt;/span&gt;)
-train&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;(1168, 81)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;test &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;drop(train&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;index)
-test&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;shape
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;(292, 81)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;فیلتر-کردن-بر-اساس-چند-معیار&#34;&gt;فیلتر کردن بر اساس چند معیار&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;titanic&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;titanic[(titanic[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pclass&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;
-       (titanic[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sex&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;female&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;
-       (titanic[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;survived&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;h1 id=&#34;فیلتر-کردن-بر-اساس-فراوان-ترین-دسته&#34;&gt;فیلتر کردن بر اساس فراوان ترین دسته&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;ubar &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_csv(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;data/ubar.csv&amp;#39;&lt;/span&gt;)
-ubar&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;source_counts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ubar[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;SourceState&amp;#39;&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;value_counts()
-source_counts
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;تهران                  5343
-اصفهان                 4665
-فارس                   4244
-خراسان رضوی            3913
-آذربایجان شرقی         2995
-مرکزی                  2400
-مازندران               1919
-یزد                    1879
-خوزستان                1779
-البرز                  1698
-قزوین                  1539
-آذربایجان غربی         1463
-سمنان                  1442
-گیلان                  1405
-همدان                  1296
-کرمان                  1272
-قم                     1224
-گلستان                 1131
-هرمزگان                1056
-کرمانشاه               1037
-زنجان                   923
-لرستان                  843
-چهارمحال و بختیاری      709
-بوشهر                   693
-سیستان و بلوچستان       622
-کردستان                 603
-خراسان جنوبی            599
-اردبیل                  571
-خراسان شمالی            416
-ایلام                   218
-کهگیلویه و بویراحمد     103
-Name: SourceState, dtype: int64
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;source_counts&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;nlargest(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;تهران     5343
-اصفهان    4665
-فارس      4244
-Name: SourceState, dtype: int64
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;source_counts&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;nlargest(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;index
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;Index([&#39;تهران&#39;, &#39;اصفهان&#39;, &#39;فارس&#39;], dtype=&#39;object&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;ubar[ubar[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;SourceState&amp;#39;&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;isin(source_counts&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;nlargest(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;index)]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;h1 id=&#34;مقادیر-گمشده&#34;&gt;مقادیر گمشده&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;titanic &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_csv(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;data/titanic.csv&amp;#39;&lt;/span&gt;,na_values &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;?&amp;#39;&lt;/span&gt;)
-titanic&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;head()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;titanic&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;isna()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sum()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;pclass          0
-survived        0
-name            0
-sex             0
-age           263
-sibsp           0
-parch           0
-ticket          0
-fare            1
-cabin        1014
-embarked        2
-boat          823
-body         1188
-home.dest     564
-dtype: int64
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;titanic&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;isna()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;pclass       0.000000
-survived     0.000000
-name         0.000000
-sex          0.000000
-age          0.200917
-sibsp        0.000000
-parch        0.000000
-ticket       0.000000
-fare         0.000764
-cabin        0.774637
-embarked     0.001528
-boat         0.628724
-body         0.907563
-home.dest    0.430863
-dtype: float64
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_csv(    )      
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;---------------------------------------------------------------------------
-
-TypeError                                 Traceback (most recent call last)
-
-&amp;lt;ipython-input-2-495416214f55&amp;gt; in &amp;lt;module&amp;gt;
-----&amp;gt; 1 pd.read_csv()
-
-
-TypeError: parser_f() missing 1 required positional argument: &#39;filepath_or_buffer&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>

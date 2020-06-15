@@ -13,7 +13,7 @@
     </image>
     
     <item>
-      <title>Happiest, Saddest, Most Energetic and Fastet Persian Singers on Spotify</title>
+      <title>The Happiest, Saddest, Most Energetic and Most Popular Persian Singers on Spotify</title>
       <link>/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/</link>
       <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
       <guid>/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/</guid>
@@ -21,6 +21,11 @@
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
 
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;How different Persian singers are from each other based on their audio characteristics&lt;/li&gt;
+&lt;li&gt;What are the most danceable and least danceable Persian songs?&lt;/li&gt;
+&lt;li&gt;Who is the most popular Persian singer and what is the most popular song?&lt;/li&gt;
+&lt;/ol&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(kableExtra)
 library(tidyverse)
 library(googlesheets4)
@@ -36,7 +41,7 @@ library(ggforce)
 library(cowplot)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;data-collection&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Data Collection&lt;/h2&gt;
-&lt;p&gt;I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using &lt;code&gt;spotifyr&lt;/code&gt; which gives us access to Spotify’s API. This process was cumbersome as sometimes I wasn’t getting what I was looking for. For instance, sometimes songs belonging to another random artist were being retrieved. In the end, I collected information over more than 10000 songs (of course some of them are duplicates in the Spoitfy’s playlist or just a remix)&lt;/p&gt;
+&lt;p&gt;I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using &lt;code&gt;spotifyr&lt;/code&gt; which gives us access to Spotify’s API. This process was cumbersome as sometimes I wasn’t getting what I was looking for. For instance, sometimes songs that belonged to another random artist were retrieved.For each singer, we can only retrieve the top 10 popular songs. It means that the rest of songs have no popularity scores. Nevertheless, I collected several types of information about more than 10000 songs (of course some of them are duplicates in the Spoitfy’s playlist or just a remix).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- read_csv(&amp;#39;https://raw.githubusercontent.com/mcnakhaee/datasets/master/Persian_Songs_Spotify.csv&amp;#39;)
 
 head(songs_audio_plus_pop) %&amp;gt;% 
@@ -904,19 +909,27 @@ NA
 &lt;/table&gt;
 &lt;div id=&#34;overall-song-features&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Overall Song Features&lt;/h3&gt;
-&lt;p&gt;Aside from metafeatures for each song, including the album that a song belongs, its date of release Spotify gives us more than 10 features corresponding the
-This plot was inspired by the
-I’m only interested in some of these features such as:&lt;/p&gt;
-&lt;p&gt;inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.&lt;/p&gt;
+&lt;p&gt;Aside from variables such the album that a song belongs to and its date of release, Spotify’s API can gives us several features that capture different audio characteristics of a song.&lt;/p&gt;
+&lt;p&gt;You can see a full list of these features in this link. However, I’m only interested in some of these features such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;valence&lt;/strong&gt; measures the happiness of a song.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;energy&lt;/strong&gt; is quite self-explanatory.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;tempo&lt;/strong&gt; measures the speed of a song.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;loudness&lt;/strong&gt; is also self-explanatory.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;acousticness&lt;/strong&gt; identifies whether the track is acoustic&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;instrumentalness&lt;/strong&gt; shows whether a track contains no vocals.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;danceability&lt;/strong&gt; determines how good a song is for dancing.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&#34;&gt;This wonderful visualization&lt;/a&gt; inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;artists &amp;lt;-
   c( &amp;#39;Sirvan Khosravi&amp;#39;,&amp;#39;Hesameddin Seraj&amp;#39;,&amp;#39;Rastak&amp;#39;,&amp;#39;Shahram Nazeri&amp;#39;,&amp;#39;Hossein Alizadeh&amp;#39;,&amp;#39;Reza Sadeghi&amp;#39;,&amp;#39;Alireza Eftekhari&amp;#39;,&amp;#39;Mohammadreza Shajarian&amp;#39;,
      &amp;#39;Salar Aghili&amp;#39;,&amp;#39;Morteza Pashaei&amp;#39;, &amp;#39;Alireza Ghorbani&amp;#39;,&amp;#39;Homayoun Shajarian&amp;#39;, &amp;#39;Mohsen Yeganeh&amp;#39; ,&amp;#39;Morteza Pashaei&amp;#39;,&amp;#39;Moein&amp;#39;,&amp;#39;Farzad Farzin&amp;#39;,
      &amp;#39;Babak Jahanbakhsh&amp;#39;, &amp;#39;Ehsan Khajeh Amiri&amp;#39;,&amp;#39;Siavash Ghomayshi&amp;#39;,&amp;#39;Xaniar Khosravi&amp;#39;,&amp;#39;Tohi&amp;#39; ,&amp;#39;Mohsen Chavoshi&amp;#39;,&amp;#39;Amir Tataloo&amp;#39;,
      &amp;#39;Hamed Homayoun&amp;#39;,&amp;#39;Kayhan Kalhor&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I’ll the average, the minimum and the maximum value of each feature for each singer. That gives use a good picture of how different their audio characteristcs are from each other. However, we must make the right adjustment to the dataset to visualize it:&lt;/p&gt;
+&lt;p&gt;I’ll plot the average, the minimum and the maximum value of each feature for each singer. That gives us a good picture of how different their audio characteristics are from each other. However, we must make the right adjustments to the dataset before visualizing it:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;First, we need to transform the original dataset into a long form, whcih can be done by &lt;code&gt;pivot_longer&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt; package.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Then we shoud rescale each audio features, otherwise the plot wouldn’t make any senes.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We need to transform the original dataset into a long form, which can be done by &lt;code&gt;pivot_longer&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt; package.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We should rescale each audio features, otherwise the plot wouldn’t make any sense.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;order &amp;lt;- c(
   &amp;quot;valence&amp;quot;,
@@ -943,7 +956,7 @@ scaled_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
       &amp;quot;acousticness&amp;quot;,
       &amp;quot;danceability&amp;quot;),
     values_to = &amp;#39;value&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we can visualize the results for each artist. A are compared by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs&lt;/p&gt;
+&lt;p&gt;Now, we can visualize the results for each artist. As I mentioned before, I’ll compare artists by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
   ### This plots the average of each audio feature
   geom_polygon(
@@ -1029,11 +1042,11 @@ scaled_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
   )&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;2112&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;jitter&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Jitter&lt;/h3&gt;
-&lt;p&gt;The
-It gave us&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theme_set(theme_void() +
+&lt;div id=&#34;looking-more-closely-at-each-audio-feature&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Looking more closely at each audio feature&lt;/h3&gt;
+&lt;p&gt;My first plot is informative but it only gives us an overall picture of audio features but I would like to have a more detailed picture of singers and the audio features for each of their songs. For this reason, I’ll also make a plot of .&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Set a custom theme for our plots
+theme_set(theme_void() +
   theme(
     text = element_text(family =  &amp;#39;Montserrat&amp;#39;),
     axis.text.x = element_text(
@@ -1068,6 +1081,7 @@ It gave us&lt;/p&gt;
     legend.position = &amp;#39;none&amp;#39;,
     plot.background = element_rect(fill = &amp;quot;#516869&amp;quot;)
   ))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Again here I’ll change the dataset to make it ready for visualization.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter &amp;lt;- songs_audio_plus_pop %&amp;gt;% 
   filter(artist_name %in% artists) %&amp;gt;% 
   mutate(is_popular = !is.na(popularity)) %&amp;gt;%
@@ -1286,6 +1300,7 @@ It gave us&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;most-popular-songs&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Most Popular Songs&lt;/h2&gt;
+&lt;p&gt;As I mentioned previously, we can only retrieve his/her top 10 popular songs for each artist. The popularity of a track is a value between 0 (least popular) and 100 (most popular). Spotify uses an algorithm to calculate popularity scores which is heavily influenced by the total number of times that a song has been played recently. You can read more about it in this &lt;a href=&#34;https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/&#34;&gt;link&lt;/a&gt;. Now we can visualize songs and artists that have been popular and played recently.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- songs_audio_plus_pop %&amp;gt;%
   filter(
     !artist_name %in% c(
@@ -1374,6 +1389,108 @@ songs_audio_plus_pop %&amp;gt;%
     plot.margin = unit(c(1, 1, 1.5, 1.2), &amp;quot;cm&amp;quot;)
   )&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This plot shows the most popular song of each artist and also the least popular track among his top 10 songs. The artists are also sorted based on their average popularity.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+    mutate(
+    track_name_farsi_na = if_else(
+      is.na(track_name_farsi),
+      track_name,
+      &amp;#39;&amp;#39;
+    ))
+popular_songs &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+  filter(!(is.na(popularity))) %&amp;gt;% 
+  filter(!(is.na(track_name_farsi))) %&amp;gt;% 
+  group_by(artist_name) %&amp;gt;% 
+  arrange(desc(popularity)) %&amp;gt;% 
+  slice(1)
+
+least &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+  arrange(energy) %&amp;gt;%
+  slice(1:10)  %&amp;gt;%
+  mutate(energy = energy + 0.02)
+
+
+most &amp;lt;- songs_audio_plus_pop %&amp;gt;%
+  arrange(desc(energy)) %&amp;gt;%
+  slice(1:10) %&amp;gt;%
+  mutate(energy = energy + 0.02)
+
+df &amp;lt;- most %&amp;gt;%
+  bind_rows(popular_songs %&amp;gt;% mutate(energy = energy + 0.02)) %&amp;gt;%
+  bind_rows(least) %&amp;gt;%
+  mutate(
+    is_popular = !is.na(popularity),
+    track_name_farsi_no_na = if_else(
+      is.na(track_name_farsi),
+      &amp;#39;&amp;#39;,
+      paste(&amp;#39;-&amp;#39; , track_name_farsi, sep = &amp;#39;&amp;#39;)
+    )
+  ) %&amp;gt;%
+  arrange(energy) %&amp;gt;%
+  distinct(artist_name_farsi, track_name_farsi, .keep_all = TRUE)
+
+df$id &amp;lt;- c(1:nrow(df))
+
+# calculate the ANGLE of the labels
+number_of_bar &amp;lt;- nrow(df)
+angle &amp;lt;- 180 + 90 - 360 * (df$id - .5)  / number_of_bar
+
+df$angle &amp;lt;- angle
+df &amp;lt;- df %&amp;gt;%
+  mutate(angle = if_else(angle &amp;lt; 180, angle, angle + 180)) %&amp;gt;%
+  mutate(
+    angle = if_else(angle &amp;lt; 180 &amp;amp;
+                      angle &amp;gt; 97, angle + 180, angle),
+    label = paste(artist_name_farsi, track_name_farsi, sep = &amp;#39; - &amp;#39;)
+  )
+
+df %&amp;gt;%
+  
+  ggplot(aes(
+    x = fct_reorder(track_name, energy),
+    y = energy,
+    fill = is_popular
+  )) +
+  
+  geom_bar(position = &amp;quot;stack&amp;quot;,
+           stat = &amp;quot;identity&amp;quot;,
+           alpha = 0.8) +
+  
+  scale_fill_manual(values = c(&amp;#39;#EF476F&amp;#39;, &amp;#39;#06D6A0&amp;#39;)) +
+  geom_text(
+    aes(label = label,
+        x = id,
+        y = energy + 0.6, ),
+    family = &amp;#39;B Nazanin&amp;#39;,
+    angle = df$angle,
+    size = 5.5,
+    hjust = 0.5,
+    color = &amp;#39;gray80&amp;#39;
+  ) +
+  theme_fivethirtyeight() +
+  ylim(-1.5, 2) +
+  coord_polar(direction = 2,
+              clip = &amp;quot;off&amp;quot;) +
+  annotate(
+    geom = &amp;quot;text&amp;quot;,
+    x = 0,
+    y = -0.9,
+    hjust = .5,
+    vjust = 1,
+    label = &amp;quot;The Most and Least Energetic\n Persian Songs&amp;quot;,
+    size = 8,
+    lineheight = .8,
+    family = &amp;quot;B Tehran&amp;quot;,
+    color = &amp;quot;#EF476F&amp;quot;
+  ) +
+  theme_void() +
+  theme(
+    axis.text.y.left = element_blank(),
+    axis.ticks  = element_blank(),
+    legend.position = &amp;#39;none&amp;#39;,
+    plot.background = element_rect(fill = &amp;quot;#516869&amp;quot;)
+  ) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;over-time&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Over Time&lt;/h1&gt;
@@ -1401,10 +1518,7 @@ songs_audio_plus_pop %&amp;gt;%
   theme_fivethirtyeight()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: Removed 72 row(s) containing missing values (geom_path).&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: Removed 8 row(s) containing missing values (geom_path).&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&#34; class=&#34;uri&#34;&gt;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R&#34; class=&#34;uri&#34;&gt;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Feb.18.20.CO2Food.R&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-&#34; class=&#34;uri&#34;&gt;http://nagvayeasheghi.blogfa.com/post/1417/اینسترومنتال-(Instrumental)-چیست-&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -3672,9 +3786,9 @@ head(sample_poets_df)&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>The Map of Spotify Songs</title>
-      <link>/post/2020-02-01-what-makes-a-song-popular/</link>
+      <link>/post/2020-02-01-the-map-of-spotify-songs/</link>
       <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-02-01-what-makes-a-song-popular/</guid>
+      <guid>/post/2020-02-01-the-map-of-spotify-songs/</guid>
       <description>
 
 
@@ -3890,7 +4004,7 @@ tsne_embeddings &amp;lt;- spotify_songs %&amp;gt;%
     title = &amp;#39;The Map of Spotify Songs Based on T-SNE Algorithm\n&amp;#39;,
     subtitle = &amp;#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;As you can see in this projection, songs that belong to the same artists are placed close to each other. It seems that T-SNE is able to preserve the local topological structure of songs. Now I will look at how T-SNE distinguishes different genres of music.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tsne_embeddings %&amp;gt;%
  ggplot(aes(x = tsne_1, y = tsne_2 ,color = playlist_genre )) +
@@ -3908,7 +4022,7 @@ tsne_embeddings &amp;lt;- spotify_songs %&amp;gt;%
     title = &amp;#39;The Map of Spotify Songs Based on T-SNE Algorithm\n&amp;#39;,
     subtitle = &amp;#39;Using the T-SNE algorithm, the audio features of each song are mapped into a 2D space.\n Each point represents a unique song and the most popular songs of several known artist are also shown\n&amp;#39;,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;umap&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;UMAP&lt;/h2&gt;
@@ -3976,7 +4090,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-2&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 2&lt;/h3&gt;
@@ -3999,7 +4113,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-3&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 3&lt;/h3&gt;
@@ -4022,7 +4136,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-4&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 4&lt;/h3&gt;
@@ -4045,7 +4159,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-5&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 5&lt;/h3&gt;
@@ -4068,7 +4182,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;setting-6&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Setting 6&lt;/h3&gt;
@@ -4091,7 +4205,7 @@ for (nn in n_neighbors) {
   min.segment.length = 0.1) +
  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;For the most part, both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embeddings with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen.
 We can observe that the most influential hyper-parameter seems to be distance metric. Additionally, when we decrease the value of &lt;code&gt;min_dist&lt;/code&gt;, the projection becomes less compact and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music and We need to incorporate other aspects of songs such as lyrics to be able to differentiate between genres. For instance, Kaylin Pavlik in her blogpost explained how she based on similar audio features trained several machine learning models to classify songs into 6 main categories (EDM, Latin, Pop, R&amp;amp;B, Rap, &amp;amp; Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset but I couldn’t achieve higher performance.&lt;/p&gt;
 &lt;/div&gt;
@@ -4126,7 +4240,7 @@ We can observe that the most influential hyper-parameter seems to be distance me
     min.segment.length = 0.1) +
   labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot; ,
        color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-what-makes-a-song-popular/index_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.&lt;/p&gt;
 &lt;/div&gt;
 </description>
