@@ -352,8 +352,11 @@ gb_ciu = explain_ciu(example,gb_fit)&lt;/code&gt;&lt;/pre&gt;
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
 
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;I am a music lover and like my other hobbies I am really interested in applying data science methods to it. A few months ago I participated in the third week of the TidyTuesday project where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then I have been using Spotify’s Web API to collect data and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify. We have different genres and types of music and while pop and rap are very popular among the younger generation I like the traditional style more. Nevertheless, I was always curios to understand how different the traditional music and pop music are from each other. For this reason, that I like the most These are a few questions that I would like to answer:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;How different Persian singers are from each other based on their audio characteristics&lt;/li&gt;
+&lt;li&gt;How different audio features can be among top Persian singers?&lt;/li&gt;
 &lt;li&gt;What are the most danceable and least danceable Persian songs?&lt;/li&gt;
 &lt;li&gt;Who is the most popular Persian singer and what is the most popular song?&lt;/li&gt;
 &lt;/ol&gt;
@@ -370,9 +373,10 @@ library(extrafont)
 library(ggtext)
 library(ggforce)
 library(cowplot)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;div id=&#34;data-collection&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Data Collection&lt;/h2&gt;
-&lt;p&gt;I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using &lt;code&gt;spotifyr&lt;/code&gt; which gives us access to Spotify’s API. This process was cumbersome as sometimes I wasn’t getting what I was looking for. For instance, sometimes songs that belonged to another random artist were retrieved.For each singer, we can only retrieve the top 10 popular songs. It means that the rest of songs have no popularity scores. Nevertheless, I collected several types of information about more than 10000 songs (of course some of them are duplicates in the Spoitfy’s playlist or just a remix).&lt;/p&gt;
+&lt;p&gt;I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using &lt;code&gt;spotifyr&lt;/code&gt; which gives us access to Spotify’s API. This process was cumbersome as sometimes I wasn’t getting what I was looking for. For instance, sometimes songs that belonged to another random artist were retrieved. For each singer, we can only retrieve the top 10 popular songs. It means that the rest of songs have no popularity scores. Nevertheless, I collected several types of information about more than 10000 songs (of course some of them are duplicates in the Spoitfy’s playlist or just a remix).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- read_csv(&amp;#39;https://raw.githubusercontent.com/mcnakhaee/datasets/master/Persian_Songs_Spotify.csv&amp;#39;)
 
 head(songs_audio_plus_pop) %&amp;gt;% 
@@ -1375,7 +1379,7 @@ scaled_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
 &lt;/div&gt;
 &lt;div id=&#34;looking-more-closely-at-each-audio-feature&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Looking more closely at each audio feature&lt;/h3&gt;
-&lt;p&gt;My first plot is informative but it only gives us an overall picture of audio features but I would like to have a more detailed picture of singers and the audio features for each of their songs. For this reason, I’ll also make a plot of .&lt;/p&gt;
+&lt;p&gt;My first plot is informative but it only gives us an overall picture of audio features but I would like to have a more detailed picture of singers and the audio features for each of their songs. For this reason, I will also make a separate plot for each audio feature where every song and its corresponding feature values are shown. I will also mark a few popular songs from each artist with a separate color on this plot.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Set a custom theme for our plots
 theme_set(theme_void() +
   theme(
@@ -1579,6 +1583,7 @@ theme_set(theme_void() +
   scale_color_manual(values = c(&amp;#39;#A5668B&amp;#39;, &amp;#39;#EF476F&amp;#39;)) +
   scale_y_continuous(sec.axis = dup_axis()) +
   coord_flip()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;loudness&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Loudness&lt;/h3&gt;
@@ -1616,22 +1621,16 @@ theme_set(theme_void() +
     size = 5,
     aes(group = artist_name)
   ) +
-  #&amp;#39;#EF476F&amp;#39;
   scale_color_manual(values = c(&amp;#39;#06D6A0&amp;#39;, &amp;#39;#EF476F&amp;#39;)) +
-  labs(
-    x = &amp;#39;&amp;#39;,
-    y = &amp;#39;بلندی&amp;#39;,
-    title = &amp;#39;مقایسه ای بین میزان بلندی آهنگ های برخی از خوانندگان (نوازندگان) ایرانی&amp;#39;,
-    subtitle = &amp;#39;&amp;#39;,
-    caption = &amp;#39;منبع: اسپاتیفای\n  مصورسازی: محمد چناریان نخعی&amp;#39;
-  ) +
   scale_y_continuous(sec.axis = dup_axis()) +
   coord_flip() &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;most-popular-songs&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Most Popular Songs&lt;/h2&gt;
-&lt;p&gt;As I mentioned previously, we can only retrieve his/her top 10 popular songs for each artist. The popularity of a track is a value between 0 (least popular) and 100 (most popular). Spotify uses an algorithm to calculate popularity scores which is heavily influenced by the total number of times that a song has been played recently. You can read more about it in this &lt;a href=&#34;https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/&#34;&gt;link&lt;/a&gt;. Now we can visualize songs and artists that have been popular and played recently.&lt;/p&gt;
+&lt;p&gt;As I mentioned previously, we can only retrieve his/her top 10 popular songs for each artist. The popularity of a track is a value between 0 (least popular) and 100 (most popular). Spotify uses an algorithm to calculate popularity scores which is heavily influenced by the total number of times that a song has been played recently. You can read more about it in this &lt;a href=&#34;https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Knowing this fact about how popularity is measured, we can visualize songs and artists that have been popular and played recently.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- songs_audio_plus_pop %&amp;gt;%
   filter(
     !artist_name %in% c(
@@ -1670,13 +1669,13 @@ songs_audio_plus_pop %&amp;gt;%
   geom_text(
     aes(x = min_pop - 1, y = artist_name, label = least_popular),
     size = 7,
-    family = &amp;#39;B Tehran&amp;#39;,
+    family = &amp;#39;Montserrat&amp;#39;,
     hjust = 1
   ) +
   geom_text(
     aes(x = max_pop + 1, y = artist_name, label = most_popular),
     size = 7,
-    family = &amp;#39;B Tehran&amp;#39;,
+    family = &amp;#39;Montserrat&amp;#39;,
     hjust = 0
   ) +
   scale_x_continuous(sec.axis = dup_axis()) +
@@ -1721,135 +1720,6 @@ songs_audio_plus_pop %&amp;gt;%
   )&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This plot shows the most popular song of each artist and also the least popular track among his top 10 songs. The artists are also sorted based on their average popularity.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- songs_audio_plus_pop %&amp;gt;%
-    mutate(
-    track_name_farsi_na = if_else(
-      is.na(track_name_farsi),
-      track_name,
-      &amp;#39;&amp;#39;
-    ))
-popular_songs &amp;lt;- songs_audio_plus_pop %&amp;gt;%
-  filter(!(is.na(popularity))) %&amp;gt;% 
-  filter(!(is.na(track_name_farsi))) %&amp;gt;% 
-  group_by(artist_name) %&amp;gt;% 
-  arrange(desc(popularity)) %&amp;gt;% 
-  slice(1)
-
-least &amp;lt;- songs_audio_plus_pop %&amp;gt;%
-  arrange(energy) %&amp;gt;%
-  slice(1:10)  %&amp;gt;%
-  mutate(energy = energy + 0.02)
-
-
-most &amp;lt;- songs_audio_plus_pop %&amp;gt;%
-  arrange(desc(energy)) %&amp;gt;%
-  slice(1:10) %&amp;gt;%
-  mutate(energy = energy + 0.02)
-
-df &amp;lt;- most %&amp;gt;%
-  bind_rows(popular_songs %&amp;gt;% mutate(energy = energy + 0.02)) %&amp;gt;%
-  bind_rows(least) %&amp;gt;%
-  mutate(
-    is_popular = !is.na(popularity),
-    track_name_farsi_no_na = if_else(
-      is.na(track_name_farsi),
-      &amp;#39;&amp;#39;,
-      paste(&amp;#39;-&amp;#39; , track_name_farsi, sep = &amp;#39;&amp;#39;)
-    )
-  ) %&amp;gt;%
-  arrange(energy) %&amp;gt;%
-  distinct(artist_name_farsi, track_name_farsi, .keep_all = TRUE)
-
-df$id &amp;lt;- c(1:nrow(df))
-
-# calculate the ANGLE of the labels
-number_of_bar &amp;lt;- nrow(df)
-angle &amp;lt;- 180 + 90 - 360 * (df$id - .5)  / number_of_bar
-
-df$angle &amp;lt;- angle
-df &amp;lt;- df %&amp;gt;%
-  mutate(angle = if_else(angle &amp;lt; 180, angle, angle + 180)) %&amp;gt;%
-  mutate(
-    angle = if_else(angle &amp;lt; 180 &amp;amp;
-                      angle &amp;gt; 97, angle + 180, angle),
-    label = paste(artist_name_farsi, track_name_farsi, sep = &amp;#39; - &amp;#39;)
-  )
-
-df %&amp;gt;%
-  
-  ggplot(aes(
-    x = fct_reorder(track_name, energy),
-    y = energy,
-    fill = is_popular
-  )) +
-  
-  geom_bar(position = &amp;quot;stack&amp;quot;,
-           stat = &amp;quot;identity&amp;quot;,
-           alpha = 0.8) +
-  
-  scale_fill_manual(values = c(&amp;#39;#EF476F&amp;#39;, &amp;#39;#06D6A0&amp;#39;)) +
-  geom_text(
-    aes(label = label,
-        x = id,
-        y = energy + 0.6, ),
-    family = &amp;#39;B Nazanin&amp;#39;,
-    angle = df$angle,
-    size = 5.5,
-    hjust = 0.5,
-    color = &amp;#39;gray80&amp;#39;
-  ) +
-  theme_fivethirtyeight() +
-  ylim(-1.5, 2) +
-  coord_polar(direction = 2,
-              clip = &amp;quot;off&amp;quot;) +
-  annotate(
-    geom = &amp;quot;text&amp;quot;,
-    x = 0,
-    y = -0.9,
-    hjust = .5,
-    vjust = 1,
-    label = &amp;quot;The Most and Least Energetic\n Persian Songs&amp;quot;,
-    size = 8,
-    lineheight = .8,
-    family = &amp;quot;B Tehran&amp;quot;,
-    color = &amp;quot;#EF476F&amp;quot;
-  ) +
-  theme_void() +
-  theme(
-    axis.text.y.left = element_blank(),
-    axis.ticks  = element_blank(),
-    legend.position = &amp;#39;none&amp;#39;,
-    plot.background = element_rect(fill = &amp;quot;#516869&amp;quot;)
-  ) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;over-time&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Over Time&lt;/h1&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;years &amp;lt;- songs_audio_plus_pop %&amp;gt;% 
-  distinct(album_release_year) %&amp;gt;% 
-  filter(album_release_year &amp;gt;1984) %&amp;gt;% 
-  pull()
-
-songs_audio_plus_pop %&amp;gt;%
-  select(album_release_year, danceability, energy, loudness, speechiness, liveness, valence, tempo, duration_ms,popularity
-         ) %&amp;gt;% 
-  mutate_at(vars(-album_release_year),scale) %&amp;gt;% 
-  group_by(album_release_year) %&amp;gt;% 
-  summarise_at(vars(everything()),mean,na.rm = TRUE) %&amp;gt;% 
-  pivot_longer(names_to = &amp;#39;metric&amp;#39;,cols =c(danceability, energy, loudness, speechiness, liveness, valence, tempo, duration_ms,popularity
-                                           ),
-           values_to = &amp;#39;value&amp;#39;) %&amp;gt;% 
-  ggplot(aes(album_release_year,y= value,color = metric)) +
-  geom_line(color = &amp;#39;indianred&amp;#39;,size = 1.5,alpha = 1) + 
-  gghighlight( use_direct_label = FALSE,unhighlighted_params = list(size = 1.5,width = 0.5,color =&amp;#39;#F6DAB4&amp;#39;,alpha  = 0.7)) +
-  scale_x_continuous(breaks = years,labels = years,limits = c(1985,2020)) +
-  facet_wrap(~ metric,
-          #   scales = &amp;#39;free_y&amp;#39;
-           ncol = 1 ) +
-  theme_fivethirtyeight()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Removed 72 row(s) containing missing values (geom_path).&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Removed 8 row(s) containing missing values (geom_path).&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>

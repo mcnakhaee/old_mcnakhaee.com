@@ -1,8 +1,9 @@
 ---
 authors:
 - admin
-bio: I am Muhammad,a data scientist and machine learning enthusiast.
+bio: I am Muhammad,a data scientist and machine learning enthusiast
 education:
+  courses:
   - course: MSC Industrial Engineering
     institution:  Sharif University of Technology
     year: 2014-2017
@@ -19,7 +20,7 @@ name: Muhammad Chenariyan Nakhaee
 organizations:
 - name: University of Twente
   url: "https://personen.utwente.nl/m.cnakhaee"
-role: Data Scientist
+role: Machine Learning Researcher
 social:
 - icon: envelope
   icon_pack: fas
@@ -42,7 +43,4 @@ user_groups:
 - Visitors
 ---
 
-My name is Muhammad. 
-
-I began my adventure in data science 5 years ago and since then I have been involved in a wide range of related projects such as machine learning for traffic accident data, social network analysis of Telegram messaging application, stock market prediction and my personal text mining projects. Recently I was a machine learning researcher in the Data Science at the University of Twente in the Netherlands. My  project as funded by ProRail, the main Dutch company responsible for maintaining the railway infrastructure in the Netherlands. The goal of my  project is to combine machine learning and big data techniques with formal method tools such as Fault Trees to help ProRail optimize their maintenance operations. 
-
+My name is Muhammad. I began my adventure in data science 5 years ago and since then I have been involved in a wide range of related projects such as machine learning for traffic accident data, social network analysis of Telegram messaging application, stock market prediction and my personal text mining projects. Recently I was a machine learning researcher in the Data Science at the University of Twente in the Netherlands. My project as funded by ProRail, the main Dutch company responsible for maintaining the railway infrastructure in the Netherlands. The goal of my project is to combine machine learning and big data techniques with formal method tools such as Fault Trees to help ProRail optimize their maintenance operations. 
