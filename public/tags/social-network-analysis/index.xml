@@ -5,7 +5,7 @@
     <link>/tags/social-network-analysis/</link>
       <atom:link href="/tags/social-network-analysis/index.xml" rel="self" type="application/rss+xml" />
     <description>social network analysis</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 08 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 28 Sep 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>social network analysis</title>
@@ -13,27 +13,365 @@
     </image>
     
     <item>
+      <title>Tidy Tuesday Week 37: NLP and Friends</title>
+      <link>/post/tidy-tuesday-week-37-nlp-and-friends/</link>
+      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/post/tidy-tuesday-week-37-nlp-and-friends/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TidyTuesday Week 37: NLP and Friends</title>
+      <link>/post/tidytuesday-week-37-nlp-and-friends/</link>
+      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/post/tidytuesday-week-37-nlp-and-friends/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;knitr&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;opts_chunk&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(warning &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, message &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;,eval &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidyverse)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(ggthemes)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidytuesdayR)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(rsyntax)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(spacyr)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidytext)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidygraph)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(igraph)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(ggraph)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(hrbrthemes)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;spacy_initialize&lt;/span&gt;(model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;en_core_web_lg&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tt &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tt_load&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2020-09-08&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends_emotions
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;friends_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rownames_to_column&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rowname) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;top-locations&#34;&gt;Top Locations&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;places_scenes &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(text, &lt;span style=&#34;color:#a6e22e&#34;&gt;fixed&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Scene:&amp;#39;&lt;/span&gt;))) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;( text) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rowwise&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(
+    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_split&lt;/span&gt;(text, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;,&amp;#39;&lt;/span&gt;)[[1]][1],
+    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_remove_all&lt;/span&gt;(place, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;erm&amp;#39;&lt;/span&gt;),
+    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_remove&lt;/span&gt;(place, &lt;span style=&#34;color:#a6e22e&#34;&gt;fixed&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[Scene: &amp;#39;&lt;/span&gt;)) ,
+    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_trim&lt;/span&gt;(place)
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(place, sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,
+         &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(place, &lt;span style=&#34;color:#a6e22e&#34;&gt;fixed&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;]&amp;#39;&lt;/span&gt;)),
+         &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;place &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Monica&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Chandler&amp;#39;&lt;/span&gt;))
+
+    
+places_scenes  &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  DT&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;datatable&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt; places_scenes &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fct_reorder&lt;/span&gt;(place,n),n)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_col&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#ef476f&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#scale_fill_tableau() +&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#facet_wrap(~season,nrow = 10,scales = &amp;#39;free_y&amp;#39;) +&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;coord_flip&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_fivethirtyeight&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;, 
+        axis.text.x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(angle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;90&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tokens &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rownames_to_column&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rowname) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;spacy_parse&lt;/span&gt;(pos &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;,tag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;friends-network&#34;&gt;Friends&amp;rsquo; Network&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;friends_entities &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;inner_join&lt;/span&gt;(tokens,by &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;doc_id&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(entity,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;PERSON_B&amp;#39;&lt;/span&gt;),
+        &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;speaker &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Scene Directions&amp;#39;&lt;/span&gt;),
+        &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;token &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Bye&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;kiddin&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;God&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Sting&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Bijan&amp;#39;&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(token &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;case_when&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_to_lower&lt;/span&gt;(token),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rach&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rachel&amp;#39;&lt;/span&gt;,
+                           &lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_to_lower&lt;/span&gt;(token),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;joe&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Joey&amp;#39;&lt;/span&gt;,
+                            &lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_to_lower&lt;/span&gt;(token),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pheebs&amp;#39;&lt;/span&gt;)  &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Phoebe&amp;#39;&lt;/span&gt;,
+                           &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; token))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tokens_speakers_count &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_entities &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(speaker,token,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+
+speakers &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_speakers_count &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;distinct&lt;/span&gt;(speaker) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pull&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;traph_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_speakers_count &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; speaker,
+         to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; token) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;as_tbl_graph&lt;/span&gt;(directed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;activate&lt;/span&gt;(nodes) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;( deg_cent &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;log10&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;centrality_degree&lt;/span&gt;() &lt;span style=&#34;color:#ae81ff&#34;&gt;+1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+         is_speaker &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;if_else&lt;/span&gt;(name &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; speakers,&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;) )
+
+traph_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ggraph&lt;/span&gt;(layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;nicely&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_edge_link&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(width &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n,alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n),color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#f9dcc4&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_text&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; name,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),repel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_point&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; deg_cent,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_color_tableau&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_graph&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(
+    plot.title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      face &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bold&amp;#34;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;,
+      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+    ),
+    legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;,
+    plot.subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
+      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+    ),
+    strip.text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
+      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;
+    ),
+    
+        plot.caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;,
+      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
+      &lt;span style=&#34;color:#75715e&#34;&gt;#hjust = 0.5&lt;/span&gt;
+    ),
+    strip.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gray50&amp;#39;&lt;/span&gt;,
+                                    fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#fc9d9d&amp;#34;&lt;/span&gt;),
+  ) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tokens_speakers_season_ount &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_entities &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(season,speaker,token,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;)
+  
+  
+graph_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_speakers_season_ount &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; speaker,
+         to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; token) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;as_tbl_graph&lt;/span&gt;(directed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;activate&lt;/span&gt;(nodes) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(deg_cent&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;centrality_degree&lt;/span&gt;(mode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;out&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;centrality_degree&lt;/span&gt;(mode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;in&amp;#39;&lt;/span&gt;) ,
+         is_speaker &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;if_else&lt;/span&gt;(name &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; speakers,&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;) )  
+
+
+
+graph_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ggraph&lt;/span&gt;(layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;nicely&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_edge_link&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(width &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n,alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n),color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#f9dcc4&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_text&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; name,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),repel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;,family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_point&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; deg_cent&lt;span style=&#34;color:#ae81ff&#34;&gt;+2&lt;/span&gt;,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_color_tableau&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;facet_edges&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;season,nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_graph&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(
+    plot.title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      face &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bold&amp;#34;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;,
+      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+    ),
+    legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;,
+    plot.subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
+      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+    ),
+    strip.text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
+      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;
+    ),
+    
+        plot.caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;,
+      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
+      &lt;span style=&#34;color:#75715e&#34;&gt;#hjust = 0.5&lt;/span&gt;
+    ),
+    strip.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gray50&amp;#39;&lt;/span&gt;,
+                                    fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#fc9d9d&amp;#34;&lt;/span&gt;),
+  ) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;female_characters &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;monica&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rachel&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;phoebe&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;emily&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;carol&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;janice&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;susan&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;kathy&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;elizabeth&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;she&amp;#39;&lt;/span&gt;)
+male_characters &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ross&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;joey&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;chandler&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;mike&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;richard&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gunther&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;paolo&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bob&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;paul&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;frank&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;he&amp;#39;&lt;/span&gt;)
+tq &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tquery&lt;/span&gt;(pos &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;VERB&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;verb&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;children&lt;/span&gt;(relation &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nsubj&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;subject&amp;#34;&lt;/span&gt;))
+tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;unnest_tokens&lt;/span&gt;(sentence, text, token &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sentences&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rownames_to_column&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rowname,
+         text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sentence) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;spacy_parse&lt;/span&gt;(dependency &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;annotate_tqueries&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;annotation&amp;#34;&lt;/span&gt;, query_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tq) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;is.na&lt;/span&gt;(annotation))
+female_ids &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(token &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; female_characters, annotation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;subject&amp;#39;&lt;/span&gt; ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pull&lt;/span&gt;(doc_id)
+  
+male_ids &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(token &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; male_characters, annotation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;subject&amp;#39;&lt;/span&gt;  ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pull&lt;/span&gt;(doc_id)
+female_verbs &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; female_ids,pos &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;VERB&amp;#39;&lt;/span&gt;,relation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ROOT&amp;#39;&lt;/span&gt;  ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;unnest_tokens&lt;/span&gt;(word,lemma) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;anti_join&lt;/span&gt;(stop_words) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(word,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(pronoun &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;she&amp;#39;&lt;/span&gt;)
+male_verbs &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; male_ids,pos &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;VERB&amp;#39;&lt;/span&gt;,relation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ROOT&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;unnest_tokens&lt;/span&gt;(word,lemma) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;anti_join&lt;/span&gt;(stop_words) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(word,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(pronoun &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;he&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;verb_log &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; female_verbs &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;bind_rows&lt;/span&gt;(male_verbs) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(word&lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;singe&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pivot_wider&lt;/span&gt;(names_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pronoun,values_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n,values_fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; he &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; she,
+         he &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (he&lt;span style=&#34;color:#ae81ff&#34;&gt;+1&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(he &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;),
+         she &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (she &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(she &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;),
+         logratio &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;log2&lt;/span&gt;(she &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; he)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(total &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(logratio &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;top_n&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;,&lt;span style=&#34;color:#a6e22e&#34;&gt;abs&lt;/span&gt;(logratio)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ungroup&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(word &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;reorder&lt;/span&gt;(word,logratio),
+         nchars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nchar&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;as.character&lt;/span&gt;(word))) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;female_arrows &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tibble&lt;/span&gt;(
+  x1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;),
+  x2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;),
+  y1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;),
+  y2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.8&lt;/span&gt;)
+)
+male_arrows &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;tibble&lt;/span&gt;(
+  x1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;),
+  x2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;),
+  y1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-1&lt;/span&gt;),
+  y2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-1.8&lt;/span&gt;)
+)
+female_color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#ef476f&amp;#39;&lt;/span&gt;
+male_color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#118ab2&amp;#39;&lt;/span&gt;
+g &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_col&lt;/span&gt;(data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; verb_log , &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(word, logratio, fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  logratio &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_text&lt;/span&gt;(
+    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; verb_log ,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(
+      label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; word,
+      x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; word,
+      y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;if_else&lt;/span&gt;(logratio &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, logratio &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.03&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;nchars, logratio  &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.03&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;nchars)
+    ),
+    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;,
+    family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;,
+    face &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bold&amp;#39;&lt;/span&gt;,
+    &lt;span style=&#34;color:#75715e&#34;&gt;#label.padding = 0.05&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;coord_flip&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_y_continuous&lt;/span&gt;(limits &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_fill_manual&lt;/span&gt;(values &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(female_color, male_color)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;annotate&lt;/span&gt;(
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt;,
+    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;24&lt;/span&gt;,
+    y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.5&lt;/span&gt;,
+    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;More Female&amp;#39;&lt;/span&gt;,
+    family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;,
+    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; female_color,
+    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,
+    vjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;,
+    hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.6&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;annotate&lt;/span&gt;(
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt;,
+    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,
+    y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;-1.34&lt;/span&gt;,
+    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;More Male&amp;#39;&lt;/span&gt;,
+    family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;,
+    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; male_color,
+    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,
+    vjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;,
+    hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.6&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_curve&lt;/span&gt;(
+    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; female_arrows,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(
+      x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x1,
+      y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y1,
+      xend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x2,
+      yend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y2
+    ),
+    arrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arrow&lt;/span&gt;(length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unit&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.07&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inch&amp;#34;&lt;/span&gt;)),
+    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
+    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; female_color,
+    curvature &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_curve&lt;/span&gt;(
+    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; male_arrows,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(
+      x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x1,
+      y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y1,
+      xend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x2,
+      yend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y2
+    ),
+    arrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arrow&lt;/span&gt;(length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unit&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.07&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inch&amp;#34;&lt;/span&gt;)),
+    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
+    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; male_color,
+    curvature &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;labs&lt;/span&gt;(
+    title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;She Lies, He Listens&amp;#39;&lt;/span&gt;,
+    subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;This plot shows what common verbs were used to describe male and female characters in Friends&amp;#39;&lt;/span&gt;,
+    fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;,
+    caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;visualization: mcnakhaee.com&amp;#39;&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_fivethirtyeight&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(
+    text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Poppins Light&amp;#39;&lt;/span&gt;, color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#774936&amp;#39;&lt;/span&gt;),
+    plot.title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)),
+    plot.subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;)),
+    axis.text.y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_blank&lt;/span&gt;(),
+    plot.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#FFFAF0&amp;#39;&lt;/span&gt;),
+    panel.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#FFFAF0&amp;#39;&lt;/span&gt;),
+    legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;,
+    panel.grid.major  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_line&lt;/span&gt;(
+      color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#eddcd2&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;,
+      linetype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dashed&amp;#39;&lt;/span&gt;
+    ),
+    panel.grid.minor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_line&lt;/span&gt;(
+      color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#eddcd2&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.01&lt;/span&gt;,
+      linetype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dashed&amp;#39;&lt;/span&gt;
+    )
+  )
+g
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
       <title>Analyzing the 2020 Democratic Presidential Debates - Part 2</title>
       <link>/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/</link>
       <pubDate>Sun, 08 Mar 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;1. Introduction&lt;/h2&gt;
-&lt;p&gt;It wasn’t possible for many of us to watch every 2020 Democratic Primary debate. It was important for some of us to know what happened during the debates. In my case, I was reading about what happened in debates in some kind of online newspapers or I watched a highlight of a debate on Youtube the next day. However, they only give a short summary of a debate or just broadcast a portion of debates that includes a heated exchange of opinions between candidates. As a result, many important issues raised by candidates will be &lt;strong&gt;ignored and forgotten in the&lt;/strong&gt; aftermath of a debate. So, it is important to summarize the content of a debate in such a way that everyone could understand what went on in a debate and what issues each candidate addressed during his/her speech. In this blog post, I will show you how I used some NLP techniques for exploring the content of debates and give you a comprehensive overview of topics that each candidate discussed.&lt;/p&gt;
+&lt;p&gt;Many of us could not watch every 2020 Democratic Primary debate. It was important for some of us to know what happened during the debates. In my case, I was reading about what happened in debates in some online newspapers, or I watched a highlight of a debate on Youtube the next day. However, they only give a summary of a debate or just broadcast a portion of debates that includes a heated exchange of opinions between candidates. As a result, many important issues raised by candidates will be &lt;strong&gt;ignored and forgotten in the&lt;/strong&gt; aftermath of a debate. So, it is crucial to summarize the debate’s content so that everyone could understand what went on in the debate and what issues each candidate addressed during his/her speech. In this blog post, I will show you how I used some NLP techniques for exploring the content of debates and give you a comprehensive overview of topics that each candidate discussed.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://mcnakhaee.com/post/2020-02-23-the-most-eloeuent-democratic-candidate/&#34;&gt;In my last blog post&lt;/a&gt;, I explained that I had the three following goals in mind when I started exploring the 2020 Democratic Debates :&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;To know how eloquent presidential candidate are.&lt;/li&gt;
+&lt;li&gt;To know how eloquent presidential candidates are.&lt;/li&gt;
 &lt;li&gt;To find out who used more positive or more negative words in his/her speech by performing sentiment analysis.&lt;/li&gt;
-&lt;li&gt;A map of topics, individuals and entities that each candidate mentioned in his/her speech by using named entity recognition and network analysis..&lt;/li&gt;
+&lt;li&gt;A map of topics, individuals, and entities that each candidate mentioned in his/her speech by using named entity recognition and network analysis..&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;I only discussed how I approached the first two aspects of my experiment in my last blogpost. Now it is time to investigate the third and last one.&lt;/p&gt;
-&lt;p&gt;Initially, my aim from using network analysis was to determine potential allies and enemies on the debate stage. For example, &lt;a href=&#34;https://www.theguardian.com/us-news/2020/mar/04/mike-bloomberg-out-60-second-attack-elizabeth-warren-destroyed-campaign&#34;&gt;Elizabeth Warren mentioned Mike Bloomberg several times and attacked him harshly in the 9th debate&lt;/a&gt;. During the same debate, &lt;a href=&#34;https://www.independent.co.uk/news/world/americas/us-election/amy-klobuchar-pete-buttigieg-handshake-democratic-debate-video-a9348621.html&#34;&gt;Amy Klobuchar and Pete Buttigieg clashed bitterly with each other&lt;/a&gt;. These are just two instances of many other heated exchanges between the candidates that happend over the course of 10 debates.&lt;/p&gt;
+&lt;p&gt;Initially, my aim was to use network analysis to determine potential allies and enemies on the debate stage. For example, &lt;a href=&#34;https://www.theguardian.com/us-news/2020/mar/04/mike-bloomberg-out-60-second-attack-elizabeth-warren-destroyed-campaign&#34;&gt;Elizabeth Warren mentioned Mike Bloomberg several times and attacked him harshly in the 9th debate&lt;/a&gt;. During the same debate, &lt;a href=&#34;https://www.independent.co.uk/news/world/americas/us-election/amy-klobuchar-pete-buttigieg-handshake-democratic-debate-video-a9348621.html&#34;&gt;Amy Klobuchar and Pete Buttigieg clashed bitterly with each other&lt;/a&gt;. These are just two instances of many other heated exchanges between the candidates that happened throughout the ten debates.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;To make things more clear, I transformed my objective into two questions that I would like to answer:&lt;/p&gt;
+&lt;p&gt;To make things more precise, I transformed my objective into two questions that I would like to answer:&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
@@ -41,13 +379,13 @@
 &lt;li&gt;How did he/she refer to a candidate(in a friendly or unfriendly manner)?&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;A simple approach to answer these questions is to store the names of all candidates in a variable (for example a vector in R or a list in Python), iterate over the transcript, compute the sentiment, count and store the number of times that a candidate’s name was brought up by another candidate.&lt;/p&gt;
-&lt;p&gt;However, this approach is a little bit challenging and requires a lot of manual data pre-processing efforts. For each democratic candidate, one must compile a comprehensive combinations of ways that may be used to call a candidate and preparing such a list seems to be a very time-consuming task. For example, other candidates mentioned Bernie Sanders in many different ways including Bernie, Bernie Sanders or Senator Sanders.&lt;/p&gt;
-&lt;p&gt;I realized that I can use Named Entity Recognition (NER), a technique from Natural Language Processing (NLP) literature, to extract the name of candidates from the transcript and solve this problem more efficiently. By using this approach, not only I can find candidates’ names form the transcript, but I can also find the names of other politicians, individuals and even organizations and further extend my analysis to include much more topics and issues.&lt;/p&gt;
+&lt;p&gt;A simple approach to answering these questions is to store the names of all candidates in a variable (for example, a vector in R or a list in Python), iterate over the transcript, compute the sentiment, count and store the number of times that another candidate brought up a candidate’s name.&lt;/p&gt;
+&lt;p&gt;However, this approach is a little bit challenging and requires a lot of manual data pre-processing efforts. For each democratic candidate, one must compile a comprehensive combination of ways that may be used to call a candidate, and to prepare such a list seems to be a very time-consuming task. For example, other candidates mentioned Bernie Sanders in many different ways, including Bernie, Bernie Sanders, or Senator Sanders.&lt;/p&gt;
+&lt;p&gt;I realized that I could use Named Entity Recognition (NER), a technique from the Natural Language Processing (NLP) literature, to extract candidates’ names from the transcript and solve this problem more efficiently. Using this approach, I can find candidates’ names from the transcript, but I can also find the names of other politicians, individuals, and even organizations and further extend my analysis to include many more topics and issues.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;workflow&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;2. Workflow&lt;/h2&gt;
-&lt;p&gt;I made use of both python and R in my analysis. My workflow includes the following steps:&lt;/p&gt;
+&lt;p&gt;I made use of both Python and R in my analysis. My workflow includes the following steps:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;I access the transcript of debates using this package.&lt;/li&gt;
 &lt;li&gt;I use tidytext to split the transcript into multiple sentences and also for sentiment analysis.&lt;/li&gt;
@@ -55,7 +393,7 @@
 &lt;li&gt;I compute the sentiment of each sentence using TextBlob library in Python.&lt;/li&gt;
 &lt;li&gt;I transferred the results to R for visualization. There, I visualize the network of mentions and entities using ggraph and ggplot library.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Note that I could have implemented all the steps in R. For instance, Spacy has an R wrapper called Spacyr which gives the same functionality that I need for this analysis. However, I’d like to increase the number of tools that I can use. Particularly, using Python and R side by side is an interesting challenge for me.&lt;/p&gt;
+&lt;p&gt;Note that I could have implemented all the steps in R. For instance, Spacy has an R wrapper called Spacyr, which gives the same functionality that I need for this analysis. However, I’d like to increase the number of tools that I can use. Notably, using Python and R side by side is an exciting challenge for me.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(demdebates2020)
 library(tidytext)
 library(tidygraph)
@@ -491,17 +829,17 @@ NA
 &lt;/div&gt;
 &lt;div id=&#34;named-entity-recognition-using-spacy&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3. Named Entity Recognition using Spacy&lt;/h3&gt;
-&lt;p&gt;Now we change to python for NER but before starting the analysis, we need to install and import a few python libraries.&lt;/p&gt;
+&lt;p&gt;Now we change to python for NER, but we need to install and import a few python libraries before starting the analysis.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import pandas as pd
 import spacy
 from textblob import TextBlob&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In RStudio and Rmarkdown notebooks, with the help of &lt;code&gt;reticulate&lt;/code&gt; library, we can easily load the debate dataset in our R environment to our Python environment, .&lt;/p&gt;
+&lt;p&gt;In RStudio and Rmarkdown notebooks, with the help of the &lt;code&gt;reticulate&lt;/code&gt; library, we can easily load the debate dataset in our R environment to our Python environment.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;debates = r.debates&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Note that in in the transcript dataset there are rows for both the candidates and the moderators who asked questions from candidates. However, we are particularly interested in what the candidates said, so we only filter rows corresponding to candidates.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;candidates = debates[(debates[&amp;#39;type&amp;#39;] == &amp;#39;Candidate&amp;#39;) &amp;amp; (pd.notnull(debates[&amp;#39;sentence&amp;#39;])) ]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We are almost ready for extracting the named entities. But to use Spacy’s NLP features such as NER, we first need to download and load a pre-trained English language model. There are &lt;a href=&#34;https://spacy.io/usage/models&#34;&gt;several English language models&lt;/a&gt; with different sizes available in Spacy. I used the largest language model available as it might be better and more accurate.&lt;/p&gt;
+&lt;p&gt;We are almost ready to extract the named entities. However, to use Spacy’s NLP features such as NER, we first need to download and load a pre-trained English language model. There are &lt;a href=&#34;https://spacy.io/usage/models&#34;&gt;several English language models&lt;/a&gt; with different sizes available in Spacy. I used the largest language model available as it might be better and more accurate.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;nlp = spacy.load(&amp;#39;en_core_web_lg&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Spacy’s NER model is trained on the &lt;a href=&#34;https://catalog.ldc.upenn.edu/LDC2013T19&#34;&gt;OntoNotes 5&lt;/a&gt; corpus and it can detect several types of named entities including:&lt;/p&gt;
+&lt;p&gt;Spacy’s NER model is trained on the &lt;a href=&#34;https://catalog.ldc.upenn.edu/LDC2013T19&#34;&gt;OntoNotes 5&lt;/a&gt; corpus, and it can detect several types of named entities, including:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
@@ -584,10 +922,10 @@ from textblob import TextBlob&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;As you can see, there are many types of named entities but I narrow down my analysis to just a handful of them including &lt;code&gt;PERSON&lt;/code&gt;, &lt;code&gt;ORG&lt;/code&gt;, &lt;code&gt;GPE&lt;/code&gt;, &lt;code&gt;NORP&lt;/code&gt;, &lt;code&gt;LAW&lt;/code&gt; and &lt;code&gt;LOC&lt;/code&gt;.
-The named entity labels are stored in &lt;code&gt;label_&lt;/code&gt; attribute. To do so, we need to create &lt;code&gt;Doc&lt;/code&gt; object using &lt;code&gt;nlp()&lt;/code&gt; method. When we call &lt;code&gt;nlp()&lt;/code&gt; on the input text, spacy uses the language model to tokenize the document first. Then, spacy applies a tagger, parser and named entity recognizer steps as the next components of its processing pipeline. The named entities can be accessed by &lt;code&gt;ents&lt;/code&gt; attribute of the document object.&lt;/p&gt;
+&lt;p&gt;As you can see, there are many types of named entities, but I narrow down my analysis to just a handful of them, including &lt;code&gt;PERSON&lt;/code&gt;, &lt;code&gt;ORG&lt;/code&gt;, &lt;code&gt;GPE&lt;/code&gt;, &lt;code&gt;NORP&lt;/code&gt;, &lt;code&gt;LAW&lt;/code&gt;, and &lt;code&gt;LOC&lt;/code&gt;.
+The named entity labels are stored in &lt;code&gt;label_&lt;/code&gt; attribute. To do so, we need to create &lt;code&gt;Doc&lt;/code&gt; object using &lt;code&gt;nlp()&lt;/code&gt; method. When we call &lt;code&gt;nlp()&lt;/code&gt; on the input text, spacy uses the language model to tokenize the document first. Then, spacy applies a tagger, parser, and named entity recognizer steps as its processing pipeline’s next components. The named entities can be accessed by &lt;code&gt;ents&lt;/code&gt; attribute of the document object.&lt;/p&gt;
 &lt;p&gt;If you are interested to learn more about Spacy and how it works, I have provided some links at the end of this post.&lt;/p&gt;
-&lt;p&gt;I define a python function that iterates over all named entities and see to which class of named entities (by default &lt;code&gt;PERSON&lt;/code&gt;) they belong. I apply this function to the transcript column in the original dataset and store each extracted type of entities as a separate column.&lt;/p&gt;
+&lt;p&gt;I define a python function that iterates over all named entities and see to which class of named entities (by default &lt;code&gt;PERSON&lt;/code&gt;) they belong. I apply this function to the transcript column in the original dataset and store each extracted type of entity as a separate column.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def extract_entities_delim(text,type_ent = &amp;#39;PERSON&amp;#39;):
   ent_text = &amp;#39;&amp;#39;
   doc = nlp(text)
@@ -604,7 +942,7 @@ candidates[&amp;#39;LOC&amp;#39;] = candidates[&amp;#39;sentence&amp;#39;].apply
 &lt;/div&gt;
 &lt;div id=&#34;sentiment-analysis&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;4. Sentiment Analysis&lt;/h3&gt;
-&lt;p&gt;Next, I use TextBlob to compute the sentiment of each sentence and store store its polarity score in a separate column called &lt;code&gt;polarity_sentiment&lt;/code&gt; (TextBlob also returns a &lt;code&gt;subjectivity&lt;/code&gt; score but for simplicity, I will not use this score in my analysis). The polarity sentiment score is a value between -1 and 1. If the value is larger than 0, it means that the sentence has a positive sentiment. On the other hand, if the returned value is smaller than 0, it indicates that the sentiment of the sentence is negative.&lt;/p&gt;
+&lt;p&gt;Next, I use TextBlob to compute each sentence’s sentiment and store its polarity score in a separate column called &lt;code&gt;polarity_sentiment&lt;/code&gt; (TextBlob also returns a &lt;code&gt;subjectivity&lt;/code&gt; score, but for simplicity, I will not use this score in my analysis). The polarity sentiment score is a value between -1 and 1. If the value is larger than 0, it means that the sentence has a positive sentiment. On the other hand, if the returned value is smaller than 0, it indicates that the sentence’s sentiment is negative.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def polarity_sentiment(text):
   blob = TextBlob(text)
   return blob.sentiment.polarity
@@ -614,19 +952,19 @@ candidates[&amp;#39;polarity_sentiment&amp;#39;] = candidates.sentence.apply(lam
 &lt;/div&gt;
 &lt;div id=&#34;network-visualization&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;5.Network Visualization&lt;/h2&gt;
-&lt;p&gt;A network (graph) can nicely represent how individuals and entities were mentioned by candidates in their speeches. We have two types of nodes in this network:&lt;/p&gt;
+&lt;p&gt;A network (graph) can nicely represent how candidates mentioned individuals and entities in their speeches. We have two types of nodes in this network:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;The first set of nodes represent candidates on the debate stage (&lt;strong&gt;from nodes)&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;The second set of nodes represent named entities (including the name of candidates themselves) that the candidates referred to in their speeches (&lt;strong&gt;to&lt;/strong&gt; &lt;strong&gt;nodes&lt;/strong&gt;).&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;If a candidate mentions a named entity in his/her speech, we connect the candidate node and the named entity node via an edge in our network. Also, It is fair to assume that the candidate-entity network should be a weighted network because candidates tend to place a varying level of importance on different issues, topics and people (named entities).&lt;/p&gt;
+&lt;p&gt;If a candidate mentions a named entity in his/her speech, we connect the candidate node and the named entity node via our network’s edge. It is also fair to assume that the candidate-entity network should be weighted because candidates tend to place a varying level of importance on different issues, topics, and people (named entities).&lt;/p&gt;
 &lt;p&gt;We have two options for specifying weights for edges in the network:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;We can use the number of times that a candidate mentioned a named entity in his/her speech. This shows how much a named entity was important to that candidate.&lt;/li&gt;
 &lt;li&gt;We can group by candidates and named entities and compute their average sentiment score. By doing so, we can measure how each candidate described these named entities. However, this approach might not be as accurate as we want.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Having said that, it is time to go back to R and visualize the network of candidates and named entities using the &lt;a href=&#34;https://github.com/thomasp85/ggraph&#34;&gt;&lt;code&gt;ggraph&lt;/code&gt;&lt;/a&gt; and &lt;code&gt;tidygraph&lt;/code&gt; libraries. For each class of named entities, I use &lt;code&gt;as_tbl_graph()&lt;/code&gt; function and create a unique graph table dataset, and visualize the network.&lt;/p&gt;
-&lt;p&gt;So, let’s load the sentiment-entity dataset that I created in the Python environment to the R environment.&lt;/p&gt;
+&lt;p&gt;Having said that, it is time to go back to R and visualize the network of candidates and named entities using the &lt;a href=&#34;https://github.com/thomasp85/ggraph&#34;&gt;&lt;code&gt;ggraph&lt;/code&gt;&lt;/a&gt; and &lt;code&gt;tidygraph&lt;/code&gt; libraries. For each class of named entities, I use &lt;code&gt;as_tbl_graph()&lt;/code&gt; function, create a unique graph table dataset, and visualize the network.&lt;/p&gt;
+&lt;p&gt;So, let us load the sentiment-entity dataset that I created in the Python environment to the R environment.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates &amp;lt;- py$candidates&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(candidates) &lt;/code&gt;&lt;/pre&gt;
 &lt;table class=&#34;table table-striped table-hover table-condensed table-responsive&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
@@ -987,8 +1325,8 @@ NA
 &lt;/table&gt;
 &lt;div id=&#34;the-candidateperson-network&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;5.1 The Candidate/Person Network&lt;/h4&gt;
-&lt;p&gt;First, I will visualize the candidate/person network. However, I should remind you of the fact that in the beginning of the democratic primary many democratic candidates were competing against each other in the race and also on the debate stage. If I were to visualize every individual that each candidate had ever in the network, the results would become unreadable. So, just like my last blog post, I selected a few democratic candidates to show my analysis.&lt;/p&gt;
-&lt;p&gt;Furthermore, I will only highlight nodes corresponding to the top 6 democratic candidates and other interesting individuals including Donald Trump and Barack Obama.&lt;/p&gt;
+&lt;p&gt;First, I will visualize the candidate/person network. However, I should remind you that in the beginning of the democratic primary, many democratic candidates were competing against each other in the race and on the debate stage. If I were to visualize every individual that each candidate had ever in the network, the results would become unreadable. So, just like my last blog post, I selected a few democratic candidates to show my analysis.&lt;/p&gt;
+&lt;p&gt;Furthermore, I will only highlight nodes corresponding to the top 6 democratic candidates and other interesting individuals, including Donald Trump and Barack Obama.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;interesting_individuals &amp;lt;-
  c(
   &amp;quot;Bernie Sanders&amp;quot; ,
@@ -1037,13 +1375,13 @@ ggraph(persons_graph_table, layout = &amp;#39;kk&amp;#39;) +
  scale_color_manual(values = custom_palette) +
   labs(title = &amp;#39;Who Mentioned Whom in the 2020 Democratic Debates?&amp;#39;) +
   scale_edge_colour_manual(values = edge_cols) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;If you look at the graph carefully, you will notice that there are three issues with this network. First of all, the sentiment scores does not necessarily indicate how a candidate thinks about that person. For instance, the edge between Bernie Sanders and Khashoggi is red (i.e. negative sentiment) but Bernie Sanders did not talk negatively about Khashoggi at all but rather how he was murdered. Secondly, there are several nodes in the network that belong to the same individual. For example, Bernie Sanders tends to address other candidates by their first names, but other (younger) candidates usually use the last name to address each other.&lt;/p&gt;
-&lt;p&gt;The third issue is that some nodes do not represent a person. The transcript dataset is full of errors and many names are misspelled. Also, although Spacy is a very powerful library for NER, sometimes it gives us wrong results and its detected named entities are not always correct. For this reason, we also need to perform a post-processing step in which we remove some incorrectly spelled words or replaced them with their correct forms. I found two ways to deal with these issues: 1. or we can use a name matching algorithm to match the partial names of a person with its full name. This approach can be a bit challenging because we need to have a list of all possible full names, which is only available for the candidates.2. we can manually find undesirable names and replace them with what we want.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;If you look at the graph carefully, you will notice three issues with this network. First of all, the sentiment scores do not necessarily indicate how a candidate thinks about that person. For instance, Bernie Sanders and Khashoggi’s edge is red (i.e. negative sentiment), but Bernie Sanders did not talk negatively about Khashoggi at all but rather how he was murdered. Secondly, there are several nodes in the network that belong to the same individual. For example, Bernie Sanders tends to address other candidates by their first names, but other (younger) candidates usually use the last name to address each other.&lt;/p&gt;
+&lt;p&gt;The third issue is that some nodes do not represent a person. The transcript dataset is full of errors, and many names are misspelled. Although Spacy is a very powerful library for NER, sometimes it gives us wrong results, and its detected named entities are not always correct. For this reason, we also need to perform a post-processing step in which we remove some incorrectly spelled words or replaced them with their correct forms. I found two ways to deal with these issues: 1. or we can use a name matching algorithm to match the partial names with its full name. This approach can be challenging because we need to have a list of all possible full names, which is only available for the candidates.2. We can manually find undesirable names and replace them with what we want.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;matching-candidate-names&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;5.1 Matching candidate names&lt;/h4&gt;
-&lt;p&gt;There is a python library called &lt;code&gt;fuzzywuzzy&lt;/code&gt; that can help us match two strings based on different similarity criteria. However, before using this library, I transform the original dataset into a longer dataset where each row belongs to a pair of candidate-person (from-to) and I move it back to our python environment.&lt;/p&gt;
+&lt;p&gt;A python library called &lt;code&gt;fuzzywuzzy&lt;/code&gt;can help us match two strings based on different similarity criteria. However, before using this library, I transform the original dataset into a long dataframe where each row belongs to a pair of candidate-person (from-to), and I move it back to our python environment.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long &amp;lt;- candidates %&amp;gt;%
  filter(PERSON != &amp;#39;&amp;#39;) %&amp;gt;%
  separate_rows(PERSON, sep = &amp;#39;;&amp;#39;) 
@@ -1052,8 +1390,8 @@ head(candidates_long)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;a-tibble-6-x-16&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;A tibble: 6 x 16&lt;/h1&gt;
-&lt;p&gt;X1 speaker background type gender debate day order sentence PERSON ORG&lt;br /&gt;
-&lt;dbl&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+&lt;pre&gt;&lt;code&gt; X1 speaker background type  gender debate   day order sentence PERSON ORG  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;dbl&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
 1 372 Amy Kl~ NA Cand~ female 1 1 11 And Don~ “Dona~ &lt;NA&gt;
 2 372 Amy Kl~ NA Cand~ female 1 1 11 And Don~”&#34; &lt;NA&gt;
 3 384 Amy Kl~ NA Cand~ female 1 1 99 It’s so~ “Bara~ &lt;NA&gt;
@@ -1067,13 +1405,7 @@ head(candidates_long)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import pandas as pd
 candidate_lists = pd.unique(candidates_long.speaker)
 print(candidate_lists)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [&amp;#39;Amy Klobuchar&amp;#39; &amp;#39;Andrew Yang&amp;#39; &amp;#39;Bernie Sanders&amp;#39; &amp;quot;Beto O&amp;#39;Rourke&amp;quot;
-##  &amp;#39;Bill de Blasio&amp;#39; &amp;#39;Cory Booker&amp;#39; &amp;#39;Elizabeth Warren&amp;#39; &amp;#39;Eric Swalwell&amp;#39;
-##  &amp;#39;Jay Inslee&amp;#39; &amp;#39;Joe Biden&amp;#39; &amp;#39;John Delaney&amp;#39; &amp;#39;John Hickenlooper&amp;#39;
-##  &amp;#39;Julian Castro&amp;#39; &amp;#39;Kamala Harris&amp;#39; &amp;#39;Kirsten Gillibrand&amp;#39;
-##  &amp;#39;Marianne Williamson&amp;#39; &amp;#39;Michael Bennet&amp;#39; &amp;#39;Mike Bloomberg&amp;#39; &amp;#39;Pete Buttigieg&amp;#39;
-##  &amp;#39;Steve Bullock&amp;#39; &amp;#39;Tim Ryan&amp;#39; &amp;#39;Tom Steyer&amp;#39; &amp;#39;Tulsi Gabbard&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I define a python function called &lt;code&gt;match_names&lt;/code&gt; which uses &lt;code&gt;process.extractOne&lt;/code&gt; function to select the first matched named entity that has at least 80 percent similarity to a candidate’s full name. The matched names are stored in a separate columns called &lt;code&gt;dem_candidate_full_name&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;I define a python function called &lt;code&gt;match_names&lt;/code&gt;that uses &lt;code&gt;process.extractOne&lt;/code&gt; function to select the first matched named entity with at least 80 percent similarity to a candidate’s full name. The matched names are stored in a separate column called &lt;code&gt;dem_candidate_full_name&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from fuzzywuzzy import fuzz 
 from fuzzywuzzy import process &lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def match_names(name):
@@ -1086,27 +1418,9 @@ candidates_long[&amp;#39;dem_candidate_full_name&amp;#39;] = candidates_long.PER
 &lt;p&gt;Now we can return to R and continue our analysis.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long &amp;lt;- py$candidates_long
 glimpse(candidates_long)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Observations: 3,238
-## Variables: 16
-## $ X1                 &amp;lt;dbl&amp;gt; 372, 372, 384, 384, 422, 422, 437, 437, 440, 440...
-## $ speaker            &amp;lt;chr&amp;gt; &amp;quot;Amy Klobuchar&amp;quot;, &amp;quot;Amy Klobuchar&amp;quot;, &amp;quot;Amy Klobuchar...
-## $ background         &amp;lt;lgl&amp;gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
-## $ type               &amp;lt;chr&amp;gt; &amp;quot;Candidate&amp;quot;, &amp;quot;Candidate&amp;quot;, &amp;quot;Candidate&amp;quot;, &amp;quot;Candidat...
-## $ gender             &amp;lt;chr&amp;gt; &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;...
-## $ debate             &amp;lt;dbl&amp;gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
-## $ day                &amp;lt;dbl&amp;gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
-## $ order              &amp;lt;dbl&amp;gt; 11, 11, 99, 99, 329, 329, 426, 426, 427, 427, 56...
-## $ sentence           &amp;lt;chr&amp;gt; &amp;quot;And Donald Trump just sits in the White House a...
-## $ PERSON             &amp;lt;chr&amp;gt; &amp;quot;Donald Trump&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;Barack Obama&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;Donald ...
-## $ ORG                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
-## $ GPE                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
-## $ NORP               &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
-## $ LAW                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;the Affordable Care Act;&amp;quot;, &amp;quot;the Aff...
-## $ LOC                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
-## $ polarity_sentiment &amp;lt;dbl&amp;gt; 0.0250000, 0.0250000, 0.0000000, 0.0000000, 0.50...&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;a-word-of-caution&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;A word of caution&lt;/h4&gt;
-&lt;p&gt;We need to be very careful with the results of the name matching algorithm. There are too many politicians with the name ‘John’ and a John might refer to “John McCain” or “John Bolton” not the candidate “John Hickenlooper”. So, as a post-processing step, I manually explore the dataset to correct the few mistakes that the matching algorithm had made.&lt;/p&gt;
+&lt;p&gt;We need to be very careful with the results of the name-matching algorithm. There are too many politicians with the name ‘John’ and a John might refer to “John McCain” or “John Bolton” not the candidate “John Hickenlooper”. So, as a post-processing step, I manually explore the dataset to correct the few mistakes that the matching algorithm had made.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long &amp;lt;- candidates_long %&amp;gt;%
   mutate(PERSON = if_else(
     !is.na(dem_candidate_full_name),
@@ -1153,7 +1467,7 @@ glimpse(candidates_long)&lt;/code&gt;&lt;/pre&gt;
     &amp;#39;ho&amp;#39;,
     &amp;#39;Dreamer&amp;#39;
   )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We have another problem left. Some individuals were mentioned in different ways and we have several nodes for them in the graph. To solve this issue, I simply use &lt;code&gt;str_detect&lt;/code&gt; function from &lt;code&gt;stringr&lt;/code&gt; package to manually modify the them names. I must say this was the most boring and time-consuming part of my analysis!&lt;/p&gt;
+&lt;p&gt;We have another problem left. Some individuals were mentioned in different ways, and we have several nodes for them in the graph. To solve this issue, I use &lt;code&gt;str_detect&lt;/code&gt; function from &lt;code&gt;stringr&lt;/code&gt; package to manually modify them names. I must say this was the most tedious and time-consuming part of my analysis!&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;persons_graph_table &amp;lt;-  candidates_long %&amp;gt;%
   filter(speaker %in% interesting_individuals,
          !PERSON %in% non_person,
@@ -1277,7 +1591,7 @@ ggraph(persons_graph_table, layout = &amp;#39;nicely&amp;#39;) +
   labs(title = &amp;#39;Individuals Mentioned by Top Democratic Candidates During the Democratic Primary Debates&amp;#39;,
        subtitle = &amp;#39;This graph shows which individuals or politicians were mentioned by top 6 democratic candidates over the course of first ten priamary debates.&amp;#39;,
        caption = &amp;#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-31-1.png&#34; width=&#34;3840&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-32-1.png&#34; width=&#34;3840&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;candidates-interaction&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;5.3 Candidates interaction&lt;/h3&gt;
@@ -1345,7 +1659,7 @@ ggraph(
        caption = &amp;#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&amp;#39;) +
   expand_limits(x = c(xmin - 0.2, xmax + 0.2),
                 y = c(ymin - 0.2, ymax + 0.2)) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-33-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-34-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The results are self-explanatory and satisfying. One also can make an animation and show the network over time.&lt;/p&gt;
 &lt;p&gt;Now, let’s repeat the same steps and visualize the network for other types of named entities.&lt;/p&gt;
 &lt;/div&gt;
@@ -1400,7 +1714,7 @@ org_graph_table &amp;lt;- candidates %&amp;gt;%
   labs(title = &amp;#39;Organizations and Institutions Mentioned by Top Democratic Candidates During the Debates&amp;#39;,
        subtitle = &amp;#39;This plot shows which organizations and institutions were mentioned by top democratic candidates during the last 5 debates.&amp;#39;,
        caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-35-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-36-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-network-of-named-entities-for-countries-and-cities&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;5.5 The network of named entities for countries and cities&lt;/h3&gt;
@@ -1428,7 +1742,7 @@ org_graph_table &amp;lt;- candidates %&amp;gt;%
   labs(title = &amp;#39;Countries, Cities and States Mentioned by Top Democratic Candidates During the Last Five Primary Debates&amp;#39;,
        subtitle = &amp;#39;&amp;#39;,
        caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-37-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-38-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-network-of-named-entities-for-laws&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;5.6 The network of named entities for laws&lt;/h3&gt;
@@ -1465,7 +1779,7 @@ law_graph_table &amp;lt;- candidates %&amp;gt;%
   labs(title = &amp;#39;Laws Mentioned by Top Democratic Candidates During the First Ten Primary Debates&amp;#39;,
        subtitle = &amp;#39;&amp;#39;,
        caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-39-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-40-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-network-of-named-entities-for-nationalities-religious-or-political-groups&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;5.7 The network of named entities for nationalities, religious or political groups&lt;/h3&gt;
@@ -1503,7 +1817,7 @@ norp_graph_table &amp;lt;- candidates %&amp;gt;%
   labs(title = &amp;#39;Nationalities, religious or Political Groups Mentioned by Top Democratic Candidates During the Last Five Primary Debates&amp;#39;,
        subtitle = &amp;#39;&amp;#39;,
        caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-41-1.png&#34; width=&#34;3840&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-42-1.png&#34; width=&#34;3840&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;##Resources:
 A very useful place to learn more how spacy works the spacy’s online course by one of its founders and developers.
 [1] &lt;a href=&#34;https://course.spacy.io/en/&#34; class=&#34;uri&#34;&gt;https://course.spacy.io/en/&lt;/a&gt;&lt;/p&gt;
@@ -1521,7 +1835,7 @@ A very useful place to learn more how spacy works the spacy’s online course by
       <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
       <guid>/project/2020-01-01-how-do-people-share-on-telegram/</guid>
       <description>
-
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 </description>

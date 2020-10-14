@@ -24,6 +24,8 @@ projects: []
 
 ```{r include = FALSE }
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+library(reticulate)
+use_condaenv('r-reticulate')
 ```
 
 In the [4th week of the Tidy Tuesday project](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md), a very interesting and fun dataset was proposed to the data science community. The dataset contains information about thousands of songs on Spotify's platform and along with their metadata and audio features. You can download the dataset can using the following piece of code.
@@ -35,7 +37,7 @@ spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascie
 head(spotify_songs)
 ```
 
-For this week's tidy Tuesday, I decided to use a rather different approach from my previous submission. Instead of focusing entirely on the visualization aspect of my submission, I tried to use other tools from tidy model universe for machine learning model development.
+For this week's tidy Tuesday, I decided to use a somewhat different approach from my previous submissions. Instead of focusing solely on the visualization aspect of my submissions, I tried to use other tools from the tidy model universe for machine learning model development, 
 
 Each song has around 12 columns representing audio features. The Github's page for this dataset describes these features as follows: 
 
@@ -54,7 +56,7 @@ Each song has around 12 columns representing audio features. The Github's page f
 | tempo      | double | The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration. |
 | duration_ms   | double | Duration of song in milliseconds               |
 
-It would be very helpful to compare songs based on the combination of their audio features and have an overall picture of where each song is placed. Unfortunately, we can only visualize 2 or 3 audio features at the same time and It is not possible to put all these features on a 2D or 3D space. So, I tried to use unsupervised machine learning for the purpose of visualizing songs on a 2D space by transforming their high-dimensional audio features into a more compressed form.
+It would be very helpful to compare songs based on their audio features and have an overall picture of where each song is placed. Unfortunately, we can only visualize 2 or 3 audio features at the same time, and It is not possible to put all these features in a 2D or 3D space. So, I tried to use unsupervised machine learning to visualize songs on a 2D space by transforming their high-dimensional audio features into a more compressed form.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -92,15 +94,15 @@ theme_update(legend.position = 'top',
 
 ## Dimensionality Reduction and UMAP
 
-My initial idea was to use some clustering algorithms to cluster songs based on their audio feature and find songs that are similar to each other. Yet, it was difficult to visualize these clusters in a two dimensional space. Of course you can do that by using hierarchal clustering but even then visualizing a few thousands samples (songs) seems to be impractical. So, I decided to to use other unsupervised techniques to compress these high-dimensional audio features and transform them into a more compact 2D space. 
+My initial idea was to use some clustering algorithms to cluster songs based on their audio feature and find songs that are similar to each other. Yet, it was not easy to visualize these clusters in a two-dimensional space. Of course, you can do that by using hierarchal clustering but even then, visualizing a few thousand samples (songs) seems to be impractical. So, I decided to use other unsupervised techniques to compress these high-dimensional audio features and transform them into a more compact 2D space. 
 
 
 
-There are a number of dimensionality reduction algorithms such as PCA, t-SNE UMAP. The main purpose of these algorithm is to give us a compressed representation of the input data, which is obtained with the least possible information loss. PCA is a linear dimensionality reduction method while both t-SNE and UMAP are non-linear methods. 
+There are several dimensionality reduction algorithms such as PCA, t-SNE UMAP. The primary purpose of these algorithms is to give us a compressed representation of the input data, while preserving the most relevant information in the data. PCA is a linear dimensionality reduction method, while both t-SNE and UMAP are non-linear methods. 
 
-In this post, I will use UMAP and t-SNE, two widely used dimensionality reduction algorithms. When the input dataset is large T-SNE becomes very slow and is not an efficient algorithm anymore. On the other hand, UMAP can handle larger datasets much more easily. Moreover, not only UMAP can preserve the underlying local structure present in the data, but it can also represent the global structure of the data more accurately. What do we mean by local and global structure? For example, in the song dataset, persevering local structure means that songs that belong to an artist are clustered together. Similarly, global structure means that songs belonging to more related genres (e.g. hard rock, album rock and classic rock) will be placed in a close proximity of each other on the new projection
+In this post, I will use UMAP and t-SNE, two widely used dimensionality reduction algorithms. When the input dataset is large T-SNE becomes very slow and is not an efficient algorithm anymore. On the other hand, UMAP can handle larger datasets much more easily and quickly. Moreover, UMAP can preserve the underlying local structure present in the data, and it can also represent the global structure of the data more accurately. What do we mean by local and global structure? For example, in the song dataset, persevering local structure means that songs that belong to an artist are clustered together. Similarly, global structure means that songs belonging to more related genres (e.g., hard rock, album rock, and classic rock) will be placed in close proximity to each other on the new projection.
 
-UMAP achieves this goal by employing some advanced optimization techniques and mathematical concept. Understanding how UMAP uses these techniques and projects the input data into a more compressed representation is not crucial, but If you are curios to know more about the theory behind UMAP and its difference with T-SNE, I recommend [this wonderful blogpost](https://pair-code.github.io/understanding-umap/) by Andy Coenen and Adam Pearce.
+UMAP achieves this goal by employing some advanced optimization techniques and mathematical concepts. Understanding how UMAP uses these techniques and projects the input data into a more compressed representation is not crucial, but If you are curious to know more about the theory behind UMAP and its difference with T-SNE, I recommend [this excellent blogpost](https://pair-code.github.io/understanding-umap/) by Andy Coenen and Adam Pearce.
 
 
 ### Data Preprocessing 
@@ -120,9 +122,9 @@ df['track_name'] = track_name(lambda x: x.split('(')[0])
 spotify_songs <- py$df 
 ```
 
-Both UMAP and T-SNE compute a distance metric between samples. This distance metric should be meaningful and reasonable. If we do not scale the input features before ru some features might have higher (unfair) influence than other features on the computation of distance between samples. For this reason, it is necessary to normalize input features before implementing a them, 
+Both UMAP and T-SNE compute a distance metric between samples. This distance metric should be meaningful and reasonable. If we do not scale the input features before feeding them to these algorithms, some features might have a stronger (unfair) influence than other features on the computation of the distance between samples. For this reason, it is necessary to normalize input features before implementing them, 
 
-I create a data preprocessing recipe using the `` recipe`` package and I add a normalization step to scale the audio features. Note that since I implement an unsupervised algorithm, there is no need to split the dataset into a training and testing dataset.
+I create a data preprocessing recipe using the `` recipe`` package, and I add a normalization step to scale the audio features. Note that since I implement an unsupervised algorithm, there is no need to split the dataset into a training and testing dataset.
 
 
 ```{r}
@@ -457,11 +459,11 @@ spotify_songs_emb %>%
 ```
 
 For the most part, both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embeddings with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen. 
-We can observe that the most influential hyper-parameter seems to be distance metric. Additionally,  when we decrease the value of ``min_dist``, the projection becomes less compact and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music and We need to incorporate other aspects of songs such as lyrics to be able to differentiate between genres. For instance, Kaylin Pavlik in her blogpost explained how she based on similar audio features trained several machine learning models to classify songs into 6 main categories (EDM, Latin, Pop, R&B, Rap, & Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset  but I couldn't achieve higher performance.
+We can observe that the most influential hyper-parameter seems to be the distance metric. Additionally,  when we decrease the value of ``min_dist``, the projection becomes less compact, and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music, and We need to incorporate other aspects of songs such as lyrics to differentiate between genres. For instance, Kaylin Pavlik, in her blogpost explained how she based on similar audio features, trained several machine learning models to classify songs into six main categories (EDM, Latin, Pop, R&B, Rap, & Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset, but I could not achieve higher performance.
 
 ## Supervised UMAP
 
-UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a [supervised algorithm](https://umap-learn.readthedocs.io/en/latest/supervised.html) by specifying the target variable. To make this happen in UWOT, we can just give the target column (playlist_genre) as an input to `y` argument.  
+UMAP is an unsupervised dimensionality reduction algorithm, but we can also feed target labels to UMAP and make it a [supervised algorithm](https://umap-learn.readthedocs.io/en/latest/supervised.html) by specifying the target variable. To make this happen in UWOT, we can give the target column (playlist_genre) as an input to `y` argument.  
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 

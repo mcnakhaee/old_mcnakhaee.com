@@ -5,7 +5,7 @@
     <link>/tags/tidytuesday/</link>
       <atom:link href="/tags/tidytuesday/index.xml" rel="self" type="application/rss+xml" />
     <description>TidyTuesday</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 29 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 28 Sep 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>TidyTuesday</title>
@@ -13,11 +13,20 @@
     </image>
     
     <item>
+      <title>Tidy Tuesday Week 37: NLP and Friends</title>
+      <link>/post/tidy-tuesday-week-37-nlp-and-friends/</link>
+      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/post/tidy-tuesday-week-37-nlp-and-friends/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Tidy Tuesday Submissions</title>
       <link>/project/2019-12-29-tidy-tuesday-submissions/</link>
       <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
       <guid>/project/2019-12-29-tidy-tuesday-submissions/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;For 6 years I had been using python exclusively as the main tool for carrying out my data science tasks and running my experiments. Recently, I have started using Tidyverse packages and tools in R for my data science activities. I am completely facinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then I have tried to participate in the weekly Tidy Tuesday project.

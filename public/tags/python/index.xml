@@ -18,13 +18,15 @@
       <pubDate>Sun, 31 May 2020 00:00:00 +0000</pubDate>
       <guid>/post/explaining-machine-learning-models-using-contextual-importance-and-contextual-utility/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 &lt;div id=&#34;TOC&#34;&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#introduction&#34;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#what-kinds-of-explanation-does-ciu-generate&#34;&gt;What Kinds of explanation does CIU generate?&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#how-does-ciu-work&#34;&gt;How does CIU work?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#a-toy-example-predicting-breast&#34;&gt;A toy example: predicting breast&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#a-toy-example-predicting-breast&#34;&gt;A toy example: predicting breast&lt;/a&gt;
+&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#permutation-feature-importance&#34;&gt;Permutation feature importance&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#decision-tree-classifier&#34;&gt;Decision Tree Classifier&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#random-forest-classifier&#34;&gt;Random Forest Classifier&lt;/a&gt;&lt;/li&gt;
@@ -38,34 +40,34 @@
 
 &lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Explainablity is a very hot topics in the machine learning research community these days. over the past few years, many methods have been introduced to just understand how a machine learning model makes prediction. However, explainablity is not an entirely new concept and it was actually started a few decades ago. In this blogpost, I will introduce you to a rather unknown but simple technique which was introduced almost 20 years ago. This technique is called &lt;a href=&#34;https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility&#34;&gt;Contextual Importance and Utility (CIU)&lt;/a&gt; for explaining ML models and show you how we can explain any types of machine learning. This method relies on the notion of context is important&lt;/p&gt;
-&lt;p&gt;For example, imagine we are trying to predict house prices from a set of features such as number of bedrooms and number of pools. If every house in the dataset has no pool (the current context), then the feature corresponding to it has no usefulness and no importance for the prediction of a model. On the other hand, in a city where the majority of houses have one or two bedrooms (again the current context), houses with three or more bedrooms are more special.&lt;/p&gt;
+&lt;p&gt;Explainability is a hot topic in the machine learning research community these days. Over the past few years, many methods have been introduced to understand how a machine learning model makes a prediction. However, explainability is not an entirely new concept, and it was actually started a few decades ago. In this blog post, I will introduce a rather unknown but simple technique that was introduced almost 20 years ago. This technique is called &lt;a href=&#34;https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility&#34;&gt;Contextual Importance and Utility (CIU)&lt;/a&gt; for explaining ML models and show you how we can explain any types of machine learning. This method relies on the notion of context is important.&lt;/p&gt;
+&lt;p&gt;For example, imagine we are trying to predict house prices from a set of features such as the number of bedrooms and pools. If every house in the dataset has no pool (the current context), then the feature corresponding to it has no usefulness and no importance for predicting a model. On the other hand, in a city where most houses have one or two bedrooms (again the current context), houses with three or more bedrooms are more unusual.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;what-kinds-of-explanation-does-ciu-generate&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;What Kinds of explanation does CIU generate?&lt;/h2&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;It is a &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html&#34;&gt;&lt;strong&gt;&lt;em&gt;model-agnostic&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; methods and it can explain the output of any “black-box” machine learning model.&lt;/li&gt;
-&lt;li&gt;It produces &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/scope-of-interpretability.html&#34;&gt;&lt;strong&gt;&lt;em&gt;local&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; explanations which means that the explanations are generated for individual instances (not the whole model) and they just show which features are more important with respect to an individual observation.&lt;/li&gt;
-&lt;li&gt;It gives us &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html&#34;&gt;&lt;strong&gt;&lt;em&gt;post-hoc&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; explanations as it is a method that processes the output of a machine learning model after training.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It is a &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html&#34;&gt;&lt;strong&gt;&lt;em&gt;model-agnostic&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; methods, and it can explain the output of any “black-box” machine learning model.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It produces &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/scope-of-interpretability.html&#34;&gt;&lt;strong&gt;&lt;em&gt;local&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; explanations, which means that the explanations are generated for individual instances (not the whole model), and they show which features are more important for an individual observation.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It gives us &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html&#34;&gt;&lt;strong&gt;&lt;em&gt;post-hoc&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; explanations as it is a method that processes the output of a machine learning model after training.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Unlike LIME and many other techniques, CIU does not approximate or transforms what a model predicts but rather directly explain predictions. It can also provide a contrastive explanation. For instance, why did the model predict rainy and not cloudy?&lt;/p&gt;
+&lt;p&gt;Unlike LIME and many other techniques, CIU does not approximate or transforms what a model predicts but instead directly explain predictions. It can also provide a contrastive explanation. For instance, why did the model predict rainy and not cloudy?&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;how-does-ciu-work&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;How does CIU work?&lt;/h2&gt;
 &lt;p&gt;CIT estimates two values that aim to explain the context in which a machine learning model predicts:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Contextual Importance (CI)&lt;/strong&gt; is a measure of how much of change in the range an output values can be attributed to one (or several) input variables. CU is based on the notion that a variable which results in a wider ranger of output values would be more important. Formally, CIU is defined as follows:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Contextual Importance (CI)&lt;/strong&gt; measures how much change in the range and output values can be attributed to one (or several) input variables. CU is based on the notion that a variable which results in a broader ranger of output values would be more critical. Formally, CIU is defined as follows:&lt;/p&gt;
 &lt;p&gt;CI = (Cmax - Cmin)/(absmax - absmin)&lt;/p&gt;
 &lt;p&gt;Contextual Utility (CU) indicates how favorable the current value of one (or several) input variables is for a high output value. CU is computed using the following formula:&lt;/p&gt;
 &lt;p&gt;CU = (out - Cmin)/(Cmax - Cmin)&lt;/p&gt;
-&lt;p&gt;Cmax and Cmin are the highest and lowest values that the output of an ML model &lt;em&gt;can&lt;/em&gt; take by changing the input feature(s). Obtaining Cmax and Cmin is computationally and mathematically is not a trivial task. In the original paper, these values are computed using a Monte Carlo simulation where a a lot observations were generated. Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of machine learning models and are between 0 and 1.&lt;/p&gt;
+&lt;p&gt;Cmax and Cmin are the highest and lowest values that the output of an ML model &lt;em&gt;can&lt;/em&gt; take by changing the input feature(s). Obtaining Cmax and Cmin is computationally, and mathematically is not a trivial task. In the original paper, these values are computed using a Monte Carlo simulation, where a lot of observations were generated. Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of machine learning models between 0 and 1.&lt;/p&gt;
 &lt;p&gt;CIU is implemented both in &lt;a href=&#34;https://github.com/TimKam/py-ciu&#34;&gt;&lt;strong&gt;python&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/KaryFramling/ciu&#34;&gt;R&lt;/a&gt;. For simplicity, I will use its python implementation (&lt;em&gt;py-ciu library&lt;/em&gt;) in this blogpost.&lt;/p&gt;
-&lt;p&gt;You can install py-ciu using the pip command:&lt;/p&gt;
+&lt;p&gt;You can install &lt;code&gt;py-ciu&lt;/code&gt; using the pip command:&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pip install py-ciu&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;a-toy-example-predicting-breast&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;A toy example: predicting breast&lt;/h2&gt;
-&lt;p&gt;I will use breast cancer dataset in scikit-learn to show how we can use CIU. I will train three different machine learning models including a decision tree, a random forest and a gradient boosting algorithm on this dataset and compute CI and CU values for a single instance from test dataset.&lt;/p&gt;
-&lt;p&gt;First we need to load necessary libraries and modules.&lt;/p&gt;
+&lt;p&gt;I will use the breast cancer dataset in scikit-learn to show how we can use CIU. I will train three different machine learning models, including a decision tree, a random forest, and a gradient boosting algorithm on this dataset and compute CI and CU values for a single instance from the test dataset.&lt;/p&gt;
+&lt;p&gt;First, we need to load the necessary libraries and modules.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from ciu import determine_ciu
 from sklearn.ensemble import GradientBoostingClassifier,RandomForestClassifier
 from sklearn.inspection import permutation_importance
@@ -77,7 +79,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 # for reproducability
 np.random.seed(123)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then we split the dataset into a training and test set. We train our machine learning models on the training dataset and evaluate their performance on the test dataset. Note that for explaining ML models, we also use samples from the test dataset and not the training dataset.&lt;/p&gt;
+&lt;p&gt;Then we split the dataset into a training and test set. We train our machine learning models on the training dataset and evaluate their performance on the test dataset. Note that for explaining ML models, we should use samples from the test dataset and not the training dataset.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;X = pd.DataFrame(load_breast_cancer()[&amp;#39;data&amp;#39;])
 y = load_breast_cancer()[&amp;#39;target&amp;#39;]
 X.columns = load_breast_cancer()[&amp;#39;feature_names&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
@@ -88,7 +90,7 @@ X.columns = load_breast_cancer()[&amp;#39;feature_names&amp;#39;]&lt;/code&gt;&l
   return clf&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;permutation-feature-importance&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Permutation feature importance&lt;/h3&gt;
-&lt;p&gt;As I mentioned before, CIU only generates local explanations and doesn’t give us an global overview of how a model makes prediction. To gain a better understanding of the global importance of the model let us compute permutation feature importance scores that is implemented in scikit-learn.&lt;/p&gt;
+&lt;p&gt;As mentioned before, CIU only generates local explanations and does not give us a global overview of how a model makes a prediction. To gain a better understanding of the global importance of the model, we can compute the permutation feature importance scores:&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def print_permutation_importance(model):
   imp_features = []
   pi = permutation_importance(model, X_test, y_test,
@@ -105,7 +107,7 @@ X.columns = load_breast_cancer()[&amp;#39;feature_names&amp;#39;]&lt;/code&gt;&l
 &lt;/div&gt;
 &lt;div id=&#34;decision-tree-classifier&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Decision Tree Classifier&lt;/h3&gt;
-&lt;p&gt;Since it is just a toy example, I won’t be very picky about hyper-parameters of my models and leave them to their default values in sklearn.&lt;/p&gt;
+&lt;p&gt;Since we just used a toy example, I will not be very picky about my model’s hyper-parameters and leave them to be the default values in sklearn.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;dt = DecisionTreeClassifier()
 dt_fit = fit_evaluate_model(dt)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  Accuracy on test dataset 0.9370629370629371&lt;/code&gt;&lt;/pre&gt;
@@ -137,20 +139,20 @@ rf_fit = fit_evaluate_model(rf)&lt;/code&gt;&lt;/pre&gt;
 gb_fit = fit_evaluate_model(gb)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  Accuracy on test dataset 0.9790209790209791&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;print_permutation_importance(gb_fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## worst concave points 0.024  +/- 0.011
+&lt;pre&gt;&lt;code&gt;## worst concave points 0.023  +/- 0.011
 ## mean concave points 0.021  +/- 0.010&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The random forest and gradient boosting classifiers have exactly the same accuracy score, however their most important features are different.&lt;/p&gt;
+&lt;p&gt;The random forest and gradient boosting classifiers have the same accuracy score; however, their most important features are different.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;explaining-a-single-observation&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Explaining a single observation&lt;/h3&gt;
-&lt;p&gt;Now lets explain how each model makes prediction on a single example (observation) from the test dataset.&lt;/p&gt;
+&lt;p&gt;Now let us explain how each model predicts a single example (observation) from the test dataset.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;example = X_test.iloc[1,:]
 example_prediction = gb.predict(example.values.reshape(1, -1))
 example_prediction_prob = gb.predict_proba(example.values.reshape(1, -1))
 prediction_index = 0 if example_prediction &amp;gt; 0.5 else 1
 print(f&amp;#39;Prediction {example_prediction}; Probability: {example_prediction_prob}&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Prediction [1]; Probability: [[0.10952357 0.89047643]]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To obtain CIU score, we need to compute minimum and maximum observed value of each feature in the dataset first.&lt;/p&gt;
+&lt;p&gt;To obtain a CIU score, we need to compute the minimum and maximum observed value of each feature in the dataset.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def min_max_features(X_train):
   min_max = dict()
   for i in range(len(X_train.columns)):
@@ -179,14 +181,14 @@ gb_ciu = explain_ciu(example,gb_fit)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;rf_ciu.text_explain()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [&amp;#39;The feature &amp;quot;mean radius&amp;quot;, which is important (CI=32.26%), is very typical for its class (CU=90.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean texture&amp;quot;, which is important (CI=35.48%), is unlikely for its class (CU=27.27%).&amp;#39;, &amp;#39;The feature &amp;quot;mean perimeter&amp;quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean area&amp;quot;, which is not important (CI=19.35%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;mean smoothness&amp;quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean compactness&amp;quot;, which is not important (CI=9.68%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concavity&amp;quot;, which is not important (CI=16.13%), is not typical for its class (CU=20.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concave points&amp;quot;, which is not important (CI=19.35%), is not typical for its class (CU=16.67%).&amp;#39;, &amp;#39;The feature &amp;quot;mean symmetry&amp;quot;, which is important (CI=38.71%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean fractal dimension&amp;quot;, which is not important (CI=6.45%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;radius error&amp;quot;, which is not important (CI=22.58%), is typical for its class (CU=71.43%).&amp;#39;, &amp;#39;The feature &amp;quot;texture error&amp;quot;, which is not important (CI=22.58%), is very typical for its class (CU=85.71%).&amp;#39;, &amp;#39;The feature &amp;quot;perimeter error&amp;quot;, which is not important (CI=22.58%), is unlikely for its class (CU=42.86%).&amp;#39;, &amp;#39;The feature &amp;quot;area error&amp;quot;, which is important (CI=38.71%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;smoothness error&amp;quot;, which is not important (CI=3.23%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;compactness error&amp;quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;concavity error&amp;quot;, which is not important (CI=6.45%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;concave points error&amp;quot;, which is not important (CI=9.68%), is typical for its class (CU=66.67%).&amp;#39;, &amp;#39;The feature &amp;quot;symmetry error&amp;quot;, which is not important (CI=6.45%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;fractal dimension error&amp;quot;, which is not important (CI=16.13%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst radius&amp;quot;, which is very important (CI=51.61%), is very typical for its class (CU=87.5%).&amp;#39;, &amp;#39;The feature &amp;quot;worst texture&amp;quot;, which is very important (CI=67.74%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst perimeter&amp;quot;, which is very important (CI=70.97%), is typical for its class (CU=63.64%).&amp;#39;, &amp;#39;The feature &amp;quot;worst area&amp;quot;, which is very important (CI=61.29%), is typical for its class (CU=57.89%).&amp;#39;, &amp;#39;The feature &amp;quot;worst smoothness&amp;quot;, which is not important (CI=6.45%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst compactness&amp;quot;, which is not important (CI=9.68%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concavity&amp;quot;, which is very important (CI=64.52%), is very typical for its class (CU=85.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concave points&amp;quot;, which is important (CI=38.71%), is not typical for its class (CU=16.67%).&amp;#39;, &amp;#39;The feature &amp;quot;worst symmetry&amp;quot;, which is important (CI=25.81%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst fractal dimension&amp;quot;, which is not important (CI=3.23%), is not typical for its class (CU=0.1%).&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;gb_ciu.text_explain()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [&amp;#39;The feature &amp;quot;mean radius&amp;quot;, which is not important (CI=16.49%), is not typical for its class (CU=0.65%).&amp;#39;, &amp;#39;The feature &amp;quot;mean texture&amp;quot;, which is highly important (CI=90.14%), is not typical for its class (CU=3.76%).&amp;#39;, &amp;#39;The feature &amp;quot;mean perimeter&amp;quot;, which is not important (CI=2.63%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean area&amp;quot;, which is not important (CI=3.36%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean smoothness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean compactness&amp;quot;, which is important (CI=37.26%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concavity&amp;quot;, which is not important (CI=4.0%), is not typical for its class (CU=8.92%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concave points&amp;quot;, which is important (CI=38.25%), is not typical for its class (CU=3.57%).&amp;#39;, &amp;#39;The feature &amp;quot;mean symmetry&amp;quot;, which is not important (CI=8.91%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean fractal dimension&amp;quot;, which is not important (CI=1.54%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;radius error&amp;quot;, which is not important (CI=10.53%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;texture error&amp;quot;, which is not important (CI=6.53%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;perimeter error&amp;quot;, which is not important (CI=1.48%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;area error&amp;quot;, which is very important (CI=57.97%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;smoothness error&amp;quot;, which is not important (CI=16.51%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;compactness error&amp;quot;, which is not important (CI=4.39%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concavity error&amp;quot;, which is not important (CI=4.03%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concave points error&amp;quot;, which is not important (CI=5.76%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;symmetry error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;fractal dimension error&amp;quot;, which is not important (CI=21.47%), is not typical for its class (CU=17.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst radius&amp;quot;, which is not important (CI=1.27%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst texture&amp;quot;, which is very important (CI=60.61%), is not typical for its class (CU=13.75%).&amp;#39;, &amp;#39;The feature &amp;quot;worst perimeter&amp;quot;, which is important (CI=41.37%), is not typical for its class (CU=23.17%).&amp;#39;, &amp;#39;The feature &amp;quot;worst area&amp;quot;, which is not important (CI=19.51%), is typical for its class (CU=67.91%).&amp;#39;, &amp;#39;The feature &amp;quot;worst smoothness&amp;quot;, which is not important (CI=18.24%), is unlikely for its class (CU=48.97%).&amp;#39;, &amp;#39;The feature &amp;quot;worst compactness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concavity&amp;quot;, which is not important (CI=10.79%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concave points&amp;quot;, which is important (CI=42.94%), is not typical for its class (CU=4.32%).&amp;#39;, &amp;#39;The feature &amp;quot;worst symmetry&amp;quot;, which is not important (CI=5.86%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst fractal dimension&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [&amp;#39;The feature &amp;quot;mean radius&amp;quot;, which is not important (CI=16.49%), is not typical for its class (CU=0.65%).&amp;#39;, &amp;#39;The feature &amp;quot;mean texture&amp;quot;, which is highly important (CI=90.14%), is not typical for its class (CU=3.76%).&amp;#39;, &amp;#39;The feature &amp;quot;mean perimeter&amp;quot;, which is not important (CI=2.63%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean area&amp;quot;, which is not important (CI=3.36%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean smoothness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean compactness&amp;quot;, which is important (CI=34.53%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concavity&amp;quot;, which is not important (CI=4.0%), is not typical for its class (CU=8.92%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concave points&amp;quot;, which is important (CI=38.25%), is not typical for its class (CU=3.57%).&amp;#39;, &amp;#39;The feature &amp;quot;mean symmetry&amp;quot;, which is not important (CI=8.91%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean fractal dimension&amp;quot;, which is not important (CI=1.54%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;radius error&amp;quot;, which is not important (CI=10.53%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;texture error&amp;quot;, which is not important (CI=6.53%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;perimeter error&amp;quot;, which is not important (CI=1.48%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;area error&amp;quot;, which is very important (CI=57.97%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;smoothness error&amp;quot;, which is not important (CI=16.51%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;compactness error&amp;quot;, which is not important (CI=4.39%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concavity error&amp;quot;, which is not important (CI=4.03%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concave points error&amp;quot;, which is not important (CI=5.76%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;symmetry error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;fractal dimension error&amp;quot;, which is not important (CI=21.47%), is not typical for its class (CU=17.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst radius&amp;quot;, which is not important (CI=1.27%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst texture&amp;quot;, which is very important (CI=60.61%), is not typical for its class (CU=13.75%).&amp;#39;, &amp;#39;The feature &amp;quot;worst perimeter&amp;quot;, which is important (CI=41.37%), is not typical for its class (CU=23.17%).&amp;#39;, &amp;#39;The feature &amp;quot;worst area&amp;quot;, which is not important (CI=19.51%), is typical for its class (CU=67.91%).&amp;#39;, &amp;#39;The feature &amp;quot;worst smoothness&amp;quot;, which is not important (CI=18.24%), is unlikely for its class (CU=48.97%).&amp;#39;, &amp;#39;The feature &amp;quot;worst compactness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concavity&amp;quot;, which is not important (CI=10.79%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concave points&amp;quot;, which is important (CI=42.94%), is not typical for its class (CU=4.32%).&amp;#39;, &amp;#39;The feature &amp;quot;worst symmetry&amp;quot;, which is not important (CI=5.86%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst fractal dimension&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;drawbacks&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Drawbacks&lt;/h3&gt;
 &lt;p&gt;Although CIU is a brilliant and simple technique, I believe it has the following drawbacks:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;In regression problems, the range of possible values for the target variable can be infinite, which somehow does not make sense when we want to compute CIU. The authors said that they have put a limit on the range of values.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Computing the range of values can be a little bit misleading especially when we have outliers in the dataset.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;In regression problems, the range of possible values for the target variable can be infinite, which somehow does not make sense when we want to compute CIU. The authors said that they had put a limit on the range of values.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Computing the range of values can be a little bit misleading, especially when we have outliers in the dataset.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;It is not clear how we can get a global explanation for the model using CIU.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
@@ -200,22 +202,23 @@ gb_ciu = explain_ciu(example,gb_fit)&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Sun, 08 Mar 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;1. Introduction&lt;/h2&gt;
-&lt;p&gt;It wasn’t possible for many of us to watch every 2020 Democratic Primary debate. It was important for some of us to know what happened during the debates. In my case, I was reading about what happened in debates in some kind of online newspapers or I watched a highlight of a debate on Youtube the next day. However, they only give a short summary of a debate or just broadcast a portion of debates that includes a heated exchange of opinions between candidates. As a result, many important issues raised by candidates will be &lt;strong&gt;ignored and forgotten in the&lt;/strong&gt; aftermath of a debate. So, it is important to summarize the content of a debate in such a way that everyone could understand what went on in a debate and what issues each candidate addressed during his/her speech. In this blog post, I will show you how I used some NLP techniques for exploring the content of debates and give you a comprehensive overview of topics that each candidate discussed.&lt;/p&gt;
+&lt;p&gt;Many of us could not watch every 2020 Democratic Primary debate. It was important for some of us to know what happened during the debates. In my case, I was reading about what happened in debates in some online newspapers, or I watched a highlight of a debate on Youtube the next day. However, they only give a summary of a debate or just broadcast a portion of debates that includes a heated exchange of opinions between candidates. As a result, many important issues raised by candidates will be &lt;strong&gt;ignored and forgotten in the&lt;/strong&gt; aftermath of a debate. So, it is crucial to summarize the debate’s content so that everyone could understand what went on in the debate and what issues each candidate addressed during his/her speech. In this blog post, I will show you how I used some NLP techniques for exploring the content of debates and give you a comprehensive overview of topics that each candidate discussed.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://mcnakhaee.com/post/2020-02-23-the-most-eloeuent-democratic-candidate/&#34;&gt;In my last blog post&lt;/a&gt;, I explained that I had the three following goals in mind when I started exploring the 2020 Democratic Debates :&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;To know how eloquent presidential candidate are.&lt;/li&gt;
+&lt;li&gt;To know how eloquent presidential candidates are.&lt;/li&gt;
 &lt;li&gt;To find out who used more positive or more negative words in his/her speech by performing sentiment analysis.&lt;/li&gt;
-&lt;li&gt;A map of topics, individuals and entities that each candidate mentioned in his/her speech by using named entity recognition and network analysis..&lt;/li&gt;
+&lt;li&gt;A map of topics, individuals, and entities that each candidate mentioned in his/her speech by using named entity recognition and network analysis..&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;I only discussed how I approached the first two aspects of my experiment in my last blogpost. Now it is time to investigate the third and last one.&lt;/p&gt;
-&lt;p&gt;Initially, my aim from using network analysis was to determine potential allies and enemies on the debate stage. For example, &lt;a href=&#34;https://www.theguardian.com/us-news/2020/mar/04/mike-bloomberg-out-60-second-attack-elizabeth-warren-destroyed-campaign&#34;&gt;Elizabeth Warren mentioned Mike Bloomberg several times and attacked him harshly in the 9th debate&lt;/a&gt;. During the same debate, &lt;a href=&#34;https://www.independent.co.uk/news/world/americas/us-election/amy-klobuchar-pete-buttigieg-handshake-democratic-debate-video-a9348621.html&#34;&gt;Amy Klobuchar and Pete Buttigieg clashed bitterly with each other&lt;/a&gt;. These are just two instances of many other heated exchanges between the candidates that happend over the course of 10 debates.&lt;/p&gt;
+&lt;p&gt;Initially, my aim was to use network analysis to determine potential allies and enemies on the debate stage. For example, &lt;a href=&#34;https://www.theguardian.com/us-news/2020/mar/04/mike-bloomberg-out-60-second-attack-elizabeth-warren-destroyed-campaign&#34;&gt;Elizabeth Warren mentioned Mike Bloomberg several times and attacked him harshly in the 9th debate&lt;/a&gt;. During the same debate, &lt;a href=&#34;https://www.independent.co.uk/news/world/americas/us-election/amy-klobuchar-pete-buttigieg-handshake-democratic-debate-video-a9348621.html&#34;&gt;Amy Klobuchar and Pete Buttigieg clashed bitterly with each other&lt;/a&gt;. These are just two instances of many other heated exchanges between the candidates that happened throughout the ten debates.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;To make things more clear, I transformed my objective into two questions that I would like to answer:&lt;/p&gt;
+&lt;p&gt;To make things more precise, I transformed my objective into two questions that I would like to answer:&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
@@ -223,13 +226,13 @@ gb_ciu = explain_ciu(example,gb_fit)&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;How did he/she refer to a candidate(in a friendly or unfriendly manner)?&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;A simple approach to answer these questions is to store the names of all candidates in a variable (for example a vector in R or a list in Python), iterate over the transcript, compute the sentiment, count and store the number of times that a candidate’s name was brought up by another candidate.&lt;/p&gt;
-&lt;p&gt;However, this approach is a little bit challenging and requires a lot of manual data pre-processing efforts. For each democratic candidate, one must compile a comprehensive combinations of ways that may be used to call a candidate and preparing such a list seems to be a very time-consuming task. For example, other candidates mentioned Bernie Sanders in many different ways including Bernie, Bernie Sanders or Senator Sanders.&lt;/p&gt;
-&lt;p&gt;I realized that I can use Named Entity Recognition (NER), a technique from Natural Language Processing (NLP) literature, to extract the name of candidates from the transcript and solve this problem more efficiently. By using this approach, not only I can find candidates’ names form the transcript, but I can also find the names of other politicians, individuals and even organizations and further extend my analysis to include much more topics and issues.&lt;/p&gt;
+&lt;p&gt;A simple approach to answering these questions is to store the names of all candidates in a variable (for example, a vector in R or a list in Python), iterate over the transcript, compute the sentiment, count and store the number of times that another candidate brought up a candidate’s name.&lt;/p&gt;
+&lt;p&gt;However, this approach is a little bit challenging and requires a lot of manual data pre-processing efforts. For each democratic candidate, one must compile a comprehensive combination of ways that may be used to call a candidate, and to prepare such a list seems to be a very time-consuming task. For example, other candidates mentioned Bernie Sanders in many different ways, including Bernie, Bernie Sanders, or Senator Sanders.&lt;/p&gt;
+&lt;p&gt;I realized that I could use Named Entity Recognition (NER), a technique from the Natural Language Processing (NLP) literature, to extract candidates’ names from the transcript and solve this problem more efficiently. Using this approach, I can find candidates’ names from the transcript, but I can also find the names of other politicians, individuals, and even organizations and further extend my analysis to include many more topics and issues.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;workflow&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;2. Workflow&lt;/h2&gt;
-&lt;p&gt;I made use of both python and R in my analysis. My workflow includes the following steps:&lt;/p&gt;
+&lt;p&gt;I made use of both Python and R in my analysis. My workflow includes the following steps:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;I access the transcript of debates using this package.&lt;/li&gt;
 &lt;li&gt;I use tidytext to split the transcript into multiple sentences and also for sentiment analysis.&lt;/li&gt;
@@ -237,7 +240,7 @@ gb_ciu = explain_ciu(example,gb_fit)&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;I compute the sentiment of each sentence using TextBlob library in Python.&lt;/li&gt;
 &lt;li&gt;I transferred the results to R for visualization. There, I visualize the network of mentions and entities using ggraph and ggplot library.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Note that I could have implemented all the steps in R. For instance, Spacy has an R wrapper called Spacyr which gives the same functionality that I need for this analysis. However, I’d like to increase the number of tools that I can use. Particularly, using Python and R side by side is an interesting challenge for me.&lt;/p&gt;
+&lt;p&gt;Note that I could have implemented all the steps in R. For instance, Spacy has an R wrapper called Spacyr, which gives the same functionality that I need for this analysis. However, I’d like to increase the number of tools that I can use. Notably, using Python and R side by side is an exciting challenge for me.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(demdebates2020)
 library(tidytext)
 library(tidygraph)
@@ -673,17 +676,17 @@ NA
 &lt;/div&gt;
 &lt;div id=&#34;named-entity-recognition-using-spacy&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3. Named Entity Recognition using Spacy&lt;/h3&gt;
-&lt;p&gt;Now we change to python for NER but before starting the analysis, we need to install and import a few python libraries.&lt;/p&gt;
+&lt;p&gt;Now we change to python for NER, but we need to install and import a few python libraries before starting the analysis.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import pandas as pd
 import spacy
 from textblob import TextBlob&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In RStudio and Rmarkdown notebooks, with the help of &lt;code&gt;reticulate&lt;/code&gt; library, we can easily load the debate dataset in our R environment to our Python environment, .&lt;/p&gt;
+&lt;p&gt;In RStudio and Rmarkdown notebooks, with the help of the &lt;code&gt;reticulate&lt;/code&gt; library, we can easily load the debate dataset in our R environment to our Python environment.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;debates = r.debates&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Note that in in the transcript dataset there are rows for both the candidates and the moderators who asked questions from candidates. However, we are particularly interested in what the candidates said, so we only filter rows corresponding to candidates.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;candidates = debates[(debates[&amp;#39;type&amp;#39;] == &amp;#39;Candidate&amp;#39;) &amp;amp; (pd.notnull(debates[&amp;#39;sentence&amp;#39;])) ]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We are almost ready for extracting the named entities. But to use Spacy’s NLP features such as NER, we first need to download and load a pre-trained English language model. There are &lt;a href=&#34;https://spacy.io/usage/models&#34;&gt;several English language models&lt;/a&gt; with different sizes available in Spacy. I used the largest language model available as it might be better and more accurate.&lt;/p&gt;
+&lt;p&gt;We are almost ready to extract the named entities. However, to use Spacy’s NLP features such as NER, we first need to download and load a pre-trained English language model. There are &lt;a href=&#34;https://spacy.io/usage/models&#34;&gt;several English language models&lt;/a&gt; with different sizes available in Spacy. I used the largest language model available as it might be better and more accurate.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;nlp = spacy.load(&amp;#39;en_core_web_lg&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Spacy’s NER model is trained on the &lt;a href=&#34;https://catalog.ldc.upenn.edu/LDC2013T19&#34;&gt;OntoNotes 5&lt;/a&gt; corpus and it can detect several types of named entities including:&lt;/p&gt;
+&lt;p&gt;Spacy’s NER model is trained on the &lt;a href=&#34;https://catalog.ldc.upenn.edu/LDC2013T19&#34;&gt;OntoNotes 5&lt;/a&gt; corpus, and it can detect several types of named entities, including:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
@@ -766,10 +769,10 @@ from textblob import TextBlob&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;As you can see, there are many types of named entities but I narrow down my analysis to just a handful of them including &lt;code&gt;PERSON&lt;/code&gt;, &lt;code&gt;ORG&lt;/code&gt;, &lt;code&gt;GPE&lt;/code&gt;, &lt;code&gt;NORP&lt;/code&gt;, &lt;code&gt;LAW&lt;/code&gt; and &lt;code&gt;LOC&lt;/code&gt;.
-The named entity labels are stored in &lt;code&gt;label_&lt;/code&gt; attribute. To do so, we need to create &lt;code&gt;Doc&lt;/code&gt; object using &lt;code&gt;nlp()&lt;/code&gt; method. When we call &lt;code&gt;nlp()&lt;/code&gt; on the input text, spacy uses the language model to tokenize the document first. Then, spacy applies a tagger, parser and named entity recognizer steps as the next components of its processing pipeline. The named entities can be accessed by &lt;code&gt;ents&lt;/code&gt; attribute of the document object.&lt;/p&gt;
+&lt;p&gt;As you can see, there are many types of named entities, but I narrow down my analysis to just a handful of them, including &lt;code&gt;PERSON&lt;/code&gt;, &lt;code&gt;ORG&lt;/code&gt;, &lt;code&gt;GPE&lt;/code&gt;, &lt;code&gt;NORP&lt;/code&gt;, &lt;code&gt;LAW&lt;/code&gt;, and &lt;code&gt;LOC&lt;/code&gt;.
+The named entity labels are stored in &lt;code&gt;label_&lt;/code&gt; attribute. To do so, we need to create &lt;code&gt;Doc&lt;/code&gt; object using &lt;code&gt;nlp()&lt;/code&gt; method. When we call &lt;code&gt;nlp()&lt;/code&gt; on the input text, spacy uses the language model to tokenize the document first. Then, spacy applies a tagger, parser, and named entity recognizer steps as its processing pipeline’s next components. The named entities can be accessed by &lt;code&gt;ents&lt;/code&gt; attribute of the document object.&lt;/p&gt;
 &lt;p&gt;If you are interested to learn more about Spacy and how it works, I have provided some links at the end of this post.&lt;/p&gt;
-&lt;p&gt;I define a python function that iterates over all named entities and see to which class of named entities (by default &lt;code&gt;PERSON&lt;/code&gt;) they belong. I apply this function to the transcript column in the original dataset and store each extracted type of entities as a separate column.&lt;/p&gt;
+&lt;p&gt;I define a python function that iterates over all named entities and see to which class of named entities (by default &lt;code&gt;PERSON&lt;/code&gt;) they belong. I apply this function to the transcript column in the original dataset and store each extracted type of entity as a separate column.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def extract_entities_delim(text,type_ent = &amp;#39;PERSON&amp;#39;):
   ent_text = &amp;#39;&amp;#39;
   doc = nlp(text)
@@ -786,7 +789,7 @@ candidates[&amp;#39;LOC&amp;#39;] = candidates[&amp;#39;sentence&amp;#39;].apply
 &lt;/div&gt;
 &lt;div id=&#34;sentiment-analysis&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;4. Sentiment Analysis&lt;/h3&gt;
-&lt;p&gt;Next, I use TextBlob to compute the sentiment of each sentence and store store its polarity score in a separate column called &lt;code&gt;polarity_sentiment&lt;/code&gt; (TextBlob also returns a &lt;code&gt;subjectivity&lt;/code&gt; score but for simplicity, I will not use this score in my analysis). The polarity sentiment score is a value between -1 and 1. If the value is larger than 0, it means that the sentence has a positive sentiment. On the other hand, if the returned value is smaller than 0, it indicates that the sentiment of the sentence is negative.&lt;/p&gt;
+&lt;p&gt;Next, I use TextBlob to compute each sentence’s sentiment and store its polarity score in a separate column called &lt;code&gt;polarity_sentiment&lt;/code&gt; (TextBlob also returns a &lt;code&gt;subjectivity&lt;/code&gt; score, but for simplicity, I will not use this score in my analysis). The polarity sentiment score is a value between -1 and 1. If the value is larger than 0, it means that the sentence has a positive sentiment. On the other hand, if the returned value is smaller than 0, it indicates that the sentence’s sentiment is negative.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def polarity_sentiment(text):
   blob = TextBlob(text)
   return blob.sentiment.polarity
@@ -796,19 +799,19 @@ candidates[&amp;#39;polarity_sentiment&amp;#39;] = candidates.sentence.apply(lam
 &lt;/div&gt;
 &lt;div id=&#34;network-visualization&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;5.Network Visualization&lt;/h2&gt;
-&lt;p&gt;A network (graph) can nicely represent how individuals and entities were mentioned by candidates in their speeches. We have two types of nodes in this network:&lt;/p&gt;
+&lt;p&gt;A network (graph) can nicely represent how candidates mentioned individuals and entities in their speeches. We have two types of nodes in this network:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;The first set of nodes represent candidates on the debate stage (&lt;strong&gt;from nodes)&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;The second set of nodes represent named entities (including the name of candidates themselves) that the candidates referred to in their speeches (&lt;strong&gt;to&lt;/strong&gt; &lt;strong&gt;nodes&lt;/strong&gt;).&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;If a candidate mentions a named entity in his/her speech, we connect the candidate node and the named entity node via an edge in our network. Also, It is fair to assume that the candidate-entity network should be a weighted network because candidates tend to place a varying level of importance on different issues, topics and people (named entities).&lt;/p&gt;
+&lt;p&gt;If a candidate mentions a named entity in his/her speech, we connect the candidate node and the named entity node via our network’s edge. It is also fair to assume that the candidate-entity network should be weighted because candidates tend to place a varying level of importance on different issues, topics, and people (named entities).&lt;/p&gt;
 &lt;p&gt;We have two options for specifying weights for edges in the network:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;We can use the number of times that a candidate mentioned a named entity in his/her speech. This shows how much a named entity was important to that candidate.&lt;/li&gt;
 &lt;li&gt;We can group by candidates and named entities and compute their average sentiment score. By doing so, we can measure how each candidate described these named entities. However, this approach might not be as accurate as we want.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Having said that, it is time to go back to R and visualize the network of candidates and named entities using the &lt;a href=&#34;https://github.com/thomasp85/ggraph&#34;&gt;&lt;code&gt;ggraph&lt;/code&gt;&lt;/a&gt; and &lt;code&gt;tidygraph&lt;/code&gt; libraries. For each class of named entities, I use &lt;code&gt;as_tbl_graph()&lt;/code&gt; function and create a unique graph table dataset, and visualize the network.&lt;/p&gt;
-&lt;p&gt;So, let’s load the sentiment-entity dataset that I created in the Python environment to the R environment.&lt;/p&gt;
+&lt;p&gt;Having said that, it is time to go back to R and visualize the network of candidates and named entities using the &lt;a href=&#34;https://github.com/thomasp85/ggraph&#34;&gt;&lt;code&gt;ggraph&lt;/code&gt;&lt;/a&gt; and &lt;code&gt;tidygraph&lt;/code&gt; libraries. For each class of named entities, I use &lt;code&gt;as_tbl_graph()&lt;/code&gt; function, create a unique graph table dataset, and visualize the network.&lt;/p&gt;
+&lt;p&gt;So, let us load the sentiment-entity dataset that I created in the Python environment to the R environment.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates &amp;lt;- py$candidates&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(candidates) &lt;/code&gt;&lt;/pre&gt;
 &lt;table class=&#34;table table-striped table-hover table-condensed table-responsive&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
@@ -1169,8 +1172,8 @@ NA
 &lt;/table&gt;
 &lt;div id=&#34;the-candidateperson-network&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;5.1 The Candidate/Person Network&lt;/h4&gt;
-&lt;p&gt;First, I will visualize the candidate/person network. However, I should remind you of the fact that in the beginning of the democratic primary many democratic candidates were competing against each other in the race and also on the debate stage. If I were to visualize every individual that each candidate had ever in the network, the results would become unreadable. So, just like my last blog post, I selected a few democratic candidates to show my analysis.&lt;/p&gt;
-&lt;p&gt;Furthermore, I will only highlight nodes corresponding to the top 6 democratic candidates and other interesting individuals including Donald Trump and Barack Obama.&lt;/p&gt;
+&lt;p&gt;First, I will visualize the candidate/person network. However, I should remind you that in the beginning of the democratic primary, many democratic candidates were competing against each other in the race and on the debate stage. If I were to visualize every individual that each candidate had ever in the network, the results would become unreadable. So, just like my last blog post, I selected a few democratic candidates to show my analysis.&lt;/p&gt;
+&lt;p&gt;Furthermore, I will only highlight nodes corresponding to the top 6 democratic candidates and other interesting individuals, including Donald Trump and Barack Obama.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;interesting_individuals &amp;lt;-
  c(
   &amp;quot;Bernie Sanders&amp;quot; ,
@@ -1219,13 +1222,13 @@ ggraph(persons_graph_table, layout = &amp;#39;kk&amp;#39;) +
  scale_color_manual(values = custom_palette) +
   labs(title = &amp;#39;Who Mentioned Whom in the 2020 Democratic Debates?&amp;#39;) +
   scale_edge_colour_manual(values = edge_cols) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;If you look at the graph carefully, you will notice that there are three issues with this network. First of all, the sentiment scores does not necessarily indicate how a candidate thinks about that person. For instance, the edge between Bernie Sanders and Khashoggi is red (i.e. negative sentiment) but Bernie Sanders did not talk negatively about Khashoggi at all but rather how he was murdered. Secondly, there are several nodes in the network that belong to the same individual. For example, Bernie Sanders tends to address other candidates by their first names, but other (younger) candidates usually use the last name to address each other.&lt;/p&gt;
-&lt;p&gt;The third issue is that some nodes do not represent a person. The transcript dataset is full of errors and many names are misspelled. Also, although Spacy is a very powerful library for NER, sometimes it gives us wrong results and its detected named entities are not always correct. For this reason, we also need to perform a post-processing step in which we remove some incorrectly spelled words or replaced them with their correct forms. I found two ways to deal with these issues: 1. or we can use a name matching algorithm to match the partial names of a person with its full name. This approach can be a bit challenging because we need to have a list of all possible full names, which is only available for the candidates.2. we can manually find undesirable names and replace them with what we want.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;If you look at the graph carefully, you will notice three issues with this network. First of all, the sentiment scores do not necessarily indicate how a candidate thinks about that person. For instance, Bernie Sanders and Khashoggi’s edge is red (i.e. negative sentiment), but Bernie Sanders did not talk negatively about Khashoggi at all but rather how he was murdered. Secondly, there are several nodes in the network that belong to the same individual. For example, Bernie Sanders tends to address other candidates by their first names, but other (younger) candidates usually use the last name to address each other.&lt;/p&gt;
+&lt;p&gt;The third issue is that some nodes do not represent a person. The transcript dataset is full of errors, and many names are misspelled. Although Spacy is a very powerful library for NER, sometimes it gives us wrong results, and its detected named entities are not always correct. For this reason, we also need to perform a post-processing step in which we remove some incorrectly spelled words or replaced them with their correct forms. I found two ways to deal with these issues: 1. or we can use a name matching algorithm to match the partial names with its full name. This approach can be challenging because we need to have a list of all possible full names, which is only available for the candidates.2. We can manually find undesirable names and replace them with what we want.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;matching-candidate-names&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;5.1 Matching candidate names&lt;/h4&gt;
-&lt;p&gt;There is a python library called &lt;code&gt;fuzzywuzzy&lt;/code&gt; that can help us match two strings based on different similarity criteria. However, before using this library, I transform the original dataset into a longer dataset where each row belongs to a pair of candidate-person (from-to) and I move it back to our python environment.&lt;/p&gt;
+&lt;p&gt;A python library called &lt;code&gt;fuzzywuzzy&lt;/code&gt;can help us match two strings based on different similarity criteria. However, before using this library, I transform the original dataset into a long dataframe where each row belongs to a pair of candidate-person (from-to), and I move it back to our python environment.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long &amp;lt;- candidates %&amp;gt;%
  filter(PERSON != &amp;#39;&amp;#39;) %&amp;gt;%
  separate_rows(PERSON, sep = &amp;#39;;&amp;#39;) 
@@ -1234,8 +1237,8 @@ head(candidates_long)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;a-tibble-6-x-16&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;A tibble: 6 x 16&lt;/h1&gt;
-&lt;p&gt;X1 speaker background type gender debate day order sentence PERSON ORG&lt;br /&gt;
-&lt;dbl&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+&lt;pre&gt;&lt;code&gt; X1 speaker background type  gender debate   day order sentence PERSON ORG  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;dbl&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
 1 372 Amy Kl~ NA Cand~ female 1 1 11 And Don~ “Dona~ &lt;NA&gt;
 2 372 Amy Kl~ NA Cand~ female 1 1 11 And Don~”&#34; &lt;NA&gt;
 3 384 Amy Kl~ NA Cand~ female 1 1 99 It’s so~ “Bara~ &lt;NA&gt;
@@ -1249,13 +1252,7 @@ head(candidates_long)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import pandas as pd
 candidate_lists = pd.unique(candidates_long.speaker)
 print(candidate_lists)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [&amp;#39;Amy Klobuchar&amp;#39; &amp;#39;Andrew Yang&amp;#39; &amp;#39;Bernie Sanders&amp;#39; &amp;quot;Beto O&amp;#39;Rourke&amp;quot;
-##  &amp;#39;Bill de Blasio&amp;#39; &amp;#39;Cory Booker&amp;#39; &amp;#39;Elizabeth Warren&amp;#39; &amp;#39;Eric Swalwell&amp;#39;
-##  &amp;#39;Jay Inslee&amp;#39; &amp;#39;Joe Biden&amp;#39; &amp;#39;John Delaney&amp;#39; &amp;#39;John Hickenlooper&amp;#39;
-##  &amp;#39;Julian Castro&amp;#39; &amp;#39;Kamala Harris&amp;#39; &amp;#39;Kirsten Gillibrand&amp;#39;
-##  &amp;#39;Marianne Williamson&amp;#39; &amp;#39;Michael Bennet&amp;#39; &amp;#39;Mike Bloomberg&amp;#39; &amp;#39;Pete Buttigieg&amp;#39;
-##  &amp;#39;Steve Bullock&amp;#39; &amp;#39;Tim Ryan&amp;#39; &amp;#39;Tom Steyer&amp;#39; &amp;#39;Tulsi Gabbard&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I define a python function called &lt;code&gt;match_names&lt;/code&gt; which uses &lt;code&gt;process.extractOne&lt;/code&gt; function to select the first matched named entity that has at least 80 percent similarity to a candidate’s full name. The matched names are stored in a separate columns called &lt;code&gt;dem_candidate_full_name&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;I define a python function called &lt;code&gt;match_names&lt;/code&gt;that uses &lt;code&gt;process.extractOne&lt;/code&gt; function to select the first matched named entity with at least 80 percent similarity to a candidate’s full name. The matched names are stored in a separate column called &lt;code&gt;dem_candidate_full_name&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from fuzzywuzzy import fuzz 
 from fuzzywuzzy import process &lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def match_names(name):
@@ -1268,27 +1265,9 @@ candidates_long[&amp;#39;dem_candidate_full_name&amp;#39;] = candidates_long.PER
 &lt;p&gt;Now we can return to R and continue our analysis.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long &amp;lt;- py$candidates_long
 glimpse(candidates_long)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Observations: 3,238
-## Variables: 16
-## $ X1                 &amp;lt;dbl&amp;gt; 372, 372, 384, 384, 422, 422, 437, 437, 440, 440...
-## $ speaker            &amp;lt;chr&amp;gt; &amp;quot;Amy Klobuchar&amp;quot;, &amp;quot;Amy Klobuchar&amp;quot;, &amp;quot;Amy Klobuchar...
-## $ background         &amp;lt;lgl&amp;gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
-## $ type               &amp;lt;chr&amp;gt; &amp;quot;Candidate&amp;quot;, &amp;quot;Candidate&amp;quot;, &amp;quot;Candidate&amp;quot;, &amp;quot;Candidat...
-## $ gender             &amp;lt;chr&amp;gt; &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;...
-## $ debate             &amp;lt;dbl&amp;gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
-## $ day                &amp;lt;dbl&amp;gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
-## $ order              &amp;lt;dbl&amp;gt; 11, 11, 99, 99, 329, 329, 426, 426, 427, 427, 56...
-## $ sentence           &amp;lt;chr&amp;gt; &amp;quot;And Donald Trump just sits in the White House a...
-## $ PERSON             &amp;lt;chr&amp;gt; &amp;quot;Donald Trump&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;Barack Obama&amp;quot;, &amp;quot;&amp;quot;, &amp;quot;Donald ...
-## $ ORG                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
-## $ GPE                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
-## $ NORP               &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
-## $ LAW                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;the Affordable Care Act;&amp;quot;, &amp;quot;the Aff...
-## $ LOC                &amp;lt;chr&amp;gt; &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;NA&amp;quot;, ...
-## $ polarity_sentiment &amp;lt;dbl&amp;gt; 0.0250000, 0.0250000, 0.0000000, 0.0000000, 0.50...&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;a-word-of-caution&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;A word of caution&lt;/h4&gt;
-&lt;p&gt;We need to be very careful with the results of the name matching algorithm. There are too many politicians with the name ‘John’ and a John might refer to “John McCain” or “John Bolton” not the candidate “John Hickenlooper”. So, as a post-processing step, I manually explore the dataset to correct the few mistakes that the matching algorithm had made.&lt;/p&gt;
+&lt;p&gt;We need to be very careful with the results of the name-matching algorithm. There are too many politicians with the name ‘John’ and a John might refer to “John McCain” or “John Bolton” not the candidate “John Hickenlooper”. So, as a post-processing step, I manually explore the dataset to correct the few mistakes that the matching algorithm had made.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;candidates_long &amp;lt;- candidates_long %&amp;gt;%
   mutate(PERSON = if_else(
     !is.na(dem_candidate_full_name),
@@ -1335,7 +1314,7 @@ glimpse(candidates_long)&lt;/code&gt;&lt;/pre&gt;
     &amp;#39;ho&amp;#39;,
     &amp;#39;Dreamer&amp;#39;
   )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We have another problem left. Some individuals were mentioned in different ways and we have several nodes for them in the graph. To solve this issue, I simply use &lt;code&gt;str_detect&lt;/code&gt; function from &lt;code&gt;stringr&lt;/code&gt; package to manually modify the them names. I must say this was the most boring and time-consuming part of my analysis!&lt;/p&gt;
+&lt;p&gt;We have another problem left. Some individuals were mentioned in different ways, and we have several nodes for them in the graph. To solve this issue, I use &lt;code&gt;str_detect&lt;/code&gt; function from &lt;code&gt;stringr&lt;/code&gt; package to manually modify them names. I must say this was the most tedious and time-consuming part of my analysis!&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;persons_graph_table &amp;lt;-  candidates_long %&amp;gt;%
   filter(speaker %in% interesting_individuals,
          !PERSON %in% non_person,
@@ -1459,7 +1438,7 @@ ggraph(persons_graph_table, layout = &amp;#39;nicely&amp;#39;) +
   labs(title = &amp;#39;Individuals Mentioned by Top Democratic Candidates During the Democratic Primary Debates&amp;#39;,
        subtitle = &amp;#39;This graph shows which individuals or politicians were mentioned by top 6 democratic candidates over the course of first ten priamary debates.&amp;#39;,
        caption = &amp;#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-31-1.png&#34; width=&#34;3840&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-32-1.png&#34; width=&#34;3840&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;candidates-interaction&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;5.3 Candidates interaction&lt;/h3&gt;
@@ -1527,7 +1506,7 @@ ggraph(
        caption = &amp;#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&amp;#39;) +
   expand_limits(x = c(xmin - 0.2, xmax + 0.2),
                 y = c(ymin - 0.2, ymax + 0.2)) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-33-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-34-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The results are self-explanatory and satisfying. One also can make an animation and show the network over time.&lt;/p&gt;
 &lt;p&gt;Now, let’s repeat the same steps and visualize the network for other types of named entities.&lt;/p&gt;
 &lt;/div&gt;
@@ -1582,7 +1561,7 @@ org_graph_table &amp;lt;- candidates %&amp;gt;%
   labs(title = &amp;#39;Organizations and Institutions Mentioned by Top Democratic Candidates During the Debates&amp;#39;,
        subtitle = &amp;#39;This plot shows which organizations and institutions were mentioned by top democratic candidates during the last 5 debates.&amp;#39;,
        caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-35-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-36-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-network-of-named-entities-for-countries-and-cities&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;5.5 The network of named entities for countries and cities&lt;/h3&gt;
@@ -1610,7 +1589,7 @@ org_graph_table &amp;lt;- candidates %&amp;gt;%
   labs(title = &amp;#39;Countries, Cities and States Mentioned by Top Democratic Candidates During the Last Five Primary Debates&amp;#39;,
        subtitle = &amp;#39;&amp;#39;,
        caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-37-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-38-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-network-of-named-entities-for-laws&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;5.6 The network of named entities for laws&lt;/h3&gt;
@@ -1647,7 +1626,7 @@ law_graph_table &amp;lt;- candidates %&amp;gt;%
   labs(title = &amp;#39;Laws Mentioned by Top Democratic Candidates During the First Ten Primary Debates&amp;#39;,
        subtitle = &amp;#39;&amp;#39;,
        caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-39-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-40-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-network-of-named-entities-for-nationalities-religious-or-political-groups&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;5.7 The network of named entities for nationalities, religious or political groups&lt;/h3&gt;
@@ -1685,7 +1664,7 @@ norp_graph_table &amp;lt;- candidates %&amp;gt;%
   labs(title = &amp;#39;Nationalities, religious or Political Groups Mentioned by Top Democratic Candidates During the Last Five Primary Debates&amp;#39;,
        subtitle = &amp;#39;&amp;#39;,
        caption = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-41-1.png&#34; width=&#34;3840&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/index_files/figure-html/unnamed-chunk-42-1.png&#34; width=&#34;3840&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;##Resources:
 A very useful place to learn more how spacy works the spacy’s online course by one of its founders and developers.
 [1] &lt;a href=&#34;https://course.spacy.io/en/&#34; class=&#34;uri&#34;&gt;https://course.spacy.io/en/&lt;/a&gt;&lt;/p&gt;
@@ -1703,6 +1682,7 @@ A very useful place to learn more how spacy works the spacy’s online course by
       <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Advantages
@@ -1756,9 +1736,10 @@ data leakage&lt;/p&gt;
       <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::opts_chunk$set(warning = FALSE, message = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tune)
 library(rsample)
 library(yardstick)
@@ -1778,21 +1759,6 @@ library(reticulate)
 
 spotify_songs &amp;lt;- pin(read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&amp;#39;))
 head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 23
-##   track_id track_name track_artist track_popularity track_album_id
-##   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         
-## 1 6f807x0~ I Don&amp;#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
-## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
-## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
-## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
-## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
-## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
-## # ... with 18 more variables: track_album_name &amp;lt;chr&amp;gt;,
-## #   track_album_release_date &amp;lt;chr&amp;gt;, playlist_name &amp;lt;chr&amp;gt;, playlist_id &amp;lt;chr&amp;gt;,
-## #   playlist_genre &amp;lt;chr&amp;gt;, playlist_subgenre &amp;lt;chr&amp;gt;, danceability &amp;lt;dbl&amp;gt;,
-## #   energy &amp;lt;dbl&amp;gt;, key &amp;lt;dbl&amp;gt;, loudness &amp;lt;dbl&amp;gt;, mode &amp;lt;dbl&amp;gt;, speechiness &amp;lt;dbl&amp;gt;,
-## #   acousticness &amp;lt;dbl&amp;gt;, instrumentalness &amp;lt;dbl&amp;gt;, liveness &amp;lt;dbl&amp;gt;, valence &amp;lt;dbl&amp;gt;,
-## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs &amp;lt;- spotify_songs %&amp;gt;%  
   dplyr::rowwise() %&amp;gt;% 
   mutate(shorter_names = unlist(str_split(track_name,&amp;#39;-&amp;#39;))[1]) &lt;/code&gt;&lt;/pre&gt;
@@ -1847,11 +1813,9 @@ My designed workflow consists of the following step:&lt;/p&gt;
  select(track_popularity, c(12:23)) %&amp;gt;% 
  correlate() %&amp;gt;% 
   network_plot(min_cor = 0.1,color = c(&amp;#39;#1a535c&amp;#39;,&amp;#39;#4ecdc4&amp;#39;,&amp;#39;#f7fff7&amp;#39;,&amp;#39;#ff6b6b&amp;#39;,&amp;#39;#ffe66d&amp;#39;)) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs %&amp;gt;% 
  ggplot(aes(track_popularity)) +
  geom_histogram(fill = &amp;#39;indianred&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;shap&#34; class=&#34;section level2&#34;&gt;
@@ -1877,6 +1841,7 @@ My designed workflow consists of the following step:&lt;/p&gt;
       <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-01-18-optimal-rule-lists/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Axiom

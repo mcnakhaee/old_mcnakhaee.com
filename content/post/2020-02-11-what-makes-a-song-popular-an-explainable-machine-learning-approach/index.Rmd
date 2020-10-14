@@ -25,7 +25,7 @@ projects: []
 ---
 
 ```{r}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)
 ```
 
 ```{r}

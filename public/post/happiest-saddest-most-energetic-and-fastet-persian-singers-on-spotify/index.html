@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="IntroductionI am a music lover and like my other hobbies I am really interested in applying data science methods to it. A few months ago I participated in the third week of the TidyTuesday project where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then I have been using Spotify’s Web API to collect data and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify.">
+  <meta name="description" content="IntroductionI am a music lover, and like my other hobbies, I am really interested in applying data science methods to it. A few months ago, I participated in the third week of the TidyTuesday project, where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then, I have been using Spotify’s Web API to collect data, and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/">
@@ -128,7 +128,7 @@
   <meta property="og:site_name" content="Muhammad Chenariyan Nakhaee">
   <meta property="og:url" content="/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/">
   <meta property="og:title" content="The Happiest, Saddest, Most Energetic and Most Popular Persian Singers on Spotify | Muhammad Chenariyan Nakhaee">
-  <meta property="og:description" content="IntroductionI am a music lover and like my other hobbies I am really interested in applying data science methods to it. A few months ago I participated in the third week of the TidyTuesday project where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then I have been using Spotify’s Web API to collect data and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify."><meta property="og:image" content="/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/featured.JPG">
+  <meta property="og:description" content="IntroductionI am a music lover, and like my other hobbies, I am really interested in applying data science methods to it. A few months ago, I participated in the third week of the TidyTuesday project, where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then, I have been using Spotify’s Web API to collect data, and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify."><meta property="og:image" content="/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/featured.JPG">
   <meta property="twitter:image" content="/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/featured.JPG"><meta property="og:locale" content="en-us">
   
     
@@ -184,7 +184,7 @@
       "url": "/img/icon-512.png"
     }
   },
-  "description": "Introduction\rI am a music lover and like my other hobbies I am really interested in applying data science methods to it. A few months ago I participated in the third week of the TidyTuesday project where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then I have been using Spotify’s Web API to collect data and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify."
+  "description": "Introduction\rI am a music lover, and like my other hobbies, I am really interested in applying data science methods to it. A few months ago, I participated in the third week of the TidyTuesday project, where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then, I have been using Spotify’s Web API to collect data, and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify."
 }
 </script>
 
@@ -535,16 +535,17 @@
 
     <div class="article-style">
       
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 
 
 <div id="introduction" class="section level3">
 <h3>Introduction</h3>
-<p>I am a music lover and like my other hobbies I am really interested in applying data science methods to it. A few months ago I participated in the third week of the TidyTuesday project where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then I have been using Spotify’s Web API to collect data and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify. We have different genres and types of music and while pop and rap are very popular among the younger generation I like the traditional style more. Nevertheless, I was always curios to understand how different the traditional music and pop music are from each other. For this reason, that I like the most These are a few questions that I would like to answer:</p>
+<p>I am a music lover, and like my other hobbies, I am really interested in applying data science methods to it. A few months ago, I participated in the third week of the TidyTuesday project, where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then, I have been using Spotify’s Web API to collect data, and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify. We have different genres and types of music, and while pop and rap are very popular among the younger generation, I like the traditional style more. Nevertheless, I was always curious to understand how different traditional music and pop music are. For this reason, that I like the most These are a few questions that I would like to answer:</p>
 <ol style="list-style-type: decimal">
 <li>How different audio features can be among top Persian singers?</li>
 <li>What are the most danceable and least danceable Persian songs?</li>
-<li>Who is the most popular Persian singer and what is the most popular song?</li>
+<li>Who is the most popular Persian singer, and what is the most popular song?</li>
 </ol>
 <pre class="r"><code>library(kableExtra)
 library(tidyverse)
@@ -562,7 +563,7 @@ library(cowplot)</code></pre>
 </div>
 <div id="data-collection" class="section level2">
 <h2>Data Collection</h2>
-<p>I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using <code>spotifyr</code> which gives us access to Spotify’s API. This process was cumbersome as sometimes I wasn’t getting what I was looking for. For instance, sometimes songs that belonged to another random artist were retrieved. For each singer, we can only retrieve the top 10 popular songs. It means that the rest of songs have no popularity scores. Nevertheless, I collected several types of information about more than 10000 songs (of course some of them are duplicates in the Spoitfy’s playlist or just a remix).</p>
+<p>I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using the <code>spotifyr</code> package in R which lets us use R to access the Spotify’s API. This process was cumbersome as sometimes I was not getting what I was looking for. For instance, sometimes, songs that belonged to another random artist were retrieved. For each singer, we can only retrieve the top 10 popular songs. It means that the rest of the songs have no popularity scores. In the end, I collected various kinds of information about more than 10000 songs.</p>
 <pre class="r"><code>songs_audio_plus_pop &lt;- read_csv(&#39;https://raw.githubusercontent.com/mcnakhaee/datasets/master/Persian_Songs_Spotify.csv&#39;)
 
 head(songs_audio_plus_pop) %&gt;% 
@@ -726,7 +727,7 @@ NA
 Salar Aghili
 </td>
 <td style="text-align:left;">
-سالار عقیلی
+&lt;U+0633&gt;&lt;U+0627&gt;&lt;U+0644&gt;&lt;U+0627&gt;&lt;U+0631&gt; &lt;U+0639&gt;&lt;U+0642&gt;&lt;U+06CC&gt;&lt;U+0644&gt;&lt;U+06CC&gt;
 </td>
 <td style="text-align:right;">
 NA
@@ -848,7 +849,7 @@ NA
 Salar Aghili
 </td>
 <td style="text-align:left;">
-سالار عقیلی
+&lt;U+0633&gt;&lt;U+0627&gt;&lt;U+0644&gt;&lt;U+0627&gt;&lt;U+0631&gt; &lt;U+0639&gt;&lt;U+0642&gt;&lt;U+06CC&gt;&lt;U+0644&gt;&lt;U+06CC&gt;
 </td>
 <td style="text-align:right;">
 NA
@@ -970,7 +971,7 @@ NA
 Salar Aghili
 </td>
 <td style="text-align:left;">
-سالار عقیلی
+&lt;U+0633&gt;&lt;U+0627&gt;&lt;U+0644&gt;&lt;U+0627&gt;&lt;U+0631&gt; &lt;U+0639&gt;&lt;U+0642&gt;&lt;U+06CC&gt;&lt;U+0644&gt;&lt;U+06CC&gt;
 </td>
 <td style="text-align:right;">
 NA
@@ -1092,7 +1093,7 @@ NA
 Salar Aghili
 </td>
 <td style="text-align:left;">
-سالار عقیلی
+&lt;U+0633&gt;&lt;U+0627&gt;&lt;U+0644&gt;&lt;U+0627&gt;&lt;U+0631&gt; &lt;U+0639&gt;&lt;U+0642&gt;&lt;U+06CC&gt;&lt;U+0644&gt;&lt;U+06CC&gt;
 </td>
 <td style="text-align:right;">
 NA
@@ -1214,7 +1215,7 @@ NA
 Salar Aghili
 </td>
 <td style="text-align:left;">
-سالار عقیلی
+&lt;U+0633&gt;&lt;U+0627&gt;&lt;U+0644&gt;&lt;U+0627&gt;&lt;U+0631&gt; &lt;U+0639&gt;&lt;U+0642&gt;&lt;U+06CC&gt;&lt;U+0644&gt;&lt;U+06CC&gt;
 </td>
 <td style="text-align:right;">
 NA
@@ -1336,7 +1337,7 @@ NA
 Salar Aghili
 </td>
 <td style="text-align:left;">
-سالار عقیلی
+&lt;U+0633&gt;&lt;U+0627&gt;&lt;U+0644&gt;&lt;U+0627&gt;&lt;U+0631&gt; &lt;U+0639&gt;&lt;U+0642&gt;&lt;U+06CC&gt;&lt;U+0644&gt;&lt;U+06CC&gt;
 </td>
 <td style="text-align:right;">
 NA
@@ -1430,27 +1431,27 @@ NA
 </table>
 <div id="overall-song-features" class="section level3">
 <h3>Overall Song Features</h3>
-<p>Aside from variables such the album that a song belongs to and its date of release, Spotify’s API can gives us several features that capture different audio characteristics of a song.</p>
-<p>You can see a full list of these features in this link. However, I’m only interested in some of these features such as:</p>
+<p>Apart from variables such as the album that a song belongs to and its date of release, Spotify’s API can give us several features that capture a song’s different audio characteristics.</p>
+<p>You can see a full list of these features in this link. However, I am only interested in some of these features, such as:</p>
 <ul>
 <li><strong>valence</strong> measures the happiness of a song.</li>
-<li><strong>energy</strong> is quite self-explanatory.</li>
+<li><strong>energy</strong> is relatively self-explanatory.</li>
 <li><strong>tempo</strong> measures the speed of a song.</li>
 <li><strong>loudness</strong> is also self-explanatory.</li>
 <li><strong>acousticness</strong> identifies whether the track is acoustic</li>
 <li><strong>instrumentalness</strong> shows whether a track contains no vocals.</li>
 <li><strong>danceability</strong> determines how good a song is for dancing.</li>
 </ul>
-<p><a href="https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd">This wonderful visualization</a> inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.</p>
+<p><a href="https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd">This excellent visualization</a> inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.</p>
 <pre class="r"><code>artists &lt;-
   c( &#39;Sirvan Khosravi&#39;,&#39;Hesameddin Seraj&#39;,&#39;Rastak&#39;,&#39;Shahram Nazeri&#39;,&#39;Hossein Alizadeh&#39;,&#39;Reza Sadeghi&#39;,&#39;Alireza Eftekhari&#39;,&#39;Mohammadreza Shajarian&#39;,
      &#39;Salar Aghili&#39;,&#39;Morteza Pashaei&#39;, &#39;Alireza Ghorbani&#39;,&#39;Homayoun Shajarian&#39;, &#39;Mohsen Yeganeh&#39; ,&#39;Morteza Pashaei&#39;,&#39;Moein&#39;,&#39;Farzad Farzin&#39;,
      &#39;Babak Jahanbakhsh&#39;, &#39;Ehsan Khajeh Amiri&#39;,&#39;Siavash Ghomayshi&#39;,&#39;Xaniar Khosravi&#39;,&#39;Tohi&#39; ,&#39;Mohsen Chavoshi&#39;,&#39;Amir Tataloo&#39;,
      &#39;Hamed Homayoun&#39;,&#39;Kayhan Kalhor&#39;)</code></pre>
-<p>I’ll plot the average, the minimum and the maximum value of each feature for each singer. That gives us a good picture of how different their audio characteristics are from each other. However, we must make the right adjustments to the dataset before visualizing it:</p>
+<p>I will plot the average, the minimum, and the maximum value of each feature for each singer. That gives us a good picture of how different their audio characteristics are from each other. However, we must make the right adjustments to the dataset before visualizing it:</p>
 <ol style="list-style-type: decimal">
-<li><p>We need to transform the original dataset into a long form, which can be done by <code>pivot_longer</code> from <code>dplyr</code> package.</p></li>
-<li><p>We should rescale each audio features, otherwise the plot wouldn’t make any sense.</p></li>
+<li><p>We need to transform the original dataset into a long-dataframe, which can be done by <code>pivot_longer</code> from the<code>dplyr</code> package.</p></li>
+<li><p>We should rescale each audio feature, otherwise, the plot would not make any sense.</p></li>
 </ol>
 <pre class="r"><code>order &lt;- c(
   &quot;valence&quot;,
@@ -1477,7 +1478,7 @@ scaled_features_long &lt;- songs_audio_plus_pop %&gt;%
       &quot;acousticness&quot;,
       &quot;danceability&quot;),
     values_to = &#39;value&#39;) </code></pre>
-<p>Now, we can visualize the results for each artist. As I mentioned before, I’ll compare artists by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs.</p>
+<p>Now, we can visualize the results for each artist. As mentioned before, I will compare artists by the minimum (red), the average (orange), and maximum (yellow) values of each audio feature in their songs.</p>
 <pre class="r"><code>ggplot() +
   ### This plots the average of each audio feature
   geom_polygon(
@@ -1565,7 +1566,7 @@ scaled_features_long &lt;- songs_audio_plus_pop %&gt;%
 </div>
 <div id="looking-more-closely-at-each-audio-feature" class="section level3">
 <h3>Looking more closely at each audio feature</h3>
-<p>My first plot is informative but it only gives us an overall picture of audio features but I would like to have a more detailed picture of singers and the audio features for each of their songs. For this reason, I will also make a separate plot for each audio feature where every song and its corresponding feature values are shown. I will also mark a few popular songs from each artist with a separate color on this plot.</p>
+<p>My first plot is informative, but it only gives us an overall picture of audio features. However, I would like to have a more detailed picture of singers and the audio features for each of their songs. For this reason, I will also make a separate plot for each audio feature where every song and its corresponding feature values are shown. I will also mark a few popular songs from each artist with a different color on this plot.</p>
 <pre class="r"><code># Set a custom theme for our plots
 theme_set(theme_void() +
   theme(
@@ -1602,7 +1603,7 @@ theme_set(theme_void() +
     legend.position = &#39;none&#39;,
     plot.background = element_rect(fill = &quot;#516869&quot;)
   ))</code></pre>
-<p>Again here I’ll change the dataset to make it ready for visualization.</p>
+<p>Again here, I will change the dataset to make it ready for visualization.</p>
 <pre class="r"><code>songs_audio_plus_pop_jitter &lt;- songs_audio_plus_pop %&gt;% 
   filter(artist_name %in% artists) %&gt;% 
   mutate(is_popular = !is.na(popularity)) %&gt;%
@@ -1815,7 +1816,7 @@ theme_set(theme_void() +
 </div>
 <div id="most-popular-songs" class="section level2">
 <h2>Most Popular Songs</h2>
-<p>As I mentioned previously, we can only retrieve his/her top 10 popular songs for each artist. The popularity of a track is a value between 0 (least popular) and 100 (most popular). Spotify uses an algorithm to calculate popularity scores which is heavily influenced by the total number of times that a song has been played recently. You can read more about it in this <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/">link</a>.</p>
+<p>As I mentioned previously, we can only retrieve his/her top 10 popular songs for each artist. The popularity of a track is a value between 0 (the least popular) and 100 (the most popular). Spotify uses an algorithm to calculate popularity scores, which is heavily influenced by the total number of times a song has been played recently. You can read more about it in this <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/">link</a>.</p>
 <p>Knowing this fact about how popularity is measured, we can visualize songs and artists that have been popular and played recently.</p>
 <pre class="r"><code>songs_audio_plus_pop &lt;- songs_audio_plus_pop %&gt;%
   filter(
@@ -1905,7 +1906,7 @@ songs_audio_plus_pop %&gt;%
     plot.margin = unit(c(1, 1, 1.5, 1.2), &quot;cm&quot;)
   )</code></pre>
 <p><img src="/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-13-1.png" width="2880" /></p>
-<p>This plot shows the most popular song of each artist and also the least popular track among his top 10 songs. The artists are also sorted based on their average popularity.</p>
+<p>This plot shows the most popular song and the least popular track of each artist among his top 10 songs. The artists are also sorted based on their average popularity.</p>
 </div>
 
     </div>

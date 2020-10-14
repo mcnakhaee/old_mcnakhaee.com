@@ -26,25 +26,29 @@ output:
     toc: true
 ---
 ## Introduction
-Explainablity is a very hot topics in the machine learning research community these days. over the past few years, many methods have been introduced to just understand how a machine learning model makes prediction. However, explainablity is not an entirely new concept and it was actually started a few decades ago. In this blogpost, I will introduce you to a rather unknown but simple technique which was introduced almost 20 years ago. This technique is called [Contextual Importance and Utility (CIU)](https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility) for explaining ML models and show you how we can explain any types of machine learning. This method relies on the notion of context is important
+Explainability is a hot topic in the machine learning research community these days. Over the past few years, many methods have been introduced to understand how a machine learning model makes a prediction. However, explainability is not an entirely new concept, and it was actually started a few decades ago. In this blog post, I will introduce a rather unknown but simple technique that was introduced almost 20 years ago. This technique is called [Contextual Importance and Utility (CIU)](https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility) for explaining ML models and show you how we can explain any types of machine learning. This method relies on the notion of context is important.
 
-For example, imagine we are trying to predict house prices from a set of features such as number of bedrooms and number of pools. If every house in the dataset has no pool (the current context), then the feature corresponding to it has no usefulness and no importance for the prediction of a model. On the other hand, in a city where the majority of houses have one or two bedrooms (again the current context), houses with three or more bedrooms are more special.
+For example, imagine we are trying to predict house prices from a set of features such as the number of bedrooms and pools. If every house in the dataset has no pool (the current context), then the feature corresponding to it has no usefulness and no importance for predicting a model. On the other hand, in a city where most houses have one or two bedrooms (again the current context), houses with three or more bedrooms are more unusual.
 
 
 
 ## What Kinds of explanation does CIU generate?
 
-1. It is a [***model-agnostic***](https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html) methods and  it can explain the output of any "black-box" machine learning model.
-2. It produces [***local***](https://christophm.github.io/interpretable-ml-book/scope-of-interpretability.html) explanations which means that the explanations are generated for individual instances (not the whole model) and they just show which features are more important with respect to an individual observation.
+
+1. It is a [***model-agnostic***](https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html) methods, and it can explain the output of any "black-box" machine learning model.
+
+2. It produces [***local***](https://christophm.github.io/interpretable-ml-book/scope-of-interpretability.html) explanations, which means that the explanations are generated for individual instances (not the whole model), and they show which features are more important for an individual observation.
+
 3. It gives us [***post-hoc***](https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html) explanations as it is a method that processes the output of a machine learning model after training.
 
- Unlike LIME and many other techniques, CIU does not approximate or transforms what a model predicts but rather directly explain predictions. It can also provide a contrastive explanation. For instance, why did the model predict rainy and not cloudy? 
+ Unlike LIME and many other techniques, CIU does not approximate or transforms what a model predicts but instead directly explain predictions. It can also provide a contrastive explanation. For instance, why did the model predict rainy and not cloudy? 
 
 ## How does CIU work?
 
 CIT estimates two values that aim to explain the context in which a machine learning model predicts:
 
-**Contextual Importance (CI)** is a measure of how much of change in the range an output  values can be attributed to one (or several) input variables. CU is based on the notion that a variable which results in a wider ranger of output values would be more important. Formally, CIU is defined as follows:
+**Contextual Importance (CI)** measures how much change in the range and output values can be attributed to one (or several) input variables. CU is based on the notion that a variable which results in a broader ranger of output values would be more critical. Formally, CIU is defined as follows:
+
 
 CI = (Cmax - Cmin)/(absmax - absmin)
 
@@ -58,7 +62,8 @@ CU = (out - Cmin)/(Cmax - Cmin)
 
 
 
-Cmax and Cmin are the highest and lowest values that the output of an ML model *can* take by changing the input feature(s). Obtaining Cmax and Cmin  is computationally and mathematically is not a trivial task. In the original paper, these values are computed using a Monte Carlo simulation where a a lot observations were generated. Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of  machine learning models and are between 0 and 1. 
+
+Cmax and Cmin are the highest and lowest values that the output of an ML model *can* take by changing the input feature(s). Obtaining Cmax and Cmin is computationally, and mathematically is not a trivial task. In the original paper, these values are computed using a Monte Carlo simulation, where a lot of observations were generated. Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of machine learning models between 0 and 1. 
 
 
 CIU is implemented both in [**python**](https://github.com/TimKam/py-ciu) and [R](https://github.com/KaryFramling/ciu). For simplicity, I will use its python implementation (*py-ciu library*) in this blogpost.
@@ -69,7 +74,7 @@ CIU is implemented both in [**python**](https://github.com/TimKam/py-ciu) and [R
 library(reticulate)
 ```
 
-You can install py-ciu using the pip command:
+You can install `py-ciu` using the pip command:
 
 ```{bash, eval = FALSE}
 pip install py-ciu
@@ -77,9 +82,11 @@ pip install py-ciu
 
 ## A toy example: predicting breast
 
-I will use breast cancer dataset  in scikit-learn to show how we can use CIU. I will train three different machine learning models including a decision tree, a random forest and a gradient boosting algorithm on this dataset and compute CI and CU values for a single instance from test dataset.
+I will use the breast cancer dataset  in scikit-learn to show how we can use CIU. I will train three different machine learning models, including a decision tree, a random forest, and a gradient boosting algorithm on this dataset and compute CI and CU values for a single instance from the test dataset.
 
-First we need to load necessary libraries and modules.
+First, we need to load the necessary libraries and modules.
+
+
 
 ```{python}
 from ciu import determine_ciu
@@ -95,7 +102,7 @@ import matplotlib.pyplot as plt
 np.random.seed(123)
 ```
 
-Then we split the dataset into a training and test set. We train our machine learning models on the training dataset and evaluate their performance on the test dataset. Note that for explaining ML models, we also use samples from the test dataset and not the training dataset.
+Then we split the dataset into a training and test set. We train our machine learning models on the training dataset and evaluate their performance on the test dataset. Note that for explaining ML models, we should use samples from the test dataset and not the training dataset.
 
 ```{python}
 X = pd.DataFrame(load_breast_cancer()['data'])
@@ -117,7 +124,7 @@ def fit_evaluate_model(clf):
 
 ### Permutation feature importance
 
-As I mentioned before, CIU only generates local explanations and doesn't give us an global overview of how a model makes prediction. To gain a better understanding of the global importance of the model let us compute permutation feature importance scores that is implemented in scikit-learn.
+As mentioned before, CIU only generates local explanations and does not give us a global overview of how a model makes a prediction. To gain a better understanding of the global importance of the model, we can compute the permutation feature importance scores:
 
 ```{python}
 def print_permutation_importance(model):
@@ -137,7 +144,7 @@ def print_permutation_importance(model):
 
 ### Decision Tree Classifier
 
-Since it is just a toy example, I won't be very picky about hyper-parameters of my models and leave them to their default values in sklearn.
+Since we just used a toy example, I will not be very picky about my model's hyper-parameters and leave them to be the default values in sklearn.
 
 ```{python}
 dt = DecisionTreeClassifier()
@@ -171,12 +178,12 @@ gb_fit = fit_evaluate_model(gb)
 print_permutation_importance(gb_fit)
 ```
 
-The random forest and gradient boosting classifiers have exactly the same accuracy score, however their most important features are different.
+The random forest and gradient boosting classifiers have the same accuracy score; however, their most important features are different.
 
 
 ### Explaining a single observation
 
-Now lets explain how each model makes prediction on a single example (observation) from the test dataset.
+Now let us explain how each model predicts a single example (observation) from the test dataset.
 
 ```{python}
 example = X_test.iloc[1,:]
@@ -186,7 +193,7 @@ prediction_index = 0 if example_prediction > 0.5 else 1
 print(f'Prediction {example_prediction}; Probability: {example_prediction_prob}')
 ```
 
-To obtain CIU score, we need to compute minimum and maximum observed value of each feature in the dataset first.
+To obtain a CIU score, we need to compute the minimum and maximum observed value of each feature in the dataset.
 
 ```{python}
 def min_max_features(X_train):
@@ -241,7 +248,7 @@ gb_ciu.text_explain()
 
 Although CIU is a brilliant and simple technique, I believe it has the following drawbacks:
 
-1. In regression problems, the range of possible values for the target variable can be infinite, which somehow does not make sense when we want to compute CIU. The authors said that they have put a limit on the range of values.
+1. In regression problems, the range of possible values for the target variable can be infinite, which somehow does not make sense when we want to compute CIU. The authors said that they had put a limit on the range of values.
 
-2. Computing the range of values can be a little bit misleading especially when we have outliers in the dataset.
+2. Computing the range of values can be a little bit misleading, especially when we have outliers in the dataset.
 3. It is not clear how we can get a  global explanation for the model using CIU.

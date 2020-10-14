@@ -14,8 +14,10 @@ education:
 email: "m.cnakhaee@utwente.nl"
 interests:
 - Machine Learning
-- Explainable Data Science
 - Social Network Analysis
+- Natural Language Processing
+- Text Mining
+- Explainable Data Science
 name: Muhammad Chenariyan Nakhaee
 organizations:
 - name: University of Twente
@@ -42,5 +44,4 @@ user_groups:
 - Researchers
 - Visitors
 ---
-
-My name is Muhammad. I began my adventure in data science 5 years ago and since then I have been involved in a wide range of related projects such as machine learning for traffic accident data, social network analysis of Telegram messaging application, stock market prediction and my personal text mining projects. Recently I was a machine learning researcher in the Data Science at the University of Twente in the Netherlands. My project as funded by ProRail, the main Dutch company responsible for maintaining the railway infrastructure in the Netherlands. The goal of my project is to combine machine learning and big data techniques with formal method tools such as Fault Trees to help ProRail optimize their maintenance operations. 
+My name is Muhammad. I began my adventure in data science five years ago. Since then, I have been involved in a wide range of related projects such as machine learning for traffic accident data, social network analysis of Telegram messaging application, stock market prediction, and my personal text mining projects. I was recently a machine learning researcher in Data Science at the University of Twente in the Netherlands. My project was funded by ProRail, a Dutch company that is responsible for maintaining the railway infrastructure in the Netherlands. My project aimed to combine machine learning and big data techniques with formal method tools such as Fault Trees to help ProRail optimize their maintenance operations. 

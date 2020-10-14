@@ -1,0 +1,429 @@
+---
+title: 'TidyTuesday Week 37: NLP and Friends'
+author: mcnakhaee
+date: '2020-09-28'
+slug: tidytuesday-week-37-nlp-and-friends
+categories:
+  - NLP
+  - R
+  - social network analysis
+tags:
+  - R
+  - NLP
+  - Visualization
+  - social network analysis
+subtitle: ''
+summary: ''
+draft: true
+authors: []
+lastmod: '2020-09-28T18:10:56+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+myFont <- 'Rubik'
+windowsFonts(Rubik  = myFont)
+extrafont::loadfonts(device="win")
+myFont <- "Poppins Light"
+windowsFonts(`Poppins Light`  = myFont)
+```
+
+
+```{r message=TRUE, warning=TRUE}
+
+library(tidyverse)
+library(ggthemes)
+library(tidytuesdayR)
+library(rsyntax)
+library(spacyr)
+library(tidytext)
+library(tidygraph)
+library(igraph)
+library(ggraph)
+library(gganimate)
+library(hrbrthemes)
+spacy_initialize(model = "en_core_web_lg")
+```
+```{r}
+tt <- tt_load("2020-09-08")
+```
+
+```{r}
+tt$friends_emotions
+```
+
+
+
+```{r}
+friends_df <- tt$friends %>%
+  rownames_to_column() %>%
+  rename(doc_id = rowname) 
+```
+
+### Top Locations 
+
+```{r }
+places_scenes <- friends_df %>%
+  filter(str_detect(text, fixed('Scene:'))) %>%
+  select( text) %>%
+  rowwise() %>%
+  mutate(
+    place = str_split(text, ',')[[1]][1],
+    place = str_remove_all(place, 'erm'),
+    place = str_remove(place, fixed('[Scene: ')) ,
+    place = str_trim(place)
+  ) %>%
+  count(place, sort = TRUE) %>%
+  filter(n > 10,
+         !str_detect(place, fixed(']')),
+         !place %in% c('Monica', 'Chandler'))
+
+    
+places_scenes  %>% 
+  DT::datatable()
+
+```
+
+
+```{r fig.height=10,fig.width=10}
+ places_scenes %>% 
+  ggplot(aes(x = fct_reorder(place,n),n)) +
+  geom_col(fill = '#ef476f') +
+  #scale_fill_tableau() +
+  #facet_wrap(~season,nrow = 10,scales = 'free_y') +
+  coord_flip() +
+  theme_fivethirtyeight() +
+  theme(legend.position = 'none', 
+        axis.text.x = element_text(angle = 90))
+```
+
+
+
+
+```{r}
+tokens <- tt$friends %>%
+  rownames_to_column() %>%
+  rename(doc_id = rowname) %>%
+spacy_parse(pos = FALSE,tag = FALSE)
+```
+
+
+
+### Friends' Network
+
+
+```{r}
+friends_entities <- friends_df %>% 
+  inner_join(tokens,by = 'doc_id') %>% 
+  filter(str_detect(entity,'PERSON_B'),
+        !speaker %in% c('Scene Directions'),
+        !token %in% c('Bye','kiddin','God','Sting','Bijan')) %>% 
+  mutate(token = case_when(str_detect(str_to_lower(token),'rach') ~ 'Rachel',
+                           str_detect(str_to_lower(token),'joe')~ 'Joey',
+                            str_detect(str_to_lower(token),'pheebs')  ~ 'Phoebe',
+                           TRUE ~ token))
+```
+
+
+```{r}
+tokens_speakers_count <- friends_entities %>% 
+  count(speaker,token,sort = TRUE) %>% 
+  filter(n >5) %>% 
+
+speakers <- tokens_speakers_count %>% 
+  distinct(speaker) %>% 
+  pull()
+```
+
+
+
+```{r fig.height=15,fig.width=15}
+traph_df <- tokens_speakers_count %>% 
+  rename(from = speaker,
+         to = token) %>% 
+  as_tbl_graph(directed = TRUE) %>%
+  activate(nodes) %>%
+  mutate( deg_cent = log10(centrality_degree() +1) + 1,
+         is_speaker = if_else(name %in% speakers,TRUE,FALSE) )
+
+traph_df %>%
+  ggraph(layout = 'nicely') +
+  geom_edge_link(aes(width = n,alpha = n),color = '#f9dcc4') +
+  geom_node_text(aes(label = name,color = is_speaker),repel = TRUE,family = 'Rubik') +
+  geom_node_point(aes(size = deg_cent,color = is_speaker),alpha = 0.5) +
+  scale_color_tableau() +
+  theme_graph() + 
+    theme(
+    plot.title = element_text(
+      family = 'American Typewriter',
+      face = "bold",
+      size = 60,
+      margin = ggplot2::margin(0, 0, 20, 0),
+      hjust = 0
+    ),
+    legend.position = 'none',
+    plot.subtitle = element_text(
+      family = 'American Typewriter',
+      size = 40,
+      margin = margin(0, 0, 60, 0),
+      hjust = 0
+    ),
+    strip.text = element_text(
+      family = 'American Typewriter',
+      size = 40,
+      #margin = margin(0, 0, 60, 0),
+      hjust = 0.5
+    ),
+    
+        plot.caption = element_text(
+      family = 'American Typewriter',
+      size = 30,
+      #margin = margin(0, 0, 60, 0),
+      #hjust = 0.5
+    ),
+    strip.background = element_rect(color = 'gray50',
+                                    fill = "#fc9d9d"),
+  ) 
+
+```
+
+
+
+```{r fig.height=40,fig.width=20}
+tokens_speakers_season_ount <- friends_entities %>% 
+  count(season,speaker,token,sort = TRUE) %>% 
+  
+  filter(n >15)
+  
+  
+graph_df <- tokens_speakers_season_ount %>% 
+  rename(from = speaker,
+         to = token) %>% 
+  as_tbl_graph(directed = TRUE) %>%
+  activate(nodes) %>%
+  mutate(deg_cent= centrality_degree(mode = 'out') + centrality_degree(mode = 'in') ,
+         is_speaker = if_else(name %in% speakers,TRUE,FALSE) )  
+
+
+
+graph_df %>%
+  ggraph(layout = 'nicely') +
+  geom_edge_link(aes(width = n,alpha = n),color = '#f9dcc4') +
+  geom_node_text(aes(label = name,color = is_speaker),repel = TRUE,size = 4,family = 'Rubik') +
+  geom_node_point(aes(size = deg_cent+2,color = is_speaker),alpha = 0.5) +
+  scale_color_tableau() +
+  facet_edges(~season,nrow = 5) +
+  theme_graph() + 
+    theme(
+    plot.title = element_text(
+      family = 'American Typewriter',
+      face = "bold",
+      size = 60,
+      margin = ggplot2::margin(0, 0, 20, 0),
+      hjust = 0
+    ),
+    legend.position = 'none',
+    plot.subtitle = element_text(
+      family = 'American Typewriter',
+      size = 40,
+      margin = margin(0, 0, 60, 0),
+      hjust = 0
+    ),
+    strip.text = element_text(
+      family = 'American Typewriter',
+      size = 40,
+      #margin = margin(0, 0, 60, 0),
+      hjust = 0.5
+    ),
+    
+        plot.caption = element_text(
+      family = 'American Typewriter',
+      size = 30,
+      #margin = margin(0, 0, 60, 0),
+      #hjust = 0.5
+    ),
+    strip.background = element_rect(color = 'gray50',
+                                    fill = "#fc9d9d"),
+  ) 
+```
+
+
+
+```{r}
+female_characters <- c('monica','rachel','phoebe','emily','carol','janice','susan','kathy','elizabeth','she')
+male_characters <- c('ross','joey','chandler','mike','richard','gunther','paolo','bob','paul','frank','he')
+tq <- tquery(pos = "VERB", label = "verb", children(relation = "nsubj", label = "subject"))
+tokens_df_dep <- tt$friends %>%
+  unnest_tokens(sentence, text, token = 'sentences') %>%
+  rownames_to_column() %>%
+  rename(doc_id = rowname,
+         text = sentence) %>%
+  spacy_parse(dependency = TRUE) %>%
+  annotate_tqueries("annotation", query_name = tq) %>%
+  filter(!is.na(annotation))
+female_ids <- tokens_df_dep %>% 
+  filter(token %in% female_characters, annotation =='subject' ) %>% 
+  pull(doc_id)
+  
+male_ids <- tokens_df_dep %>% 
+  filter(token %in% male_characters, annotation =='subject'  ) %>% 
+  pull(doc_id)
+female_verbs <- tokens_df_dep %>% 
+  filter(doc_id %in% female_ids,pos == 'VERB',relation =='ROOT'  ) %>% 
+  unnest_tokens(word,lemma) %>% 
+  anti_join(stop_words) %>% 
+  count(word,sort = TRUE) %>% 
+  mutate(pronoun = 'she')
+male_verbs <- tokens_df_dep %>% 
+  filter(doc_id %in% male_ids,pos == 'VERB',relation =='ROOT') %>% 
+  unnest_tokens(word,lemma) %>% 
+  anti_join(stop_words) %>% 
+  count(word,sort = TRUE) %>% 
+  mutate(pronoun = 'he')
+```
+
+```{r}
+verb_log <- female_verbs %>% 
+  bind_rows(male_verbs) %>%
+  filter(word!='singe') %>% 
+  pivot_wider(names_from = pronoun,values_from = n,values_fill = list(n = 0)) %>% 
+  mutate(total = he + she,
+         he = (he+1)/sum(he + 1),
+         she = (she + 1)/sum(she + 1),
+         logratio = log2(she / he)) %>% 
+  filter(total > 15) %>% 
+  group_by(logratio < 0) %>%
+  top_n(15,abs(logratio)) %>% 
+  ungroup() %>% 
+  mutate(word = reorder(word,logratio),
+         nchars = nchar(as.character(word))) 
+```
+
+
+
+
+```{r fig.height=10,fig.width=10}
+female_arrows <- tibble(
+  x1 = c(23),
+  x2 = c(23),
+  y1 = c(1),
+  y2 = c(1.8)
+)
+male_arrows <-  tibble(
+  x1 = c(9),
+  x2 = c(9),
+  y1 = c(-1),
+  y2 = c(-1.8)
+)
+female_color = '#ef476f'
+male_color = '#118ab2'
+g <- ggplot() +
+  geom_col(data = verb_log , aes(word, logratio, fill =  logratio < 0)) +
+  geom_text(
+    data = verb_log ,
+    aes(
+      label = word,
+      x = word,
+      y = if_else(logratio < 0, logratio + 0.03*nchars, logratio  - 0.03*nchars)
+    ),
+    color = 'white',
+    family = 'Rubik',
+    face = 'bold',
+    #label.padding = 0.05
+  ) +
+  
+  coord_flip() +
+  scale_y_continuous(limits = c(-2, 2)) +
+  scale_fill_manual(values = c(female_color, male_color)) +
+  ggplot2::annotate(
+    "text",
+    x = 24,
+    y = 1.5,
+    label = 'More Female',
+    family = 'Rubik',
+    color = female_color,
+    size = 5,
+    vjust = 0.5,
+    hjust = 0.6
+  ) +
+  ggplot2::annotate(
+    "text",
+    x = 10,
+    y = -1.34,
+    label = 'More Male',
+    family = 'Rubik',
+    color = male_color,
+    size = 5,
+    vjust = 0.5,
+    hjust = 0.6
+  ) +
+  
+  geom_curve(
+    data = female_arrows,
+    aes(
+      x = x1,
+      y = y1,
+      xend = x2,
+      yend = y2
+    ),
+    arrow = arrow(length = unit(0.07, "inch")),
+    size = 2,
+    color = female_color,
+    curvature = 0
+  ) +
+  
+  geom_curve(
+    data = male_arrows,
+    aes(
+      x = x1,
+      y = y1,
+      xend = x2,
+      yend = y2
+    ),
+    arrow = arrow(length = unit(0.07, "inch")),
+    size = 2,
+    color = male_color,
+    curvature = 0
+  ) +
+  labs(
+    title = 'She Lies, He Listens',
+    subtitle = 'This plot shows what common verbs were used to describe male and female characters in Friends',
+    fill = '',
+    caption =  'visualization: mcnakhaee.com'
+  ) +
+  theme_fivethirtyeight() +
+  theme(
+    text = element_text(family = 'Poppins Light', color = '#774936'),
+    plot.title = element_text(margin = margin(t = 10, b = 10)),
+    plot.subtitle = element_text(margin = margin(b = 20)),
+    axis.text.y = element_blank(),
+    plot.background = element_rect(fill = '#FFFAF0'),
+    panel.background = element_rect(fill = '#FFFAF0'),
+    legend.position = 'none',
+    panel.grid.major  = element_line(
+      color = '#eddcd2',
+      size = 0.5,
+      linetype = 'dashed'
+    ),
+    panel.grid.minor = element_line(
+      color = '#eddcd2',
+      size = 0.01,
+      linetype = 'dashed'
+    )
+  )
+g
+```

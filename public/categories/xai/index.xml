@@ -18,13 +18,15 @@
       <pubDate>Sun, 31 May 2020 00:00:00 +0000</pubDate>
       <guid>/post/explaining-machine-learning-models-using-contextual-importance-and-contextual-utility/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 &lt;div id=&#34;TOC&#34;&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#introduction&#34;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#what-kinds-of-explanation-does-ciu-generate&#34;&gt;What Kinds of explanation does CIU generate?&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#how-does-ciu-work&#34;&gt;How does CIU work?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#a-toy-example-predicting-breast&#34;&gt;A toy example: predicting breast&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#a-toy-example-predicting-breast&#34;&gt;A toy example: predicting breast&lt;/a&gt;
+&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#permutation-feature-importance&#34;&gt;Permutation feature importance&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#decision-tree-classifier&#34;&gt;Decision Tree Classifier&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#random-forest-classifier&#34;&gt;Random Forest Classifier&lt;/a&gt;&lt;/li&gt;
@@ -38,34 +40,34 @@
 
 &lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Explainablity is a very hot topics in the machine learning research community these days. over the past few years, many methods have been introduced to just understand how a machine learning model makes prediction. However, explainablity is not an entirely new concept and it was actually started a few decades ago. In this blogpost, I will introduce you to a rather unknown but simple technique which was introduced almost 20 years ago. This technique is called &lt;a href=&#34;https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility&#34;&gt;Contextual Importance and Utility (CIU)&lt;/a&gt; for explaining ML models and show you how we can explain any types of machine learning. This method relies on the notion of context is important&lt;/p&gt;
-&lt;p&gt;For example, imagine we are trying to predict house prices from a set of features such as number of bedrooms and number of pools. If every house in the dataset has no pool (the current context), then the feature corresponding to it has no usefulness and no importance for the prediction of a model. On the other hand, in a city where the majority of houses have one or two bedrooms (again the current context), houses with three or more bedrooms are more special.&lt;/p&gt;
+&lt;p&gt;Explainability is a hot topic in the machine learning research community these days. Over the past few years, many methods have been introduced to understand how a machine learning model makes a prediction. However, explainability is not an entirely new concept, and it was actually started a few decades ago. In this blog post, I will introduce a rather unknown but simple technique that was introduced almost 20 years ago. This technique is called &lt;a href=&#34;https://www.researchgate.net/publication/228897070_Explaining_results_of_neural_networks_by_contextual_importance_and_utility&#34;&gt;Contextual Importance and Utility (CIU)&lt;/a&gt; for explaining ML models and show you how we can explain any types of machine learning. This method relies on the notion of context is important.&lt;/p&gt;
+&lt;p&gt;For example, imagine we are trying to predict house prices from a set of features such as the number of bedrooms and pools. If every house in the dataset has no pool (the current context), then the feature corresponding to it has no usefulness and no importance for predicting a model. On the other hand, in a city where most houses have one or two bedrooms (again the current context), houses with three or more bedrooms are more unusual.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;what-kinds-of-explanation-does-ciu-generate&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;What Kinds of explanation does CIU generate?&lt;/h2&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;It is a &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html&#34;&gt;&lt;strong&gt;&lt;em&gt;model-agnostic&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; methods and it can explain the output of any “black-box” machine learning model.&lt;/li&gt;
-&lt;li&gt;It produces &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/scope-of-interpretability.html&#34;&gt;&lt;strong&gt;&lt;em&gt;local&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; explanations which means that the explanations are generated for individual instances (not the whole model) and they just show which features are more important with respect to an individual observation.&lt;/li&gt;
-&lt;li&gt;It gives us &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html&#34;&gt;&lt;strong&gt;&lt;em&gt;post-hoc&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; explanations as it is a method that processes the output of a machine learning model after training.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It is a &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html&#34;&gt;&lt;strong&gt;&lt;em&gt;model-agnostic&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; methods, and it can explain the output of any “black-box” machine learning model.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It produces &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/scope-of-interpretability.html&#34;&gt;&lt;strong&gt;&lt;em&gt;local&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; explanations, which means that the explanations are generated for individual instances (not the whole model), and they show which features are more important for an individual observation.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It gives us &lt;a href=&#34;https://christophm.github.io/interpretable-ml-book/taxonomy-of-interpretability-methods.html&#34;&gt;&lt;strong&gt;&lt;em&gt;post-hoc&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; explanations as it is a method that processes the output of a machine learning model after training.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Unlike LIME and many other techniques, CIU does not approximate or transforms what a model predicts but rather directly explain predictions. It can also provide a contrastive explanation. For instance, why did the model predict rainy and not cloudy?&lt;/p&gt;
+&lt;p&gt;Unlike LIME and many other techniques, CIU does not approximate or transforms what a model predicts but instead directly explain predictions. It can also provide a contrastive explanation. For instance, why did the model predict rainy and not cloudy?&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;how-does-ciu-work&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;How does CIU work?&lt;/h2&gt;
 &lt;p&gt;CIT estimates two values that aim to explain the context in which a machine learning model predicts:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Contextual Importance (CI)&lt;/strong&gt; is a measure of how much of change in the range an output values can be attributed to one (or several) input variables. CU is based on the notion that a variable which results in a wider ranger of output values would be more important. Formally, CIU is defined as follows:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Contextual Importance (CI)&lt;/strong&gt; measures how much change in the range and output values can be attributed to one (or several) input variables. CU is based on the notion that a variable which results in a broader ranger of output values would be more critical. Formally, CIU is defined as follows:&lt;/p&gt;
 &lt;p&gt;CI = (Cmax - Cmin)/(absmax - absmin)&lt;/p&gt;
 &lt;p&gt;Contextual Utility (CU) indicates how favorable the current value of one (or several) input variables is for a high output value. CU is computed using the following formula:&lt;/p&gt;
 &lt;p&gt;CU = (out - Cmin)/(Cmax - Cmin)&lt;/p&gt;
-&lt;p&gt;Cmax and Cmin are the highest and lowest values that the output of an ML model &lt;em&gt;can&lt;/em&gt; take by changing the input feature(s). Obtaining Cmax and Cmin is computationally and mathematically is not a trivial task. In the original paper, these values are computed using a Monte Carlo simulation where a a lot observations were generated. Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of machine learning models and are between 0 and 1.&lt;/p&gt;
+&lt;p&gt;Cmax and Cmin are the highest and lowest values that the output of an ML model &lt;em&gt;can&lt;/em&gt; take by changing the input feature(s). Obtaining Cmax and Cmin is computationally, and mathematically is not a trivial task. In the original paper, these values are computed using a Monte Carlo simulation, where a lot of observations were generated. Also, absmax and absmin indicate the absolute range of values that the output has taken. For example, In classification problems, the absolute minimum and maximum range of values are the predicted probabilities of machine learning models between 0 and 1.&lt;/p&gt;
 &lt;p&gt;CIU is implemented both in &lt;a href=&#34;https://github.com/TimKam/py-ciu&#34;&gt;&lt;strong&gt;python&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/KaryFramling/ciu&#34;&gt;R&lt;/a&gt;. For simplicity, I will use its python implementation (&lt;em&gt;py-ciu library&lt;/em&gt;) in this blogpost.&lt;/p&gt;
-&lt;p&gt;You can install py-ciu using the pip command:&lt;/p&gt;
+&lt;p&gt;You can install &lt;code&gt;py-ciu&lt;/code&gt; using the pip command:&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pip install py-ciu&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;a-toy-example-predicting-breast&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;A toy example: predicting breast&lt;/h2&gt;
-&lt;p&gt;I will use breast cancer dataset in scikit-learn to show how we can use CIU. I will train three different machine learning models including a decision tree, a random forest and a gradient boosting algorithm on this dataset and compute CI and CU values for a single instance from test dataset.&lt;/p&gt;
-&lt;p&gt;First we need to load necessary libraries and modules.&lt;/p&gt;
+&lt;p&gt;I will use the breast cancer dataset in scikit-learn to show how we can use CIU. I will train three different machine learning models, including a decision tree, a random forest, and a gradient boosting algorithm on this dataset and compute CI and CU values for a single instance from the test dataset.&lt;/p&gt;
+&lt;p&gt;First, we need to load the necessary libraries and modules.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from ciu import determine_ciu
 from sklearn.ensemble import GradientBoostingClassifier,RandomForestClassifier
 from sklearn.inspection import permutation_importance
@@ -77,7 +79,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 # for reproducability
 np.random.seed(123)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then we split the dataset into a training and test set. We train our machine learning models on the training dataset and evaluate their performance on the test dataset. Note that for explaining ML models, we also use samples from the test dataset and not the training dataset.&lt;/p&gt;
+&lt;p&gt;Then we split the dataset into a training and test set. We train our machine learning models on the training dataset and evaluate their performance on the test dataset. Note that for explaining ML models, we should use samples from the test dataset and not the training dataset.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;X = pd.DataFrame(load_breast_cancer()[&amp;#39;data&amp;#39;])
 y = load_breast_cancer()[&amp;#39;target&amp;#39;]
 X.columns = load_breast_cancer()[&amp;#39;feature_names&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
@@ -88,7 +90,7 @@ X.columns = load_breast_cancer()[&amp;#39;feature_names&amp;#39;]&lt;/code&gt;&l
   return clf&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;permutation-feature-importance&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Permutation feature importance&lt;/h3&gt;
-&lt;p&gt;As I mentioned before, CIU only generates local explanations and doesn’t give us an global overview of how a model makes prediction. To gain a better understanding of the global importance of the model let us compute permutation feature importance scores that is implemented in scikit-learn.&lt;/p&gt;
+&lt;p&gt;As mentioned before, CIU only generates local explanations and does not give us a global overview of how a model makes a prediction. To gain a better understanding of the global importance of the model, we can compute the permutation feature importance scores:&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def print_permutation_importance(model):
   imp_features = []
   pi = permutation_importance(model, X_test, y_test,
@@ -105,7 +107,7 @@ X.columns = load_breast_cancer()[&amp;#39;feature_names&amp;#39;]&lt;/code&gt;&l
 &lt;/div&gt;
 &lt;div id=&#34;decision-tree-classifier&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Decision Tree Classifier&lt;/h3&gt;
-&lt;p&gt;Since it is just a toy example, I won’t be very picky about hyper-parameters of my models and leave them to their default values in sklearn.&lt;/p&gt;
+&lt;p&gt;Since we just used a toy example, I will not be very picky about my model’s hyper-parameters and leave them to be the default values in sklearn.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;dt = DecisionTreeClassifier()
 dt_fit = fit_evaluate_model(dt)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  Accuracy on test dataset 0.9370629370629371&lt;/code&gt;&lt;/pre&gt;
@@ -137,20 +139,20 @@ rf_fit = fit_evaluate_model(rf)&lt;/code&gt;&lt;/pre&gt;
 gb_fit = fit_evaluate_model(gb)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  Accuracy on test dataset 0.9790209790209791&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;print_permutation_importance(gb_fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## worst concave points 0.024  +/- 0.011
+&lt;pre&gt;&lt;code&gt;## worst concave points 0.023  +/- 0.011
 ## mean concave points 0.021  +/- 0.010&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The random forest and gradient boosting classifiers have exactly the same accuracy score, however their most important features are different.&lt;/p&gt;
+&lt;p&gt;The random forest and gradient boosting classifiers have the same accuracy score; however, their most important features are different.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;explaining-a-single-observation&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Explaining a single observation&lt;/h3&gt;
-&lt;p&gt;Now lets explain how each model makes prediction on a single example (observation) from the test dataset.&lt;/p&gt;
+&lt;p&gt;Now let us explain how each model predicts a single example (observation) from the test dataset.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;example = X_test.iloc[1,:]
 example_prediction = gb.predict(example.values.reshape(1, -1))
 example_prediction_prob = gb.predict_proba(example.values.reshape(1, -1))
 prediction_index = 0 if example_prediction &amp;gt; 0.5 else 1
 print(f&amp;#39;Prediction {example_prediction}; Probability: {example_prediction_prob}&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Prediction [1]; Probability: [[0.10952357 0.89047643]]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To obtain CIU score, we need to compute minimum and maximum observed value of each feature in the dataset first.&lt;/p&gt;
+&lt;p&gt;To obtain a CIU score, we need to compute the minimum and maximum observed value of each feature in the dataset.&lt;/p&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def min_max_features(X_train):
   min_max = dict()
   for i in range(len(X_train.columns)):
@@ -179,14 +181,14 @@ gb_ciu = explain_ciu(example,gb_fit)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;rf_ciu.text_explain()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [&amp;#39;The feature &amp;quot;mean radius&amp;quot;, which is important (CI=32.26%), is very typical for its class (CU=90.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean texture&amp;quot;, which is important (CI=35.48%), is unlikely for its class (CU=27.27%).&amp;#39;, &amp;#39;The feature &amp;quot;mean perimeter&amp;quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean area&amp;quot;, which is not important (CI=19.35%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;mean smoothness&amp;quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean compactness&amp;quot;, which is not important (CI=9.68%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concavity&amp;quot;, which is not important (CI=16.13%), is not typical for its class (CU=20.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concave points&amp;quot;, which is not important (CI=19.35%), is not typical for its class (CU=16.67%).&amp;#39;, &amp;#39;The feature &amp;quot;mean symmetry&amp;quot;, which is important (CI=38.71%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean fractal dimension&amp;quot;, which is not important (CI=6.45%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;radius error&amp;quot;, which is not important (CI=22.58%), is typical for its class (CU=71.43%).&amp;#39;, &amp;#39;The feature &amp;quot;texture error&amp;quot;, which is not important (CI=22.58%), is very typical for its class (CU=85.71%).&amp;#39;, &amp;#39;The feature &amp;quot;perimeter error&amp;quot;, which is not important (CI=22.58%), is unlikely for its class (CU=42.86%).&amp;#39;, &amp;#39;The feature &amp;quot;area error&amp;quot;, which is important (CI=38.71%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;smoothness error&amp;quot;, which is not important (CI=3.23%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;compactness error&amp;quot;, which is not important (CI=12.9%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;concavity error&amp;quot;, which is not important (CI=6.45%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;concave points error&amp;quot;, which is not important (CI=9.68%), is typical for its class (CU=66.67%).&amp;#39;, &amp;#39;The feature &amp;quot;symmetry error&amp;quot;, which is not important (CI=6.45%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;fractal dimension error&amp;quot;, which is not important (CI=16.13%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst radius&amp;quot;, which is very important (CI=51.61%), is very typical for its class (CU=87.5%).&amp;#39;, &amp;#39;The feature &amp;quot;worst texture&amp;quot;, which is very important (CI=67.74%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst perimeter&amp;quot;, which is very important (CI=70.97%), is typical for its class (CU=63.64%).&amp;#39;, &amp;#39;The feature &amp;quot;worst area&amp;quot;, which is very important (CI=61.29%), is typical for its class (CU=57.89%).&amp;#39;, &amp;#39;The feature &amp;quot;worst smoothness&amp;quot;, which is not important (CI=6.45%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst compactness&amp;quot;, which is not important (CI=9.68%), is unlikely for its class (CU=33.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concavity&amp;quot;, which is very important (CI=64.52%), is very typical for its class (CU=85.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concave points&amp;quot;, which is important (CI=38.71%), is not typical for its class (CU=16.67%).&amp;#39;, &amp;#39;The feature &amp;quot;worst symmetry&amp;quot;, which is important (CI=25.81%), is typical for its class (CU=50.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst fractal dimension&amp;quot;, which is not important (CI=3.23%), is not typical for its class (CU=0.1%).&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;python&#34;&gt;&lt;code&gt;gb_ciu.text_explain()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [&amp;#39;The feature &amp;quot;mean radius&amp;quot;, which is not important (CI=16.49%), is not typical for its class (CU=0.65%).&amp;#39;, &amp;#39;The feature &amp;quot;mean texture&amp;quot;, which is highly important (CI=90.14%), is not typical for its class (CU=3.76%).&amp;#39;, &amp;#39;The feature &amp;quot;mean perimeter&amp;quot;, which is not important (CI=2.63%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean area&amp;quot;, which is not important (CI=3.36%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean smoothness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean compactness&amp;quot;, which is important (CI=37.26%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concavity&amp;quot;, which is not important (CI=4.0%), is not typical for its class (CU=8.92%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concave points&amp;quot;, which is important (CI=38.25%), is not typical for its class (CU=3.57%).&amp;#39;, &amp;#39;The feature &amp;quot;mean symmetry&amp;quot;, which is not important (CI=8.91%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean fractal dimension&amp;quot;, which is not important (CI=1.54%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;radius error&amp;quot;, which is not important (CI=10.53%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;texture error&amp;quot;, which is not important (CI=6.53%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;perimeter error&amp;quot;, which is not important (CI=1.48%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;area error&amp;quot;, which is very important (CI=57.97%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;smoothness error&amp;quot;, which is not important (CI=16.51%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;compactness error&amp;quot;, which is not important (CI=4.39%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concavity error&amp;quot;, which is not important (CI=4.03%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concave points error&amp;quot;, which is not important (CI=5.76%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;symmetry error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;fractal dimension error&amp;quot;, which is not important (CI=21.47%), is not typical for its class (CU=17.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst radius&amp;quot;, which is not important (CI=1.27%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst texture&amp;quot;, which is very important (CI=60.61%), is not typical for its class (CU=13.75%).&amp;#39;, &amp;#39;The feature &amp;quot;worst perimeter&amp;quot;, which is important (CI=41.37%), is not typical for its class (CU=23.17%).&amp;#39;, &amp;#39;The feature &amp;quot;worst area&amp;quot;, which is not important (CI=19.51%), is typical for its class (CU=67.91%).&amp;#39;, &amp;#39;The feature &amp;quot;worst smoothness&amp;quot;, which is not important (CI=18.24%), is unlikely for its class (CU=48.97%).&amp;#39;, &amp;#39;The feature &amp;quot;worst compactness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concavity&amp;quot;, which is not important (CI=10.79%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concave points&amp;quot;, which is important (CI=42.94%), is not typical for its class (CU=4.32%).&amp;#39;, &amp;#39;The feature &amp;quot;worst symmetry&amp;quot;, which is not important (CI=5.86%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst fractal dimension&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [&amp;#39;The feature &amp;quot;mean radius&amp;quot;, which is not important (CI=16.49%), is not typical for its class (CU=0.65%).&amp;#39;, &amp;#39;The feature &amp;quot;mean texture&amp;quot;, which is highly important (CI=90.14%), is not typical for its class (CU=3.76%).&amp;#39;, &amp;#39;The feature &amp;quot;mean perimeter&amp;quot;, which is not important (CI=2.63%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean area&amp;quot;, which is not important (CI=3.36%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean smoothness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean compactness&amp;quot;, which is important (CI=34.53%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concavity&amp;quot;, which is not important (CI=4.0%), is not typical for its class (CU=8.92%).&amp;#39;, &amp;#39;The feature &amp;quot;mean concave points&amp;quot;, which is important (CI=38.25%), is not typical for its class (CU=3.57%).&amp;#39;, &amp;#39;The feature &amp;quot;mean symmetry&amp;quot;, which is not important (CI=8.91%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;mean fractal dimension&amp;quot;, which is not important (CI=1.54%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;radius error&amp;quot;, which is not important (CI=10.53%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;texture error&amp;quot;, which is not important (CI=6.53%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;perimeter error&amp;quot;, which is not important (CI=1.48%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;area error&amp;quot;, which is very important (CI=57.97%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;smoothness error&amp;quot;, which is not important (CI=16.51%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;compactness error&amp;quot;, which is not important (CI=4.39%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concavity error&amp;quot;, which is not important (CI=4.03%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;concave points error&amp;quot;, which is not important (CI=5.76%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;symmetry error&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;fractal dimension error&amp;quot;, which is not important (CI=21.47%), is not typical for its class (CU=17.33%).&amp;#39;, &amp;#39;The feature &amp;quot;worst radius&amp;quot;, which is not important (CI=1.27%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst texture&amp;quot;, which is very important (CI=60.61%), is not typical for its class (CU=13.75%).&amp;#39;, &amp;#39;The feature &amp;quot;worst perimeter&amp;quot;, which is important (CI=41.37%), is not typical for its class (CU=23.17%).&amp;#39;, &amp;#39;The feature &amp;quot;worst area&amp;quot;, which is not important (CI=19.51%), is typical for its class (CU=67.91%).&amp;#39;, &amp;#39;The feature &amp;quot;worst smoothness&amp;quot;, which is not important (CI=18.24%), is unlikely for its class (CU=48.97%).&amp;#39;, &amp;#39;The feature &amp;quot;worst compactness&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concavity&amp;quot;, which is not important (CI=10.79%), is very typical for its class (CU=100.0%).&amp;#39;, &amp;#39;The feature &amp;quot;worst concave points&amp;quot;, which is important (CI=42.94%), is not typical for its class (CU=4.32%).&amp;#39;, &amp;#39;The feature &amp;quot;worst symmetry&amp;quot;, which is not important (CI=5.86%), is not typical for its class (CU=0.1%).&amp;#39;, &amp;#39;The feature &amp;quot;worst fractal dimension&amp;quot;, which is not important (CI=0.0%), is not typical for its class (CU=0.1%).&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;drawbacks&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Drawbacks&lt;/h3&gt;
 &lt;p&gt;Although CIU is a brilliant and simple technique, I believe it has the following drawbacks:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;In regression problems, the range of possible values for the target variable can be infinite, which somehow does not make sense when we want to compute CIU. The authors said that they have put a limit on the range of values.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Computing the range of values can be a little bit misleading especially when we have outliers in the dataset.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;In regression problems, the range of possible values for the target variable can be infinite, which somehow does not make sense when we want to compute CIU. The authors said that they had put a limit on the range of values.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Computing the range of values can be a little bit misleading, especially when we have outliers in the dataset.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;It is not clear how we can get a global explanation for the model using CIU.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
@@ -200,9 +202,10 @@ gb_ciu = explain_ciu(example,gb_fit)&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::opts_chunk$set(warning = FALSE, message = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tune)
 library(rsample)
 library(yardstick)
@@ -222,21 +225,6 @@ library(reticulate)
 
 spotify_songs &amp;lt;- pin(read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&amp;#39;))
 head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 23
-##   track_id track_name track_artist track_popularity track_album_id
-##   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         
-## 1 6f807x0~ I Don&amp;#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
-## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
-## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
-## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
-## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
-## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
-## # ... with 18 more variables: track_album_name &amp;lt;chr&amp;gt;,
-## #   track_album_release_date &amp;lt;chr&amp;gt;, playlist_name &amp;lt;chr&amp;gt;, playlist_id &amp;lt;chr&amp;gt;,
-## #   playlist_genre &amp;lt;chr&amp;gt;, playlist_subgenre &amp;lt;chr&amp;gt;, danceability &amp;lt;dbl&amp;gt;,
-## #   energy &amp;lt;dbl&amp;gt;, key &amp;lt;dbl&amp;gt;, loudness &amp;lt;dbl&amp;gt;, mode &amp;lt;dbl&amp;gt;, speechiness &amp;lt;dbl&amp;gt;,
-## #   acousticness &amp;lt;dbl&amp;gt;, instrumentalness &amp;lt;dbl&amp;gt;, liveness &amp;lt;dbl&amp;gt;, valence &amp;lt;dbl&amp;gt;,
-## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs &amp;lt;- spotify_songs %&amp;gt;%  
   dplyr::rowwise() %&amp;gt;% 
   mutate(shorter_names = unlist(str_split(track_name,&amp;#39;-&amp;#39;))[1]) &lt;/code&gt;&lt;/pre&gt;
@@ -291,11 +279,9 @@ My designed workflow consists of the following step:&lt;/p&gt;
  select(track_popularity, c(12:23)) %&amp;gt;% 
  correlate() %&amp;gt;% 
   network_plot(min_cor = 0.1,color = c(&amp;#39;#1a535c&amp;#39;,&amp;#39;#4ecdc4&amp;#39;,&amp;#39;#f7fff7&amp;#39;,&amp;#39;#ff6b6b&amp;#39;,&amp;#39;#ffe66d&amp;#39;)) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spotify_songs %&amp;gt;% 
  ggplot(aes(track_popularity)) +
  geom_histogram(fill = &amp;#39;indianred&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;shap&#34; class=&#34;section level2&#34;&gt;
@@ -321,6 +307,7 @@ My designed workflow consists of the following step:&lt;/p&gt;
       <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-02-01-the-map-of-spotify-songs/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;In the &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md&#34;&gt;4th week of the Tidy Tuesday project&lt;/a&gt;, a very interesting and fun dataset was proposed to the data science community. The dataset contains information about thousands of songs on Spotify’s platform and along with their metadata and audio features. You can download the dataset can using the following piece of code.&lt;/p&gt;
@@ -342,7 +329,7 @@ head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
 ## #   energy &amp;lt;dbl&amp;gt;, key &amp;lt;dbl&amp;gt;, loudness &amp;lt;dbl&amp;gt;, mode &amp;lt;dbl&amp;gt;, speechiness &amp;lt;dbl&amp;gt;,
 ## #   acousticness &amp;lt;dbl&amp;gt;, instrumentalness &amp;lt;dbl&amp;gt;, liveness &amp;lt;dbl&amp;gt;, valence &amp;lt;dbl&amp;gt;,
 ## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For this week’s tidy Tuesday, I decided to use a rather different approach from my previous submission. Instead of focusing entirely on the visualization aspect of my submission, I tried to use other tools from tidy model universe for machine learning model development.&lt;/p&gt;
+&lt;p&gt;For this week’s tidy Tuesday, I decided to use a somewhat different approach from my previous submissions. Instead of focusing solely on the visualization aspect of my submissions, I tried to use other tools from the tidy model universe for machine learning model development,&lt;/p&gt;
 &lt;p&gt;Each song has around 12 columns representing audio features. The Github’s page for this dataset describes these features as follows:&lt;/p&gt;
 &lt;table&gt;
 &lt;colgroup&gt;
@@ -420,7 +407,7 @@ head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;It would be very helpful to compare songs based on the combination of their audio features and have an overall picture of where each song is placed. Unfortunately, we can only visualize 2 or 3 audio features at the same time and It is not possible to put all these features on a 2D or 3D space. So, I tried to use unsupervised machine learning for the purpose of visualizing songs on a 2D space by transforming their high-dimensional audio features into a more compressed form.&lt;/p&gt;
+&lt;p&gt;It would be very helpful to compare songs based on their audio features and have an overall picture of where each song is placed. Unfortunately, we can only visualize 2 or 3 audio features at the same time, and It is not possible to put all these features in a 2D or 3D space. So, I tried to use unsupervised machine learning to visualize songs on a 2D space by transforming their high-dimensional audio features into a more compressed form.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
 library(tidymodels)
 library(workflows)
@@ -454,14 +441,14 @@ theme_update(legend.position = &amp;#39;top&amp;#39;,
    axis.text.y.left = element_blank()) &lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;dimensionality-reduction-and-umap&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Dimensionality Reduction and UMAP&lt;/h2&gt;
-&lt;p&gt;My initial idea was to use some clustering algorithms to cluster songs based on their audio feature and find songs that are similar to each other. Yet, it was difficult to visualize these clusters in a two dimensional space. Of course you can do that by using hierarchal clustering but even then visualizing a few thousands samples (songs) seems to be impractical. So, I decided to to use other unsupervised techniques to compress these high-dimensional audio features and transform them into a more compact 2D space.&lt;/p&gt;
-&lt;p&gt;There are a number of dimensionality reduction algorithms such as PCA, t-SNE UMAP. The main purpose of these algorithm is to give us a compressed representation of the input data, which is obtained with the least possible information loss. PCA is a linear dimensionality reduction method while both t-SNE and UMAP are non-linear methods.&lt;/p&gt;
-&lt;p&gt;In this post, I will use UMAP and t-SNE, two widely used dimensionality reduction algorithms. When the input dataset is large T-SNE becomes very slow and is not an efficient algorithm anymore. On the other hand, UMAP can handle larger datasets much more easily. Moreover, not only UMAP can preserve the underlying local structure present in the data, but it can also represent the global structure of the data more accurately. What do we mean by local and global structure? For example, in the song dataset, persevering local structure means that songs that belong to an artist are clustered together. Similarly, global structure means that songs belonging to more related genres (e.g. hard rock, album rock and classic rock) will be placed in a close proximity of each other on the new projection&lt;/p&gt;
-&lt;p&gt;UMAP achieves this goal by employing some advanced optimization techniques and mathematical concept. Understanding how UMAP uses these techniques and projects the input data into a more compressed representation is not crucial, but If you are curios to know more about the theory behind UMAP and its difference with T-SNE, I recommend &lt;a href=&#34;https://pair-code.github.io/understanding-umap/&#34;&gt;this wonderful blogpost&lt;/a&gt; by Andy Coenen and Adam Pearce.&lt;/p&gt;
+&lt;p&gt;My initial idea was to use some clustering algorithms to cluster songs based on their audio feature and find songs that are similar to each other. Yet, it was not easy to visualize these clusters in a two-dimensional space. Of course, you can do that by using hierarchal clustering but even then, visualizing a few thousand samples (songs) seems to be impractical. So, I decided to use other unsupervised techniques to compress these high-dimensional audio features and transform them into a more compact 2D space.&lt;/p&gt;
+&lt;p&gt;There are several dimensionality reduction algorithms such as PCA, t-SNE UMAP. The primary purpose of these algorithms is to give us a compressed representation of the input data, while preserving the most relevant information in the data. PCA is a linear dimensionality reduction method, while both t-SNE and UMAP are non-linear methods.&lt;/p&gt;
+&lt;p&gt;In this post, I will use UMAP and t-SNE, two widely used dimensionality reduction algorithms. When the input dataset is large T-SNE becomes very slow and is not an efficient algorithm anymore. On the other hand, UMAP can handle larger datasets much more easily and quickly. Moreover, UMAP can preserve the underlying local structure present in the data, and it can also represent the global structure of the data more accurately. What do we mean by local and global structure? For example, in the song dataset, persevering local structure means that songs that belong to an artist are clustered together. Similarly, global structure means that songs belonging to more related genres (e.g., hard rock, album rock, and classic rock) will be placed in close proximity to each other on the new projection.&lt;/p&gt;
+&lt;p&gt;UMAP achieves this goal by employing some advanced optimization techniques and mathematical concepts. Understanding how UMAP uses these techniques and projects the input data into a more compressed representation is not crucial, but If you are curious to know more about the theory behind UMAP and its difference with T-SNE, I recommend &lt;a href=&#34;https://pair-code.github.io/understanding-umap/&#34;&gt;this excellent blogpost&lt;/a&gt; by Andy Coenen and Adam Pearce.&lt;/p&gt;
 &lt;div id=&#34;data-preprocessing&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Data Preprocessing&lt;/h3&gt;
-&lt;p&gt;Both UMAP and T-SNE compute a distance metric between samples. This distance metric should be meaningful and reasonable. If we do not scale the input features before ru some features might have higher (unfair) influence than other features on the computation of distance between samples. For this reason, it is necessary to normalize input features before implementing a them,&lt;/p&gt;
-&lt;p&gt;I create a data preprocessing recipe using the &lt;code&gt;recipe&lt;/code&gt; package and I add a normalization step to scale the audio features. Note that since I implement an unsupervised algorithm, there is no need to split the dataset into a training and testing dataset.&lt;/p&gt;
+&lt;p&gt;Both UMAP and T-SNE compute a distance metric between samples. This distance metric should be meaningful and reasonable. If we do not scale the input features before feeding them to these algorithms, some features might have a stronger (unfair) influence than other features on the computation of the distance between samples. For this reason, it is necessary to normalize input features before implementing them,&lt;/p&gt;
+&lt;p&gt;I create a data preprocessing recipe using the &lt;code&gt;recipe&lt;/code&gt; package, and I add a normalization step to scale the audio features. Note that since I implement an unsupervised algorithm, there is no need to split the dataset into a training and testing dataset.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;normalized_features &amp;lt;- spotify_songs %&amp;gt;%
  recipe() %&amp;gt;% 
  step_normalize( danceability,
@@ -738,12 +725,12 @@ for (nn in n_neighbors) {
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;For the most part, both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embeddings with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen.
-We can observe that the most influential hyper-parameter seems to be distance metric. Additionally, when we decrease the value of &lt;code&gt;min_dist&lt;/code&gt;, the projection becomes less compact and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music and We need to incorporate other aspects of songs such as lyrics to be able to differentiate between genres. For instance, Kaylin Pavlik in her blogpost explained how she based on similar audio features trained several machine learning models to classify songs into 6 main categories (EDM, Latin, Pop, R&amp;amp;B, Rap, &amp;amp; Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset but I couldn’t achieve higher performance.&lt;/p&gt;
+We can observe that the most influential hyper-parameter seems to be the distance metric. Additionally, when we decrease the value of &lt;code&gt;min_dist&lt;/code&gt;, the projection becomes less compact, and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music, and We need to incorporate other aspects of songs such as lyrics to differentiate between genres. For instance, Kaylin Pavlik, in her blogpost explained how she based on similar audio features, trained several machine learning models to classify songs into six main categories (EDM, Latin, Pop, R&amp;amp;B, Rap, &amp;amp; Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset, but I could not achieve higher performance.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;supervised-umap&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Supervised UMAP&lt;/h2&gt;
-&lt;p&gt;UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a &lt;a href=&#34;https://umap-learn.readthedocs.io/en/latest/supervised.html&#34;&gt;supervised algorithm&lt;/a&gt; by specifying the target variable. To make this happen in UWOT, we can just give the target column (playlist_genre) as an input to &lt;code&gt;y&lt;/code&gt; argument.&lt;/p&gt;
+&lt;p&gt;UMAP is an unsupervised dimensionality reduction algorithm, but we can also feed target labels to UMAP and make it a &lt;a href=&#34;https://umap-learn.readthedocs.io/en/latest/supervised.html&#34;&gt;supervised algorithm&lt;/a&gt; by specifying the target variable. To make this happen in UWOT, we can give the target column (playlist_genre) as an input to &lt;code&gt;y&lt;/code&gt; argument.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;supervised_umap_embedding_df &amp;lt;- 
   spotify_songs %&amp;gt;% 
   select(-c(12:22)) %&amp;gt;% 
@@ -783,6 +770,7 @@ We can observe that the most influential hyper-parameter seems to be distance me
       <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-01-18-optimal-rule-lists/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Axiom
@@ -1124,6 +1112,7 @@ understanding. But the moment we start writing down our understanding, it become
       <pubDate>Sat, 04 Jan 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;This talk was mainly focused on the importance of visualization and other techniques for exploring and explaining data. In other words, one approach to explainability is to first explore the input data and find interesting patterns. This can be done via:&lt;/p&gt;

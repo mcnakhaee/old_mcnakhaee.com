@@ -24,9 +24,10 @@ projects: []
 
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
-<pre class="r"><code>knitr::opts_chunk$set(warning = FALSE, message = FALSE)</code></pre>
+<pre class="r"><code>knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)</code></pre>
 <pre class="r"><code>library(tune)
 library(rsample)
 library(yardstick)
@@ -46,21 +47,6 @@ library(reticulate)
 
 spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))
 head(spotify_songs)</code></pre>
-<pre><code>## # A tibble: 6 x 23
-##   track_id track_name track_artist track_popularity track_album_id
-##   &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;         
-## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
-## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
-## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
-## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
-## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
-## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
-## # ... with 18 more variables: track_album_name &lt;chr&gt;,
-## #   track_album_release_date &lt;chr&gt;, playlist_name &lt;chr&gt;, playlist_id &lt;chr&gt;,
-## #   playlist_genre &lt;chr&gt;, playlist_subgenre &lt;chr&gt;, danceability &lt;dbl&gt;,
-## #   energy &lt;dbl&gt;, key &lt;dbl&gt;, loudness &lt;dbl&gt;, mode &lt;dbl&gt;, speechiness &lt;dbl&gt;,
-## #   acousticness &lt;dbl&gt;, instrumentalness &lt;dbl&gt;, liveness &lt;dbl&gt;, valence &lt;dbl&gt;,
-## #   tempo &lt;dbl&gt;, duration_ms &lt;dbl&gt;</code></pre>
 <pre class="r"><code>spotify_songs &lt;- spotify_songs %&gt;%  
   dplyr::rowwise() %&gt;% 
   mutate(shorter_names = unlist(str_split(track_name,&#39;-&#39;))[1]) </code></pre>
@@ -115,11 +101,9 @@ My designed workflow consists of the following step:</p>
  select(track_popularity, c(12:23)) %&gt;% 
  correlate() %&gt;% 
   network_plot(min_cor = 0.1,color = c(&#39;#1a535c&#39;,&#39;#4ecdc4&#39;,&#39;#f7fff7&#39;,&#39;#ff6b6b&#39;,&#39;#ffe66d&#39;)) </code></pre>
-<p><img src="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-9-1.png" width="768" /></p>
 <pre class="r"><code>spotify_songs %&gt;% 
  ggplot(aes(track_popularity)) +
  geom_histogram(fill = &#39;indianred&#39;) </code></pre>
-<p><img src="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 </div>
 <div id="shap" class="section level2">

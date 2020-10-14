@@ -24,12 +24,12 @@ projects: []
 
 ### Introduction
 
-I am a music lover and like my other hobbies I am really interested in applying data science methods to it. A few months ago I participated in the third week of the TidyTuesday project where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then I have been using Spotify's Web API to collect data and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify. We have different genres and types of music and while pop and rap are very popular among the younger generation I like the traditional style more. Nevertheless, I was always curios to understand how different the traditional music and pop music are from each other. For this reason,   that I like the most These are a few questions that I would like to answer:
+
+I am a music lover, and like my other hobbies, I am really interested in applying data science methods to it. A few months ago, I participated in the third week of the TidyTuesday project, where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then, I have been using Spotify's Web API to collect data, and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify. We have different genres and types of music, and while pop and rap are very popular among the younger generation, I like the traditional style more. Nevertheless, I was always curious to understand how different traditional music and pop music are. For this reason,  that I like the most These are a few questions that I would like to answer:
 
 1. How different audio features can be among top Persian singers?
 2. What are the most danceable and least danceable Persian songs?
-3. Who is the most popular Persian singer and what is the most popular song?
-
+3. Who is the most popular Persian singer, and what is the most popular song?
 
 
 
@@ -51,7 +51,8 @@ library(cowplot)
 
 ## Data Collection
 
-I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using ``spotifyr`` which gives us access to Spotify's API. This process was cumbersome as sometimes I wasn't getting what I was looking for. For instance, sometimes songs that belonged to another random artist were retrieved. For each singer, we can only retrieve the top 10 popular songs. It means that the rest of songs have no popularity scores. Nevertheless, I collected several types of information about more than 10000 songs (of course some of them are duplicates in the Spoitfy's playlist or just a remix).
+I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using the ``spotifyr`` package in R which lets us use R to access the Spotify's API. This process was cumbersome as sometimes I was not getting what I was looking for. For instance, sometimes, songs that belonged to another random artist were retrieved. For each singer, we can only retrieve the top 10 popular songs. It means that the rest of the songs have no popularity scores. In the end, I collected various kinds of information about more than 10000 songs.
+
 
 ```{r message=FALSE, warning=FALSE}
 songs_audio_plus_pop <- read_csv('https://raw.githubusercontent.com/mcnakhaee/datasets/master/Persian_Songs_Spotify.csv')
@@ -63,19 +64,19 @@ head(songs_audio_plus_pop) %>%
 
 ### Overall Song Features
 
-Aside from variables such the album that a song belongs to and its date of release, Spotify's API can gives us several features that capture different audio characteristics of a song.
+Apart from variables such as the album that a song belongs to and its date of release, Spotify's API can give us several features that capture a song's different audio characteristics.
 
-You can see a full list of these features in this link. However, I'm only interested in some of these features such as:
+You can see a full list of these features in this link. However, I am only interested in some of these features, such as:
 
 - **valence** measures the happiness of a song.
-- **energy** is quite self-explanatory.
+- **energy** is relatively self-explanatory.
 - **tempo** measures the speed of a song.
 - **loudness** is also self-explanatory.
 - **acousticness** identifies whether the track is acoustic
 - **instrumentalness** shows whether a track contains no vocals.
 - **danceability** determines how good a song is for dancing.
 
-[This wonderful visualization](https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd) inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.
+[This excellent visualization](https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd) inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.
 
 ```{r}
 artists <-
@@ -87,11 +88,11 @@ artists <-
 ```
 
 
-I'll plot the average, the minimum and the maximum value of each feature for each singer. That gives us a good picture of how different their audio characteristics are from each other. However, we must make the right adjustments to the dataset before visualizing it:
+I will plot the average, the minimum, and the maximum value of each feature for each singer. That gives us a good picture of how different their audio characteristics are from each other. However, we must make the right adjustments to the dataset before visualizing it:
 
-1.  We need to transform the original dataset into a long form, which can be done by ``pivot_longer`` from ``dplyr`` package.
+1.  We need to transform the original dataset into a long-dataframe, which can be done by ``pivot_longer`` from the``dplyr`` package.
 
-2. We should rescale each audio features, otherwise the plot wouldn't make any sense.
+2. We should rescale each audio feature, otherwise, the plot would not make any sense.
 
 ```{r eval=TRUE, warning=FALSE,message=FALSE}
 order <- c(
@@ -122,7 +123,7 @@ scaled_features_long <- songs_audio_plus_pop %>%
 ```
 
 
-Now, we can visualize the results for each artist. As I mentioned before, I'll compare artists by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs.
+Now, we can visualize the results for each artist. As mentioned before, I will compare artists by the minimum (red), the average (orange), and maximum (yellow) values of each audio feature in their songs.
 
 ```{r eval=TRUE, fig.height=35, fig.width=22, message=FALSE, warning=FALSE}
 ggplot() +
@@ -215,7 +216,7 @@ ggplot() +
 
 ### Looking more closely at each audio feature
 
-My first plot is informative but it only gives us an overall picture of audio features but I would like to have a more detailed picture of singers and the audio features for each of their songs.  For this reason, I  will also make a separate plot for each audio feature where every song and its corresponding feature values are shown.  I will also mark a few popular songs from each artist with a separate color on this plot.
+My first plot is informative, but it only gives us an overall picture of audio features. However, I would like to have a more detailed picture of singers and the audio features for each of their songs.  For this reason, I  will also make a separate plot for each audio feature where every song and its corresponding feature values are shown.  I will also mark a few popular songs from each artist with a different color on this plot.
 
 
 ```{r eval=TRUE, message=FALSE, warning=FALSE}
@@ -258,7 +259,7 @@ theme_set(theme_void() +
 ```
 
 
-Again here I'll change the dataset to make it ready for visualization. 
+Again here, I will change the dataset to make it ready for visualization. 
 
 
 ```{r eval=TRUE, message=FALSE, warning=FALSE}
@@ -486,7 +487,7 @@ songs_audio_plus_pop_jitter %>%
 
 ## Most Popular Songs
 
-As I mentioned previously, we can only retrieve his/her top 10 popular songs for each artist. The popularity of a track is a value between 0 (least popular) and 100 (most popular). Spotify uses an algorithm to calculate popularity scores which is heavily influenced by the total number of times that a song has been played recently. You can read more about it in this [link](https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/). 
+As I mentioned previously, we can only retrieve his/her top 10 popular songs for each artist. The popularity of a track is a value between 0 (the least popular) and 100 (the most popular). Spotify uses an algorithm to calculate popularity scores, which is heavily influenced by the total number of times a song has been played recently. You can read more about it in this [link](https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/). 
 
 Knowing this fact about how popularity is measured, we can visualize songs and artists that have been popular and played recently.
 
@@ -581,7 +582,7 @@ songs_audio_plus_pop %>%
 
 ```
 
-This plot shows the most popular song of each artist and also the least popular track among his top 10 songs. The artists are also sorted based on their average popularity.
+This plot shows the most popular song and the least popular track of each artist among his top 10 songs. The artists are also sorted based on their average popularity.
 
 ```{r eval=FALSE, fig.height=20, fig.width=20, message=FALSE, warning=TRUE, include=FALSE}
 

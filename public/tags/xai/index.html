@@ -391,7 +391,7 @@
     <h2><a href="/post/explaining-machine-learning-models-using-contextual-importance-and-contextual-utility/">Explaining Machine Learning Models Using Contextual Importance and Contextual Utility</a></h2>
     <div class="article-style">
       
-      IntroductionWhat Kinds of explanation does CIU generate?How does CIU work?A toy example: predicting breastPermutation feature importanceDecision Tree ClassifierRandom Forest ClassifierGradient Boosting ClassifierExplaining a single observationGenerating Textual ExplanationsDrawbacksIntroductionExplainablity is a very hot topics in the machine learning research community these days. over the past few years, many methods have been introduced to just understand how a machine learning model makes prediction.
+      IntroductionWhat Kinds of explanation does CIU generate?How does CIU work?A toy example: predicting breastPermutation feature importanceDecision Tree ClassifierRandom Forest ClassifierGradient Boosting ClassifierExplaining a single observationGenerating Textual ExplanationsDrawbacksIntroductionExplainability is a hot topic in the machine learning research community these days. Over the past few years, many methods have been introduced to understand how a machine learning model makes a prediction.
       
     </div>
   </div>
@@ -400,7 +400,7 @@
     <h2><a href="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/">What Makes a Song Popular? An Explainable Machine Learning Approach</a></h2>
     <div class="article-style">
       
-      knitr::opts_chunk$set(warning = FALSE, message = FALSE)library(tune)library(rsample)library(yardstick)library(dials)library(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)## # A tibble: 6 x 23## track_id track_name track_artist track_popularity track_album_id## &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; ## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran 66 2oCs0DGTsRO98~## 2 0r7CVbZ~ Memories ~ Maroon 5 67 63rPSO264uRjW~## 3 1z1Hg7V~ All the T~ Zara Larsson 70 1HoSmj2eLcsrR~## 4 75Fpbth~ Call You ~ The Chainsm~ 60 1nqYsOef1yKKu~## 5 1e8PAfc~ Someone Y~ Lewis Capal~ 69 7m7vv9wlQ4i0L~## 6 7fvUMiy~ Beautiful~ Ed Sheeran 67 2yiy9cd2QktrN~## # .
+      knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tune)library(rsample)library(yardstick)library(dials)library(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)spotify_songs &lt;- spotify_songs %&gt;% dplyr::rowwise() %&gt;% mutate(shorter_names = unlist(str_split(track_name,&#39;-&#39;))[1]) spotify_songs &lt;- py$spotify_songsHave you ever wondered why some songs from an artist become so popular and others are just total failure?Look at the next plot. Even The Beetles had a few not so popular songs.
       
     </div>
   </div>
@@ -459,6 +459,8 @@ What I specifically liked about this summer school ( of course besides enjoying 
   <div>
     <h2><a href="/post/2019-11-07-contrastive-explanations/">Contrastive Explanations</a></h2>
     <div class="article-style">
+      
+      
       
     </div>
   </div>

@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="Since the conquest of Persia (now Iran) by the Muslim forces in the 7th century, Arabic culture and language have had a huge influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its main language, but the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost use the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language.">
+  <meta name="description" content="Since the conquest of Persia (now Iran) by the Muslim forces in the 7th century, Arabic culture and language have had an enormous influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its primary language, the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost uses the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/">
@@ -128,7 +128,7 @@
   <meta property="og:site_name" content="Muhammad Chenariyan Nakhaee">
   <meta property="og:url" content="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/">
   <meta property="og:title" content="Going Back to the Roots! How Much Influence Did Arabic Have on Persian Literature? | Muhammad Chenariyan Nakhaee">
-  <meta property="og:description" content="Since the conquest of Persia (now Iran) by the Muslim forces in the 7th century, Arabic culture and language have had a huge influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its main language, but the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost use the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language."><meta property="og:image" content="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/featured.JPG">
+  <meta property="og:description" content="Since the conquest of Persia (now Iran) by the Muslim forces in the 7th century, Arabic culture and language have had an enormous influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its primary language, the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost uses the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language."><meta property="og:image" content="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/featured.JPG">
   <meta property="twitter:image" content="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/featured.JPG"><meta property="og:locale" content="en-us">
   
     
@@ -184,7 +184,7 @@
       "url": "/img/icon-512.png"
     }
   },
-  "description": "Since the conquest of Persia (now Iran) by the Muslim forces in the 7th century, Arabic culture and language have had a huge influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its main language, but the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost use the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language."
+  "description": "Since the conquest of Persia (now Iran) by the Muslim forces in the 7th century, Arabic culture and language have had an enormous influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its primary language, the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost uses the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language."
 }
 </script>
 
@@ -535,14 +535,15 @@
 
     <div class="article-style">
       
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
-<p>Since the <a href="https://en.wikipedia.org/wiki/Muslim_conquest_of_Persia">conquest of Persia (now Iran) by the Muslim forces in the 7th century</a>, Arabic culture and language have had a huge influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its main language, but the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost use the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language.
-Over the past 100 years, a very few (narrowly-minded and mostly racist) scholars have tried to erase Arabic words from the Persian literature. Since I was a kid I have always wanted to I put my data science skills and tools to</p>
-<p>I decided to start a small project and determine how much influence Arabic has had on the Persian Lieterature and poetry over time. To put it simply, my goal is to look at every word used in poems ad determind wether it comes from Arabic or it is originally a Persian word. Then I count the occurance of each of them and compute their ratio.</p>
-<p>However, this is not an easy task for several reasons. Although determing the origin of a word is not difficult for a well-educated person, there are millions of words in Persian literary works.So, labaling each word manually is not feasible and I tried smarter ways (but less accurate ). Similar to many other languages, Persian poems are different from daily written or spoken Persian and therefore common NLP methods are not as effective as before.</p>
-<p>Ideally, we need a complete dataset of word with Araabic roots that are used in Persian to solve this task. But this dataset does not exist and I must use other approaches:
-1. There are a number of rules and exceptions that can be used to distinguish Persian words from Arabic words. For example, unlike Persian, Arabic does not have four letters representing “p”, “j” such as Japan, “g” such as game and “ch” in its alphabet. It means that any word that consists of one of these letters it is definitely a non-Arabic word. On the other hand, we do not have any letter in the Persian alphabet for representing the ‘th’ letter (and a few other letters) in Arabic. Therefore, words that consist of these letters are likely to be Arabic words.</p>
+<p>Since the <a href="https://en.wikipedia.org/wiki/Muslim_conquest_of_Persia">conquest of Persia (now Iran) by the Muslim forces in the 7th century</a>, Arabic culture and language have had an enormous influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its primary language, the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost uses the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language.
+Over the past 100 years, a very few (narrowly-minded and mostly racist) scholars have tried to erase Arabic words from the Persian literature. Since I was a kid, I have always wanted to put my data science skills and tools to</p>
+<p>I decided to start a small project and determine how much influence Arabic has had on Persian Literature and poetry over time. Simply, my goal is to look at every word used in poems and determine whether it comes from Arabic, or it is originally a Persian word. Then I count the occurrence of each of them and compute their ratio.</p>
+<p>However, this is not an easy task for several reasons. Although determining the origin of a word is not difficult for a well-educated person, determining the root language of each word manually is not feasible. So, I tried smarter ways (but less accurate) to achieve the same goal. Like many other languages, Persian poems are different from daily written or spoken Persian, and therefore standard NLP methods are not as effective as before.</p>
+<p>Ideally, we need a complete dataset of words with Arabic roots used in Persian to solve this task. However, as far as I know, this dataset does not exist, and I must use other approaches:
+1. Some rules and exceptions can be used to distinguish Persian words from Arabic words. For example, unlike Persian, Arabic does not have four letters representing “p”, “j” such as Japan, “g” such as game and “ch” in its alphabet. It means that any word that consists of one of these letters it is definitely a non-Arabic word. On the other hand, we do not have any letters in the Persian alphabet for representing the ‘th’ letter (and a few other letters) in Arabic. Therefore, words that consist of these letters are likely to be Arabic words.</p>
 <pre class="python"><code># fa --&gt; Farsi (Persian)
 # ar ---&gt; Arabic
 # un ----&gt; Unkown
@@ -574,21 +575,12 @@ def arabic_word(word):
     else:
         return &#39;un&#39;</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Unfortunately, the rules mentioned above are not comprehensive and the origin of many words cannot be determined by them. So,I turned to the python port of the popular <a href="https://github.com/Mimino666/langdetect"><code>Langdetect</code></a> library for help. Here, if the origin of a word can not be determined by the above rules, I will ask this library to identify the language. I should mention that langdetect can be sometimes wrong so the final results might not be 100% accurate.</li>
+<li>Unfortunately, the rules mentioned above are not comprehensive, and they cannot determine the origin of many words. So, I turned to the python port of the <a href="https://github.com/Mimino666/langdetect"><code>Langdetect</code></a> library for help. If the above rules can not determine the origin of a word, I will ask this library to identify the language. I should mention that langdetect can sometimes be wrong, so the final results might not be 100% accurate.</li>
 </ol>
-<p>I must also mention that I performed a few preprocessing steps such as removing stopwords on the poetry corpus. A few other operations such as stemming could have been performed but my initial assessment was that they might not significantly change the final results.
+<p>I must also mention that I performed a few preprocessing steps, such as removing stopwords on the poetry corpus. A few other operations such as stemming could have been performed, but my initial assessment might not significantly change the final results.
 After preprocessing, I stored all the information about the ratio of Arabic and Persian words for each poet in a separate dataset.</p>
-<pre class="r"><code>lang_ratio_df &lt;- read_csv(&#39;lang_ratio_df.csv&#39;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   poet = col_character(),
-##   century = col_double(),
-##   ar = col_double(),
-##   fa = col_double(),
-##   ratio = col_double(),
-##   period = col_character()
-## )</code></pre>
-<pre class="r"><code>head(lang_ratio_df)</code></pre>
+<pre class="r"><code>lang_ratio_df &lt;- read_csv(&#39;lang_ratio_df.csv&#39;)
+head(lang_ratio_df)</code></pre>
 <pre><code>## # A tibble: 6 x 6
 ##   poet               century    ar    fa ratio period         
 ##   &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          
@@ -644,9 +636,9 @@ After preprocessing, I stored all the information about the ratio of Arabic and 
     plot.background = element_rect(fill = &quot;black&quot;, color = &quot;black&quot;),
     panel.background = element_rect(fill = &quot;black&quot;, color = &quot;black&quot;),
     panel.border = element_rect(fill = NA, color = NA))</code></pre>
-<p><img src="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/index_files/figure-html/unnamed-chunk-7-1.png" width="1440" /></p>
-<p>As you can see above, every poet used at least a sizable number of Arabic words in his/her work. Most notably, Ferdowsi who wrote <a href="https://en.wikipedia.org/wiki/Shahnameh">Shahname (the Book of Kings)</a>, which recount the myths and legends of Persian Kings and Heroes and is the oldest piece of poetry analyzed in my experiment also includes a considerable number of Arabic words. Other top Persian poets such as <a href="https://en.wikipedia.org/wiki/Hafez">Hafez</a>, <a href="https://en.wikipedia.org/wiki/Saadi_Shirazi">Saadi</a> and <a href="https://en.wikipedia.org/wiki/Rumis">Rumi</a> used Arabic words in almost 40%-50% of their works.</p>
-<p>Nothing better can show this than the following plot which made by the <a href="https://emilhvitfeldt.github.io/ggpage/"><code>ggpage</code></a> package in R. The plot shows the distribution of words and their origins for several top Persian poets. Note that in this plot I used a only random subset of words from the works of each poet and not their whole works of poetry.</p>
+<p><img src="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/index_files/figure-html/unnamed-chunk-8-1.png" width="1440" /></p>
+<p>As you can see above, every poet used at least a sizable number of Arabic words in his/her work. Most notably, Ferdowsi wrote <a href="https://en.wikipedia.org/wiki/Shahnameh">Shahname (the Book of Kings)</a>, which recounts the myths and legends of Persian Kings and Heroes and is the oldest piece of poetry analyzed in my experiment, also includes a considerable number of Arabic words. Other top Persian poets such as <a href="https://en.wikipedia.org/wiki/Hafez">Hafez</a>, <a href="https://en.wikipedia.org/wiki/Saadi_Shirazi">Saadi</a> and <a href="https://en.wikipedia.org/wiki/Rumis">Rumi</a> used Arabic words in almost 40%-50% of their works.</p>
+<p>It can be best shown using the following plot, which is made using the <a href="https://emilhvitfeldt.github.io/ggpage/"><code>ggpage</code></a> package in R. The plot shows the distribution of words and their origins for several top Persian poets. Note that I only used a random subset of words from each poet’s works and not their whole works of poetry in this plot.</p>
 <pre class="r"><code>sample_poets_df &lt;- read_csv(&#39;sample_poets.csv&#39;)
 head(sample_poets_df)</code></pre>
 <pre><code>## # A tibble: 6 x 4
@@ -700,11 +692,11 @@ head(sample_poets_df)</code></pre>
     axis.ticks.y = element_blank(),
     axis.title.y = element_blank(),
   )</code></pre>
-<p><img src="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/index_files/figure-html/unnamed-chunk-10-1.png" width="1920" /></p>
+<p><img src="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/index_files/figure-html/unnamed-chunk-11-1.png" width="1920" /></p>
 <div id="conclusion" class="section level3">
 <h3>Conclusion</h3>
-<p>How Much Influence Did Arabic Have on Persian Literature has been one of my questions since I started to read and study literature. Nobody had been able to answer this question and I could not have answered it without the help of data science.</p>
-<p>My analysis shows that the Arabic language has contributed significantly to our literature and culture. In fact, the golden era of Persian poetry can be seen as a result of its integration with Arabic. Persian also made its contribution to the Arabic language and Arabic poetry. So, talking about erasing one language from the other is not helpful or wise and I hope everyone realizes that.</p>
+<p>How Much Influence Did Arabic Have on Persian Literature has been one of my questions since I started to read and study literature. Nobody had been able to answer this question, and I could not have answered it without the help of data science.</p>
+<p>My analysis shows that the Arabic language has contributed significantly to our literature and culture. The golden era of Persian poetry can be seen as a result of its integration with Arabic. Persian also made its contribution to the Arabic language and Arabic poetry. So, talking about erasing one language from the other is not helpful or wise, and I hope everyone realizes that.</p>
 </div>
 
     </div>

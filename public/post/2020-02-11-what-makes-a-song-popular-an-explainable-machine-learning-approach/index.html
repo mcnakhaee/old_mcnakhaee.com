@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="knitr::opts_chunk$set(warning = FALSE, message = FALSE)library(tune)library(rsample)library(yardstick)library(dials)library(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)## # A tibble: 6 x 23## track_id track_name track_artist track_popularity track_album_id## &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; ## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran 66 2oCs0DGTsRO98~## 2 0r7CVbZ~ Memories ~ Maroon 5 67 63rPSO264uRjW~## 3 1z1Hg7V~ All the T~ Zara Larsson 70 1HoSmj2eLcsrR~## 4 75Fpbth~ Call You ~ The Chainsm~ 60 1nqYsOef1yKKu~## 5 1e8PAfc~ Someone Y~ Lewis Capal~ 69 7m7vv9wlQ4i0L~## 6 7fvUMiy~ Beautiful~ Ed Sheeran 67 2yiy9cd2QktrN~## # .">
+  <meta name="description" content="knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tune)library(rsample)library(yardstick)library(dials)library(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)spotify_songs &lt;- spotify_songs %&gt;% dplyr::rowwise() %&gt;% mutate(shorter_names = unlist(str_split(track_name,&#39;-&#39;))[1]) spotify_songs &lt;- py$spotify_songsHave you ever wondered why some songs from an artist become so popular and others are just total failure?Look at the next plot. Even The Beetles had a few not so popular songs.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/">
@@ -129,7 +129,7 @@
   <meta property="og:site_name" content="Muhammad Chenariyan Nakhaee">
   <meta property="og:url" content="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/">
   <meta property="og:title" content="What Makes a Song Popular? An Explainable Machine Learning Approach | Muhammad Chenariyan Nakhaee">
-  <meta property="og:description" content="knitr::opts_chunk$set(warning = FALSE, message = FALSE)library(tune)library(rsample)library(yardstick)library(dials)library(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)## # A tibble: 6 x 23## track_id track_name track_artist track_popularity track_album_id## &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; ## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran 66 2oCs0DGTsRO98~## 2 0r7CVbZ~ Memories ~ Maroon 5 67 63rPSO264uRjW~## 3 1z1Hg7V~ All the T~ Zara Larsson 70 1HoSmj2eLcsrR~## 4 75Fpbth~ Call You ~ The Chainsm~ 60 1nqYsOef1yKKu~## 5 1e8PAfc~ Someone Y~ Lewis Capal~ 69 7m7vv9wlQ4i0L~## 6 7fvUMiy~ Beautiful~ Ed Sheeran 67 2yiy9cd2QktrN~## # ."><meta property="og:image" content="/img/avatar.jpg">
+  <meta property="og:description" content="knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tune)library(rsample)library(yardstick)library(dials)library(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)spotify_songs &lt;- spotify_songs %&gt;% dplyr::rowwise() %&gt;% mutate(shorter_names = unlist(str_split(track_name,&#39;-&#39;))[1]) spotify_songs &lt;- py$spotify_songsHave you ever wondered why some songs from an artist become so popular and others are just total failure?Look at the next plot. Even The Beetles had a few not so popular songs."><meta property="og:image" content="/img/avatar.jpg">
   <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
   
     
@@ -181,7 +181,7 @@
       "url": "/img/icon-512.png"
     }
   },
-  "description": "knitr::opts_chunk$set(warning = FALSE, message = FALSE)\rlibrary(tune)\rlibrary(rsample)\rlibrary(yardstick)\rlibrary(dials)\rlibrary(workflows)\rlibrary(parsnip)\rlibrary(infer)\r#devtools::install_github(\u0026quot;tidymodels/tidymodels\u0026quot;)\r#remotes::install_github(\u0026quot;wilkelab/ggtext\u0026quot;,build = \u0026#39;binary\u0026#39;)\rlibrary(tidyverse)\rlibrary(tidymodels)\rlibrary(lubridate)\rlibrary(corrr)\rlibrary(pins)\rlibrary(genius)\rlibrary(reticulate)\rspotify_songs \u0026lt;- pin(read_csv(\u0026#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv\u0026#39;))\rhead(spotify_songs)\r## # A tibble: 6 x 23\r## track_id track_name track_artist track_popularity track_album_id\r## \u0026lt;chr\u0026gt; \u0026lt;chr\u0026gt; \u0026lt;chr\u0026gt; \u0026lt;dbl\u0026gt; \u0026lt;chr\u0026gt; ## 1 6f807x0~ I Don\u0026#39;t C~ Ed Sheeran 66 2oCs0DGTsRO98~\r## 2 0r7CVbZ~ Memories ~ Maroon 5 67 63rPSO264uRjW~\r## 3 1z1Hg7V~ All the T~ Zara Larsson 70 1HoSmj2eLcsrR~\r## 4 75Fpbth~ Call You ~ The Chainsm~ 60 1nqYsOef1yKKu~\r## 5 1e8PAfc~ Someone Y~ Lewis Capal~ 69 7m7vv9wlQ4i0L~\r## 6 7fvUMiy~ Beautiful~ Ed Sheeran 67 2yiy9cd2QktrN~\r## # ."
+  "description": "knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)\rlibrary(tune)\rlibrary(rsample)\rlibrary(yardstick)\rlibrary(dials)\rlibrary(workflows)\rlibrary(parsnip)\rlibrary(infer)\r#devtools::install_github(\u0026quot;tidymodels/tidymodels\u0026quot;)\r#remotes::install_github(\u0026quot;wilkelab/ggtext\u0026quot;,build = \u0026#39;binary\u0026#39;)\rlibrary(tidyverse)\rlibrary(tidymodels)\rlibrary(lubridate)\rlibrary(corrr)\rlibrary(pins)\rlibrary(genius)\rlibrary(reticulate)\rspotify_songs \u0026lt;- pin(read_csv(\u0026#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv\u0026#39;))\rhead(spotify_songs)\rspotify_songs \u0026lt;- spotify_songs %\u0026gt;% dplyr::rowwise() %\u0026gt;% mutate(shorter_names = unlist(str_split(track_name,\u0026#39;-\u0026#39;))[1]) \rspotify_songs \u0026lt;- py$spotify_songs\rHave you ever wondered why some songs from an artist become so popular and others are just total failure?\rLook at the next plot. Even The Beetles had a few not so popular songs."
 }
 </script>
 
@@ -516,9 +516,10 @@
 
     <div class="article-style">
       
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
-<pre class="r"><code>knitr::opts_chunk$set(warning = FALSE, message = FALSE)</code></pre>
+<pre class="r"><code>knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)</code></pre>
 <pre class="r"><code>library(tune)
 library(rsample)
 library(yardstick)
@@ -538,21 +539,6 @@ library(reticulate)
 
 spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))
 head(spotify_songs)</code></pre>
-<pre><code>## # A tibble: 6 x 23
-##   track_id track_name track_artist track_popularity track_album_id
-##   &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;         
-## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran                 66 2oCs0DGTsRO98~
-## 2 0r7CVbZ~ Memories ~ Maroon 5                   67 63rPSO264uRjW~
-## 3 1z1Hg7V~ All the T~ Zara Larsson               70 1HoSmj2eLcsrR~
-## 4 75Fpbth~ Call You ~ The Chainsm~               60 1nqYsOef1yKKu~
-## 5 1e8PAfc~ Someone Y~ Lewis Capal~               69 7m7vv9wlQ4i0L~
-## 6 7fvUMiy~ Beautiful~ Ed Sheeran                 67 2yiy9cd2QktrN~
-## # ... with 18 more variables: track_album_name &lt;chr&gt;,
-## #   track_album_release_date &lt;chr&gt;, playlist_name &lt;chr&gt;, playlist_id &lt;chr&gt;,
-## #   playlist_genre &lt;chr&gt;, playlist_subgenre &lt;chr&gt;, danceability &lt;dbl&gt;,
-## #   energy &lt;dbl&gt;, key &lt;dbl&gt;, loudness &lt;dbl&gt;, mode &lt;dbl&gt;, speechiness &lt;dbl&gt;,
-## #   acousticness &lt;dbl&gt;, instrumentalness &lt;dbl&gt;, liveness &lt;dbl&gt;, valence &lt;dbl&gt;,
-## #   tempo &lt;dbl&gt;, duration_ms &lt;dbl&gt;</code></pre>
 <pre class="r"><code>spotify_songs &lt;- spotify_songs %&gt;%  
   dplyr::rowwise() %&gt;% 
   mutate(shorter_names = unlist(str_split(track_name,&#39;-&#39;))[1]) </code></pre>
@@ -607,11 +593,9 @@ My designed workflow consists of the following step:</p>
  select(track_popularity, c(12:23)) %&gt;% 
  correlate() %&gt;% 
   network_plot(min_cor = 0.1,color = c(&#39;#1a535c&#39;,&#39;#4ecdc4&#39;,&#39;#f7fff7&#39;,&#39;#ff6b6b&#39;,&#39;#ffe66d&#39;)) </code></pre>
-<p><img src="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-9-1.png" width="768" /></p>
 <pre class="r"><code>spotify_songs %&gt;% 
  ggplot(aes(track_popularity)) +
  geom_histogram(fill = &#39;indianred&#39;) </code></pre>
-<p><img src="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 </div>
 <div id="shap" class="section level2">

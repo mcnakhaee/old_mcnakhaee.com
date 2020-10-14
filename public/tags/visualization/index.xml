@@ -5,7 +5,7 @@
     <link>/tags/visualization/</link>
       <atom:link href="/tags/visualization/index.xml" rel="self" type="application/rss+xml" />
     <description>Visualization</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 04 May 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 28 Sep 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Visualization</title>
@@ -13,21 +13,359 @@
     </image>
     
     <item>
+      <title>Tidy Tuesday Week 37: NLP and Friends</title>
+      <link>/post/tidy-tuesday-week-37-nlp-and-friends/</link>
+      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/post/tidy-tuesday-week-37-nlp-and-friends/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TidyTuesday Week 37: NLP and Friends</title>
+      <link>/post/tidytuesday-week-37-nlp-and-friends/</link>
+      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/post/tidytuesday-week-37-nlp-and-friends/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;knitr&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;opts_chunk&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(warning &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, message &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;,eval &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidyverse)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(ggthemes)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidytuesdayR)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(rsyntax)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(spacyr)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidytext)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidygraph)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(igraph)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(ggraph)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(gganimate)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(hrbrthemes)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;spacy_initialize&lt;/span&gt;(model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;en_core_web_lg&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tt &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tt_load&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2020-09-08&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends_emotions
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;friends_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rownames_to_column&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rowname) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;top-locations&#34;&gt;Top Locations&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;places_scenes &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(text, &lt;span style=&#34;color:#a6e22e&#34;&gt;fixed&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Scene:&amp;#39;&lt;/span&gt;))) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;( text) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rowwise&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(
+    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_split&lt;/span&gt;(text, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;,&amp;#39;&lt;/span&gt;)[[1]][1],
+    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_remove_all&lt;/span&gt;(place, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;erm&amp;#39;&lt;/span&gt;),
+    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_remove&lt;/span&gt;(place, &lt;span style=&#34;color:#a6e22e&#34;&gt;fixed&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[Scene: &amp;#39;&lt;/span&gt;)) ,
+    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_trim&lt;/span&gt;(place)
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(place, sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,
+         &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(place, &lt;span style=&#34;color:#a6e22e&#34;&gt;fixed&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;]&amp;#39;&lt;/span&gt;)),
+         &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;place &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Monica&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Chandler&amp;#39;&lt;/span&gt;))
+
+    
+places_scenes  &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  DT&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;datatable&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt; places_scenes &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fct_reorder&lt;/span&gt;(place,n),n)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_col&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#ef476f&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#scale_fill_tableau() +&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;#facet_wrap(~season,nrow = 10,scales = &amp;#39;free_y&amp;#39;) +&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;coord_flip&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_fivethirtyeight&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;, 
+        axis.text.x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(angle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;90&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tokens &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rownames_to_column&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rowname) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;spacy_parse&lt;/span&gt;(pos &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;,tag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;friends-network&#34;&gt;Friends&amp;rsquo; Network&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;friends_entities &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;inner_join&lt;/span&gt;(tokens,by &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;doc_id&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(entity,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;PERSON_B&amp;#39;&lt;/span&gt;),
+        &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;speaker &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Scene Directions&amp;#39;&lt;/span&gt;),
+        &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;token &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Bye&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;kiddin&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;God&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Sting&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Bijan&amp;#39;&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(token &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;case_when&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_to_lower&lt;/span&gt;(token),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rach&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rachel&amp;#39;&lt;/span&gt;,
+                           &lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_to_lower&lt;/span&gt;(token),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;joe&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Joey&amp;#39;&lt;/span&gt;,
+                            &lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_to_lower&lt;/span&gt;(token),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pheebs&amp;#39;&lt;/span&gt;)  &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Phoebe&amp;#39;&lt;/span&gt;,
+                           &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; token))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tokens_speakers_count &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_entities &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(speaker,token,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+
+speakers &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_speakers_count &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;distinct&lt;/span&gt;(speaker) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pull&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;traph_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_speakers_count &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; speaker,
+         to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; token) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;as_tbl_graph&lt;/span&gt;(directed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;activate&lt;/span&gt;(nodes) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;( deg_cent &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;log10&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;centrality_degree&lt;/span&gt;() &lt;span style=&#34;color:#ae81ff&#34;&gt;+1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+         is_speaker &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;if_else&lt;/span&gt;(name &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; speakers,&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;) )
+
+traph_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ggraph&lt;/span&gt;(layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;nicely&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_edge_link&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(width &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n,alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n),color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#f9dcc4&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_text&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; name,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),repel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_point&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; deg_cent,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_color_tableau&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_graph&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(
+    plot.title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      face &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bold&amp;#34;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;,
+      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+    ),
+    legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;,
+    plot.subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
+      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+    ),
+    strip.text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
+      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;
+    ),
+    
+        plot.caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;,
+      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
+      &lt;span style=&#34;color:#75715e&#34;&gt;#hjust = 0.5&lt;/span&gt;
+    ),
+    strip.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gray50&amp;#39;&lt;/span&gt;,
+                                    fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#fc9d9d&amp;#34;&lt;/span&gt;),
+  ) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tokens_speakers_season_ount &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_entities &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(season,speaker,token,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;)
+  
+  
+graph_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_speakers_season_ount &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; speaker,
+         to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; token) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;as_tbl_graph&lt;/span&gt;(directed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;activate&lt;/span&gt;(nodes) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(deg_cent&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;centrality_degree&lt;/span&gt;(mode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;out&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;centrality_degree&lt;/span&gt;(mode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;in&amp;#39;&lt;/span&gt;) ,
+         is_speaker &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;if_else&lt;/span&gt;(name &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; speakers,&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;) )  
+
+
+
+graph_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ggraph&lt;/span&gt;(layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;nicely&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_edge_link&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(width &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n,alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n),color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#f9dcc4&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_text&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; name,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),repel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;,family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_point&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; deg_cent&lt;span style=&#34;color:#ae81ff&#34;&gt;+2&lt;/span&gt;,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_color_tableau&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;facet_edges&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;season,nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_graph&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(
+    plot.title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      face &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bold&amp;#34;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;,
+      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+    ),
+    legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;,
+    plot.subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
+      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+    ),
+    strip.text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
+      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
+      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;
+    ),
+    
+        plot.caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
+      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;,
+      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
+      &lt;span style=&#34;color:#75715e&#34;&gt;#hjust = 0.5&lt;/span&gt;
+    ),
+    strip.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gray50&amp;#39;&lt;/span&gt;,
+                                    fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#fc9d9d&amp;#34;&lt;/span&gt;),
+  ) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;female_characters &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;monica&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rachel&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;phoebe&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;emily&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;carol&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;janice&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;susan&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;kathy&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;elizabeth&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;she&amp;#39;&lt;/span&gt;)
+male_characters &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ross&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;joey&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;chandler&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;mike&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;richard&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gunther&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;paolo&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bob&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;paul&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;frank&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;he&amp;#39;&lt;/span&gt;)
+tq &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tquery&lt;/span&gt;(pos &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;VERB&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;verb&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;children&lt;/span&gt;(relation &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nsubj&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;subject&amp;#34;&lt;/span&gt;))
+tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;unnest_tokens&lt;/span&gt;(sentence, text, token &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sentences&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rownames_to_column&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rowname,
+         text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sentence) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;spacy_parse&lt;/span&gt;(dependency &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;annotate_tqueries&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;annotation&amp;#34;&lt;/span&gt;, query_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tq) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;is.na&lt;/span&gt;(annotation))
+female_ids &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(token &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; female_characters, annotation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;subject&amp;#39;&lt;/span&gt; ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pull&lt;/span&gt;(doc_id)
+  
+male_ids &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(token &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; male_characters, annotation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;subject&amp;#39;&lt;/span&gt;  ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pull&lt;/span&gt;(doc_id)
+female_verbs &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; female_ids,pos &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;VERB&amp;#39;&lt;/span&gt;,relation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ROOT&amp;#39;&lt;/span&gt;  ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;unnest_tokens&lt;/span&gt;(word,lemma) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;anti_join&lt;/span&gt;(stop_words) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(word,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(pronoun &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;she&amp;#39;&lt;/span&gt;)
+male_verbs &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; male_ids,pos &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;VERB&amp;#39;&lt;/span&gt;,relation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ROOT&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;unnest_tokens&lt;/span&gt;(word,lemma) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;anti_join&lt;/span&gt;(stop_words) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(word,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(pronoun &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;he&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;verb_log &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; female_verbs &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;bind_rows&lt;/span&gt;(male_verbs) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(word&lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;singe&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pivot_wider&lt;/span&gt;(names_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pronoun,values_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n,values_fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; he &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; she,
+         he &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (he&lt;span style=&#34;color:#ae81ff&#34;&gt;+1&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(he &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;),
+         she &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (she &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(she &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;),
+         logratio &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;log2&lt;/span&gt;(she &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; he)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(total &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(logratio &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;top_n&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;,&lt;span style=&#34;color:#a6e22e&#34;&gt;abs&lt;/span&gt;(logratio)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ungroup&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(word &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;reorder&lt;/span&gt;(word,logratio),
+         nchars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nchar&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;as.character&lt;/span&gt;(word))) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;female_arrows &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tibble&lt;/span&gt;(
+  x1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;),
+  x2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;),
+  y1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;),
+  y2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.8&lt;/span&gt;)
+)
+male_arrows &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;tibble&lt;/span&gt;(
+  x1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;),
+  x2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;),
+  y1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-1&lt;/span&gt;),
+  y2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-1.8&lt;/span&gt;)
+)
+female_color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#ef476f&amp;#39;&lt;/span&gt;
+male_color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#118ab2&amp;#39;&lt;/span&gt;
+g &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_col&lt;/span&gt;(data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; verb_log , &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(word, logratio, fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  logratio &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_text&lt;/span&gt;(
+    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; verb_log ,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(
+      label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; word,
+      x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; word,
+      y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;if_else&lt;/span&gt;(logratio &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, logratio &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.03&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;nchars, logratio  &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.03&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;nchars)
+    ),
+    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;,
+    family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;,
+    face &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bold&amp;#39;&lt;/span&gt;,
+    &lt;span style=&#34;color:#75715e&#34;&gt;#label.padding = 0.05&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;coord_flip&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_y_continuous&lt;/span&gt;(limits &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_fill_manual&lt;/span&gt;(values &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(female_color, male_color)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;annotate&lt;/span&gt;(
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt;,
+    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;24&lt;/span&gt;,
+    y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.5&lt;/span&gt;,
+    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;More Female&amp;#39;&lt;/span&gt;,
+    family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;,
+    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; female_color,
+    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,
+    vjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;,
+    hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.6&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;annotate&lt;/span&gt;(
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt;,
+    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,
+    y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;-1.34&lt;/span&gt;,
+    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;More Male&amp;#39;&lt;/span&gt;,
+    family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;,
+    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; male_color,
+    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,
+    vjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;,
+    hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.6&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_curve&lt;/span&gt;(
+    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; female_arrows,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(
+      x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x1,
+      y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y1,
+      xend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x2,
+      yend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y2
+    ),
+    arrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arrow&lt;/span&gt;(length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unit&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.07&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inch&amp;#34;&lt;/span&gt;)),
+    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
+    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; female_color,
+    curvature &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_curve&lt;/span&gt;(
+    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; male_arrows,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(
+      x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x1,
+      y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y1,
+      xend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x2,
+      yend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y2
+    ),
+    arrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arrow&lt;/span&gt;(length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unit&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.07&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inch&amp;#34;&lt;/span&gt;)),
+    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
+    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; male_color,
+    curvature &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;labs&lt;/span&gt;(
+    title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;She Lies, He Listens&amp;#39;&lt;/span&gt;,
+    subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;This plot shows what common verbs were used to describe male and female characters in Friends&amp;#39;&lt;/span&gt;,
+    fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;,
+    caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;visualization: mcnakhaee.com&amp;#39;&lt;/span&gt;
+  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_fivethirtyeight&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(
+    text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Poppins Light&amp;#39;&lt;/span&gt;, color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#774936&amp;#39;&lt;/span&gt;),
+    plot.title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)),
+    plot.subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;)),
+    axis.text.y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_blank&lt;/span&gt;(),
+    plot.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#FFFAF0&amp;#39;&lt;/span&gt;),
+    panel.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#FFFAF0&amp;#39;&lt;/span&gt;),
+    legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;,
+    panel.grid.major  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_line&lt;/span&gt;(
+      color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#eddcd2&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;,
+      linetype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dashed&amp;#39;&lt;/span&gt;
+    ),
+    panel.grid.minor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_line&lt;/span&gt;(
+      color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#eddcd2&amp;#39;&lt;/span&gt;,
+      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.01&lt;/span&gt;,
+      linetype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dashed&amp;#39;&lt;/span&gt;
+    )
+  )
+g
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
       <title>The Happiest, Saddest, Most Energetic and Most Popular Persian Singers on Spotify</title>
       <link>/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/</link>
       <pubDate>Mon, 04 May 2020 00:00:00 +0000</pubDate>
       <guid>/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Introduction&lt;/h3&gt;
-&lt;p&gt;I am a music lover and like my other hobbies I am really interested in applying data science methods to it. A few months ago I participated in the third week of the TidyTuesday project where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then I have been using Spotify’s Web API to collect data and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify. We have different genres and types of music and while pop and rap are very popular among the younger generation I like the traditional style more. Nevertheless, I was always curios to understand how different the traditional music and pop music are from each other. For this reason, that I like the most These are a few questions that I would like to answer:&lt;/p&gt;
+&lt;p&gt;I am a music lover, and like my other hobbies, I am really interested in applying data science methods to it. A few months ago, I participated in the third week of the TidyTuesday project, where I made a map of Spotify songs based on audio features and a dimensionality reduction algorithm called UMAP. Since then, I have been using Spotify’s Web API to collect data, and recently, I decided to look at some of my favorite Iranian artists and their songs on Spotify. We have different genres and types of music, and while pop and rap are very popular among the younger generation, I like the traditional style more. Nevertheless, I was always curious to understand how different traditional music and pop music are. For this reason, that I like the most These are a few questions that I would like to answer:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;How different audio features can be among top Persian singers?&lt;/li&gt;
 &lt;li&gt;What are the most danceable and least danceable Persian songs?&lt;/li&gt;
-&lt;li&gt;Who is the most popular Persian singer and what is the most popular song?&lt;/li&gt;
+&lt;li&gt;Who is the most popular Persian singer, and what is the most popular song?&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(kableExtra)
 library(tidyverse)
@@ -45,7 +383,7 @@ library(cowplot)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;data-collection&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Data Collection&lt;/h2&gt;
-&lt;p&gt;I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using &lt;code&gt;spotifyr&lt;/code&gt; which gives us access to Spotify’s API. This process was cumbersome as sometimes I wasn’t getting what I was looking for. For instance, sometimes songs that belonged to another random artist were retrieved. For each singer, we can only retrieve the top 10 popular songs. It means that the rest of songs have no popularity scores. Nevertheless, I collected several types of information about more than 10000 songs (of course some of them are duplicates in the Spoitfy’s playlist or just a remix).&lt;/p&gt;
+&lt;p&gt;I compiled a list of Persian Singers manually and collected information about their available songs on Spotify using the &lt;code&gt;spotifyr&lt;/code&gt; package in R which lets us use R to access the Spotify’s API. This process was cumbersome as sometimes I was not getting what I was looking for. For instance, sometimes, songs that belonged to another random artist were retrieved. For each singer, we can only retrieve the top 10 popular songs. It means that the rest of the songs have no popularity scores. In the end, I collected various kinds of information about more than 10000 songs.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- read_csv(&amp;#39;https://raw.githubusercontent.com/mcnakhaee/datasets/master/Persian_Songs_Spotify.csv&amp;#39;)
 
 head(songs_audio_plus_pop) %&amp;gt;% 
@@ -209,7 +547,7 @@ NA
 Salar Aghili
 &lt;/td&gt;
 &lt;td style=&#34;text-align:left;&#34;&gt;
-سالار عقیلی
+&amp;lt;U+0633&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0631&amp;gt; &amp;lt;U+0639&amp;gt;&amp;lt;U+0642&amp;gt;&amp;lt;U+06CC&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+06CC&amp;gt;
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
 NA
@@ -331,7 +669,7 @@ NA
 Salar Aghili
 &lt;/td&gt;
 &lt;td style=&#34;text-align:left;&#34;&gt;
-سالار عقیلی
+&amp;lt;U+0633&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0631&amp;gt; &amp;lt;U+0639&amp;gt;&amp;lt;U+0642&amp;gt;&amp;lt;U+06CC&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+06CC&amp;gt;
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
 NA
@@ -453,7 +791,7 @@ NA
 Salar Aghili
 &lt;/td&gt;
 &lt;td style=&#34;text-align:left;&#34;&gt;
-سالار عقیلی
+&amp;lt;U+0633&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0631&amp;gt; &amp;lt;U+0639&amp;gt;&amp;lt;U+0642&amp;gt;&amp;lt;U+06CC&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+06CC&amp;gt;
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
 NA
@@ -575,7 +913,7 @@ NA
 Salar Aghili
 &lt;/td&gt;
 &lt;td style=&#34;text-align:left;&#34;&gt;
-سالار عقیلی
+&amp;lt;U+0633&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0631&amp;gt; &amp;lt;U+0639&amp;gt;&amp;lt;U+0642&amp;gt;&amp;lt;U+06CC&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+06CC&amp;gt;
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
 NA
@@ -697,7 +1035,7 @@ NA
 Salar Aghili
 &lt;/td&gt;
 &lt;td style=&#34;text-align:left;&#34;&gt;
-سالار عقیلی
+&amp;lt;U+0633&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0631&amp;gt; &amp;lt;U+0639&amp;gt;&amp;lt;U+0642&amp;gt;&amp;lt;U+06CC&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+06CC&amp;gt;
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
 NA
@@ -819,7 +1157,7 @@ NA
 Salar Aghili
 &lt;/td&gt;
 &lt;td style=&#34;text-align:left;&#34;&gt;
-سالار عقیلی
+&amp;lt;U+0633&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+0627&amp;gt;&amp;lt;U+0631&amp;gt; &amp;lt;U+0639&amp;gt;&amp;lt;U+0642&amp;gt;&amp;lt;U+06CC&amp;gt;&amp;lt;U+0644&amp;gt;&amp;lt;U+06CC&amp;gt;
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
 NA
@@ -913,27 +1251,27 @@ NA
 &lt;/table&gt;
 &lt;div id=&#34;overall-song-features&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Overall Song Features&lt;/h3&gt;
-&lt;p&gt;Aside from variables such the album that a song belongs to and its date of release, Spotify’s API can gives us several features that capture different audio characteristics of a song.&lt;/p&gt;
-&lt;p&gt;You can see a full list of these features in this link. However, I’m only interested in some of these features such as:&lt;/p&gt;
+&lt;p&gt;Apart from variables such as the album that a song belongs to and its date of release, Spotify’s API can give us several features that capture a song’s different audio characteristics.&lt;/p&gt;
+&lt;p&gt;You can see a full list of these features in this link. However, I am only interested in some of these features, such as:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;valence&lt;/strong&gt; measures the happiness of a song.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;energy&lt;/strong&gt; is quite self-explanatory.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;energy&lt;/strong&gt; is relatively self-explanatory.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;tempo&lt;/strong&gt; measures the speed of a song.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;loudness&lt;/strong&gt; is also self-explanatory.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;acousticness&lt;/strong&gt; identifies whether the track is acoustic&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;instrumentalness&lt;/strong&gt; shows whether a track contains no vocals.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;danceability&lt;/strong&gt; determines how good a song is for dancing.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&#34;&gt;This wonderful visualization&lt;/a&gt; inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/jakelawlor/TidyTuesday_JL/blob/master/CodeFiles/Jan21.20.Spotify.Rmd&#34;&gt;This excellent visualization&lt;/a&gt; inspired me to create a similar plot for some of the most well-known Persian singers and see how their audio features differ from each other.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;artists &amp;lt;-
   c( &amp;#39;Sirvan Khosravi&amp;#39;,&amp;#39;Hesameddin Seraj&amp;#39;,&amp;#39;Rastak&amp;#39;,&amp;#39;Shahram Nazeri&amp;#39;,&amp;#39;Hossein Alizadeh&amp;#39;,&amp;#39;Reza Sadeghi&amp;#39;,&amp;#39;Alireza Eftekhari&amp;#39;,&amp;#39;Mohammadreza Shajarian&amp;#39;,
      &amp;#39;Salar Aghili&amp;#39;,&amp;#39;Morteza Pashaei&amp;#39;, &amp;#39;Alireza Ghorbani&amp;#39;,&amp;#39;Homayoun Shajarian&amp;#39;, &amp;#39;Mohsen Yeganeh&amp;#39; ,&amp;#39;Morteza Pashaei&amp;#39;,&amp;#39;Moein&amp;#39;,&amp;#39;Farzad Farzin&amp;#39;,
      &amp;#39;Babak Jahanbakhsh&amp;#39;, &amp;#39;Ehsan Khajeh Amiri&amp;#39;,&amp;#39;Siavash Ghomayshi&amp;#39;,&amp;#39;Xaniar Khosravi&amp;#39;,&amp;#39;Tohi&amp;#39; ,&amp;#39;Mohsen Chavoshi&amp;#39;,&amp;#39;Amir Tataloo&amp;#39;,
      &amp;#39;Hamed Homayoun&amp;#39;,&amp;#39;Kayhan Kalhor&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I’ll plot the average, the minimum and the maximum value of each feature for each singer. That gives us a good picture of how different their audio characteristics are from each other. However, we must make the right adjustments to the dataset before visualizing it:&lt;/p&gt;
+&lt;p&gt;I will plot the average, the minimum, and the maximum value of each feature for each singer. That gives us a good picture of how different their audio characteristics are from each other. However, we must make the right adjustments to the dataset before visualizing it:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;We need to transform the original dataset into a long form, which can be done by &lt;code&gt;pivot_longer&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt; package.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;We should rescale each audio features, otherwise the plot wouldn’t make any sense.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We need to transform the original dataset into a long-dataframe, which can be done by &lt;code&gt;pivot_longer&lt;/code&gt; from the&lt;code&gt;dplyr&lt;/code&gt; package.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We should rescale each audio feature, otherwise, the plot would not make any sense.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;order &amp;lt;- c(
   &amp;quot;valence&amp;quot;,
@@ -960,7 +1298,7 @@ scaled_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
       &amp;quot;acousticness&amp;quot;,
       &amp;quot;danceability&amp;quot;),
     values_to = &amp;#39;value&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now, we can visualize the results for each artist. As I mentioned before, I’ll compare artists by the minimum (red) , the average (orange) and maximum (yellow) values of each audio features in their songs.&lt;/p&gt;
+&lt;p&gt;Now, we can visualize the results for each artist. As mentioned before, I will compare artists by the minimum (red), the average (orange), and maximum (yellow) values of each audio feature in their songs.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
   ### This plots the average of each audio feature
   geom_polygon(
@@ -1048,7 +1386,7 @@ scaled_features_long &amp;lt;- songs_audio_plus_pop %&amp;gt;%
 &lt;/div&gt;
 &lt;div id=&#34;looking-more-closely-at-each-audio-feature&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Looking more closely at each audio feature&lt;/h3&gt;
-&lt;p&gt;My first plot is informative but it only gives us an overall picture of audio features but I would like to have a more detailed picture of singers and the audio features for each of their songs. For this reason, I will also make a separate plot for each audio feature where every song and its corresponding feature values are shown. I will also mark a few popular songs from each artist with a separate color on this plot.&lt;/p&gt;
+&lt;p&gt;My first plot is informative, but it only gives us an overall picture of audio features. However, I would like to have a more detailed picture of singers and the audio features for each of their songs. For this reason, I will also make a separate plot for each audio feature where every song and its corresponding feature values are shown. I will also mark a few popular songs from each artist with a different color on this plot.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Set a custom theme for our plots
 theme_set(theme_void() +
   theme(
@@ -1085,7 +1423,7 @@ theme_set(theme_void() +
     legend.position = &amp;#39;none&amp;#39;,
     plot.background = element_rect(fill = &amp;quot;#516869&amp;quot;)
   ))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Again here I’ll change the dataset to make it ready for visualization.&lt;/p&gt;
+&lt;p&gt;Again here, I will change the dataset to make it ready for visualization.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop_jitter &amp;lt;- songs_audio_plus_pop %&amp;gt;% 
   filter(artist_name %in% artists) %&amp;gt;% 
   mutate(is_popular = !is.na(popularity)) %&amp;gt;%
@@ -1298,7 +1636,7 @@ theme_set(theme_void() +
 &lt;/div&gt;
 &lt;div id=&#34;most-popular-songs&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Most Popular Songs&lt;/h2&gt;
-&lt;p&gt;As I mentioned previously, we can only retrieve his/her top 10 popular songs for each artist. The popularity of a track is a value between 0 (least popular) and 100 (most popular). Spotify uses an algorithm to calculate popularity scores which is heavily influenced by the total number of times that a song has been played recently. You can read more about it in this &lt;a href=&#34;https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;As I mentioned previously, we can only retrieve his/her top 10 popular songs for each artist. The popularity of a track is a value between 0 (the least popular) and 100 (the most popular). Spotify uses an algorithm to calculate popularity scores, which is heavily influenced by the total number of times a song has been played recently. You can read more about it in this &lt;a href=&#34;https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Knowing this fact about how popularity is measured, we can visualize songs and artists that have been popular and played recently.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;songs_audio_plus_pop &amp;lt;- songs_audio_plus_pop %&amp;gt;%
   filter(
@@ -1388,7 +1726,7 @@ songs_audio_plus_pop %&amp;gt;%
     plot.margin = unit(c(1, 1, 1.5, 1.2), &amp;quot;cm&amp;quot;)
   )&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-04-happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;This plot shows the most popular song of each artist and also the least popular track among his top 10 songs. The artists are also sorted based on their average popularity.&lt;/p&gt;
+&lt;p&gt;This plot shows the most popular song and the least popular track of each artist among his top 10 songs. The artists are also sorted based on their average popularity.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -1399,6 +1737,7 @@ songs_audio_plus_pop %&amp;gt;%
       <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-02-12-analyzing-football-data/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;names(html_table)&amp;lt;- col_names
@@ -1423,6 +1762,7 @@ slice(1)&lt;/p&gt;
       <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-02-01-the-map-of-spotify-songs/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;In the &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md&#34;&gt;4th week of the Tidy Tuesday project&lt;/a&gt;, a very interesting and fun dataset was proposed to the data science community. The dataset contains information about thousands of songs on Spotify’s platform and along with their metadata and audio features. You can download the dataset can using the following piece of code.&lt;/p&gt;
@@ -1444,7 +1784,7 @@ head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
 ## #   energy &amp;lt;dbl&amp;gt;, key &amp;lt;dbl&amp;gt;, loudness &amp;lt;dbl&amp;gt;, mode &amp;lt;dbl&amp;gt;, speechiness &amp;lt;dbl&amp;gt;,
 ## #   acousticness &amp;lt;dbl&amp;gt;, instrumentalness &amp;lt;dbl&amp;gt;, liveness &amp;lt;dbl&amp;gt;, valence &amp;lt;dbl&amp;gt;,
 ## #   tempo &amp;lt;dbl&amp;gt;, duration_ms &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For this week’s tidy Tuesday, I decided to use a rather different approach from my previous submission. Instead of focusing entirely on the visualization aspect of my submission, I tried to use other tools from tidy model universe for machine learning model development.&lt;/p&gt;
+&lt;p&gt;For this week’s tidy Tuesday, I decided to use a somewhat different approach from my previous submissions. Instead of focusing solely on the visualization aspect of my submissions, I tried to use other tools from the tidy model universe for machine learning model development,&lt;/p&gt;
 &lt;p&gt;Each song has around 12 columns representing audio features. The Github’s page for this dataset describes these features as follows:&lt;/p&gt;
 &lt;table&gt;
 &lt;colgroup&gt;
@@ -1522,7 +1862,7 @@ head(spotify_songs)&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;It would be very helpful to compare songs based on the combination of their audio features and have an overall picture of where each song is placed. Unfortunately, we can only visualize 2 or 3 audio features at the same time and It is not possible to put all these features on a 2D or 3D space. So, I tried to use unsupervised machine learning for the purpose of visualizing songs on a 2D space by transforming their high-dimensional audio features into a more compressed form.&lt;/p&gt;
+&lt;p&gt;It would be very helpful to compare songs based on their audio features and have an overall picture of where each song is placed. Unfortunately, we can only visualize 2 or 3 audio features at the same time, and It is not possible to put all these features in a 2D or 3D space. So, I tried to use unsupervised machine learning to visualize songs on a 2D space by transforming their high-dimensional audio features into a more compressed form.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
 library(tidymodels)
 library(workflows)
@@ -1556,14 +1896,14 @@ theme_update(legend.position = &amp;#39;top&amp;#39;,
    axis.text.y.left = element_blank()) &lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;dimensionality-reduction-and-umap&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Dimensionality Reduction and UMAP&lt;/h2&gt;
-&lt;p&gt;My initial idea was to use some clustering algorithms to cluster songs based on their audio feature and find songs that are similar to each other. Yet, it was difficult to visualize these clusters in a two dimensional space. Of course you can do that by using hierarchal clustering but even then visualizing a few thousands samples (songs) seems to be impractical. So, I decided to to use other unsupervised techniques to compress these high-dimensional audio features and transform them into a more compact 2D space.&lt;/p&gt;
-&lt;p&gt;There are a number of dimensionality reduction algorithms such as PCA, t-SNE UMAP. The main purpose of these algorithm is to give us a compressed representation of the input data, which is obtained with the least possible information loss. PCA is a linear dimensionality reduction method while both t-SNE and UMAP are non-linear methods.&lt;/p&gt;
-&lt;p&gt;In this post, I will use UMAP and t-SNE, two widely used dimensionality reduction algorithms. When the input dataset is large T-SNE becomes very slow and is not an efficient algorithm anymore. On the other hand, UMAP can handle larger datasets much more easily. Moreover, not only UMAP can preserve the underlying local structure present in the data, but it can also represent the global structure of the data more accurately. What do we mean by local and global structure? For example, in the song dataset, persevering local structure means that songs that belong to an artist are clustered together. Similarly, global structure means that songs belonging to more related genres (e.g. hard rock, album rock and classic rock) will be placed in a close proximity of each other on the new projection&lt;/p&gt;
-&lt;p&gt;UMAP achieves this goal by employing some advanced optimization techniques and mathematical concept. Understanding how UMAP uses these techniques and projects the input data into a more compressed representation is not crucial, but If you are curios to know more about the theory behind UMAP and its difference with T-SNE, I recommend &lt;a href=&#34;https://pair-code.github.io/understanding-umap/&#34;&gt;this wonderful blogpost&lt;/a&gt; by Andy Coenen and Adam Pearce.&lt;/p&gt;
+&lt;p&gt;My initial idea was to use some clustering algorithms to cluster songs based on their audio feature and find songs that are similar to each other. Yet, it was not easy to visualize these clusters in a two-dimensional space. Of course, you can do that by using hierarchal clustering but even then, visualizing a few thousand samples (songs) seems to be impractical. So, I decided to use other unsupervised techniques to compress these high-dimensional audio features and transform them into a more compact 2D space.&lt;/p&gt;
+&lt;p&gt;There are several dimensionality reduction algorithms such as PCA, t-SNE UMAP. The primary purpose of these algorithms is to give us a compressed representation of the input data, while preserving the most relevant information in the data. PCA is a linear dimensionality reduction method, while both t-SNE and UMAP are non-linear methods.&lt;/p&gt;
+&lt;p&gt;In this post, I will use UMAP and t-SNE, two widely used dimensionality reduction algorithms. When the input dataset is large T-SNE becomes very slow and is not an efficient algorithm anymore. On the other hand, UMAP can handle larger datasets much more easily and quickly. Moreover, UMAP can preserve the underlying local structure present in the data, and it can also represent the global structure of the data more accurately. What do we mean by local and global structure? For example, in the song dataset, persevering local structure means that songs that belong to an artist are clustered together. Similarly, global structure means that songs belonging to more related genres (e.g., hard rock, album rock, and classic rock) will be placed in close proximity to each other on the new projection.&lt;/p&gt;
+&lt;p&gt;UMAP achieves this goal by employing some advanced optimization techniques and mathematical concepts. Understanding how UMAP uses these techniques and projects the input data into a more compressed representation is not crucial, but If you are curious to know more about the theory behind UMAP and its difference with T-SNE, I recommend &lt;a href=&#34;https://pair-code.github.io/understanding-umap/&#34;&gt;this excellent blogpost&lt;/a&gt; by Andy Coenen and Adam Pearce.&lt;/p&gt;
 &lt;div id=&#34;data-preprocessing&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Data Preprocessing&lt;/h3&gt;
-&lt;p&gt;Both UMAP and T-SNE compute a distance metric between samples. This distance metric should be meaningful and reasonable. If we do not scale the input features before ru some features might have higher (unfair) influence than other features on the computation of distance between samples. For this reason, it is necessary to normalize input features before implementing a them,&lt;/p&gt;
-&lt;p&gt;I create a data preprocessing recipe using the &lt;code&gt;recipe&lt;/code&gt; package and I add a normalization step to scale the audio features. Note that since I implement an unsupervised algorithm, there is no need to split the dataset into a training and testing dataset.&lt;/p&gt;
+&lt;p&gt;Both UMAP and T-SNE compute a distance metric between samples. This distance metric should be meaningful and reasonable. If we do not scale the input features before feeding them to these algorithms, some features might have a stronger (unfair) influence than other features on the computation of the distance between samples. For this reason, it is necessary to normalize input features before implementing them,&lt;/p&gt;
+&lt;p&gt;I create a data preprocessing recipe using the &lt;code&gt;recipe&lt;/code&gt; package, and I add a normalization step to scale the audio features. Note that since I implement an unsupervised algorithm, there is no need to split the dataset into a training and testing dataset.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;normalized_features &amp;lt;- spotify_songs %&amp;gt;%
  recipe() %&amp;gt;% 
  step_normalize( danceability,
@@ -1840,12 +2180,12 @@ for (nn in n_neighbors) {
     color = &amp;#39;&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;For the most part, both t-SNE and UMAP place songs from the same artists or similar songs close to each other. The UMAP embeddings with Euclidean distance are somehow similar to a real map. In the UMAP representation of the songs, we can see isolated clusters of songs. However, in t-SNE representation, no clear and separate cluster of points can be seen.
-We can observe that the most influential hyper-parameter seems to be distance metric. Additionally, when we decrease the value of &lt;code&gt;min_dist&lt;/code&gt;, the projection becomes less compact and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music and We need to incorporate other aspects of songs such as lyrics to be able to differentiate between genres. For instance, Kaylin Pavlik in her blogpost explained how she based on similar audio features trained several machine learning models to classify songs into 6 main categories (EDM, Latin, Pop, R&amp;amp;B, Rap, &amp;amp; Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset but I couldn’t achieve higher performance.&lt;/p&gt;
+We can observe that the most influential hyper-parameter seems to be the distance metric. Additionally, when we decrease the value of &lt;code&gt;min_dist&lt;/code&gt;, the projection becomes less compact, and the global structure emerges. However, we also see that sometimes music genres are not well-separated as we would like them to be. We should take into account that audio features might not be enough to distinguish between genres of music, and We need to incorporate other aspects of songs such as lyrics to differentiate between genres. For instance, Kaylin Pavlik, in her blogpost explained how she based on similar audio features, trained several machine learning models to classify songs into six main categories (EDM, Latin, Pop, R&amp;amp;B, Rap, &amp;amp; Rock). Her best model achieved an accuracy of 54.3%, which is a decent performance but not super accurate. I also tuned and trained a few machine learning models on this dataset, but I could not achieve higher performance.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;supervised-umap&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Supervised UMAP&lt;/h2&gt;
-&lt;p&gt;UMAP is an unsupervised dimensionality reduction algorithm but we can also feed target labels to UMAP and make it a &lt;a href=&#34;https://umap-learn.readthedocs.io/en/latest/supervised.html&#34;&gt;supervised algorithm&lt;/a&gt; by specifying the target variable. To make this happen in UWOT, we can just give the target column (playlist_genre) as an input to &lt;code&gt;y&lt;/code&gt; argument.&lt;/p&gt;
+&lt;p&gt;UMAP is an unsupervised dimensionality reduction algorithm, but we can also feed target labels to UMAP and make it a &lt;a href=&#34;https://umap-learn.readthedocs.io/en/latest/supervised.html&#34;&gt;supervised algorithm&lt;/a&gt; by specifying the target variable. To make this happen in UWOT, we can give the target column (playlist_genre) as an input to &lt;code&gt;y&lt;/code&gt; argument.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;supervised_umap_embedding_df &amp;lt;- 
   spotify_songs %&amp;gt;% 
   select(-c(12:22)) %&amp;gt;% 
@@ -1885,7 +2225,7 @@ We can observe that the most influential hyper-parameter seems to be distance me
       <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-01-24-some-fun-with-maps/</guid>
       <description>
-
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 </description>
@@ -1897,6 +2237,7 @@ We can observe that the most influential hyper-parameter seems to be distance me
       <pubDate>Sat, 04 Jan 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;This talk was mainly focused on the importance of visualization and other techniques for exploring and explaining data. In other words, one approach to explainability is to first explore the input data and find interesting patterns. This can be done via:&lt;/p&gt;

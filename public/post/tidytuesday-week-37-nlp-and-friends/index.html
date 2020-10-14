@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.5.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Muhammad Chenariyan Nakhaee">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tidyverse)library(ggthemes)library(tidytuesdayR)library(rsyntax)library(spacyr)library(tidytext)library(tidygraph)library(igraph)library(ggraph)library(gganimate)library(hrbrthemes)spacy_initialize(model = &#34;en_core_web_lg&#34;)tt &lt;- tt_load(&#34;2020-09-08&#34;)tt$friends_emotionsfriends_df &lt;- tt$friends %&gt;%rownames_to_column() %&gt;%rename(doc_id = rowname) Top Locations places_scenes &lt;- friends_df %&gt;%filter(str_detect(text, fixed(&#39;Scene:&#39;))) %&gt;%select( text) %&gt;%rowwise() %&gt;%mutate(place = str_split(text, &#39;,&#39;)[[1]][1],place = str_remove_all(place, &#39;erm&#39;),place = str_remove(place, fixed(&#39;[Scene: &#39;)) ,place = str_trim(place)) %&gt;%count(place, sort = TRUE) %&gt;%filter(n &gt; 10,!">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/tidytuesday-week-37-nlp-and-friends/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#328cc1">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.min.a1e68790d54b399632e80a98649b3d14.css">
+
+  
+    
+    
+    
+    
+      
+    
+    
+    
+    <link rel="stylesheet" href="/css/academic.ed4eb580d51d5203cc5d4b573235472f.css">
+  
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="/post/tidytuesday-week-37-nlp-and-friends/">
+
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@m_cnakhaee">
+  <meta property="twitter:creator" content="@m_cnakhaee">
+  
+  <meta property="og:site_name" content="Muhammad Chenariyan Nakhaee">
+  <meta property="og:url" content="/post/tidytuesday-week-37-nlp-and-friends/">
+  <meta property="og:title" content="TidyTuesday Week 37: NLP and Friends | Muhammad Chenariyan Nakhaee">
+  <meta property="og:description" content="knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tidyverse)library(ggthemes)library(tidytuesdayR)library(rsyntax)library(spacyr)library(tidytext)library(tidygraph)library(igraph)library(ggraph)library(gganimate)library(hrbrthemes)spacy_initialize(model = &#34;en_core_web_lg&#34;)tt &lt;- tt_load(&#34;2020-09-08&#34;)tt$friends_emotionsfriends_df &lt;- tt$friends %&gt;%rownames_to_column() %&gt;%rename(doc_id = rowname) Top Locations places_scenes &lt;- friends_df %&gt;%filter(str_detect(text, fixed(&#39;Scene:&#39;))) %&gt;%select( text) %&gt;%rowwise() %&gt;%mutate(place = str_split(text, &#39;,&#39;)[[1]][1],place = str_remove_all(place, &#39;erm&#39;),place = str_remove(place, fixed(&#39;[Scene: &#39;)) ,place = str_trim(place)) %&gt;%count(place, sort = TRUE) %&gt;%filter(n &gt; 10,!"><meta property="og:image" content="/img/avatar.jpg">
+  <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-09-28T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-09-28T18:10:56&#43;02:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/tidytuesday-week-37-nlp-and-friends/"
+  },
+  "headline": "TidyTuesday Week 37: NLP and Friends",
+  
+  "datePublished": "2020-09-28T00:00:00Z",
+  "dateModified": "2020-09-28T18:10:56+02:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Muhammad Chenariyan Nakhaee"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Muhammad Chenariyan Nakhaee",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/img/icon-512.png"
+    }
+  },
+  "description": "knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)\rlibrary(tidyverse)\rlibrary(ggthemes)\rlibrary(tidytuesdayR)\rlibrary(rsyntax)\rlibrary(spacyr)\rlibrary(tidytext)\rlibrary(tidygraph)\rlibrary(igraph)\rlibrary(ggraph)\rlibrary(gganimate)\rlibrary(hrbrthemes)\rspacy_initialize(model = \u0026#34;en_core_web_lg\u0026#34;)\rtt \u0026lt;- tt_load(\u0026#34;2020-09-08\u0026#34;)\rtt$friends_emotions\rfriends_df \u0026lt;- tt$friends %\u0026gt;%\rrownames_to_column() %\u0026gt;%\rrename(doc_id = rowname) Top Locations places_scenes \u0026lt;- friends_df %\u0026gt;%\rfilter(str_detect(text, fixed(\u0026#39;Scene:\u0026#39;))) %\u0026gt;%\rselect( text) %\u0026gt;%\rrowwise() %\u0026gt;%\rmutate(\rplace = str_split(text, \u0026#39;,\u0026#39;)[[1]][1],\rplace = str_remove_all(place, \u0026#39;erm\u0026#39;),\rplace = str_remove(place, fixed(\u0026#39;[Scene: \u0026#39;)) ,\rplace = str_trim(place)\r) %\u0026gt;%\rcount(place, sort = TRUE) %\u0026gt;%\rfilter(n \u0026gt; 10,\r!"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="/css/codefolding.css" />
+
+
+
+  <title>TidyTuesday Week 37: NLP and Friends | Muhammad Chenariyan Nakhaee</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Muhammad Chenariyan Nakhaee</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>About</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/project/"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/publication/"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/contact/"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>TidyTuesday Week 37: NLP and Friends</h1>
+
+  
+
+  
+    
+
+<div id="code-folding-buttons" class="dropdown btn-group pull-right">
+  <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" id="allCodeToggleButton"
+     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Code
+  </a>
+  <div class="dropdown-menu" aria-labelledby="allCodeToggleButton">
+    <a id="rmd-show-all-code" class="dropdown-item small" href="#">Show all</a>
+    <a id="rmd-hide-all-code" class="dropdown-item small" href="#">Hide all</a>
+  </div>
+</div>
+
+
+
+    
+
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Sep 28, 2020
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/tidytuesday-week-37-nlp-and-friends/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/nlp/">NLP</a>, <a href="/categories/r/">R</a>, <a href="/categories/social-network-analysis/">social network analysis</a></span>
+  
+
+  
+    
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr<span style="color:#f92672">::</span>opts_chunk<span style="color:#f92672">$</span><span style="color:#a6e22e">set</span>(warning <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, message <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,eval <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(tidyverse)
+<span style="color:#a6e22e">library</span>(ggthemes)
+<span style="color:#a6e22e">library</span>(tidytuesdayR)
+<span style="color:#a6e22e">library</span>(rsyntax)
+<span style="color:#a6e22e">library</span>(spacyr)
+<span style="color:#a6e22e">library</span>(tidytext)
+<span style="color:#a6e22e">library</span>(tidygraph)
+<span style="color:#a6e22e">library</span>(igraph)
+<span style="color:#a6e22e">library</span>(ggraph)
+<span style="color:#a6e22e">library</span>(gganimate)
+<span style="color:#a6e22e">library</span>(hrbrthemes)
+<span style="color:#a6e22e">spacy_initialize</span>(model <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;en_core_web_lg&#34;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">tt <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tt_load</span>(<span style="color:#e6db74">&#34;2020-09-08&#34;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">tt<span style="color:#f92672">$</span>friends_emotions
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">friends_df <span style="color:#f92672">&lt;-</span> tt<span style="color:#f92672">$</span>friends <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">rownames_to_column</span>() <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">rename</span>(doc_id <span style="color:#f92672">=</span> rowname) 
+</code></pre></div><h3 id="top-locations">Top Locations</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">places_scenes <span style="color:#f92672">&lt;-</span> friends_df <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">str_detect</span>(text, <span style="color:#a6e22e">fixed</span>(<span style="color:#e6db74">&#39;Scene:&#39;</span>))) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">select</span>( text) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">rowwise</span>() <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">mutate</span>(
+    place <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_split</span>(text, <span style="color:#e6db74">&#39;,&#39;</span>)[[1]][1],
+    place <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_remove_all</span>(place, <span style="color:#e6db74">&#39;erm&#39;</span>),
+    place <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_remove</span>(place, <span style="color:#a6e22e">fixed</span>(<span style="color:#e6db74">&#39;[Scene: &#39;</span>)) ,
+    place <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_trim</span>(place)
+  ) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">count</span>(place, sort <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">10</span>,
+         <span style="color:#f92672">!</span><span style="color:#a6e22e">str_detect</span>(place, <span style="color:#a6e22e">fixed</span>(<span style="color:#e6db74">&#39;]&#39;</span>)),
+         <span style="color:#f92672">!</span>place <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;Monica&#39;</span>, <span style="color:#e6db74">&#39;Chandler&#39;</span>))
+
+    
+places_scenes  <span style="color:#f92672">%&gt;%</span> 
+  DT<span style="color:#f92672">::</span><span style="color:#a6e22e">datatable</span>()
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"> places_scenes <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> <span style="color:#a6e22e">fct_reorder</span>(place,n),n)) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_col</span>(fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#ef476f&#39;</span>) <span style="color:#f92672">+</span>
+  <span style="color:#75715e">#scale_fill_tableau() +</span>
+  <span style="color:#75715e">#facet_wrap(~season,nrow = 10,scales = &#39;free_y&#39;) +</span>
+  <span style="color:#a6e22e">coord_flip</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme_fivethirtyeight</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme</span>(legend.position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;none&#39;</span>, 
+        axis.text.x <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(angle <span style="color:#f92672">=</span> <span style="color:#ae81ff">90</span>))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">tokens <span style="color:#f92672">&lt;-</span> tt<span style="color:#f92672">$</span>friends <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">rownames_to_column</span>() <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">rename</span>(doc_id <span style="color:#f92672">=</span> rowname) <span style="color:#f92672">%&gt;%</span>
+<span style="color:#a6e22e">spacy_parse</span>(pos <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,tag <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</code></pre></div><h3 id="friends-network">Friends&rsquo; Network</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">friends_entities <span style="color:#f92672">&lt;-</span> friends_df <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">inner_join</span>(tokens,by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;doc_id&#39;</span>) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">str_detect</span>(entity,<span style="color:#e6db74">&#39;PERSON_B&#39;</span>),
+        <span style="color:#f92672">!</span>speaker <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;Scene Directions&#39;</span>),
+        <span style="color:#f92672">!</span>token <span style="color:#f92672">%in%</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;Bye&#39;</span>,<span style="color:#e6db74">&#39;kiddin&#39;</span>,<span style="color:#e6db74">&#39;God&#39;</span>,<span style="color:#e6db74">&#39;Sting&#39;</span>,<span style="color:#e6db74">&#39;Bijan&#39;</span>)) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(token <span style="color:#f92672">=</span> <span style="color:#a6e22e">case_when</span>(<span style="color:#a6e22e">str_detect</span>(<span style="color:#a6e22e">str_to_lower</span>(token),<span style="color:#e6db74">&#39;rach&#39;</span>) <span style="color:#f92672">~</span> <span style="color:#e6db74">&#39;Rachel&#39;</span>,
+                           <span style="color:#a6e22e">str_detect</span>(<span style="color:#a6e22e">str_to_lower</span>(token),<span style="color:#e6db74">&#39;joe&#39;</span>)<span style="color:#f92672">~</span> <span style="color:#e6db74">&#39;Joey&#39;</span>,
+                            <span style="color:#a6e22e">str_detect</span>(<span style="color:#a6e22e">str_to_lower</span>(token),<span style="color:#e6db74">&#39;pheebs&#39;</span>)  <span style="color:#f92672">~</span> <span style="color:#e6db74">&#39;Phoebe&#39;</span>,
+                           <span style="color:#66d9ef">TRUE</span> <span style="color:#f92672">~</span> token))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">tokens_speakers_count <span style="color:#f92672">&lt;-</span> friends_entities <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">count</span>(speaker,token,sort <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">&gt;</span><span style="color:#ae81ff">5</span>) <span style="color:#f92672">%&gt;%</span> 
+
+speakers <span style="color:#f92672">&lt;-</span> tokens_speakers_count <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">distinct</span>(speaker) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">pull</span>()
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traph_df <span style="color:#f92672">&lt;-</span> tokens_speakers_count <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">rename</span>(from <span style="color:#f92672">=</span> speaker,
+         to <span style="color:#f92672">=</span> token) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">as_tbl_graph</span>(directed <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">activate</span>(nodes) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">mutate</span>( deg_cent <span style="color:#f92672">=</span> <span style="color:#a6e22e">log10</span>(<span style="color:#a6e22e">centrality_degree</span>() <span style="color:#ae81ff">+1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,
+         is_speaker <span style="color:#f92672">=</span> <span style="color:#a6e22e">if_else</span>(name <span style="color:#f92672">%in%</span> speakers,<span style="color:#66d9ef">TRUE</span>,<span style="color:#66d9ef">FALSE</span>) )
+
+traph_df <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">ggraph</span>(layout <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;nicely&#39;</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_edge_link</span>(<span style="color:#a6e22e">aes</span>(width <span style="color:#f92672">=</span> n,alpha <span style="color:#f92672">=</span> n),color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#f9dcc4&#39;</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_node_text</span>(<span style="color:#a6e22e">aes</span>(label <span style="color:#f92672">=</span> name,color <span style="color:#f92672">=</span> is_speaker),repel <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Rubik&#39;</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_node_point</span>(<span style="color:#a6e22e">aes</span>(size <span style="color:#f92672">=</span> deg_cent,color <span style="color:#f92672">=</span> is_speaker),alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">scale_color_tableau</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme_graph</span>() <span style="color:#f92672">+</span> 
+    <span style="color:#a6e22e">theme</span>(
+    plot.title <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(
+      family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;American Typewriter&#39;</span>,
+      face <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bold&#34;</span>,
+      size <span style="color:#f92672">=</span> <span style="color:#ae81ff">60</span>,
+      margin <span style="color:#f92672">=</span> ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">margin</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">0</span>),
+      hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    ),
+    legend.position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;none&#39;</span>,
+    plot.subtitle <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(
+      family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;American Typewriter&#39;</span>,
+      size <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>,
+      margin <span style="color:#f92672">=</span> <span style="color:#a6e22e">margin</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">0</span>),
+      hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    ),
+    strip.text <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(
+      family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;American Typewriter&#39;</span>,
+      size <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>,
+      <span style="color:#75715e">#margin = margin(0, 0, 60, 0),</span>
+      hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+    ),
+    
+        plot.caption <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(
+      family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;American Typewriter&#39;</span>,
+      size <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>,
+      <span style="color:#75715e">#margin = margin(0, 0, 60, 0),</span>
+      <span style="color:#75715e">#hjust = 0.5</span>
+    ),
+    strip.background <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_rect</span>(color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;gray50&#39;</span>,
+                                    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#fc9d9d&#34;</span>),
+  ) 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">tokens_speakers_season_ount <span style="color:#f92672">&lt;-</span> friends_entities <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">count</span>(season,speaker,token,sort <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">%&gt;%</span> 
+  
+  <span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">&gt;</span><span style="color:#ae81ff">15</span>)
+  
+  
+graph_df <span style="color:#f92672">&lt;-</span> tokens_speakers_season_ount <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">rename</span>(from <span style="color:#f92672">=</span> speaker,
+         to <span style="color:#f92672">=</span> token) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">as_tbl_graph</span>(directed <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">activate</span>(nodes) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">mutate</span>(deg_cent<span style="color:#f92672">=</span> <span style="color:#a6e22e">centrality_degree</span>(mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;out&#39;</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">centrality_degree</span>(mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;in&#39;</span>) ,
+         is_speaker <span style="color:#f92672">=</span> <span style="color:#a6e22e">if_else</span>(name <span style="color:#f92672">%in%</span> speakers,<span style="color:#66d9ef">TRUE</span>,<span style="color:#66d9ef">FALSE</span>) )  
+
+
+
+graph_df <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">ggraph</span>(layout <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;nicely&#39;</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_edge_link</span>(<span style="color:#a6e22e">aes</span>(width <span style="color:#f92672">=</span> n,alpha <span style="color:#f92672">=</span> n),color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#f9dcc4&#39;</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_node_text</span>(<span style="color:#a6e22e">aes</span>(label <span style="color:#f92672">=</span> name,color <span style="color:#f92672">=</span> is_speaker),repel <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,size <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>,family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Rubik&#39;</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_node_point</span>(<span style="color:#a6e22e">aes</span>(size <span style="color:#f92672">=</span> deg_cent<span style="color:#ae81ff">+2</span>,color <span style="color:#f92672">=</span> is_speaker),alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">scale_color_tableau</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">facet_edges</span>(<span style="color:#f92672">~</span>season,nrow <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme_graph</span>() <span style="color:#f92672">+</span> 
+    <span style="color:#a6e22e">theme</span>(
+    plot.title <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(
+      family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;American Typewriter&#39;</span>,
+      face <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bold&#34;</span>,
+      size <span style="color:#f92672">=</span> <span style="color:#ae81ff">60</span>,
+      margin <span style="color:#f92672">=</span> ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">margin</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">0</span>),
+      hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    ),
+    legend.position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;none&#39;</span>,
+    plot.subtitle <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(
+      family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;American Typewriter&#39;</span>,
+      size <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>,
+      margin <span style="color:#f92672">=</span> <span style="color:#a6e22e">margin</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">0</span>),
+      hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    ),
+    strip.text <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(
+      family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;American Typewriter&#39;</span>,
+      size <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>,
+      <span style="color:#75715e">#margin = margin(0, 0, 60, 0),</span>
+      hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+    ),
+    
+        plot.caption <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(
+      family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;American Typewriter&#39;</span>,
+      size <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>,
+      <span style="color:#75715e">#margin = margin(0, 0, 60, 0),</span>
+      <span style="color:#75715e">#hjust = 0.5</span>
+    ),
+    strip.background <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_rect</span>(color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;gray50&#39;</span>,
+                                    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#fc9d9d&#34;</span>),
+  ) 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">female_characters <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;monica&#39;</span>,<span style="color:#e6db74">&#39;rachel&#39;</span>,<span style="color:#e6db74">&#39;phoebe&#39;</span>,<span style="color:#e6db74">&#39;emily&#39;</span>,<span style="color:#e6db74">&#39;carol&#39;</span>,<span style="color:#e6db74">&#39;janice&#39;</span>,<span style="color:#e6db74">&#39;susan&#39;</span>,<span style="color:#e6db74">&#39;kathy&#39;</span>,<span style="color:#e6db74">&#39;elizabeth&#39;</span>,<span style="color:#e6db74">&#39;she&#39;</span>)
+male_characters <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;ross&#39;</span>,<span style="color:#e6db74">&#39;joey&#39;</span>,<span style="color:#e6db74">&#39;chandler&#39;</span>,<span style="color:#e6db74">&#39;mike&#39;</span>,<span style="color:#e6db74">&#39;richard&#39;</span>,<span style="color:#e6db74">&#39;gunther&#39;</span>,<span style="color:#e6db74">&#39;paolo&#39;</span>,<span style="color:#e6db74">&#39;bob&#39;</span>,<span style="color:#e6db74">&#39;paul&#39;</span>,<span style="color:#e6db74">&#39;frank&#39;</span>,<span style="color:#e6db74">&#39;he&#39;</span>)
+tq <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tquery</span>(pos <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;VERB&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;verb&#34;</span>, <span style="color:#a6e22e">children</span>(relation <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nsubj&#34;</span>, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;subject&#34;</span>))
+tokens_df_dep <span style="color:#f92672">&lt;-</span> tt<span style="color:#f92672">$</span>friends <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">unnest_tokens</span>(sentence, text, token <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;sentences&#39;</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">rownames_to_column</span>() <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">rename</span>(doc_id <span style="color:#f92672">=</span> rowname,
+         text <span style="color:#f92672">=</span> sentence) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">spacy_parse</span>(dependency <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">annotate_tqueries</span>(<span style="color:#e6db74">&#34;annotation&#34;</span>, query_name <span style="color:#f92672">=</span> tq) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">filter</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">is.na</span>(annotation))
+female_ids <span style="color:#f92672">&lt;-</span> tokens_df_dep <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">filter</span>(token <span style="color:#f92672">%in%</span> female_characters, annotation <span style="color:#f92672">==</span><span style="color:#e6db74">&#39;subject&#39;</span> ) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">pull</span>(doc_id)
+  
+male_ids <span style="color:#f92672">&lt;-</span> tokens_df_dep <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">filter</span>(token <span style="color:#f92672">%in%</span> male_characters, annotation <span style="color:#f92672">==</span><span style="color:#e6db74">&#39;subject&#39;</span>  ) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">pull</span>(doc_id)
+female_verbs <span style="color:#f92672">&lt;-</span> tokens_df_dep <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">filter</span>(doc_id <span style="color:#f92672">%in%</span> female_ids,pos <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;VERB&#39;</span>,relation <span style="color:#f92672">==</span><span style="color:#e6db74">&#39;ROOT&#39;</span>  ) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">unnest_tokens</span>(word,lemma) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">anti_join</span>(stop_words) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">count</span>(word,sort <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(pronoun <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;she&#39;</span>)
+male_verbs <span style="color:#f92672">&lt;-</span> tokens_df_dep <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">filter</span>(doc_id <span style="color:#f92672">%in%</span> male_ids,pos <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;VERB&#39;</span>,relation <span style="color:#f92672">==</span><span style="color:#e6db74">&#39;ROOT&#39;</span>) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">unnest_tokens</span>(word,lemma) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">anti_join</span>(stop_words) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">count</span>(word,sort <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(pronoun <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;he&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">verb_log <span style="color:#f92672">&lt;-</span> female_verbs <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">bind_rows</span>(male_verbs) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">filter</span>(word<span style="color:#f92672">!=</span><span style="color:#e6db74">&#39;singe&#39;</span>) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">pivot_wider</span>(names_from <span style="color:#f92672">=</span> pronoun,values_from <span style="color:#f92672">=</span> n,values_fill <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(total <span style="color:#f92672">=</span> he <span style="color:#f92672">+</span> she,
+         he <span style="color:#f92672">=</span> (he<span style="color:#ae81ff">+1</span>)<span style="color:#f92672">/</span><span style="color:#a6e22e">sum</span>(he <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>),
+         she <span style="color:#f92672">=</span> (she <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#a6e22e">sum</span>(she <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>),
+         logratio <span style="color:#f92672">=</span> <span style="color:#a6e22e">log2</span>(she <span style="color:#f92672">/</span> he)) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">filter</span>(total <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">15</span>) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">group_by</span>(logratio <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">top_n</span>(<span style="color:#ae81ff">15</span>,<span style="color:#a6e22e">abs</span>(logratio)) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">ungroup</span>() <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(word <span style="color:#f92672">=</span> <span style="color:#a6e22e">reorder</span>(word,logratio),
+         nchars <span style="color:#f92672">=</span> <span style="color:#a6e22e">nchar</span>(<span style="color:#a6e22e">as.character</span>(word))) 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">female_arrows <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+  x1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">23</span>),
+  x2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">23</span>),
+  y1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>),
+  y2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1.8</span>)
+)
+male_arrows <span style="color:#f92672">&lt;-</span>  <span style="color:#a6e22e">tibble</span>(
+  x1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">9</span>),
+  x2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">9</span>),
+  y1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-1</span>),
+  y2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-1.8</span>)
+)
+female_color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#ef476f&#39;</span>
+male_color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#118ab2&#39;</span>
+g <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_col</span>(data <span style="color:#f92672">=</span> verb_log , <span style="color:#a6e22e">aes</span>(word, logratio, fill <span style="color:#f92672">=</span>  logratio <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_text</span>(
+    data <span style="color:#f92672">=</span> verb_log ,
+    <span style="color:#a6e22e">aes</span>(
+      label <span style="color:#f92672">=</span> word,
+      x <span style="color:#f92672">=</span> word,
+      y <span style="color:#f92672">=</span> <span style="color:#a6e22e">if_else</span>(logratio <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>, logratio <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.03</span><span style="color:#f92672">*</span>nchars, logratio  <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.03</span><span style="color:#f92672">*</span>nchars)
+    ),
+    color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;white&#39;</span>,
+    family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Rubik&#39;</span>,
+    face <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;bold&#39;</span>,
+    <span style="color:#75715e">#label.padding = 0.05</span>
+  ) <span style="color:#f92672">+</span>
+  
+  <span style="color:#a6e22e">coord_flip</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">scale_y_continuous</span>(limits <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-2</span>, <span style="color:#ae81ff">2</span>)) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">scale_fill_manual</span>(values <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(female_color, male_color)) <span style="color:#f92672">+</span>
+  ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">annotate</span>(
+    <span style="color:#e6db74">&#34;text&#34;</span>,
+    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">24</span>,
+    y <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.5</span>,
+    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;More Female&#39;</span>,
+    family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Rubik&#39;</span>,
+    color <span style="color:#f92672">=</span> female_color,
+    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>,
+    vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>,
+    hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.6</span>
+  ) <span style="color:#f92672">+</span>
+  ggplot2<span style="color:#f92672">::</span><span style="color:#a6e22e">annotate</span>(
+    <span style="color:#e6db74">&#34;text&#34;</span>,
+    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>,
+    y <span style="color:#f92672">=</span> <span style="color:#ae81ff">-1.34</span>,
+    label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;More Male&#39;</span>,
+    family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Rubik&#39;</span>,
+    color <span style="color:#f92672">=</span> male_color,
+    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>,
+    vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>,
+    hjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.6</span>
+  ) <span style="color:#f92672">+</span>
+  
+  <span style="color:#a6e22e">geom_curve</span>(
+    data <span style="color:#f92672">=</span> female_arrows,
+    <span style="color:#a6e22e">aes</span>(
+      x <span style="color:#f92672">=</span> x1,
+      y <span style="color:#f92672">=</span> y1,
+      xend <span style="color:#f92672">=</span> x2,
+      yend <span style="color:#f92672">=</span> y2
+    ),
+    arrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">arrow</span>(length <span style="color:#f92672">=</span> <span style="color:#a6e22e">unit</span>(<span style="color:#ae81ff">0.07</span>, <span style="color:#e6db74">&#34;inch&#34;</span>)),
+    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+    color <span style="color:#f92672">=</span> female_color,
+    curvature <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  ) <span style="color:#f92672">+</span>
+  
+  <span style="color:#a6e22e">geom_curve</span>(
+    data <span style="color:#f92672">=</span> male_arrows,
+    <span style="color:#a6e22e">aes</span>(
+      x <span style="color:#f92672">=</span> x1,
+      y <span style="color:#f92672">=</span> y1,
+      xend <span style="color:#f92672">=</span> x2,
+      yend <span style="color:#f92672">=</span> y2
+    ),
+    arrow <span style="color:#f92672">=</span> <span style="color:#a6e22e">arrow</span>(length <span style="color:#f92672">=</span> <span style="color:#a6e22e">unit</span>(<span style="color:#ae81ff">0.07</span>, <span style="color:#e6db74">&#34;inch&#34;</span>)),
+    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+    color <span style="color:#f92672">=</span> male_color,
+    curvature <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  ) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">labs</span>(
+    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;She Lies, He Listens&#39;</span>,
+    subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;This plot shows what common verbs were used to describe male and female characters in Friends&#39;</span>,
+    fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>,
+    caption <span style="color:#f92672">=</span>  <span style="color:#e6db74">&#39;visualization: mcnakhaee.com&#39;</span>
+  ) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme_fivethirtyeight</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme</span>(
+    text <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Poppins Light&#39;</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#774936&#39;</span>),
+    plot.title <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(margin <span style="color:#f92672">=</span> <span style="color:#a6e22e">margin</span>(t <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>)),
+    plot.subtitle <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_text</span>(margin <span style="color:#f92672">=</span> <span style="color:#a6e22e">margin</span>(b <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>)),
+    axis.text.y <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_blank</span>(),
+    plot.background <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_rect</span>(fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#FFFAF0&#39;</span>),
+    panel.background <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_rect</span>(fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#FFFAF0&#39;</span>),
+    legend.position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;none&#39;</span>,
+    panel.grid.major  <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_line</span>(
+      color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#eddcd2&#39;</span>,
+      size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>,
+      linetype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;dashed&#39;</span>
+    ),
+    panel.grid.minor <span style="color:#f92672">=</span> <span style="color:#a6e22e">element_line</span>(
+      color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#eddcd2&#39;</span>,
+      size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>,
+      linetype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;dashed&#39;</span>
+    )
+  )
+g
+</code></pre></div>
+    </div>
+
+    
+
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/r/">R</a>
+  
+  <a class="badge badge-light" href="/tags/nlp/">NLP</a>
+  
+  <a class="badge badge-light" href="/tags/visualization/">Visualization</a>
+  
+  <a class="badge badge-light" href="/tags/social-network-analysis/">social network analysis</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card">
+    
+      
+      <img class="portrait mr-3" src="/authors/admin/avatar_hub745bfe23d2f8324d7277352a88ce1a8_77169_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Muhammad Chenariyan Nakhaee</a></h5>
+      <h6 class="card-subtitle">Machine Learning Researcher</h6>
+      <p class="card-text">I am Muhammad,a data scientist and machine learning enthusiast</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/m_cnakhaee" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=vbXQurwAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/mcnakhaee" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://instagram.com/mcnakhaee" target="_blank" rel="noopener">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+      
+      
+      <div class="article-widget">
+        <div class="hr-light"></div>
+        <h3>Related</h3>
+        <ul>
+          
+          <li><a href="/post/tidy-tuesday-week-37-nlp-and-friends/">Tidy Tuesday Week 37: NLP and Friends</a></li>
+          
+          <li><a href="/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/">Analyzing the 2020 Democratic Presidential Debates - Part 2</a></li>
+          
+          <li><a href="/post/happiest-saddest-most-energetic-and-fastet-persian-singers-on-spotify/">The Happiest, Saddest, Most Energetic and Most Popular Persian Singers on Spotify</a></li>
+          
+          <li><a href="/post/2020-02-23-the-most-eloquent-democratic-candidate/">Analyzing the 2020 Democratic Party Presidential Debates - Part 1</a></li>
+          
+          <li><a href="/post/2020-02-12-analyzing-football-data/">Analyzing Football Data</a></li>
+          
+        </ul>
+      </div>
+      
+    
+
+    
+
+    
+<section id="comments">
+  
+    
+
+  
+</section>
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/python.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.0bf1e3db85cbb232372ed31d6f10dc70.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/otherwidget/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/otherwidget/terms/">Terms</a>
+    
+  </p>
+  
+  
+  
+   
+  <script>
+  $(document).ready(function () {
+    window.initializeCodeFolding("show" === "hide");
+  });
+  </script>
+  <script src="/js/codefolding.js"></script>
+
+
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
