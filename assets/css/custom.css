@@ -8,7 +8,7 @@ a {
 a:active, 
 a:focus, 
 a:hover {
-  color: #6096BA;
+  color: #d33682;
 }
 
 /* nav */
@@ -34,7 +34,7 @@ a:hover {
 }
 
 .navbar-nav {
-  border-bottom: 2px solid #6096BA;
+  border-bottom: 2px solid #dc322f;
 }
 
 .navbar-brand {
@@ -45,7 +45,7 @@ a:hover {
 
 .navbar-light .navbar-brand:focus, 
 .navbar-light .navbar-brand:hover {
-  color: #6096BA;
+  color: #d33682;
 }
 
 /* text */
@@ -53,18 +53,15 @@ a:hover {
 h1, h2, h3, h4, h5, h6 {
   color: #333;
   font-weight: 400;
-   
 }
 
 body {
   color: #333;
   font-size: 0.9rem;
-   
 }
 
 h1 {
   font-size: 2rem;
-   
 }
 
 /* home page */
@@ -104,7 +101,6 @@ h1 {
   letter-spacing: .08em;
 }
 
-p {text-align: justify;}
 /* make dark even/odd sections same color so less stripey */
 
 .dark .home-section:nth-of-type(n) {
@@ -229,13 +225,13 @@ div.universal-wrapper.pt-3 h1 {
 	margin-left: 10rem;
 	margin-right: 10rem;
 	padding-bottom: 68px;
-  border-bottom: 1px solid #6096BA;
+  border-bottom: 1px solid #dc322f;
 }
 
 hr {
   border: 0;
   height: 1px;
-  background: #6096BA;
+  background: #dc322f;
   background-image: none;
 }
 
@@ -269,17 +265,17 @@ iframe {
 /* pagination buttons */
 
 .page-link {
-	color: #6096BA;
+	color: #dc322f;
 	background-color: #fbf9f4;
-	border: 1px solid #6096BA;
+	border: 1px solid #dc322f;
   border-radius: 0px; /*undo rounded corners*/
 
 }
 
 .page-link:hover {
 	color: #fff;
-	background-color: #6096BA;
-	border-color: #6096BA;
+	background-color: #dc322f;
+	border-color: #dc322f;
 }
 
 .page-item:first-child .page-link {
@@ -295,11 +291,11 @@ iframe {
 /* dark fixes */
 
 .dark .pagination li > a, .pagination li > span {
-	border: 1px solid #6096BA;
+	border: 1px solid #dc322f;
 }
 
 .dark .page-link:hover {
-	background-color: #6096BA;
+	background-color: #dc322f;
 }
 
 .dark a:active, 
@@ -308,6 +304,18 @@ iframe {
 	color: #fff;
 }
 
-h3.article-title i.fab {
-	color: #6096BA;
+h3.article-title i.fa-youtube {
+	color: #dc322f;
 }
+
+h3.article-title i.fa-box-open {
+	color: #b58900 ;
+}
+
+.wistia_placebo_close_button img {
+  color: #2A2D35; /* this is our “black” */
+  font-family: Walsheim;
+  font-feature-settings: "kern" 1, "liga" 1, "ss01" 1, "ss04" 1;
+  font-synthesis: style;
+  font-weight: 400;
+} 
