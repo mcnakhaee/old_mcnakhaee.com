@@ -1,0 +1,151 @@
+---
+title: 'Tidy Tuesday Week 37: NLP and Friends'
+author: mcnakhaee
+date: '2020-10-15'
+slug: []
+categories:
+  - NLP
+  - R
+  - social network analysis
+tags:
+  - R
+  - NLP
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-10-15T10:28:36+02:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>I experience a few difficult and sad moments in my life in the past few months and it was not particularly an easy job for me to cope with these hard moments. However, I found a medicine to fight the sadness that was caused by these painful experience: watching Friends! I have watched Friends many many times but still it can bring smile to my face. Every time I feel being sad, I just start to watch several episodes on Friends, one after another and the laughter does the rest!</p>
+<p>So, when I realized that the dataset we are going to work with in the 37th week of 2020 Tidy Tuesdays project, I was absolutely thrilled and excited to get my hands on this dataset and analyze it. As a big fan of Friends, many ideas popped into my head on how I can make an interesting analysis on this dataset. In this post, I will go through three of them:
+1. In Which locations (scenes) Friends was most filmed?
+2. How characters in the show interacted with each other?
+3. What kinds of actions female and male characters in the show were doing?</p>
+<p>I will addressed these three questions in the rest of this post!</p>
+<pre class="r"><code>library(tidyverse)
+library(ggthemes)
+library(tidytuesdayR)
+library(rsyntax)
+library(spacyr)
+library(tidytext)
+library(tidygraph)
+library(igraph)
+library(ggraph)
+library(hrbrthemes)
+library(DT)
+spacy_initialize(model = &quot;en_core_web_lg&quot;)
+
+theme_set(  theme_fivethirtyeight()) 
+theme_update(
+    text = element_text(family = &#39;Poppins Light&#39;, color = &#39;#774936&#39;),
+    plot.title = element_text(margin = margin(t = 10, b = 10)),
+    plot.subtitle = element_text(margin = margin(b = 20)),
+    axis.text.y = element_blank(),
+    plot.background = element_rect(fill = &#39;#FFFAF0&#39;),
+    panel.background = element_rect(fill = &#39;#FFFAF0&#39;),
+    legend.position = &#39;none&#39;,
+    panel.grid.major  = element_line(
+      color = &#39;#eddcd2&#39;,
+      size = 0.5,
+      linetype = &#39;dashed&#39;
+    ),
+    panel.grid.minor = element_line(
+      color = &#39;#eddcd2&#39;,
+      size = 0.01,
+      linetype = &#39;dashed&#39;
+    )
+  )</code></pre>
+<p>Let us load the Friends dataset using the handy <code>tt_load</code> function from the <code>tidytuesdayR</code> package!</p>
+<pre class="r"><code>tt &lt;- tt_load(&quot;2020-09-08&quot;)
+friends_df &lt;- tt$friends </code></pre>
+<p>It returns three tables but since the data that I need , I will only be working with the friends transcript dataset.</p>
+<pre class="r"><code>friends_df %&gt;% 
+  head(20) %&gt;% 
+  datatable()</code></pre>
+<pre class="r"><code>friends_df &lt;- tt$friends </code></pre>
+<div id="top-locations" class="section level3">
+<h3>Top Locations</h3>
+<p>Now let’s find out which locations this show was filmed the most. This information is available in the <code>text</code> column.
+In this column,Usually the location where the scene took place comes after the <code>Scene:</code> string . So, we only need to find and filter rows that have this string. Unfortunately, this information is not available for the first and the last two seasons of Friends!</p>
+<pre class="r"><code>friends_df %&gt;%
+  filter(str_detect(text, fixed(&#39;Scene:&#39;))) %&gt;% 
+  head() %&gt;% 
+  datatable()</code></pre>
+<pre class="r"><code>scences &lt;- friends_df %&gt;%
+  filter(str_detect(text, fixed(&#39;Scene:&#39;))) %&gt;%
+  rowwise() %&gt;%
+  mutate(
+    location = if_else(season &lt;9,str_split(text, &#39;,&#39;)[[1]][1],str_split(text, fixed(&#39;.&#39;))[[1]][1]),
+    location = str_remove_all(location, &#39;erm&#39;),
+    location = str_remove_all(location, fixed(&#39;erm&#39;)),
+    location = str_remove(location, fixed(&#39;[Scene:&#39;)) ,
+    location = str_trim(location)
+  ) %&gt;% 
+  filter(!str_detect(location, fixed(&#39;]&#39;)),
+         !location %in% c(&#39;Monica&#39;, &#39;Chandler&#39;))
+
+scenes_location_count &lt;- scences %&gt;%
+  count(location, sort = TRUE) %&gt;%
+  filter(n &gt; 10 )</code></pre>
+<p>Now let’s sort and look at the top locations in Friends:</p>
+<pre class="r"><code>scenes_location_count  %&gt;% 
+  DT::datatable()</code></pre>
+<p>So, Central Perk was the location where most scenes took place!</p>
+<pre class="r"><code> scenes_location_count %&gt;% 
+  ggplot(aes(x = fct_reorder(location,n),n)) +
+  geom_col(fill = &#39;#ef476f&#39;) +
+  coord_flip() +
+  labs(title = &#39;Most Filmed Locations in Friends&#39; ) +
+  theme_fivethirtyeight() +
+  theme(legend.position = &#39;none&#39;, 
+        axis.text.x = element_text(angle = 90))</code></pre>
+<p>But let’s look at how many times each different locations</p>
+<pre class="r"><code>scences %&gt;% 
+  count(season,location,sort = TRUE) %&gt;% 
+  filter(n&gt;5) %&gt;% 
+  ggplot(aes(x= season,y=n)) +
+  geom_line(color = &#39;red&#39;,size = 1)+
+  geom_point(color = &#39;red&#39;,size = 3)+
+  labs(title = &#39;Where Was Freinds Filmed?&#39;,subtitle = &#39;&#39;) +
+  facet_wrap(~location) </code></pre>
+<p>it inspired me to perform the same analysis on the Friends’ transcript. However, my approach is slightly different from what Julia Sigles employed. She used bigrams to find a combination of pronouns and verbs while My approach uses named entity recognition (NER) form the natural language processing literature. In my previous posts, I used Spacy and Python to extract named entities from text data, but in this post I will exclusively use
+the <code>spacyr</code> package in R (which behind the scene uses Spacy and python).</p>
+<pre class="r"><code>female_characters &lt;- c(&#39;monica&#39;,&#39;rachel&#39;,&#39;phoebe&#39;,&#39;emily&#39;,&#39;carol&#39;,&#39;janice&#39;,&#39;susan&#39;,&#39;kathy&#39;,&#39;elizabeth&#39;,&#39;she&#39;)
+male_characters &lt;- c(&#39;ross&#39;,&#39;joey&#39;,&#39;chandler&#39;,&#39;mike&#39;,&#39;richard&#39;,&#39;gunther&#39;,&#39;paolo&#39;,&#39;bob&#39;,&#39;paul&#39;,&#39;frank&#39;,&#39;he&#39;)
+
+
+male_speakers &lt;- c(&#39;Ross Geller&#39;,&#39;Chandler Bing&#39;,&#39;Joey Tribbiani&#39;,&#39;Richard Burke&#39;,&#39;Mike Hannigan&#39;,&#39;Frank Buffay Jr.&#39;,&#39;Jack Geller&#39;,&#39;David&#39;,&#39;Peter Becker&#39;,&#39;Eddie Menuek&#39;,&#39;Gunther&#39;,&#39;Paul Stevens&#39;)
+
+female_speakers &lt;- c(&#39;Rachel Green&#39;,&#39;Phoebe Buffay&#39;,&#39;Janice Litman Goralnik&#39;,&#39;Monica Geller&#39;,&#39;Emily Waltham&#39;,&#39;Charlie Wheeler&#39;,&#39;Judy Geller&#39;,&#39;Amy Green&#39;,&#39;Carol Willick&#39;,&#39;Mona&#39;)</code></pre>
+<p>I start by separating the text column into sentences and give each sentence a unique id which I use later for joining dataframes.</p>
+<pre class="r"><code>friends_sentences &lt;- friends_df %&gt;%
+  unnest_tokens(sentence, text, token = &#39;sentences&#39;) %&gt;%
+  rownames_to_column() %&gt;%
+  rename(doc_id = rowname,
+         text = sentence) 
+friends_sentences %&gt;%
+  tail() %&gt;% 
+  datatable()</code></pre>
+<p>The main function that I am going to use from <code>spacyr</code> is the ‘spacy_parse’ function which can return named entities, dependencies, part-of-speech tags, etc. By default, it does not give us dependencies so we need to set <code>dependency = TRUE</code>.</p>
+<pre class="r"><code>tq &lt;- tquery(pos = &quot;VERB&quot;, label = &quot;verb&quot;, children(relation = &quot;nsubj&quot;, label = &quot;subject&quot;))
+tokens_df_dep &lt;- friends_sentences %&gt;% 
+  spacy_parse(dependency = TRUE) %&gt;%
+  annotate_tqueries(&quot;annotation&quot;, query_name = tq) %&gt;%
+  filter(!is.na(annotation))</code></pre>
+<p>Now I join tokens that I created using spacy and the firends sentences dataframe.</p>
+<p>I will pull the documnets id that:</p>
+<p>token</p>
+</div>
+<div id="friends-network" class="section level3">
+<h3>Friends’ Network</h3>
+</div>

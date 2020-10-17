@@ -69,72 +69,67 @@
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2020-10-03T05:39:56+02:00</lastmod>
+    <lastmod>2020-10-16T00:27:32+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/how-did-the-first-presidential-debate-go/</loc>
-    <lastmod>2020-10-03T05:39:56+02:00</lastmod>
+    <loc>/post/2020-10-16-exploring-word-embeddings/</loc>
+    <lastmod>2020-10-16T00:27:32+02:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/nlp/</loc>
-    <lastmod>2020-10-03T05:39:56+02:00</lastmod>
+    <lastmod>2020-10-16T00:27:32+02:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/nlp/</loc>
-    <lastmod>2020-10-03T05:39:56+02:00</lastmod>
+    <lastmod>2020-10-16T00:27:32+02:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2020-10-03T05:39:56+02:00</lastmod>
+    <lastmod>2020-10-16T00:27:32+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2020-10-16T00:27:32+02:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/r/</loc>
-    <lastmod>2020-10-03T05:39:56+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/r/</loc>
-    <lastmod>2020-10-03T05:39:56+02:00</lastmod>
+    <lastmod>2020-10-16T00:27:32+02:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2020-10-03T05:39:56+02:00</lastmod>
+    <lastmod>2020-10-16T00:27:32+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/social-network-analysis/</loc>
-    <lastmod>2020-09-28T18:10:56+02:00</lastmod>
+    <loc>/categories/r/</loc>
+    <lastmod>2020-10-15T11:58:37+02:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/social-network-analysis/</loc>
-    <lastmod>2020-09-28T18:10:56+02:00</lastmod>
+    <lastmod>2020-10-15T10:28:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/tidy-tuesday-week-37-nlp-and-friends/</loc>
-    <lastmod>2020-09-28T12:19:37+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/tidytuesday/</loc>
-    <lastmod>2020-09-28T12:19:37+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/tidytuesday-week-37-nlp-and-friends/</loc>
-    <lastmod>2020-09-28T18:10:56+02:00</lastmod>
+    <loc>/post/2020-10-15-tidy-tuesday-week-37-nlp-and-friend/</loc>
+    <lastmod>2020-10-15T10:28:36+02:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/visualization/</loc>
-    <lastmod>2020-09-28T18:10:56+02:00</lastmod>
+    <lastmod>2020-10-15T11:58:37+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-10-15-which-presidential-debate-was-more-chaotic/</loc>
+    <lastmod>2020-10-15T11:58:37+02:00</lastmod>
   </url>
   
   <url>
@@ -145,11 +140,6 @@
   <url>
     <loc>/tags/machine-learning/</loc>
     <lastmod>2020-02-14T00:25:41+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/python/</loc>
-    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
   </url>
   
   <url>
@@ -179,6 +169,11 @@
   
   <url>
     <loc>/categories/python/</loc>
+    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/social-network-analysis/</loc>
     <lastmod>2020-03-08T00:10:58+01:00</lastmod>
   </url>
   
@@ -264,6 +259,11 @@
   
   <url>
     <loc>/project/2019-12-29-tidy-tuesday-submissions/</loc>
+    <lastmod>2019-12-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/tidytuesday/</loc>
     <lastmod>2019-12-29T00:00:00+00:00</lastmod>
   </url>
   

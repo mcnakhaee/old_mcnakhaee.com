@@ -94,7 +94,7 @@
     
     
     
-    <link rel="stylesheet" href="/css/academic.ed4eb580d51d5203cc5d4b573235472f.css">
+    <link rel="stylesheet" href="/css/academic.bf0d00976bb752be54a4f3e21798555c.css">
   
 
   
@@ -134,7 +134,7 @@
   <meta property="og:description" content="Personal Blog of Muhammad Chenariyan Nakhaee"><meta property="og:image" content="/img/avatar.jpg">
   <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-09-28T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2020-10-15T00:00:00&#43;00:00">
   
 
   
@@ -388,10 +388,10 @@
   
   
   <div>
-    <h2><a href="/post/tidytuesday-week-37-nlp-and-friends/">TidyTuesday Week 37: NLP and Friends</a></h2>
+    <h2><a href="/post/2020-10-15-tidy-tuesday-week-37-nlp-and-friend/">Tidy Tuesday Week 37: NLP and Friends</a></h2>
     <div class="article-style">
       
-      knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tidyverse)library(ggthemes)library(tidytuesdayR)library(rsyntax)library(spacyr)library(tidytext)library(tidygraph)library(igraph)library(ggraph)library(gganimate)library(hrbrthemes)spacy_initialize(model = &#34;en_core_web_lg&#34;)tt &lt;- tt_load(&#34;2020-09-08&#34;)tt$friends_emotionsfriends_df &lt;- tt$friends %&gt;%rownames_to_column() %&gt;%rename(doc_id = rowname) Top Locations places_scenes &lt;- friends_df %&gt;%filter(str_detect(text, fixed(&#39;Scene:&#39;))) %&gt;%select( text) %&gt;%rowwise() %&gt;%mutate(place = str_split(text, &#39;,&#39;)[[1]][1],place = str_remove_all(place, &#39;erm&#39;),place = str_remove(place, fixed(&#39;[Scene: &#39;)) ,place = str_trim(place)) %&gt;%count(place, sort = TRUE) %&gt;%filter(n &gt; 10,!
+      I experience a few difficult and sad moments in my life in the past few months and it was not particularly an easy job for me to cope with these hard moments. However, I found a medicine to fight the sadness that was caused by these painful experience: watching Friends! I have watched Friends many many times but still it can bring smile to my face. Every time I feel being sad, I just start to watch several episodes on Friends, one after another and the laughter does the rest!
       
     </div>
   </div>

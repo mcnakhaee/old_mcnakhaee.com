@@ -5,20 +5,12 @@
     <link>/tags/tidytuesday/</link>
       <atom:link href="/tags/tidytuesday/index.xml" rel="self" type="application/rss+xml" />
     <description>TidyTuesday</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 28 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 29 Dec 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>TidyTuesday</title>
       <link>/tags/tidytuesday/</link>
     </image>
-    
-    <item>
-      <title>Tidy Tuesday Week 37: NLP and Friends</title>
-      <link>/post/tidy-tuesday-week-37-nlp-and-friends/</link>
-      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>/post/tidy-tuesday-week-37-nlp-and-friends/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Tidy Tuesday Submissions</title>

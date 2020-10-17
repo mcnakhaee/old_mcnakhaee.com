@@ -5,7 +5,7 @@
     <link>/tags/visualization/</link>
       <atom:link href="/tags/visualization/index.xml" rel="self" type="application/rss+xml" />
     <description>Visualization</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 28 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 15 Oct 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Visualization</title>
@@ -13,340 +13,285 @@
     </image>
     
     <item>
-      <title>Tidy Tuesday Week 37: NLP and Friends</title>
-      <link>/post/tidy-tuesday-week-37-nlp-and-friends/</link>
-      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>/post/tidy-tuesday-week-37-nlp-and-friends/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>TidyTuesday Week 37: NLP and Friends</title>
-      <link>/post/tidytuesday-week-37-nlp-and-friends/</link>
-      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
-      <guid>/post/tidytuesday-week-37-nlp-and-friends/</guid>
-      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;knitr&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;opts_chunk&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(warning &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, message &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;,eval &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidyverse)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(ggthemes)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidytuesdayR)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(rsyntax)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(spacyr)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidytext)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidygraph)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(igraph)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(ggraph)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(gganimate)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(hrbrthemes)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;spacy_initialize&lt;/span&gt;(model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;en_core_web_lg&amp;#34;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tt &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tt_load&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2020-09-08&amp;#34;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends_emotions
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;friends_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;rownames_to_column&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rowname) 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;top-locations&#34;&gt;Top Locations&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;places_scenes &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(text, &lt;span style=&#34;color:#a6e22e&#34;&gt;fixed&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Scene:&amp;#39;&lt;/span&gt;))) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;( text) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;rowwise&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(
-    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_split&lt;/span&gt;(text, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;,&amp;#39;&lt;/span&gt;)[[1]][1],
-    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_remove_all&lt;/span&gt;(place, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;erm&amp;#39;&lt;/span&gt;),
-    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_remove&lt;/span&gt;(place, &lt;span style=&#34;color:#a6e22e&#34;&gt;fixed&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[Scene: &amp;#39;&lt;/span&gt;)) ,
-    place &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;str_trim&lt;/span&gt;(place)
-  ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(place, sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,
-         &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(place, &lt;span style=&#34;color:#a6e22e&#34;&gt;fixed&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;]&amp;#39;&lt;/span&gt;)),
-         &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;place &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Monica&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Chandler&amp;#39;&lt;/span&gt;))
-
-    
-places_scenes  &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  DT&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;datatable&lt;/span&gt;()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt; places_scenes &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fct_reorder&lt;/span&gt;(place,n),n)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_col&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#ef476f&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#75715e&#34;&gt;#scale_fill_tableau() +&lt;/span&gt;
-  &lt;span style=&#34;color:#75715e&#34;&gt;#facet_wrap(~season,nrow = 10,scales = &amp;#39;free_y&amp;#39;) +&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;coord_flip&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_fivethirtyeight&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;, 
-        axis.text.x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(angle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;90&lt;/span&gt;))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tokens &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;rownames_to_column&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rowname) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;spacy_parse&lt;/span&gt;(pos &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;,tag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;friends-network&#34;&gt;Friends&amp;rsquo; Network&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;friends_entities &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;inner_join&lt;/span&gt;(tokens,by &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;doc_id&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(entity,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;PERSON_B&amp;#39;&lt;/span&gt;),
-        &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;speaker &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Scene Directions&amp;#39;&lt;/span&gt;),
-        &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;token &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Bye&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;kiddin&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;God&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Sting&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Bijan&amp;#39;&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(token &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;case_when&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_to_lower&lt;/span&gt;(token),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rach&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rachel&amp;#39;&lt;/span&gt;,
-                           &lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_to_lower&lt;/span&gt;(token),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;joe&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Joey&amp;#39;&lt;/span&gt;,
-                            &lt;span style=&#34;color:#a6e22e&#34;&gt;str_detect&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;str_to_lower&lt;/span&gt;(token),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pheebs&amp;#39;&lt;/span&gt;)  &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Phoebe&amp;#39;&lt;/span&gt;,
-                           &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; token))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tokens_speakers_count &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_entities &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(speaker,token,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-
-speakers &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_speakers_count &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;distinct&lt;/span&gt;(speaker) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;pull&lt;/span&gt;()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;traph_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_speakers_count &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; speaker,
-         to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; token) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;as_tbl_graph&lt;/span&gt;(directed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;activate&lt;/span&gt;(nodes) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;( deg_cent &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;log10&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;centrality_degree&lt;/span&gt;() &lt;span style=&#34;color:#ae81ff&#34;&gt;+1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
-         is_speaker &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;if_else&lt;/span&gt;(name &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; speakers,&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;) )
-
-traph_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;ggraph&lt;/span&gt;(layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;nicely&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_edge_link&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(width &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n,alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n),color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#f9dcc4&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_text&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; name,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),repel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_point&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; deg_cent,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_color_tableau&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_graph&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(
-    plot.title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
-      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
-      face &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bold&amp;#34;&lt;/span&gt;,
-      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;,
-      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
-      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
-    ),
-    legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;,
-    plot.subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
-      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
-      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
-      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
-      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
-    ),
-    strip.text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
-      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
-      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
-      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
-      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;
-    ),
-    
-        plot.caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
-      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
-      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;,
-      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
-      &lt;span style=&#34;color:#75715e&#34;&gt;#hjust = 0.5&lt;/span&gt;
-    ),
-    strip.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gray50&amp;#39;&lt;/span&gt;,
-                                    fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#fc9d9d&amp;#34;&lt;/span&gt;),
-  ) 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tokens_speakers_season_ount &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; friends_entities &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(season,speaker,token,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;)
-  
-  
-graph_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_speakers_season_ount &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; speaker,
-         to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; token) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;as_tbl_graph&lt;/span&gt;(directed &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;activate&lt;/span&gt;(nodes) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(deg_cent&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;centrality_degree&lt;/span&gt;(mode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;out&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;centrality_degree&lt;/span&gt;(mode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;in&amp;#39;&lt;/span&gt;) ,
-         is_speaker &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;if_else&lt;/span&gt;(name &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; speakers,&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;) )  
+      <title>Which Presidential Debate Was More Chaotic?</title>
+      <link>/post/2020-10-15-which-presidential-debate-was-more-chaotic/</link>
+      <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-10-15-which-presidential-debate-was-more-chaotic/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
+&lt;p&gt;Many people watched the first Presidential Debate between Biden and Trump and thought that this debate was chaotic, full of vulgar language, interruptions, and in a word, really ugly! Some people even consider this debate as &lt;a href=&#34;https://www.politico.com/news/2020/09/30/the-worst-presidential-debate-in-history-423765&#34;&gt;the worst debate in the modern history of US Presidential Elections!&lt;/a&gt; Four years ago, Trump was also a presidential candidate and ran against Hillary Clinton. The Presidential Debates in 2016 were not exceptionally friendly or civilized. So, the question is what made the 2020 first debate unique and chaotic in many people’s minds. In this blog post, I will investigate this question and compare the 2020 and 2016 Presidential debates and the Vice Presidential debates.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse) # metapackage of all tidyverse packages
+library(lubridate)
+library(readxl)
+library(ggthemes)
+library(showtext)
+library(plotly)
+font_add_google(&amp;quot;Lobster&amp;quot;, &amp;quot;Lobster&amp;quot;)
+font_add_google(&amp;quot;Overpass&amp;quot;, &amp;quot;Overpass&amp;quot;)
+options(repr.plot.width=20, repr.plot.height=15)
 
-graph_df &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;ggraph&lt;/span&gt;(layout &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;nicely&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_edge_link&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(width &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n,alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n),color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#f9dcc4&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_text&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; name,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),repel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;,family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_node_point&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; deg_cent&lt;span style=&#34;color:#ae81ff&#34;&gt;+2&lt;/span&gt;,color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; is_speaker),alpha &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_color_tableau&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;facet_edges&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;season,nrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_graph&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(
-    plot.title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
-      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
-      face &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bold&amp;#34;&lt;/span&gt;,
-      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;,
-      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
-      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+biden_col &amp;lt;- &amp;#39;#118ab2&amp;#39;
+trump_col &amp;lt;- &amp;#39;#ef476f&amp;#39;
+wallace_col &amp;lt;- &amp;#39;#ffd166&amp;#39;
+cross_talk_col &amp;lt;- &amp;#39;#06d6a0&amp;#39;
+moderator &amp;lt;- &amp;#39;#ffd166&amp;#39;
+audience &amp;lt;- &amp;#39;#e36414&amp;#39;
+clinton_col &amp;lt;- &amp;#39;#118ab2&amp;#39;
+text_col &amp;lt;-  &amp;#39;gray80&amp;#39;
+
+theme_set(theme_void())
+theme_update(  
+    legend.position = &amp;#39;top&amp;#39;,
+    legend.text = element_text(
+      size = 20,
+      family = &amp;#39;Lobster&amp;#39;,
+      color = text_col
     ),
-    legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;,
-    plot.subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
-      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
-      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
-      margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
-      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+    text = element_text(family = &amp;#39;Lobster&amp;#39;, color = text_col),
+    plot.title = element_text(
+      size = 40,
+      margin = margin(b = 40, t = 50, l = 50),
+      hjust = 0.5,
+      family = &amp;#39;Lobster&amp;#39;,
+      color = text_col
     ),
-    strip.text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
-      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
-      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;,
-      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
-      hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;
+    plot.caption = element_text(
+      size = 20,
+      ,
+      margin = margin(b = 50, t = 50),
+      family = &amp;#39;Lobster&amp;#39;,
+      color = text_col
     ),
-    
-        plot.caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(
-      family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;American Typewriter&amp;#39;&lt;/span&gt;,
-      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;,
-      &lt;span style=&#34;color:#75715e&#34;&gt;#margin = margin(0, 0, 60, 0),&lt;/span&gt;
-      &lt;span style=&#34;color:#75715e&#34;&gt;#hjust = 0.5&lt;/span&gt;
-    ),
-    strip.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gray50&amp;#39;&lt;/span&gt;,
-                                    fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#fc9d9d&amp;#34;&lt;/span&gt;),
-  ) 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;female_characters &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;monica&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rachel&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;phoebe&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;emily&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;carol&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;janice&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;susan&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;kathy&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;elizabeth&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;she&amp;#39;&lt;/span&gt;)
-male_characters &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ross&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;joey&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;chandler&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;mike&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;richard&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gunther&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;paolo&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bob&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;paul&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;frank&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;he&amp;#39;&lt;/span&gt;)
-tq &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tquery&lt;/span&gt;(pos &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;VERB&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;verb&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;children&lt;/span&gt;(relation &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nsubj&amp;#34;&lt;/span&gt;, label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;subject&amp;#34;&lt;/span&gt;))
-tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tt&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;friends &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;unnest_tokens&lt;/span&gt;(sentence, text, token &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sentences&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;rownames_to_column&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;rename&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rowname,
-         text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sentence) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;spacy_parse&lt;/span&gt;(dependency &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;annotate_tqueries&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;annotation&amp;#34;&lt;/span&gt;, query_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tq) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;is.na&lt;/span&gt;(annotation))
-female_ids &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(token &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; female_characters, annotation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;subject&amp;#39;&lt;/span&gt; ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;pull&lt;/span&gt;(doc_id)
+    plot.background = element_rect(fill = &amp;#39;gray14&amp;#39;),
+    panel.background = element_rect(fill = &amp;#39;gray14&amp;#39;)
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;biden-and-trumps-first-debate&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Biden and Trump’s first debate&lt;/h3&gt;
+&lt;p&gt;Let us look at the first debate between Trump and Biden and how much each candidate used to speak uninterrupted by the other candidate or the moderator. I used &lt;a href=&#34;https://www.kaggle.com/rmphilly18/vice-presidential-debate-2020-transcript&#34;&gt;this dataset which is available on Kaggle&lt;/a&gt; to computed how many seconds Trump and Biden talked without being cut off by the other candidate.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;presidential_debate_2020 &amp;lt;- read_delim(&amp;#39;presidential_debate_2020.csv&amp;#39;,
+                        delim = &amp;#39;\t&amp;#39;,
+                        col_types = list(col_character(),
+                                         col_character(),
+                                         col_character(),
+                                         col_character(),
+                                         col_integer(),
+                                         col_integer(),
+                                         col_double(),
+                                         col_integer()))
+presidential_debate_2020 &amp;lt;- presidential_debate_2020 %&amp;gt;% 
+  mutate(minutes = if_else(nchar(time)&amp;lt;6,paste(&amp;#39;00:&amp;#39;,time,sep = &amp;#39;&amp;#39;),time),
+         minutes = paste(&amp;#39;2020-09-29&amp;#39;,minutes,sep = &amp;#39;&amp;#39;),
+         minutes = lubridate::ymd_hms(minutes),
+         speaker = if_else(str_detect(speaker , &amp;#39;Chris Wallace&amp;#39;),&amp;#39;Chris Wallace (Moderator)&amp;#39;,speaker),
+          ) %&amp;gt;% 
+    mutate(minute_start = lag(minutes,n= 1),
+         duration =minutes - minute_start,
+         duration = lead(duration,n =1),
+         seconds_in_end = lead(seconds_in),
+         text = str_wrap(text,width =30))
+
+
+presidential_debate_2020[1,5] &amp;lt;- 0
+
+glimpse(presidential_debate_2020)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Rows: 788
+## Columns: 12
+## $ speaker        &amp;lt;chr&amp;gt; &amp;quot;Chris Wallace (Moderator)&amp;quot;, &amp;quot;Chris Wallace (Moderat...
+## $ text           &amp;lt;chr&amp;gt; &amp;quot;Good evening from the Health\nEducation Campus of C...
+## $ url            &amp;lt;chr&amp;gt; &amp;quot;https://www.rev.com/transcript-editor/shared/C-8bDp...
+## $ time           &amp;lt;chr&amp;gt; &amp;quot;1:20&amp;quot;, &amp;quot;2:10&amp;quot;, &amp;quot;2:49&amp;quot;, &amp;quot;2:51&amp;quot;, &amp;quot;2:51&amp;quot;, &amp;quot;3:11&amp;quot;, &amp;quot;4:0...
+## $ seconds_in     &amp;lt;int&amp;gt; 0, 130, 169, 171, 171, 191, 241, 293, 322, 329, 334,...
+## $ seconds_spoken &amp;lt;int&amp;gt; 50, 39, 2, 0, 20, 50, 52, 29, 7, 5, 2, 36, 56, 26, 2...
+## $ words_per_min  &amp;lt;dbl&amp;gt; 148.8000, 156.9231, 120.0000, NA, NA, 159.6000, 180....
+## $ num_words      &amp;lt;int&amp;gt; 124, 102, 4, 4, 2, 133, 156, 98, 15, 16, 3, 117, 157...
+## $ minutes        &amp;lt;dttm&amp;gt; 2020-09-29 00:01:20, 2020-09-29 00:02:10, 2020-09-2...
+## $ minute_start   &amp;lt;dttm&amp;gt; NA, 2020-09-29 00:01:20, 2020-09-29 00:02:10, 2020-...
+## $ duration       &amp;lt;drtn&amp;gt; 50 secs, 39 secs, 2 secs, 0 secs, 20 secs, 50 secs,...
+## $ seconds_in_end &amp;lt;int&amp;gt; 130, 169, 171, 171, 191, 241, 293, 322, 329, 334, 33...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;presidential_debate_2020 %&amp;gt;%
+  ggplot(aes(
+    x = seconds_in,
+    y = 1,
+    xend = seconds_in_end,
+    yend = 1,
+    color = speaker
+  )) +
+  geom_segment(size = 40, alpha = 0.7) +
+
+  guides(color = guide_legend(override.aes = list(size = 25))) +
+  scale_color_manual(values = c(wallace_col, trump_col, biden_col)) +
+  scale_y_continuous(limits = c(0.85, 1.13)) +
+  labs(
+    x = &amp;#39;&amp;#39;,
+    y = &amp;#39;&amp;#39;,
+    title = &amp;#39;How Did The First US Presidential Debate Go?&amp;#39;,
+    #subtitle = &amp;#39;This plot illustrates how much time each presidential candidate spoke &amp;#39;,
+    fill = &amp;#39;&amp;#39;,
+    color = &amp;#39;&amp;#39;  ) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-15-which-presidential-debate-was-more-chaotic/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;1920&#34; /&gt;
+This plot clearly shows that there were many interruptions during the first debate! It also shows that it was Trump who interrupted most in the debate. To give it more context, let us compare it to the 2016 Debates between Trump and Clinton. The transcripts of these debates are available in this dataset that I found on Kaggle. However, this dataset does not include information about how much time each candidate spent speaking in the debates. So, I decided to use the number of words each candidate said as a proxy measure to show the continuity of speeches given by them.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;debate_2016 &amp;lt;- read_csv(&amp;#39;presidential_debate_2016.csv&amp;#39;)
+debate_2016 &amp;lt;-debate_2016 %&amp;gt;% 
+    mutate(Text = as.character(Text),
+    num_chars = str_length(Text),
+    num_word = str_count(Text),
+    Speaker = case_when(Speaker == &amp;#39;CANDIDATES&amp;#39;~&amp;#39;Crosstalk&amp;#39;,
+                        Speaker == &amp;#39;QUESTION&amp;#39;~&amp;#39;Question&amp;#39;,
+                        Speaker %in% c(&amp;#39;Cooper&amp;#39;, &amp;#39;Holt&amp;#39;,&amp;#39;Wallace&amp;#39;,&amp;#39;Raddatz&amp;#39;,&amp;#39;Quijano&amp;#39;) ~&amp;#39;Moderator&amp;#39;,
+                        TRUE ~ Speaker))
+
+presidential_debate_2016 &amp;lt;- debate_2016 %&amp;gt;% 
+  filter(!Speaker %in% c(&amp;#39;Kaine&amp;#39;,&amp;#39;Pence&amp;#39;),
+         Date != &amp;#39;10/4/16&amp;#39;)
+
+
+first_debate &amp;lt;- presidential_debate_2016%&amp;gt;% 
+  filter(Date == &amp;#39;9/26/16&amp;#39;)
+second_debate &amp;lt;- presidential_debate_2016 %&amp;gt;% 
+  filter(Date == &amp;#39;10/9/16&amp;#39;)
+third_debate &amp;lt;- presidential_debate_2016 %&amp;gt;% 
+  filter(Date == &amp;#39;10/19/2016&amp;#39;)
+
+glimpse(presidential_debate_2016)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Rows: 1,028
+## Columns: 6
+## $ Line      &amp;lt;dbl&amp;gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17...
+## $ Speaker   &amp;lt;chr&amp;gt; &amp;quot;Moderator&amp;quot;, &amp;quot;Audience&amp;quot;, &amp;quot;Clinton&amp;quot;, &amp;quot;Audience&amp;quot;, &amp;quot;Moderato...
+## $ Text      &amp;lt;chr&amp;gt; &amp;quot;Good evening from Hofstra University in Hempstead, New Y...
+## $ Date      &amp;lt;chr&amp;gt; &amp;quot;9/26/16&amp;quot;, &amp;quot;9/26/16&amp;quot;, &amp;quot;9/26/16&amp;quot;, &amp;quot;9/26/16&amp;quot;, &amp;quot;9/26/16&amp;quot;, &amp;quot;9...
+## $ num_chars &amp;lt;int&amp;gt; 1257, 10, 20, 10, 17, 10, 1115, 820, 1018, 171, 1570, 515...
+## $ num_word  &amp;lt;int&amp;gt; 1257, 10, 20, 10, 17, 10, 1115, 820, 1018, 171, 1570, 515...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;first_debate&amp;lt;- first_debate %&amp;gt;% 
+  mutate(cumsum_nwords = cumsum(num_word),
+         cum_sum_lag = lag(cumsum_nwords),
+         debate = &amp;#39;First Debate&amp;#39;)
+
+first_debate[1,7] &amp;lt;- 0
+
+second_debate&amp;lt;- second_debate %&amp;gt;% 
+  mutate(cumsum_nwords = cumsum(num_word),
+         cum_sum_lag = lag(cumsum_nwords),
+         debate = &amp;#39;Second Debate&amp;#39;)
+
+second_debate[1,7] &amp;lt;- 0
+
+third_debate&amp;lt;- third_debate %&amp;gt;% 
+  mutate(cumsum_nwords = cumsum(num_word),
+         cum_sum_lag = lag(cumsum_nwords),
+         debate = &amp;#39;Third Debate&amp;#39;)
+
+third_debate[1,7] &amp;lt;- 0
+
+
+presidential_debates_2016 &amp;lt;- bind_rows(first_debate,second_debate ,third_debate)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;presidential_debates_2016 %&amp;gt;%
+ggplot(aes(
+    x = cum_sum_lag,
+    y = 1,
+    xend = cumsum_nwords,
+    yend = 1,
+    color = Speaker
+  )) +
+  geom_segment(size = 40, alpha = 0.7) +
+
+  guides(color = guide_legend(override.aes = list(size = 18))) +
+  scale_color_manual(values = c(&amp;#39;Moderator&amp;#39; = moderator ,&amp;#39;Trump&amp;#39; = trump_col  ,
+                               &amp;#39;Clinton&amp;#39; = clinton_col ,
+                              &amp;#39;Crosstalk&amp;#39;  =&amp;#39;#9d4edd&amp;#39;,
+                              &amp;#39;Audience&amp;#39; =  audience ,
+                              &amp;#39;Question&amp;#39;  =  &amp;#39;#e85d04&amp;#39;)) +
+  scale_y_continuous(limits = c(0.85, 1.13)) +
+  labs(
+    x = &amp;#39;&amp;#39;,
+    y = &amp;#39;&amp;#39;,
+    title = &amp;#39;How Did 2016 US Presidential Debates Go?&amp;#39;,
+    #subtitle = &amp;#39;This plot illustrates how much time each presidential candidate spoke &amp;#39;,
+    fill = &amp;#39;&amp;#39;,
+    color = &amp;#39;&amp;#39;,
+    caption =  
+  ) +
+  facet_wrap(~debate,nrow = 3) +
+  theme(strip.text = element_text(size = 15))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-15-which-presidential-debate-was-more-chaotic/index.en_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Well, the debates between Trump and Clinton were also wild, but they were less anarchic than the debate between Biden and Trump. For, there were fewer disruptions in those debates compared to what we saw in the 2020 plot.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;vice-presidential-debates&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Vice Presidential debates&lt;/h3&gt;
+&lt;p&gt;Now let’s look at the debates between the Vice Presidential candidates. Usually, these debates are more civilized and less heated as they attract less attention.&lt;/p&gt;
+&lt;div id=&#34;harris-vs.-pence&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Harris vs. Pence&lt;/h4&gt;
+&lt;p&gt;I found &lt;a href=&#34;https://www.kaggle.com/headsortails/us-election-2020-presidential-debates&#34;&gt;a dataset of the 2020 VP debate on Kaggle&lt;/a&gt;. Again, here I used the same approach that I used for the 2016 debate.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vice_presidential_debate_2020 &amp;lt;- read_csv(&amp;#39;vice_presidential_debate_2020.csv&amp;#39;)
+vice_presidential_debate_2020 &amp;lt;- vice_presidential_debate_2020 %&amp;gt;%
+mutate(num_chars = str_length(text ),
+       cumsum_nwords = cumsum(num_chars),
+      cum_sum_lag = lag(cumsum_nwords))
+
+vice_presidential_debate_2020[1,6] &amp;lt;- 0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vice_presidential_debate_2020 %&amp;gt;%
+ggplot(aes(
+    x = cum_sum_lag,
+    y = 1,
+    xend = cumsum_nwords,
+    yend = 1,
+    color = speaker 
+  )) +
+  geom_segment(size = 40, alpha = 0.7) +
+
+  guides(color = guide_legend(override.aes = list(size = 18))) +
+  scale_color_manual(values = c(&amp;quot;Susan Page&amp;quot; = moderator ,&amp;#39;Mike Pence&amp;#39; = trump_col  ,
+                               &amp;#39;Kamala Harris&amp;#39; = clinton_col )) +
+  scale_y_continuous(limits = c(0.85, 1.13)) +
+  labs(
+    x = &amp;#39;&amp;#39;,
+    y = &amp;#39;&amp;#39;,
+    title = &amp;#39;How Did 2020 US Vice-Presidential Debates Go?&amp;#39;,
+    #subtitle = &amp;#39;This plot illustrates how much time each presidential candidate spoke &amp;#39;,
+    fill = &amp;#39;&amp;#39;,
+    color = &amp;#39;&amp;#39;,
+    caption =  
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-15-which-presidential-debate-was-more-chaotic/index.en_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;vice-presidential-debate&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;2016 Vice Presidential debate&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vp_debates &amp;lt;- debate_2016 %&amp;gt;% 
+  filter(Date == &amp;#39;10/4/16&amp;#39;) %&amp;gt;% 
+  mutate(cumsum_nwords = cumsum(num_word),
+         cum_sum_lag = lag(cumsum_nwords)) 
   
-male_ids &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(token &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; male_characters, annotation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;subject&amp;#39;&lt;/span&gt;  ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;pull&lt;/span&gt;(doc_id)
-female_verbs &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; female_ids,pos &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;VERB&amp;#39;&lt;/span&gt;,relation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ROOT&amp;#39;&lt;/span&gt;  ) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;unnest_tokens&lt;/span&gt;(word,lemma) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;anti_join&lt;/span&gt;(stop_words) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(word,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(pronoun &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;she&amp;#39;&lt;/span&gt;)
-male_verbs &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; tokens_df_dep &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(doc_id &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; male_ids,pos &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;VERB&amp;#39;&lt;/span&gt;,relation &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ROOT&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;unnest_tokens&lt;/span&gt;(word,lemma) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;anti_join&lt;/span&gt;(stop_words) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;(word,sort &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(pronoun &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;he&amp;#39;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;verb_log &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; female_verbs &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;bind_rows&lt;/span&gt;(male_verbs) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(word&lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;singe&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;pivot_wider&lt;/span&gt;(names_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pronoun,values_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n,values_fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; he &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; she,
-         he &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (he&lt;span style=&#34;color:#ae81ff&#34;&gt;+1&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(he &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;),
-         she &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (she &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(she &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;),
-         logratio &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;log2&lt;/span&gt;(she &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; he)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(total &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(logratio &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;top_n&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;,&lt;span style=&#34;color:#a6e22e&#34;&gt;abs&lt;/span&gt;(logratio)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;ungroup&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(word &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;reorder&lt;/span&gt;(word,logratio),
-         nchars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nchar&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;as.character&lt;/span&gt;(word))) 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;female_arrows &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tibble&lt;/span&gt;(
-  x1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;),
-  x2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt;),
-  y1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;),
-  y2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1.8&lt;/span&gt;)
-)
-male_arrows &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;tibble&lt;/span&gt;(
-  x1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;),
-  x2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;),
-  y1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-1&lt;/span&gt;),
-  y2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-1.8&lt;/span&gt;)
-)
-female_color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#ef476f&amp;#39;&lt;/span&gt;
-male_color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#118ab2&amp;#39;&lt;/span&gt;
-g &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_col&lt;/span&gt;(data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; verb_log , &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(word, logratio, fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  logratio &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_text&lt;/span&gt;(
-    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; verb_log ,
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(
-      label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; word,
-      x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; word,
-      y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;if_else&lt;/span&gt;(logratio &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, logratio &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.03&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;nchars, logratio  &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.03&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;nchars)
-    ),
-    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;,
-    family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;,
-    face &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bold&amp;#39;&lt;/span&gt;,
-    &lt;span style=&#34;color:#75715e&#34;&gt;#label.padding = 0.05&lt;/span&gt;
-  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;coord_flip&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_y_continuous&lt;/span&gt;(limits &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;-2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_fill_manual&lt;/span&gt;(values &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(female_color, male_color)) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;annotate&lt;/span&gt;(
-    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt;,
-    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;24&lt;/span&gt;,
-    y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.5&lt;/span&gt;,
-    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;More Female&amp;#39;&lt;/span&gt;,
-    family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;,
-    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; female_color,
-    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,
-    vjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;,
-    hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.6&lt;/span&gt;
-  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  ggplot2&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;annotate&lt;/span&gt;(
-    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt;,
-    x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,
-    y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;-1.34&lt;/span&gt;,
-    label &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;More Male&amp;#39;&lt;/span&gt;,
-    family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Rubik&amp;#39;&lt;/span&gt;,
-    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; male_color,
-    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;,
-    vjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;,
-    hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.6&lt;/span&gt;
-  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_curve&lt;/span&gt;(
-    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; female_arrows,
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(
-      x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x1,
-      y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y1,
-      xend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x2,
-      yend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y2
-    ),
-    arrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arrow&lt;/span&gt;(length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unit&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.07&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inch&amp;#34;&lt;/span&gt;)),
-    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
-    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; female_color,
-    curvature &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
-  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_curve&lt;/span&gt;(
-    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; male_arrows,
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(
-      x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x1,
-      y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y1,
-      xend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; x2,
-      yend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y2
-    ),
-    arrow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arrow&lt;/span&gt;(length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unit&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0.07&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;inch&amp;#34;&lt;/span&gt;)),
-    size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
-    color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; male_color,
-    curvature &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
-  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;labs&lt;/span&gt;(
-    title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;She Lies, He Listens&amp;#39;&lt;/span&gt;,
-    subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;This plot shows what common verbs were used to describe male and female characters in Friends&amp;#39;&lt;/span&gt;,
-    fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;,
-    caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;visualization: mcnakhaee.com&amp;#39;&lt;/span&gt;
-  ) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_fivethirtyeight&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;(
-    text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Poppins Light&amp;#39;&lt;/span&gt;, color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#774936&amp;#39;&lt;/span&gt;),
-    plot.title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)),
-    plot.subtitle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_text&lt;/span&gt;(margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;margin&lt;/span&gt;(b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;)),
-    axis.text.y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_blank&lt;/span&gt;(),
-    plot.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#FFFAF0&amp;#39;&lt;/span&gt;),
-    panel.background &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_rect&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#FFFAF0&amp;#39;&lt;/span&gt;),
-    legend.position &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;,
-    panel.grid.major  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_line&lt;/span&gt;(
-      color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#eddcd2&amp;#39;&lt;/span&gt;,
-      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;,
-      linetype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dashed&amp;#39;&lt;/span&gt;
-    ),
-    panel.grid.minor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;element_line&lt;/span&gt;(
-      color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#eddcd2&amp;#39;&lt;/span&gt;,
-      size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.01&lt;/span&gt;,
-      linetype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dashed&amp;#39;&lt;/span&gt;
-    )
-  )
-g
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+vp_debates[1,5] &amp;lt;- 0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vp_debates %&amp;gt;%
+ggplot(aes(
+    x = cum_sum_lag,
+    y = 1,
+    xend = cumsum_nwords,
+    yend = 1,
+    color = Speaker 
+  )) +
+  geom_segment(size = 40, alpha = 0.7) +
+
+  guides(color = guide_legend(override.aes = list(size = 18))) +
+  scale_color_manual(values = c(&amp;#39;Moderator&amp;#39; = moderator ,&amp;#39;Pence&amp;#39; = trump_col  ,
+                               &amp;#39;Kaine&amp;#39; = clinton_col ,
+                              &amp;#39;Crosstalk&amp;#39;  =&amp;#39;#9d4edd&amp;#39;,
+                              &amp;#39;Audience&amp;#39; =  audience )) +
+  scale_y_continuous(limits = c(0.85, 1.13)) +
+  labs(
+    x = &amp;#39;&amp;#39;,
+    y = &amp;#39;&amp;#39;,
+    title = &amp;#39;How Did 2016 US Vice-Presidential Debates Go?&amp;#39;,
+    #subtitle = &amp;#39;This plot illustrates how much time each presidential candidate spoke &amp;#39;,
+    fill = &amp;#39;&amp;#39;,
+    color = &amp;#39;&amp;#39;,
+    caption =  
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-15-which-presidential-debate-was-more-chaotic/index.en_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
     </item>
     
     <item>

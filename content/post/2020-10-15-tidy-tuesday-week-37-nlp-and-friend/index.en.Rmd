@@ -1,0 +1,520 @@
+---
+title: 'Tidy Tuesday Week 37: NLP and Friends'
+author: mcnakhaee
+date: '2020-10-15'
+slug: []
+categories:
+  - NLP
+  - R
+  - social network analysis
+tags:
+  - R
+  - NLP
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-10-15T10:28:36+02:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+I experience a few difficult and sad moments in my life in the past few months and it was not particularly an easy job for me to cope with these hard moments. However, I found a medicine to fight the sadness that was caused by these painful experience: watching Friends! I have watched Friends many many times but still it can bring smile to my face. Every time I feel being sad, I just start to watch several episodes on Friends, one after another and the laughter does the rest!
+
+So, when I realized that the dataset we are going to work with in the 37th week of 2020 Tidy Tuesdays project, I was absolutely thrilled and excited to get my hands on this dataset and analyze it. As a big fan of Friends, many ideas popped  into my head on how I can make an interesting analysis on this dataset. In this post, I will go through three of them:
+1. In Which locations (scenes) Friends was most filmed?
+2. How characters in the show interacted with each other?
+3. What kinds of actions female and male characters in the show were doing?
+
+I will addressed these three questions in the rest of this post!
+
+
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	eval = FALSE
+)
+myFont <- 'Rubik'
+windowsFonts(Rubik  = myFont)
+extrafont::loadfonts(device="win")
+myFont <- "Poppins Light"
+windowsFonts(`Poppins Light`  = myFont)
+library(reticulate)
+use_condaenv('spacy_condaenv')
+#conda_list()
+Sys.setenv(RETICULATE_PYTHON = 'C:\\Users\\mcnak\\AppData\\Local\\Continuum\\anaconda3\\envs\\spacy_condaenv\\python.exe')
+
+```
+
+
+```{r}
+
+library(tidyverse)
+library(ggthemes)
+library(tidytuesdayR)
+library(rsyntax)
+library(spacyr)
+library(tidytext)
+library(tidygraph)
+library(igraph)
+library(ggraph)
+library(hrbrthemes)
+library(DT)
+spacy_initialize(model = "en_core_web_lg")
+
+theme_set(  theme_fivethirtyeight()) 
+theme_update(
+    text = element_text(family = 'Poppins Light', color = '#774936'),
+    plot.title = element_text(margin = margin(t = 10, b = 10)),
+    plot.subtitle = element_text(margin = margin(b = 20)),
+    axis.text.y = element_blank(),
+    plot.background = element_rect(fill = '#FFFAF0'),
+    panel.background = element_rect(fill = '#FFFAF0'),
+    legend.position = 'none',
+    panel.grid.major  = element_line(
+      color = '#eddcd2',
+      size = 0.5,
+      linetype = 'dashed'
+    ),
+    panel.grid.minor = element_line(
+      color = '#eddcd2',
+      size = 0.01,
+      linetype = 'dashed'
+    )
+  )
+```
+
+Let us load the Friends dataset using the handy `tt_load` function from the `tidytuesdayR` package!
+
+```{r}
+tt <- tt_load("2020-09-08")
+friends_df <- tt$friends 
+```
+
+It returns three tables but since the data that I need , I will only be working with the friends transcript dataset.
+```{r}
+friends_df %>% 
+  head(20) %>% 
+  datatable()
+  
+```
+
+
+
+```{r}
+friends_df <- tt$friends 
+```
+
+### Top Locations 
+
+Now let's find out which locations this show was filmed the most. This information is available in the `text` column.
+In this column,Usually the location where the scene took place comes after the `Scene:` string . So, we only need to find and filter rows that have this string. Unfortunately, this information is not available for the first and the last two seasons of Friends!
+
+```{r}
+friends_df %>%
+  filter(str_detect(text, fixed('Scene:'))) %>% 
+  head() %>% 
+  datatable()
+```
+
+
+
+
+```{r }
+scences <- friends_df %>%
+  filter(str_detect(text, fixed('Scene:'))) %>%
+  rowwise() %>%
+  mutate(
+    location = if_else(season <9,str_split(text, ',')[[1]][1],str_split(text, fixed('.'))[[1]][1]),
+    location = str_remove_all(location, 'erm'),
+    location = str_remove_all(location, fixed('erm')),
+    location = str_remove(location, fixed('[Scene:')) ,
+    location = str_trim(location)
+  ) %>% 
+  filter(!str_detect(location, fixed(']')),
+         !location %in% c('Monica', 'Chandler'))
+
+scenes_location_count <- scences %>%
+  count(location, sort = TRUE) %>%
+  filter(n > 10 )
+
+
+```
+Now let's sort and look at the top locations in Friends:
+```{r}
+    
+scenes_location_count  %>% 
+  DT::datatable()
+```
+So, Central Perk was the location where most scenes took place!
+
+```{r fig.height=5,fig.width=10}
+ scenes_location_count %>% 
+  ggplot(aes(x = fct_reorder(location,n),n)) +
+  geom_col(fill = '#ef476f') +
+  coord_flip() +
+  labs(title = 'Most Filmed Locations in Friends' ) +
+  theme_fivethirtyeight() +
+  theme(legend.position = 'none', 
+        axis.text.x = element_text(angle = 90))
+```
+But let's look at how many times each different locations
+
+```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE}
+scences %>% 
+  count(season,location,sort = TRUE) %>% 
+  filter(n>5) %>% 
+  ggplot(aes(x= season,y=n)) +
+  geom_line(color = 'red',size = 1)+
+  geom_point(color = 'red',size = 3)+
+  labs(title = 'Where Was Freinds Filmed?',subtitle = '') +
+  facet_wrap(~location) 
+  
+  
+```
+
+
+
+
+
+
+
+it inspired me to perform the same analysis on the Friends' transcript. However, my approach is slightly different from what Julia Sigles employed. She used bigrams to find a combination of pronouns and verbs while My approach uses named entity recognition (NER) form the natural language processing literature. In my previous posts, I used Spacy and Python to extract named entities from text data, but in this post I will exclusively use 
+the `spacyr` package in R (which behind the scene uses Spacy and python).
+
+
+```{r}
+female_characters <- c('monica','rachel','phoebe','emily','carol','janice','susan','kathy','elizabeth','she')
+male_characters <- c('ross','joey','chandler','mike','richard','gunther','paolo','bob','paul','frank','he')
+
+
+male_speakers <- c('Ross Geller','Chandler Bing','Joey Tribbiani','Richard Burke','Mike Hannigan','Frank Buffay Jr.','Jack Geller','David','Peter Becker','Eddie Menuek','Gunther','Paul Stevens')
+
+female_speakers <- c('Rachel Green','Phoebe Buffay','Janice Litman Goralnik','Monica Geller','Emily Waltham','Charlie Wheeler','Judy Geller','Amy Green','Carol Willick','Mona')
+```
+
+I start by separating the text column into sentences and give each sentence a unique id which I use later for joining dataframes.
+
+```{r}
+friends_sentences <- friends_df %>%
+  unnest_tokens(sentence, text, token = 'sentences') %>%
+  rownames_to_column() %>%
+  rename(doc_id = rowname,
+         text = sentence) 
+friends_sentences %>%
+  tail() %>% 
+  datatable()
+```
+
+The main function that I am going to use from `spacyr` is  the 'spacy_parse' function which can return named entities, dependencies, part-of-speech tags, etc. By default, it does not give us dependencies so we need to set `dependency = TRUE`.
+
+```{r}
+tq <- tquery(pos = "VERB", label = "verb", children(relation = "nsubj", label = "subject"))
+tokens_df_dep <- friends_sentences %>% 
+  spacy_parse(dependency = TRUE) %>%
+  annotate_tqueries("annotation", query_name = tq) %>%
+  filter(!is.na(annotation))
+
+
+```
+
+Now I join tokens that I created using spacy and the firends sentences dataframe.
+
+```{r eval=FALSE, include=FALSE}
+friends_entities <- friends_sentences %>% 
+  inner_join(tokens_df_dep,by = 'doc_id') %>% 
+  filter(!token %in% c('Bye','kiddin','God','Sting','Bijan')) %>% 
+  mutate(token = case_when(str_detect(str_to_lower(token),'rach') ~ 'Rachel',
+                           str_detect(str_to_lower(token),'joe')~ 'Joey',
+                            str_detect(str_to_lower(token),'pheebs')  ~ 'Phoebe',
+                           TRUE ~ token))
+
+#!speaker %in% c('Scene Directions'),
+#str_detect(entity,'PERSON_B'),
+```
+
+
+I will pull the documnets id that:
+
+token
+
+```{r eval=FALSE, include=FALSE}
+
+
+female_ids <- friends_entities %>% 
+  filter((token %in% female_characters | ( speaker %in% female_speakers & token =='i')), annotation =='subject' ) %>% 
+  pull(doc_id)
+  
+male_ids <- friends_entities %>% 
+  filter((token %in% male_characters| (speaker %in% male_speakers & token =='i')), annotation =='subject'  ) %>% 
+  pull(doc_id)
+female_verbs <- friends_entities %>% 
+  filter(doc_id %in% female_ids,pos == 'VERB',relation =='ROOT'  ) %>% 
+  unnest_tokens(word,lemma) %>% 
+  anti_join(stop_words) %>% 
+  count(word,sort = TRUE) %>% 
+  mutate(pronoun = 'she')
+male_verbs <- friends_entities %>% 
+  filter(doc_id %in% male_ids,pos == 'VERB',relation =='ROOT') %>% 
+  unnest_tokens(word,lemma) %>% 
+  anti_join(stop_words) %>% 
+  count(word,sort = TRUE) %>% 
+  mutate(pronoun = 'he')
+```
+
+```{r eval=FALSE, include=FALSE}
+verb_log <- female_verbs %>% 
+  bind_rows(male_verbs) %>%
+  filter(word!='singe') %>% 
+  pivot_wider(names_from = pronoun,values_from = n,values_fill = list(n = 0)) %>% 
+  mutate(total = he + she,
+         he = (he+1)/sum(he + 1),
+         she = (she + 1)/sum(she + 1),
+         logratio = log2(she / he)) %>% 
+  filter(total > 15) %>% 
+  group_by(logratio < 0) %>%
+  top_n(15,abs(logratio)) %>% 
+  ungroup() %>% 
+  mutate(word = reorder(word,logratio),
+         nchars = nchar(as.character(word))) 
+```
+
+
+
+
+```{r eval=FALSE, fig.height=10, fig.width=10, include=FALSE}
+female_arrows <- tibble(
+  x1 = c(23),
+  x2 = c(23),
+  y1 = c(1),
+  y2 = c(1.8)
+)
+male_arrows <-  tibble(
+  x1 = c(9),
+  x2 = c(9),
+  y1 = c(-1),
+  y2 = c(-1.8)
+)
+female_color = '#ef476f'
+male_color = '#118ab2'
+g <- ggplot() +
+  geom_col(data = verb_log , aes(word, logratio, fill =  logratio < 0)) +
+  geom_text(
+    data = verb_log ,
+    aes(
+      label = word,
+      x = word,
+      y = if_else(logratio < 0, logratio + 0.03*nchars, logratio  - 0.03*nchars)
+    ),
+    color = 'white',
+    family = 'Rubik',
+    face = 'bold',
+    #label.padding = 0.05
+  ) +
+  
+  coord_flip() +
+  scale_y_continuous(limits = c(-2, 2)) +
+  scale_fill_manual(values = c(female_color, male_color)) +
+  ggplot2::annotate(
+    "text",
+    x = 24,
+    y = 1.5,
+    label = 'More Female',
+    family = 'Rubik',
+    color = female_color,
+    size = 5,
+    vjust = 0.5,
+    hjust = 0.6
+  ) +
+  ggplot2::annotate(
+    "text",
+    x = 10,
+    y = -1.34,
+    label = 'More Male',
+    family = 'Rubik',
+    color = male_color,
+    size = 5,
+    vjust = 0.5,
+    hjust = 0.6
+  ) +
+  
+  geom_curve(
+    data = female_arrows,
+    aes(
+      x = x1,
+      y = y1,
+      xend = x2,
+      yend = y2
+    ),
+    arrow = arrow(length = unit(0.07, "inch")),
+    size = 2,
+    color = female_color,
+    curvature = 0
+  ) +
+  
+  geom_curve(
+    data = male_arrows,
+    aes(
+      x = x1,
+      y = y1,
+      xend = x2,
+      yend = y2
+    ),
+    arrow = arrow(length = unit(0.07, "inch")),
+    size = 2,
+    color = male_color,
+    curvature = 0
+  ) +
+  labs(
+    title = 'She Lies, He Listens',
+    subtitle = 'This plot shows what common verbs were used to describe male and female characters in Friends',
+    fill = '',
+    caption =  'visualization: mcnakhaee.com'
+  ) 
+
+g
+```
+
+
+
+### Friends' Network
+
+
+```{r eval=FALSE, include=FALSE}
+tokens <- tt$friends %>%
+  rownames_to_column() %>%
+  rename(doc_id = rowname) %>%
+spacy_parse(pos = FALSE,tag = FALSE)
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+tokens_speakers_count <- friends_entities %>% 
+  count(speaker,token,sort = TRUE) %>% 
+  filter(n >5) %>% 
+
+speakers <- tokens_speakers_count %>% 
+  distinct(speaker) %>% 
+  pull()
+```
+
+
+
+```{r eval=FALSE, fig.height=15, fig.width=15, include=FALSE}
+traph_df <- tokens_speakers_count %>% 
+  rename(from = speaker,
+         to = token) %>% 
+  as_tbl_graph(directed = TRUE) %>%
+  activate(nodes) %>%
+  mutate( deg_cent = log10(centrality_degree() +1) + 1,
+         is_speaker = if_else(name %in% speakers,TRUE,FALSE) )
+
+traph_df %>%
+  ggraph(layout = 'nicely') +
+  geom_edge_link(aes(width = n,alpha = n),color = '#f9dcc4') +
+  geom_node_text(aes(label = name,color = is_speaker),repel = TRUE,family = 'Rubik') +
+  geom_node_point(aes(size = deg_cent,color = is_speaker),alpha = 0.5) +
+  scale_color_tableau() +
+  theme_graph() + 
+    theme(
+    plot.title = element_text(
+      family = 'American Typewriter',
+      face = "bold",
+      size = 60,
+      margin = ggplot2::margin(0, 0, 20, 0),
+      hjust = 0
+    ),
+    legend.position = 'none',
+    plot.subtitle = element_text(
+      family = 'American Typewriter',
+      size = 40,
+      margin = margin(0, 0, 60, 0),
+      hjust = 0
+    ),
+    strip.text = element_text(
+      family = 'American Typewriter',
+      size = 40,
+      #margin = margin(0, 0, 60, 0),
+      hjust = 0.5
+    ),
+    
+        plot.caption = element_text(
+      family = 'American Typewriter',
+      size = 30,
+      #margin = margin(0, 0, 60, 0),
+      #hjust = 0.5
+    ),
+    strip.background = element_rect(color = 'gray50',
+                                    fill = "#fc9d9d"),
+  ) 
+
+```
+
+
+
+```{r eval=FALSE, fig.height=40, fig.width=20, include=FALSE}
+tokens_speakers_season_count <- friends_entities %>% 
+  count(season,speaker,token,sort = TRUE) %>% 
+  filter(n >15)
+  
+  
+graph_df <- tokens_speakers_season_count %>% 
+  rename(from = speaker,
+         to = token) %>% 
+  as_tbl_graph(directed = TRUE) %>%
+  activate(nodes) %>%
+  mutate(deg_cent= centrality_degree(mode = 'out') + centrality_degree(mode = 'in') ,
+         is_speaker = if_else(name %in% speakers,TRUE,FALSE) )  
+
+
+
+graph_df %>%
+  ggraph(layout = 'nicely') +
+  geom_edge_link(aes(width = n,alpha = n),color = '#f9dcc4') +
+  geom_node_text(aes(label = name,color = is_speaker),repel = TRUE,size = 4,family = 'Rubik') +
+  geom_node_point(aes(size = deg_cent+2,color = is_speaker),alpha = 0.5) +
+  scale_color_tableau() +
+  facet_edges(~season,nrow = 5) +
+  theme_graph() + 
+    theme(
+    plot.title = element_text(
+      family = 'American Typewriter',
+      face = "bold",
+      size = 60,
+      margin = ggplot2::margin(0, 0, 20, 0),
+      hjust = 0
+    ),
+    legend.position = 'none',
+    plot.subtitle = element_text(
+      family = 'American Typewriter',
+      size = 40,
+      margin = margin(0, 0, 60, 0),
+      hjust = 0
+    ),
+    strip.text = element_text(
+      family = 'American Typewriter',
+      size = 40,
+      #margin = margin(0, 0, 60, 0),
+      hjust = 0.5
+    ),
+    
+        plot.caption = element_text(
+      family = 'American Typewriter',
+      size = 30,
+      #margin = margin(0, 0, 60, 0),
+      #hjust = 0.5
+    ),
+    strip.background = element_rect(color = 'gray50',
+                                    fill = "#fc9d9d"),
+  ) 
+```
+

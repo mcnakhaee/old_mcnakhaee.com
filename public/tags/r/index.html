@@ -94,7 +94,7 @@
     
     
     
-    <link rel="stylesheet" href="/css/academic.ed4eb580d51d5203cc5d4b573235472f.css">
+    <link rel="stylesheet" href="/css/academic.bf0d00976bb752be54a4f3e21798555c.css">
   
 
   
@@ -134,7 +134,7 @@
   <meta property="og:description" content="Personal Blog of Muhammad Chenariyan Nakhaee"><meta property="og:image" content="/img/avatar.jpg">
   <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-10-03T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2020-10-16T00:00:00&#43;00:00">
   
 
   
@@ -388,26 +388,28 @@
   
   
   <div>
-    <h2><a href="/post/how-did-the-first-presidential-debate-go/">How Did the First Presidential Debate Go?</a></h2>
+    <h2><a href="/post/2020-10-16-exploring-word-embeddings/">Exploring Word Embeddings </a></h2>
     <div class="article-style">
       
-      knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tidyverse)library(lubridate)library(showtext)library(tidytext)library(DT)library(ggpage)font_add_google(&#34;Lobster&#34;, &#34;Lobster&#34;)font_add_google(&#34;Overpass&#34;, &#34;Overpass&#34;)debate_2020 &lt;- read_delim(&#39;first_debate.csv&#39;,delim = &#39;\t&#39;,col_types = list(col_character(),col_character(),col_character(),col_character(),col_integer(),col_integer(),col_double(),col_integer()))head(debate_2020)debate_2020 %&gt;% datatable()debate_2020 &lt;- debate_2020 %&gt;% mutate(minutes = if_else(nchar(time) &lt; 6,paste(&#39;00:&#39;,time,sep = &#39;&#39;),time),minutes = paste(&#39;2020-09-29&#39;,minutes,sep = &#39;&#39;),minutes = lubridate::ymd_hms(minutes),minute_start = lag(minutes,n= 1),duration =minutes - minute_start,duration = lead(duration,n =1),seconds_in_end = lead(seconds_in),text = str_wrap(text,width =30),speaker = if_else(str_detect(speaker , &#39;Chris Wallace&#39;),&#39;Chris Wallace (Moderator)&#39;,speaker))biden_col &lt;- &#39;#118ab2&#39;trump_col &lt;- &#39;#ef476f&#39;wallace_col &lt;- &#39;#ffd166&#39;text_col &lt;- &#39;gray80&#39;switch_seats &lt;- debate %&gt;%filter(str_detect(text, &#39;switch seats&#39;))shut_up &lt;- debate %&gt;%filter(str_detect(text, &#39;shut up&#39;))clown &lt;- debate %&gt;%filter(str_detect(text, &#39;clown&#39;))proud_boys &lt;- debate %&gt;%filter(str_detect(text, &#39;stand by&#39;))shut_you_down &lt;- debate %&gt;%filter(str_detect(text, &#39;shut you down&#39;))switch_seats_arrows &lt;- tibble(x1 = c(switch_seats %&gt;% pull(seconds_in)),x2 = c(switch_seats %&gt;% pull(seconds_in)),y1 = c(1.
+      library(reticulate)use_condaenv(&#39;r-reticulate&#39;)import whatliesmodel &lt;- import(&#39;pandas&#39;)
       
     </div>
   </div>
   
   <div>
-    <h2><a href="/post/tidy-tuesday-week-37-nlp-and-friends/">Tidy Tuesday Week 37: NLP and Friends</a></h2>
+    <h2><a href="/post/2020-10-15-tidy-tuesday-week-37-nlp-and-friend/">Tidy Tuesday Week 37: NLP and Friends</a></h2>
     <div class="article-style">
+      
+      I experience a few difficult and sad moments in my life in the past few months and it was not particularly an easy job for me to cope with these hard moments. However, I found a medicine to fight the sadness that was caused by these painful experience: watching Friends! I have watched Friends many many times but still it can bring smile to my face. Every time I feel being sad, I just start to watch several episodes on Friends, one after another and the laughter does the rest!
       
     </div>
   </div>
   
   <div>
-    <h2><a href="/post/tidytuesday-week-37-nlp-and-friends/">TidyTuesday Week 37: NLP and Friends</a></h2>
+    <h2><a href="/post/2020-10-15-which-presidential-debate-was-more-chaotic/">Which Presidential Debate Was More Chaotic?</a></h2>
     <div class="article-style">
       
-      knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tidyverse)library(ggthemes)library(tidytuesdayR)library(rsyntax)library(spacyr)library(tidytext)library(tidygraph)library(igraph)library(ggraph)library(gganimate)library(hrbrthemes)spacy_initialize(model = &#34;en_core_web_lg&#34;)tt &lt;- tt_load(&#34;2020-09-08&#34;)tt$friends_emotionsfriends_df &lt;- tt$friends %&gt;%rownames_to_column() %&gt;%rename(doc_id = rowname) Top Locations places_scenes &lt;- friends_df %&gt;%filter(str_detect(text, fixed(&#39;Scene:&#39;))) %&gt;%select( text) %&gt;%rowwise() %&gt;%mutate(place = str_split(text, &#39;,&#39;)[[1]][1],place = str_remove_all(place, &#39;erm&#39;),place = str_remove(place, fixed(&#39;[Scene: &#39;)) ,place = str_trim(place)) %&gt;%count(place, sort = TRUE) %&gt;%filter(n &gt; 10,!
+      Many people watched the first Presidential Debate between Biden and Trump and thought that this debate was chaotic, full of vulgar language, interruptions, and in a word, really ugly! Some people even consider this debate as the worst debate in the modern history of US Presidential Elections! Four years ago, Trump was also a presidential candidate and ran against Hillary Clinton. The Presidential Debates in 2016 were not exceptionally friendly or civilized.
       
     </div>
   </div>

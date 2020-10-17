@@ -1,0 +1,40 @@
+---
+title: 'Exploring Word Embeddings '
+author: mcnakhaee
+date: '2020-10-16'
+slug: []
+categories:
+  - NLP
+tags:
+  - R
+  - NLP
+  - Python
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-10-16T00:27:32+02:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+```{r}
+library(reticulate)
+use_condaenv('r-reticulate')
+```
+
+
+```{python}
+import whatlies
+```
+
+```{r}
+model <- import('pandas')
+
+```
+
