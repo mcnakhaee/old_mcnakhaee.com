@@ -30,10 +30,10 @@ subtitle = ""
     tag = "Deep Learning"
   [[content.filter_button]]
     name = "Python Packages"
-    tag = "Python Packages"
+    tag = "PythonPackages"
   [[content.filter_button]]
     name = "R Packages"
-    tag = "R Packages"
+    tag = "RPackages"
    [[content.filter_button]]
     name = "Tidy Tuesday"
     tag = "TidyTuesday" 

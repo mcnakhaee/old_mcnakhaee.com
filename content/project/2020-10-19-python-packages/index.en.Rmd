@@ -1,0 +1,36 @@
+---
+title: Python Packages
+author: mcnakhaee
+date: '2020-10-19'
+slug: []
+categories:
+  - Python
+tags:
+  - PythonPackages
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-10-19T00:12:58+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+### [Textures](https://github.com/mcnakhaee/textures)
+[![PyPI version](https://badge.fury.io/py/textures.svg)](https://badge.fury.io/py/textures) [![GitHub version](https://badge.fury.io/gh/mcnakhaee%2Ftextures.svg)](https://badge.fury.io/gh/mcnakhaee%2Ftextures)[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) 
+
+Textures (Text Features) is a python library that allows you to extract useful statistics and features from text data, find common patterns from  text input and clean your text data without searching for regular expressions on the Web. This library is heavily inspired by [the awesome textfeatures R package](https://github.com/mkearney/textfeatures) developed by [Michael W. Kearney](https://github.com/mkearney)
+
+
+### [palmerpenguins](https://github.com/mcnakhaee/palmerpenguins)
+
+The [Palmer penguins dataset](https://allisonhorst.github.io/palmerpenguins/) by Allison Horst, Alison Hill, and Kristen Gorman was first made publicly available as an [R package](https://cran.r-project.org/web/packages/palmerpenguins/index.html). The goal of the Palmer Penguins dataset is to replace the highly overused Iris dataset for data exploration & visualization.
+Using this python package you can easily load the Palmer penguins into your python environment. 
+
+![Artwork by @allison_horst](https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png "Artwork by @allison_horst")
+Artwork by @allison_horst
+
+

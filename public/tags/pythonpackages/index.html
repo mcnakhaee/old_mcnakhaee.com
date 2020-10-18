@@ -31,7 +31,7 @@
   <meta name="description" content="Personal Blog of Muhammad Chenariyan Nakhaee">
 
   
-  <link rel="alternate" hreflang="en-us" href="/tags/python/">
+  <link rel="alternate" hreflang="en-us" href="/tags/pythonpackages/">
 
   
 
@@ -106,14 +106,14 @@
 
 
   
-  <link rel="alternate" href="/tags/python/index.xml" type="application/rss+xml" title="Muhammad Chenariyan Nakhaee">
+  <link rel="alternate" href="/tags/pythonpackages/index.xml" type="application/rss+xml" title="Muhammad Chenariyan Nakhaee">
   
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon-32.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/tags/python/">
+  <link rel="canonical" href="/tags/pythonpackages/">
 
   
   
@@ -129,8 +129,8 @@
   <meta property="twitter:creator" content="@m_cnakhaee">
   
   <meta property="og:site_name" content="Muhammad Chenariyan Nakhaee">
-  <meta property="og:url" content="/tags/python/">
-  <meta property="og:title" content="Python | Muhammad Chenariyan Nakhaee">
+  <meta property="og:url" content="/tags/pythonpackages/">
+  <meta property="og:title" content="PythonPackages | Muhammad Chenariyan Nakhaee">
   <meta property="og:description" content="Personal Blog of Muhammad Chenariyan Nakhaee"><meta property="og:image" content="/img/avatar.jpg">
   <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
   
@@ -151,7 +151,7 @@
 
 
 
-  <title>Python | Muhammad Chenariyan Nakhaee</title>
+  <title>PythonPackages | Muhammad Chenariyan Nakhaee</title>
 
 </head>
 
@@ -373,7 +373,7 @@
     
   
 <div class="universal-wrapper pt-3">
-  <h1>Python</h1>
+  <h1>PythonPackages</h1>
 
   
 
@@ -388,63 +388,12 @@
   
   
   <div>
-    <h2><a href="/post/2020-10-16-exploring-word-embeddings/">Exploring Word Embeddings </a></h2>
+    <h2><a href="/project/2020-10-19-python-packages/">Python Packages</a></h2>
     <div class="article-style">
       
-      library(reticulate)use_condaenv(&#39;r-reticulate&#39;)import whatliesmodel &lt;- import(&#39;pandas&#39;)
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/explaining-machine-learning-models-using-contextual-importance-and-contextual-utility/">Explaining Machine Learning Models Using Contextual Importance and Contextual Utility</a></h2>
-    <div class="article-style">
-      
-      IntroductionWhat Kinds of explanation does CIU generate?How does CIU work?A toy example: predicting breastPermutation feature importanceDecision Tree ClassifierRandom Forest ClassifierGradient Boosting ClassifierExplaining a single observationGenerating Textual ExplanationsDrawbacksIntroductionExplainability is a hot topic in the machine learning research community these days. Over the past few years, many methods have been introduced to understand how a machine learning model makes a prediction.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/2020-03-08-analayzing-the-2020-democratic-presidential-debates-part-2/">Analyzing the 2020 Democratic Presidential Debates - Part 2</a></h2>
-    <div class="article-style">
-      
-      1. IntroductionMany of us could not watch every 2020 Democratic Primary debate. It was important for some of us to know what happened during the debates. In my case, I was reading about what happened in debates in some online newspapers, or I watched a highlight of a debate on Youtube the next day. However, they only give a summary of a debate or just broadcast a portion of debates that includes a heated exchange of opinions between candidates.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/">Tidymodel for Scikit-Learn Users and Vise Versa</a></h2>
-    <div class="article-style">
-      
-      AdvantagesThere are many ways to do one thingThe output is a table which you can use as an input to everything that works with a table
-Disadvantages
-##Classification Models
-Regression ModelsMaking PredictionModel selectionreasonable defaults for tidymodel
-tidymodel by default tuning paramters are set for us. We can also specify them ourselves.
-you can even tune the preprocessing steps in Tidymodel.
-Pipelinespipelines are handy:they make your code much shorterdata leakage
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/">What Makes a Song Popular? An Explainable Machine Learning Approach</a></h2>
-    <div class="article-style">
-      
-      knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tune)library(rsample)library(yardstick)library(dials)library(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)spotify_songs &lt;- spotify_songs %&gt;% dplyr::rowwise() %&gt;% mutate(shorter_names = unlist(str_split(track_name,&#39;-&#39;))[1]) spotify_songs &lt;- py$spotify_songsHave you ever wondered why some songs from an artist become so popular and others are just total failure?Look at the next plot. Even The Beetles had a few not so popular songs.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/2020-01-18-optimal-rule-lists/">Optimal Rule Lists</a></h2>
-    <div class="article-style">
-      
-      AxiomThere is an inverse relationship betweenmodel accuracy and model interpretability.
-This post is heavily inspired by the Decision Rules chapter from the Interpretable Machine Learning book by Christoph Molnar.
-Some machine learning researchers argue that we should pay more attention to interpretable machine learning instead of trying to design methods to explain black box models.While reading almost any paper the field of explainable machine learning, you will notice that in that every paper almost always starts by arguing that there is a trade-off between accuracy and interpretability.
+      Textures 
+Textures (Text Features) is a python library that allows you to extract useful statistics and features from text data, find common patterns from text input and clean your text data without searching for regular expressions on the Web. This library is heavily inspired by the awesome textfeatures R package developed by Michael W. Kearney
+palmerpenguinsThe Palmer penguins dataset by Allison Horst, Alison Hill, and Kristen Gorman was first made publicly available as an R package.
       
     </div>
   </div>

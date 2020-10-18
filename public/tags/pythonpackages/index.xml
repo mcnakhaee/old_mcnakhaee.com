@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PythonPackages | Muhammad Chenariyan Nakhaee</title>
+    <link>/tags/pythonpackages/</link>
+      <atom:link href="/tags/pythonpackages/index.xml" rel="self" type="application/rss+xml" />
+    <description>PythonPackages</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>PythonPackages</title>
+      <link>/tags/pythonpackages/</link>
+    </image>
+    
+    <item>
+      <title>Python Packages</title>
+      <link>/project/2020-10-19-python-packages/</link>
+      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/project/2020-10-19-python-packages/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;textures&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;a href=&#34;https://github.com/mcnakhaee/textures&#34;&gt;Textures&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://badge.fury.io/py/textures&#34;&gt;&lt;img src=&#34;https://badge.fury.io/py/textures.svg&#34; alt=&#34;PyPI version&#34; /&gt;&lt;/a&gt; &lt;a href=&#34;https://badge.fury.io/gh/mcnakhaee%2Ftextures&#34;&gt;&lt;img src=&#34;https://badge.fury.io/gh/mcnakhaee%2Ftextures.svg&#34; alt=&#34;GitHub version&#34; /&gt;&lt;/a&gt;&lt;a href=&#34;https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Maintained%3F-yes-green.svg&#34; alt=&#34;Maintenance&#34; /&gt;&lt;/a&gt;&lt;a href=&#34;https://www.python.org/&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Made%20with-Python-1f425f.svg&#34; alt=&#34;made-with-python&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Textures (Text Features) is a python library that allows you to extract useful statistics and features from text data, find common patterns from text input and clean your text data without searching for regular expressions on the Web. This library is heavily inspired by &lt;a href=&#34;https://github.com/mkearney/textfeatures&#34;&gt;the awesome textfeatures R package&lt;/a&gt; developed by &lt;a href=&#34;https://github.com/mkearney&#34;&gt;Michael W. Kearney&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;palmerpenguins&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;a href=&#34;https://github.com/mcnakhaee/palmerpenguins&#34;&gt;palmerpenguins&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The &lt;a href=&#34;https://allisonhorst.github.io/palmerpenguins/&#34;&gt;Palmer penguins dataset&lt;/a&gt; by Allison Horst, Alison Hill, and Kristen Gorman was first made publicly available as an &lt;a href=&#34;https://cran.r-project.org/web/packages/palmerpenguins/index.html&#34;&gt;R package&lt;/a&gt;. The goal of the Palmer Penguins dataset is to replace the highly overused Iris dataset for data exploration &amp;amp; visualization.
+Using this python package you can easily load the Palmer penguins into your python environment.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png&#34; title=&#34;Artwork by @allison_horst&#34; alt=&#34;Artwork by @allison_horst&#34; /&gt;
+Artwork by &lt;span class=&#34;citation&#34;&gt;@allison_horst&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
