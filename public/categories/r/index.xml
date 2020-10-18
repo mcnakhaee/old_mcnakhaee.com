@@ -4513,10 +4513,26 @@ We can observe that the most influential hyper-parameter seems to be the distanc
 &lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;p&gt;For 6 years I had been using python exclusively as the main tool for carrying out my data science tasks and running my experiments. Recently, I have started using Tidyverse packages and tools in R for my data science activities. I am completely facinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then I have tried to participate in the weekly Tidy Tuesday project.
-You can find my submissions in this page.&lt;/p&gt;
+&lt;p&gt;For six years, I used python exclusively as the primary tool for carrying out my data science tasks and running my experiments. Recently, I have started using Tidyverse packages and tools in R for my data science activities. I am completely fascinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then, I have tried to participate in the weekly Tidy Tuesday project.
+You can find my submissions on this page.&lt;/p&gt;
 &lt;div id=&#34;section&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;2020&lt;/h2&gt;
+&lt;div id=&#34;week-39---himalayan-peaks&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Week 39 - Himalayan Peaks&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;peaks_plot.png&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;week-37---friends&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Week 37 - Friends&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;My%20TidyTuesday%20Plot.png&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;palmere-penguines&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Palmere Penguines&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;palmere.png&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;week-12&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Week 12&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;The_Office.png&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
 &lt;div id=&#34;week-3&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Week 3&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&#34;password_quality.jpg&#34; /&gt;&lt;/p&gt;

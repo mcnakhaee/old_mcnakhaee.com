@@ -28,6 +28,12 @@ subtitle = ""
   [[content.filter_button]]
     name = "Deep Learning"
     tag = "Deep Learning"
+  [[content.filter_button]]
+    name = "Python Packages"
+    tag = "Python Packages"
+  [[content.filter_button]]
+    name = "R Packages"
+    tag = "R Packages"
    [[content.filter_button]]
     name = "Tidy Tuesday"
     tag = "TidyTuesday" 

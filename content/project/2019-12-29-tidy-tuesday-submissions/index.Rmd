@@ -21,12 +21,24 @@ url_slides: ''
 url_video: ''
 slides: ''
 ---
-For 6 years I had been using python exclusively as the main tool for carrying out my data science tasks and running my experiments. Recently, I have started using Tidyverse packages and tools in R for my data science activities. I am completely facinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then I have tried to participate in the weekly Tidy Tuesday project.
-You can find my submissions in this page. 
+For six years, I used python exclusively as the primary tool for carrying out my data science tasks and running my experiments. Recently, I have started using Tidyverse packages and tools in R for my data science activities. I am completely fascinated by how these tools make it easy for me to perform analysis and create nice visualization. Since then, I have tried to participate in the weekly Tidy Tuesday project.
+You can find my submissions on this page.  
 
 
 
 ## 2020
+
+### Week 39 - Himalayan Peaks
+![](peaks_plot.png)
+
+### Week 37 - Friends
+![](My TidyTuesday Plot.png)
+
+### Palmere Penguines
+![](palmere.png)
+
+### Week 12
+![](The_Office.png)
 
 ### Week 3
 
