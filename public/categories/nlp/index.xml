@@ -281,8 +281,11 @@ glimpse(presidential_debate_2020)&lt;/code&gt;&lt;/pre&gt;
     #subtitle = &amp;#39;This plot illustrates how much time each presidential candidate spoke &amp;#39;,
     fill = &amp;#39;&amp;#39;,
     color = &amp;#39;&amp;#39;  ) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-10-15-which-presidential-debate-was-more-chaotic/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;1920&#34; /&gt;
-This plot clearly shows that there were many interruptions during the first debate! It also shows that it was Trump who interrupted most in the debate. To give it more context, let us compare it to the 2016 Debates between Trump and Clinton. The transcripts of these debates are available in this dataset that I found on Kaggle. However, this dataset does not include information about how much time each candidate spent speaking in the debates. So, I decided to use the number of words each candidate said as a proxy measure to show the continuity of speeches given by them.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-15-which-presidential-debate-was-more-chaotic/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;clinton-vs.-trump&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Clinton vs. Trump&lt;/h3&gt;
+&lt;p&gt;This plot clearly shows that there were many interruptions during the first debate! It also shows that it was Trump who interrupted most in the debate. To give it more context, let us compare it to the 2016 Debates between Trump and Clinton. The transcripts of these debates are available in &lt;a href=&#34;https://www.kaggle.com/mrisdal/2016-us-presidential-debates&#34;&gt;this dataset that I found on Kaggle&lt;/a&gt;. However, this dataset does not include information about how many seconds or minutes each candidate spent speaking in the debates. So, I decided to use the number of words each candidate spoke to measure continuity in their speeches.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;debate_2016 &amp;lt;- read_csv(&amp;#39;presidential_debate_2016.csv&amp;#39;)
 debate_2016 &amp;lt;-debate_2016 %&amp;gt;% 
     mutate(Text = as.character(Text),
@@ -358,7 +361,6 @@ ggplot(aes(
     x = &amp;#39;&amp;#39;,
     y = &amp;#39;&amp;#39;,
     title = &amp;#39;How Did 2016 US Presidential Debates Go?&amp;#39;,
-    #subtitle = &amp;#39;This plot illustrates how much time each presidential candidate spoke &amp;#39;,
     fill = &amp;#39;&amp;#39;,
     color = &amp;#39;&amp;#39;,
     caption =  
@@ -399,7 +401,6 @@ ggplot(aes(
     x = &amp;#39;&amp;#39;,
     y = &amp;#39;&amp;#39;,
     title = &amp;#39;How Did 2020 US Vice-Presidential Debates Go?&amp;#39;,
-    #subtitle = &amp;#39;This plot illustrates how much time each presidential candidate spoke &amp;#39;,
     fill = &amp;#39;&amp;#39;,
     color = &amp;#39;&amp;#39;,
     caption =  
@@ -434,12 +435,12 @@ ggplot(aes(
     x = &amp;#39;&amp;#39;,
     y = &amp;#39;&amp;#39;,
     title = &amp;#39;How Did 2016 US Vice-Presidential Debates Go?&amp;#39;,
-    #subtitle = &amp;#39;This plot illustrates how much time each presidential candidate spoke &amp;#39;,
     fill = &amp;#39;&amp;#39;,
     color = &amp;#39;&amp;#39;,
     caption =  
   )&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-10-15-which-presidential-debate-was-more-chaotic/index.en_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Well, we can see that Pence and Kaine cut each other off many times during the VP debate. However, we can also observe that they could speak uninterrupted on some occasions.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

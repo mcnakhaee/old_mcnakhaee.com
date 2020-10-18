@@ -135,7 +135,10 @@ presidential_debate_2020 %>%
     fill = '',
     color = ''  ) 
 ```
-This plot clearly shows that there were many interruptions during the first debate! It also shows that it was Trump who interrupted most in the debate. To give it more context, let us compare it to the 2016 Debates between Trump and Clinton. The transcripts of these debates are available in this dataset that I found on Kaggle. However, this dataset does not include information about how much time each candidate spent speaking in the debates. So, I decided to use the number of words each candidate said as a proxy measure to show the continuity of speeches given by them. 
+
+### Clinton vs. Trump
+
+This plot clearly shows that there were many interruptions during the first debate! It also shows that it was Trump who interrupted most in the debate. To give it more context, let us compare it to the 2016 Debates between Trump and Clinton. The transcripts of these debates are available in [this dataset that I found on Kaggle](https://www.kaggle.com/mrisdal/2016-us-presidential-debates). However, this dataset does not include information about how many seconds or minutes each candidate spent speaking in the debates. So, I decided to use the number of words each candidate spoke to measure continuity in their speeches.
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -212,7 +215,6 @@ ggplot(aes(
     x = '',
     y = '',
     title = 'How Did 2016 US Presidential Debates Go?',
-    #subtitle = 'This plot illustrates how much time each presidential candidate spoke ',
     fill = '',
     color = '',
     caption =  
@@ -259,7 +261,6 @@ ggplot(aes(
     x = '',
     y = '',
     title = 'How Did 2020 US Vice-Presidential Debates Go?',
-    #subtitle = 'This plot illustrates how much time each presidential candidate spoke ',
     fill = '',
     color = '',
     caption =  
@@ -298,12 +299,11 @@ ggplot(aes(
     x = '',
     y = '',
     title = 'How Did 2016 US Vice-Presidential Debates Go?',
-    #subtitle = 'This plot illustrates how much time each presidential candidate spoke ',
     fill = '',
     color = '',
     caption =  
   )
 ```
 
-
+Well, we can see that Pence and Kaine cut each other off many times during the VP debate. However, we can also observe that they could speak uninterrupted on some occasions.
 
