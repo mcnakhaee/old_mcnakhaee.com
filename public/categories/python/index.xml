@@ -1517,60 +1517,6 @@ A very useful place to learn more how spacy works the spacy’s online course by
     </item>
     
     <item>
-      <title>Tidymodel for Scikit-Learn Users and Vise Versa</title>
-      <link>/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/</link>
-      <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/</guid>
-      <description>
-&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-
-
-&lt;p&gt;Advantages
-There are many ways to do one thing
-The output is a table which you can use as an input to everything that works with a table&lt;/p&gt;
-&lt;p&gt;Disadvantages&lt;/p&gt;
-&lt;p&gt;##Classification Models&lt;/p&gt;
-&lt;div id=&#34;regression-models&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Regression Models&lt;/h2&gt;
-&lt;div id=&#34;making-prediction&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Making Prediction&lt;/h3&gt;
-&lt;/div&gt;
-&lt;div id=&#34;model-selection&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Model selection&lt;/h3&gt;
-&lt;p&gt;reasonable defaults for tidymodel&lt;/p&gt;
-&lt;p&gt;tidymodel by default tuning paramters are set for us. We can also specify them ourselves.&lt;/p&gt;
-&lt;p&gt;you can even tune the preprocessing steps in Tidymodel.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;pipelines&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Pipelines&lt;/h2&gt;
-&lt;p&gt;pipelines are handy:
-they make your code much shorter
-data leakage&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;unsupervised-learning&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Unsupervised Learning&lt;/h2&gt;
-&lt;div id=&#34;pca&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;PCA&lt;/h3&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;pre-processing&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Pre-Processing&lt;/h2&gt;
-&lt;p&gt;inverse transform&lt;/p&gt;
-&lt;div id=&#34;section&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;&lt;/h3&gt;
-&lt;p&gt;My preferable way&lt;/p&gt;
-&lt;p&gt;Automatic machine learning&lt;/p&gt;
-&lt;p&gt;parellal processing&lt;/p&gt;
-&lt;p&gt;Things that are unique to Scikit-learn&lt;/p&gt;
-&lt;p&gt;Things that are unique to Tidymodels&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://juliasilge.com/blog/best-hip-hop/&#34; class=&#34;uri&#34;&gt;https://juliasilge.com/blog/best-hip-hop/&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Going Back to the Roots! How Much Influence Did Arabic Have on Persian Literature?</title>
       <link>/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>

@@ -401,24 +401,6 @@ img
   </div>
   
   <div>
-    <h2><a href="/post/2020-10-16-exploring-word-embeddings/">Exploring Word Embeddings </a></h2>
-    <div class="article-style">
-      
-      library(reticulate)use_condaenv(&#39;r-reticulate&#39;)import whatliesmodel &lt;- import(&#39;pandas&#39;)
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/2020-10-15-tidy-tuesday-week-37-nlp-and-friend/">Tidy Tuesday Week 37: NLP and Friends</a></h2>
-    <div class="article-style">
-      
-      I experience a few difficult and sad moments in my life in the past few months and it was not particularly an easy job for me to cope with these hard moments. However, I found a medicine to fight the sadness that was caused by these painful experience: watching Friends! I have watched Friends many many times but still it can bring smile to my face. Every time I feel being sad, I just start to watch several episodes on Friends, one after another and the laughter does the rest!
-      
-    </div>
-  </div>
-  
-  <div>
     <h2><a href="/post/2020-10-15-which-presidential-debate-was-more-chaotic/">Which Presidential Debate Was More Chaotic?</a></h2>
     <div class="article-style">
       
@@ -465,43 +447,27 @@ I consider everything and every issue around me as a data science problem and an
   </div>
   
   <div>
-    <h2><a href="/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/">Tidymodel for Scikit-Learn Users and Vise Versa</a></h2>
+    <h2><a href="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/">Going Back to the Roots! How Much Influence Did Arabic Have on Persian Literature?</a></h2>
     <div class="article-style">
       
-      AdvantagesThere are many ways to do one thingThe output is a table which you can use as an input to everything that works with a table
-Disadvantages
-##Classification Models
-Regression ModelsMaking PredictionModel selectionreasonable defaults for tidymodel
-tidymodel by default tuning paramters are set for us. We can also specify them ourselves.
-you can even tune the preprocessing steps in Tidymodel.
-Pipelinespipelines are handy:they make your code much shorterdata leakage
+      Since the conquest of Persia (now Iran) by the Muslim forces in the 7th century, Arabic culture and language have had an enormous influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its primary language, the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost uses the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language.
       
     </div>
   </div>
   
   <div>
-    <h2><a href="/post/2020-02-12-analyzing-football-data/">Analyzing Football Data</a></h2>
+    <h2><a href="/post/2020-02-01-the-map-of-spotify-songs/">The Map of Spotify Songs</a></h2>
     <div class="article-style">
       
-      names(html_table)&lt;- col_namesnames(table_wiki)View(as_tibble(table_wiki,.name_repair = “minimal”)[1,1])
-t &lt;- as_tibble(table_wiki,.name_repair = “minimal”)[1,1]as.vector(t)table_wiki[1:10]
-col_names &lt;- url %&gt;%read_html() %&gt;%html_nodes(xpath = paste(’//*[@id="stats_standard_ks_3260"]’)) %&gt;%html_table(header = NA,fill = TRUE) %&gt;%as.data.frame() %&gt;%slice(1)
-```
+      In the 4th week of the Tidy Tuesday project, a very interesting and fun dataset was proposed to the data science community. The dataset contains information about thousands of songs on Spotify’s platform and along with their metadata and audio features. You can download the dataset can using the following piece of code.
+4th week of the Tidy Tuesday project
+spotify_songs &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;)head(spotify_songs)## # A tibble: 6 x 23## track_id track_name track_artist track_popularity track_album_id## &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; ## 1 6f807x0~ I Don&#39;t C~ Ed Sheeran 66 2oCs0DGTsRO98~## 2 0r7CVbZ~ Memories ~ Maroon 5 67 63rPSO264uRjW~## 3 1z1Hg7V~ All the T~ Zara Larsson 70 1HoSmj2eLcsrR~## 4 75Fpbth~ Call You ~ The Chainsm~ 60 1nqYsOef1yKKu~## 5 1e8PAfc~ Someone Y~ Lewis Capal~ 69 7m7vv9wlQ4i0L~## 6 7fvUMiy~ Beautiful~ Ed Sheeran 67 2yiy9cd2QktrN~## # .
       
     </div>
   </div>
   
 
   
-<nav>
-  <ul class="pagination justify-content-center">
-    
-    
-    <li class="page-item"><a class="page-link" href="/tags/r/page/2/">&raquo;</a></li>
-    
-  </ul>
-</nav>
-
 
 </div>
 
@@ -620,16 +586,6 @@ col_names &lt;- url %&gt;%read_html() %&gt;%html_nodes(xpath = paste(’//*[@i
   
   <div class="container">
     <footer class="site-footer">
-  
-  <p class="powered-by">
-    
-      <a href="/otherwidget/privacy/">Privacy Policy</a>
-    
-    
-       &middot; 
-      <a href="/otherwidget/terms/">Terms</a>
-    
-  </p>
   
   
   
