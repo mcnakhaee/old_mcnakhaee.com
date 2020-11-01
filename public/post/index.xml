@@ -369,18 +369,9 @@ e_charts() %&amp;gt;%
       <guid>/post/2020-10-19-readability-of-trump-and-biden-speeches/</guid>
       <description>
 &lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/datatables-css/datatables-crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/datatables-binding/datatables.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;link href=&#34;/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;p&gt;Aside from their political differences, Donald Trump and Barack Obama are two US Presidents with very contrasting personalities, traits and characters. Obama is known to be a great communicator and an articulate speaker whose speeches are used in English classes to show how one should speak proper English. On the other hand, Trump is not the most eloquent English speaker or US president in history. Every now and then, you can find a clip on the web where Donald Trump is being mocked for the way he speaks or mispronounces words. This is so obvious that even non-native English speakers can notice how Trump’s speeches are very simple and inarticulate. Of course, this was not a bad thing for Trump at all. Actually, almost every political analyst that you see on the news talks about the fact that a vast majority of Trump’s fervent supporters are not college-educated Americans. It might be the case that he knows how to speak to his audience and his base supporters using their language (Although it is more likely that he cannot speak better English better than this level).&lt;/p&gt;
+&lt;p&gt;Aside from their political differences, Donald Trump and Barack Obama have very contrasting personalities, traits and characters. Obama is known to be a great communicator and an articulate speaker whose speeches are used in English classes to show how one should speak proper English. On the other hand, Trump is not the most eloquent English speaker or US president in history. Every now and then, you can find a clip on the web where Donald Trump is being mocked for the way he speaks or mispronounces words. This is so obvious that even non-native English speakers can notice how Trump’s speeches are very simple and inarticulate. Of course, this was not a bad thing for Trump at all. Actually, almost every political analyst that you see on the news talks about the fact that a vast majority of Trump’s fervent supporters are not college-educated Americans. It might be the case that he knows how to speak to his audience and his base supporters using their language (Although it is more likely that he cannot speak better English better than this level).&lt;/p&gt;
 &lt;p&gt;This post will investigate how difficult it is to understand what each US politicians talked about in the 2020 US Election cycle. I will use several readability metrics that can help us compute text comprehensibility. A wide range of these measures are implemented in the &lt;a href=&#34;https://github.com/shivam5992/textstat&#34;&gt;{&lt;code&gt;textstat&lt;/code&gt;}&lt;/a&gt; python package, and it is super easy to calculate them using this package.&lt;/p&gt;
 &lt;p&gt;I compiled a list of US Election-related speeches from rev.com and turned them into an R package called &lt;a href=&#34;https://github.com/mcnakhaee/us2020election&#34;&gt;&lt;code&gt;{us2020election}&lt;/code&gt;&lt;/a&gt;. I use this package as my data source for my analysis. Like some of my other posts, I use Python to perform the analysis and R to visualize my results. Now let’s get started by importing the necessary packages.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
@@ -409,11 +400,24 @@ us_election_speeches[&amp;#39;text_standard_float&amp;#39;] = us_election_speech
 &lt;p&gt;Let’s look at the resulting dataframe.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;us_election_speeches &amp;lt;- py$us_election_speeches 
 us_election_speeches %&amp;gt;% 
-  select(-text) %&amp;gt;% 
-  head() %&amp;gt;% 
-  datatable()&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
-&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;],[&#34;Barack Obama&#34;,&#34;Mike Pence&#34;,&#34;Kamala Harris&#34;,&#34;Donald Trump&#34;,&#34;Kamala Harris&#34;,&#34;Kamala Harris&#34;],[&#34;Barack Obama Campaign Roundtable Event for Joe Biden &amp;amp; Kamala Harris Transcript October 21&#34;,&#34;Mike Pence Campaign Speech Portsmouth, NH Transcript October 21&#34;,&#34;Kamala Harris ‘Get Out the Vote’ Event Speech Transcript October 21&#34;,&#34;Donald Trump Erie, PA Rally Transcript October 20&#34;,&#34;Kamala Harris Milwaukee Virtual Rally Transcript October 20&#34;,&#34;Kamala Harris Campaign Speech Transcript Jacksonville, FL October 19&#34;],[&#34;Oct 21, 2020&#34;,&#34;Oct 21, 2020&#34;,&#34;Oct 21, 2020&#34;,&#34;Oct 20, 2020&#34;,&#34;Oct 20, 2020&#34;,&#34;Oct 19, 2020&#34;],[&#34;Philadelphia, Pennsylvania&#34;,&#34;Portsmouth, New Hampshire&#34;,&#34;Orlando, Florida&#34;,&#34;Erie, Pennsylvania&#34;,&#34;Milwaukee, Wisconsin&#34;,&#34;Jacksonville, Florida&#34;],[&#34;Roundtable&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;],[78.38,67.99,65.35,85.99,71.04,81.22],[8.8,9.32,10.8,5.37,8.3,7.31],[9.8,11.5,11.6,8.1,10.4,8.7],[9,10.8,11.5,5.3,8.8,6.9],[7.95,9.11,8.71,6.48,8.12,6.9],[5.375,5.33333333333333,11.6666666666667,15,16.5,4.7],[5.77,5.75,6.27,5.18,5.65,5.66],[&#34;8th and 9th grade&#34;,&#34;8th and 9th grade&#34;,&#34;11th and 12th grade&#34;,&#34;5th and 6th grade&#34;,&#34;7th and 8th grade&#34;,&#34;5th and 6th grade&#34;],[9,9,12,6,8,6]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;speaker&lt;\/th&gt;\n      &lt;th&gt;title&lt;\/th&gt;\n      &lt;th&gt;date&lt;\/th&gt;\n      &lt;th&gt;location&lt;\/th&gt;\n      &lt;th&gt;type&lt;\/th&gt;\n      &lt;th&gt;Flesch_Reading_Ease_formula&lt;\/th&gt;\n      &lt;th&gt;gunning_fog&lt;\/th&gt;\n      &lt;th&gt;smog_index&lt;\/th&gt;\n      &lt;th&gt;automated_readability_index&lt;\/th&gt;\n      &lt;th&gt;coleman_liau_index&lt;\/th&gt;\n      &lt;th&gt;linsear_write_formula&lt;\/th&gt;\n      &lt;th&gt;dale_chall_readability_score&lt;\/th&gt;\n      &lt;th&gt;text_standard&lt;\/th&gt;\n      &lt;th&gt;text_standard_float&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[6,7,8,9,10,11,12,14]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+glimpse()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Rows: 286
+## Columns: 15
+## $ speaker                      &amp;lt;chr&amp;gt; &amp;quot;Barack Obama&amp;quot;, &amp;quot;Mike Pence&amp;quot;, &amp;quot;Kamala ...
+## $ title                        &amp;lt;chr&amp;gt; &amp;quot;Barack Obama Campaign Roundtable Even...
+## $ text                         &amp;lt;chr&amp;gt; &amp;quot;Barack Obama: (00:01)\n… or the ’40s ...
+## $ date                         &amp;lt;chr&amp;gt; &amp;quot;Oct 21, 2020&amp;quot;, &amp;quot;Oct 21, 2020&amp;quot;, &amp;quot;Oct 2...
+## $ location                     &amp;lt;chr&amp;gt; &amp;quot;Philadelphia, Pennsylvania&amp;quot;, &amp;quot;Portsmo...
+## $ type                         &amp;lt;chr&amp;gt; &amp;quot;Roundtable&amp;quot;, &amp;quot;Campaign Speech&amp;quot;, &amp;quot;Camp...
+## $ Flesch_Reading_Ease_formula  &amp;lt;dbl&amp;gt; 78.38, 67.99, 65.35, 85.99, 71.04, 81....
+## $ gunning_fog                  &amp;lt;dbl&amp;gt; 8.80, 9.32, 10.80, 5.37, 8.30, 7.31, 5...
+## $ smog_index                   &amp;lt;dbl&amp;gt; 9.8, 11.5, 11.6, 8.1, 10.4, 8.7, 8.2, ...
+## $ automated_readability_index  &amp;lt;dbl&amp;gt; 9.0, 10.8, 11.5, 5.3, 8.8, 6.9, 5.5, 5...
+## $ coleman_liau_index           &amp;lt;dbl&amp;gt; 7.95, 9.11, 8.71, 6.48, 8.12, 6.90, 6....
+## $ linsear_write_formula        &amp;lt;dbl&amp;gt; 5.375000, 5.333333, 11.666667, 15.0000...
+## $ dale_chall_readability_score &amp;lt;dbl&amp;gt; 5.77, 5.75, 6.27, 5.18, 5.65, 5.66, 5....
+## $ text_standard                &amp;lt;chr&amp;gt; &amp;quot;8th and 9th grade&amp;quot;, &amp;quot;8th and 9th grad...
+## $ text_standard_float          &amp;lt;dbl&amp;gt; 9, 9, 12, 6, 8, 6, 6, 5, 11, 6, 5, 7, ...&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now I am going to visualize the changes in the distribution of speech complexity for each politician. To make things more, I will select a list of politicians that I’d like to analyze in this post.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;speakers &amp;lt;- c(&amp;#39;Barack Obama&amp;#39;,&amp;#39;Pete Buttigieg&amp;#39;,&amp;#39;Mike Pence&amp;#39;,&amp;#39;Elizabeth Warren&amp;#39;,&amp;#39;Bernie Sanders&amp;#39;,&amp;#39;Donald Trump&amp;#39;,&amp;#39;Kamala Harris&amp;#39;,&amp;#39;Joe Biden&amp;#39;,&amp;#39;Mike Bloomberg&amp;#39;)
 custom_palette &amp;lt;-c(
@@ -559,9 +563,10 @@ We introduced several readability metrics, but each one of them might give us a 
   mutate(n = n + 1) %&amp;gt;%
   ggplot()  +
   geom_col(aes(x = text_standard , y =  n, fill = speaker)) +
-  scale_fill_tableau() +
+  labs(x = &amp;#39;&amp;#39;, y = &amp;#39;&amp;#39;) +
+  scale_fill_manual(values = custom_palette) +
   scale_y_log10() +
-  facet_wrap( ~ speaker, ncol = 1) &lt;/code&gt;&lt;/pre&gt;
+  facet_wrap(~ speaker, ncol = 1) &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We can also convert this readability metric to numbers to visualize and compare it to other metrics.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(text_standard_float,title = &amp;#39;Final Score&amp;#39;)&lt;/code&gt;&lt;/pre&gt;

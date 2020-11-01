@@ -38,7 +38,7 @@ font_add_google("Overpass", "Overpass")
 #windowsFont()
 ```
 
- Aside from their political differences, Donald Trump and Barack Obama are two US Presidents with very contrasting personalities, traits and characters. Obama is known to be a great communicator and an articulate speaker whose speeches are used in English classes to show how one should speak proper English. On the other hand, Trump is not the most eloquent English speaker or US president in history. Every now and then, you can find a clip on the web where Donald Trump is being mocked for the way he speaks or mispronounces words. This is so obvious that even non-native English speakers can notice how Trump's speeches are very simple and inarticulate. Of course, this was not a bad thing for Trump at all. Actually, almost every political analyst that you see on the news talks about the fact that a vast majority of Trump's fervent supporters are not college-educated Americans. It might be the case that he knows how to speak to his audience and his base supporters using their language (Although it is more likely that he cannot speak better English better than this level).
+ Aside from their political differences, Donald Trump and Barack Obama have very contrasting personalities, traits and characters. Obama is known to be a great communicator and an articulate speaker whose speeches are used in English classes to show how one should speak proper English. On the other hand, Trump is not the most eloquent English speaker or US president in history. Every now and then, you can find a clip on the web where Donald Trump is being mocked for the way he speaks or mispronounces words. This is so obvious that even non-native English speakers can notice how Trump's speeches are very simple and inarticulate. Of course, this was not a bad thing for Trump at all. Actually, almost every political analyst that you see on the news talks about the fact that a vast majority of Trump's fervent supporters are not college-educated Americans. It might be the case that he knows how to speak to his audience and his base supporters using their language (Although it is more likely that he cannot speak better English better than this level).
 
 This post will investigate how difficult it is to understand what each US politicians talked about in the 2020 US Election cycle. I will use several readability metrics that can help us compute text comprehensibility. A wide range of these measures are implemented in the [{`textstat`}](https://github.com/shivam5992/textstat) python package, and it is super easy to calculate them using this package.
 
@@ -50,7 +50,6 @@ library(reticulate)
 library(ggthemes)
 library(us2020election)
 library(ggridges)
-library(DT)
 theme_set(theme_tufte())
 theme_update(legend.position = 'none',
              panel.background = element_rect(fill = '#FDF6E3'))
@@ -83,9 +82,7 @@ Let's look at the resulting dataframe.
 ```{r}
 us_election_speeches <- py$us_election_speeches 
 us_election_speeches %>% 
-  select(-text) %>% 
-  head() %>% 
-  datatable()
+glimpse()
 ```
 
 Now I am going to visualize the changes in the distribution of speech complexity for each politician. To make things more, I will select a list of politicians that I'd like to analyze in this post.
@@ -214,9 +211,10 @@ us_election_speeches %>%
   mutate(n = n + 1) %>%
   ggplot()  +
   geom_col(aes(x = text_standard , y =  n, fill = speaker)) +
-  scale_fill_tableau() +
+  labs(x = '', y = '') +
+  scale_fill_manual(values = custom_palette) +
   scale_y_log10() +
-  facet_wrap( ~ speaker, ncol = 1) 
+  facet_wrap(~ speaker, ncol = 1) 
 ```
 
 We can also convert this readability metric to numbers to visualize and compare it to other metrics.
