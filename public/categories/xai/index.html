@@ -94,7 +94,7 @@
     
     
     
-    <link rel="stylesheet" href="/css/academic.bf0d00976bb752be54a4f3e21798555c.css">
+    <link rel="stylesheet" href="/css/academic.50ffad82b4ed3579b14ca31c3d831d9e.css">
   
 
   
@@ -397,6 +397,15 @@
   </div>
   
   <div>
+    <h2><a href="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/">What Makes a Song Popular? An Explainable Machine Learning Approach</a></h2>
+    <div class="article-style">
+      
+      knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tune)library(rsample)library(yardstick)library(dials)library(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)spotify_songs &lt;- spotify_songs %&gt;% dplyr::rowwise() %&gt;% mutate(shorter_names = unlist(str_split(track_name,&#39;-&#39;))[1]) spotify_songs &lt;- py$spotify_songsHave you ever wondered why some songs from an artist become so popular and others are just total failure?Look at the next plot. Even The Beetles had a few not so popular songs.
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/2020-02-01-the-map-of-spotify-songs/">The Map of Spotify Songs</a></h2>
     <div class="article-style">
       
@@ -408,10 +417,31 @@ spotify_songs &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rford
   </div>
   
   <div>
+    <h2><a href="/post/2020-01-18-optimal-rule-lists/">Optimal Rule Lists</a></h2>
+    <div class="article-style">
+      
+      AxiomThere is an inverse relationship betweenmodel accuracy and model interpretability.
+This post is heavily inspired by the Decision Rules chapter from the Interpretable Machine Learning book by Christoph Molnar.
+Some machine learning researchers argue that we should pay more attention to interpretable machine learning instead of trying to design methods to explain black box models.While reading almost any paper the field of explainable machine learning, you will notice that in that every paper almost always starts by arguing that there is a trade-off between accuracy and interpretability.
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/2020-01-05-euads-summer-school-explanations-in-philosophy-and-psychology/">EuADS Summer School 2019, Explanations in Philosophy and Psychology Talk by Christos Bechlivanidis</a></h2>
     <div class="article-style">
       
       In my last post, I shared my notes from two talks at Explainable Data Science summer school in Luxembourg. Although every talk in the summer school was interesting and taught me new things but I particularly liked the &ldquo;Explanations in Philosophy and Psychology&rdquo; talk by Christos Bechlivanidis. I learned a lot of new things from this this talk specially because what I had focused by them was mainly about the more algorithmic aspect of explainability.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/">EuADS Summer School 2019: SUBJECTIVITY and VISUALIZATION</a></h2>
+    <div class="article-style">
+      
+      This talk was mainly focused on the importance of visualization and other techniques for exploring and explaining data. In other words, one approach to explainability is to first explore the input data and find interesting patterns. This can be done via:
+Association analysis ()Dimensionality reduction techniquesGraph embeddingsClusteringCommunity detection…However interesting pattern is a subjective term and there are a huge number of “interesting measures” out there.
       
     </div>
   </div>
@@ -546,6 +576,16 @@ What I specifically liked about this summer school ( of course besides enjoying 
   
   <div class="container">
     <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/otherwidget/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/otherwidget/terms/">Terms</a>
+    
+  </p>
   
   
   

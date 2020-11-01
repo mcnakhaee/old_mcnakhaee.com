@@ -5,12 +5,378 @@
     <link>/tags/nlp/</link>
       <atom:link href="/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
     <description>NLP</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 15 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>NLP</title>
       <link>/tags/nlp/</link>
     </image>
+    
+    <item>
+      <title>How Easy Is It to Understand What Donald Trump Says?</title>
+      <link>/post/2020-10-19-readability-of-trump-and-biden-speeches/</link>
+      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-10-19-readability-of-trump-and-biden-speeches/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/datatables-css/datatables-crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/datatables-binding/datatables.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;link href=&#34;/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Aside from their political differences, Donald Trump and Barack Obama are two US Presidents with very contrasting personalities, traits and characters. Obama is known to be a great communicator and an articulate speaker whose speeches are used in English classes to show how one should speak proper English. On the other hand, Trump is not the most eloquent English speaker or US president in history. Every now and then, you can find a clip on the web where Donald Trump is being mocked for the way he speaks or mispronounces words. This is so obvious that even non-native English speakers can notice how Trump’s speeches are very simple and inarticulate. Of course, this was not a bad thing for Trump at all. Actually, almost every political analyst that you see on the news talks about the fact that a vast majority of Trump’s fervent supporters are not college-educated Americans. It might be the case that he knows how to speak to his audience and his base supporters using their language (Although it is more likely that he cannot speak better English better than this level).&lt;/p&gt;
+&lt;p&gt;This post will investigate how difficult it is to understand what each US politicians talked about in the 2020 US Election cycle. I will use several readability metrics that can help us compute text comprehensibility. A wide range of these measures are implemented in the &lt;a href=&#34;https://github.com/shivam5992/textstat&#34;&gt;{&lt;code&gt;textstat&lt;/code&gt;}&lt;/a&gt; python package, and it is super easy to calculate them using this package.&lt;/p&gt;
+&lt;p&gt;I compiled a list of US Election-related speeches from rev.com and turned them into an R package called &lt;a href=&#34;https://github.com/mcnakhaee/us2020election&#34;&gt;&lt;code&gt;{us2020election}&lt;/code&gt;&lt;/a&gt;. I use this package as my data source for my analysis. Like some of my other posts, I use Python to perform the analysis and R to visualize my results. Now let’s get started by importing the necessary packages.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(reticulate)
+library(ggthemes)
+library(us2020election)
+library(ggridges)
+library(DT)
+theme_set(theme_tufte())
+theme_update(legend.position = &amp;#39;none&amp;#39;,
+             panel.background = element_rect(fill = &amp;#39;#FDF6E3&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np
+import pandas as pd 
+import textstat&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are several readability measures for English text included in {&lt;code&gt;textstat&lt;/code&gt;}. Calculating these measures is very straightforward and easy. I will explain what each metric represents in more details.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;us_election_speeches = r.us_election_speeches
+us_election_speeches[&amp;#39;Flesch_Reading_Ease_formula&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.flesch_reading_ease(x))
+us_election_speeches[&amp;#39;gunning_fog&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.gunning_fog(x))
+us_election_speeches[&amp;#39;smog_index&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.smog_index(x))
+us_election_speeches[&amp;#39;automated_readability_index&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.automated_readability_index(x))
+us_election_speeches[&amp;#39;coleman_liau_index&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.coleman_liau_index(x))
+us_election_speeches[&amp;#39;linsear_write_formula&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.linsear_write_formula(x))
+us_election_speeches[&amp;#39;dale_chall_readability_score&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.dale_chall_readability_score(x))
+us_election_speeches[&amp;#39;text_standard&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.text_standard(x))
+us_election_speeches[&amp;#39;text_standard_float&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.text_standard(x,float_output  = True))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s look at the resulting dataframe.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;us_election_speeches &amp;lt;- py$us_election_speeches 
+us_election_speeches %&amp;gt;% 
+  select(-text) %&amp;gt;% 
+  head() %&amp;gt;% 
+  datatable()&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;],[&#34;Barack Obama&#34;,&#34;Mike Pence&#34;,&#34;Kamala Harris&#34;,&#34;Donald Trump&#34;,&#34;Kamala Harris&#34;,&#34;Kamala Harris&#34;],[&#34;Barack Obama Campaign Roundtable Event for Joe Biden &amp;amp; Kamala Harris Transcript October 21&#34;,&#34;Mike Pence Campaign Speech Portsmouth, NH Transcript October 21&#34;,&#34;Kamala Harris ‘Get Out the Vote’ Event Speech Transcript October 21&#34;,&#34;Donald Trump Erie, PA Rally Transcript October 20&#34;,&#34;Kamala Harris Milwaukee Virtual Rally Transcript October 20&#34;,&#34;Kamala Harris Campaign Speech Transcript Jacksonville, FL October 19&#34;],[&#34;Oct 21, 2020&#34;,&#34;Oct 21, 2020&#34;,&#34;Oct 21, 2020&#34;,&#34;Oct 20, 2020&#34;,&#34;Oct 20, 2020&#34;,&#34;Oct 19, 2020&#34;],[&#34;Philadelphia, Pennsylvania&#34;,&#34;Portsmouth, New Hampshire&#34;,&#34;Orlando, Florida&#34;,&#34;Erie, Pennsylvania&#34;,&#34;Milwaukee, Wisconsin&#34;,&#34;Jacksonville, Florida&#34;],[&#34;Roundtable&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;],[78.38,67.99,65.35,85.99,71.04,81.22],[8.8,9.32,10.8,5.37,8.3,7.31],[9.8,11.5,11.6,8.1,10.4,8.7],[9,10.8,11.5,5.3,8.8,6.9],[7.95,9.11,8.71,6.48,8.12,6.9],[5.375,5.33333333333333,11.6666666666667,15,16.5,4.7],[5.77,5.75,6.27,5.18,5.65,5.66],[&#34;8th and 9th grade&#34;,&#34;8th and 9th grade&#34;,&#34;11th and 12th grade&#34;,&#34;5th and 6th grade&#34;,&#34;7th and 8th grade&#34;,&#34;5th and 6th grade&#34;],[9,9,12,6,8,6]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;speaker&lt;\/th&gt;\n      &lt;th&gt;title&lt;\/th&gt;\n      &lt;th&gt;date&lt;\/th&gt;\n      &lt;th&gt;location&lt;\/th&gt;\n      &lt;th&gt;type&lt;\/th&gt;\n      &lt;th&gt;Flesch_Reading_Ease_formula&lt;\/th&gt;\n      &lt;th&gt;gunning_fog&lt;\/th&gt;\n      &lt;th&gt;smog_index&lt;\/th&gt;\n      &lt;th&gt;automated_readability_index&lt;\/th&gt;\n      &lt;th&gt;coleman_liau_index&lt;\/th&gt;\n      &lt;th&gt;linsear_write_formula&lt;\/th&gt;\n      &lt;th&gt;dale_chall_readability_score&lt;\/th&gt;\n      &lt;th&gt;text_standard&lt;\/th&gt;\n      &lt;th&gt;text_standard_float&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[6,7,8,9,10,11,12,14]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p&gt;Now I am going to visualize the changes in the distribution of speech complexity for each politician. To make things more, I will select a list of politicians that I’d like to analyze in this post.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;speakers &amp;lt;- c(&amp;#39;Barack Obama&amp;#39;,&amp;#39;Pete Buttigieg&amp;#39;,&amp;#39;Mike Pence&amp;#39;,&amp;#39;Elizabeth Warren&amp;#39;,&amp;#39;Bernie Sanders&amp;#39;,&amp;#39;Donald Trump&amp;#39;,&amp;#39;Kamala Harris&amp;#39;,&amp;#39;Joe Biden&amp;#39;,&amp;#39;Mike Bloomberg&amp;#39;)
+custom_palette &amp;lt;-c(
+    &amp;#39;Mike Bloomberg&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Amy Klobuchar&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Joe Biden&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Pete Buttigieg&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Elizabeth Warren&amp;#39; =  &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Barack Obama&amp;#39;  = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Bernie Sanders&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Kamala Harris&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Donald Trump&amp;#39;  = &amp;#39;#E15759&amp;#39; ,
+     &amp;#39;Mike Pence&amp;#39; = &amp;#39;#E15759&amp;#39; 
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Also, I created a function to make ridge plots for each metric easier.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot &amp;lt;- function(metric = Flesch_Reading_Ease_formula,title) {
+  metrics &amp;lt;- rlang::enquo(metric)
+  us_election_speeches %&amp;gt;%
+    separate_rows(speaker, sep = &amp;#39;,&amp;#39;) %&amp;gt;%
+    filter(speaker %in% speakers, type != &amp;#39;Debate&amp;#39;) %&amp;gt;%
+    add_count(speaker) %&amp;gt;%
+    ggplot() +
+    geom_density_ridges(aes(
+      x = !!metrics ,
+      y = speaker,
+      fill = speaker
+    )) +
+    labs(x = &amp;#39;&amp;#39;, y = &amp;#39;&amp;#39;,title = title) +
+    scale_fill_manual(values = custom_palette) +
+    theme(legend.position = &amp;#39;none&amp;#39;,
+          text = element_text(family = &amp;#39;Overpass&amp;#39;),
+          panel.background = element_rect(fill = &amp;#39;#FDF6E3&amp;#39;),
+          plot.background = element_rect(fill = &amp;#39;#FDF6E3&amp;#39;))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, let’s look at several readability measure in more depth.&lt;/p&gt;
+&lt;div id=&#34;flesch-reading-ease-scores&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Flesch Reading Ease scores&lt;/h3&gt;
+&lt;p&gt;The first readability score that I will look at is based on the Flesch Reading Ease formula. It computes the number of syllables to determine how easy a piece of text is. The maximum value of Flesch Reading Ease is 122, and there is no minimum value for it. Higher Flesch Reading Ease scores indicate that the text (speech) is easier to understand by the audience. In our case, it would show how sophisticated each politician is in terms of language use. You can find more about this metric on &lt;a href=&#34;https://en.wikipedia.org/wiki/Flesch–Kincaid_readability_tests&#34;&gt;Wikipedia&lt;/a&gt;!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(title = &amp;#39;Flesch Reading Ease scores&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;we can interpret the scores using the following table:&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;13%&#34; /&gt;
+&lt;col width=&#34;20%&#34; /&gt;
+&lt;col width=&#34;66%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Score&lt;/th&gt;
+&lt;th&gt;School level&lt;/th&gt;
+&lt;th&gt;Notes&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;100.00–90.00&lt;/td&gt;
+&lt;td&gt;5th grade&lt;/td&gt;
+&lt;td&gt;Very easy to read. Easily understood by an average 11-year-old student.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;90.0–80.0&lt;/td&gt;
+&lt;td&gt;6th grade&lt;/td&gt;
+&lt;td&gt;Easy to read. Conversational English for consumers.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;80.0–70.0&lt;/td&gt;
+&lt;td&gt;7th grade&lt;/td&gt;
+&lt;td&gt;Fairly easy to read.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;70.0–60.0&lt;/td&gt;
+&lt;td&gt;8th &amp;amp; 9th grade&lt;/td&gt;
+&lt;td&gt;Plain English. Easily understood by 13- to 15-year-old students.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;60.0–50.0&lt;/td&gt;
+&lt;td&gt;10th to 12th grade&lt;/td&gt;
+&lt;td&gt;Fairly difficult to read.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;50.0–30.0&lt;/td&gt;
+&lt;td&gt;College&lt;/td&gt;
+&lt;td&gt;Difficult to read.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;30.0–10.0&lt;/td&gt;
+&lt;td&gt;College graduate&lt;/td&gt;
+&lt;td&gt;Very difficult to read. Best understood by university graduates.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;10.0–0.0&lt;/td&gt;
+&lt;td&gt;Professional&lt;/td&gt;
+&lt;td&gt;Extremely difficult to read. Best understood by university graduates.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;gunning-fog-index&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Gunning fog index&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Gunning_fog_index&#34;&gt;The Gunning fog index&lt;/a&gt; is another metric to measure the complexity of a text document. It shows how many years of education one might need to understand a piece of text. Larger values of Gunning fog index correspond to more difficult writings.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(gunning_fog,title = &amp;#39;Gunning fog index&amp;#39; )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-smog-index&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;The SMOG index&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/SMOG&#34;&gt;The SMOG index&lt;/a&gt; computes the ratio of polysyllables (words with three or more syllables) in sentences to determine text complexity.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(smog_index,title = &amp;#39;The SMOG index&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;linsear-write-formula&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Linsear Write Formula&lt;/h3&gt;
+&lt;p&gt;Like previous the metric, &lt;a href=&#34;https://en.wikipedia.org/wiki/Linsear_Write&#34;&gt;the Linsear Write Formula&lt;/a&gt; uses words with three or more syllables to compute text readability. It also relies on the sentence length to measure how difficult reading a text could be.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(linsear_write_formula,title = &amp;#39;Linsear Write Formula&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;dale-chall-readability-score&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Dale–Chall_readability_formula&#34;&gt;Dale-Chall Readability Score&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;This metric is different from the other metrics that we have talked about. It uses a dictionary of 3000 words that are easy to read and understand for a fourth-grade student. So, Words that are not in this dictionary are considered to be complex.&lt;/p&gt;
+&lt;p&gt;The higher this Dale-Chall Score gets, the more a text becomes to read and understand.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(dale_chall_readability_score,title = &amp;#39;Dale-Chall Readability Score&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;960&#34; /&gt;
+### A unified readability
+We introduced several readability metrics, but each one of them might give us a slightly different result. There is a way in &lt;code&gt;textstats&lt;/code&gt; to combine all these metrics and have a single readability metric.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;us_election_speeches %&amp;gt;%
+  filter(speaker %in% speakers) %&amp;gt;%
+  mutate(text_standard = factor(
+    text_standard,
+    levels = c(
+      &amp;#39;4th and 5th grade&amp;#39;,
+      &amp;#39;5th and 6th grade&amp;#39;,
+      &amp;#39;6th and 7th grade&amp;#39;,
+      &amp;#39;7th and 8th grade&amp;#39;,
+      &amp;#39;8th and 9th grade&amp;#39;,
+      &amp;#39;9th and 10th grade&amp;#39;,
+      &amp;#39;10th and 11th grade&amp;#39;,
+      &amp;#39;11th and 12th grade&amp;#39;,
+      &amp;#39;12th and 13th grade&amp;#39;,
+      &amp;#39;14th and 15th grade&amp;#39;
+    )
+  )) %&amp;gt;%
+  count(speaker, text_standard) %&amp;gt;%
+  mutate(n = n + 1) %&amp;gt;%
+  ggplot()  +
+  geom_col(aes(x = text_standard , y =  n, fill = speaker)) +
+  scale_fill_tableau() +
+  scale_y_log10() +
+  facet_wrap( ~ speaker, ncol = 1) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We can also convert this readability metric to numbers to visualize and compare it to other metrics.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(text_standard_float,title = &amp;#39;Final Score&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;We can consistently see that Trump speeches are less sophisticated and less complex than the speeches given by the rest of politicians. We can attribute this to his lack of sophistication in terms of language, the fact that he knows how can speak to his audience or both. Also, we can notice that Mike Pence and Barack Obama seem to use a more an advanced language in their speeches.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;section&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;/h3&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exploring Word Embeddings </title>
+      <link>/post/2020-10-16-exploring-word-embeddings/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-10-16-exploring-word-embeddings/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(reticulate)
+use_condaenv(&amp;#39;r-reticulate&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import whatlies&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model &amp;lt;- import(&amp;#39;pandas&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tidy Tuesday Week 37: NLP and Friends</title>
+      <link>/post/2020-10-15-tidy-tuesday-week-37-nlp-and-friend/</link>
+      <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-10-15-tidy-tuesday-week-37-nlp-and-friend/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;I experience a few difficult and sad moments in my life in the past few months and it was not particularly an easy job for me to cope with these hard moments. However, I found a medicine to fight the sadness that was caused by these painful experience: watching Friends! I have watched Friends many many times but still it can bring smile to my face. Every time I feel being sad, I just start to watch several episodes on Friends, one after another and the laughter does the rest!&lt;/p&gt;
+&lt;p&gt;So, when I realized that the dataset we are going to work with in the 37th week of 2020 Tidy Tuesdays project, I was absolutely thrilled and excited to get my hands on this dataset and analyze it. As a big fan of Friends, many ideas popped into my head on how I can make an interesting analysis on this dataset. In this post, I will go through three of them:
+1. In Which locations (scenes) Friends was most filmed?
+2. How characters in the show interacted with each other?
+3. What kinds of actions female and male characters in the show were doing?&lt;/p&gt;
+&lt;p&gt;I will addressed these three questions in the rest of this post!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(ggthemes)
+library(tidytuesdayR)
+library(rsyntax)
+library(spacyr)
+library(tidytext)
+library(tidygraph)
+library(igraph)
+library(ggraph)
+library(hrbrthemes)
+library(DT)
+spacy_initialize(model = &amp;quot;en_core_web_lg&amp;quot;)
+
+theme_set(  theme_fivethirtyeight()) 
+theme_update(
+    text = element_text(family = &amp;#39;Poppins Light&amp;#39;, color = &amp;#39;#774936&amp;#39;),
+    plot.title = element_text(margin = margin(t = 10, b = 10)),
+    plot.subtitle = element_text(margin = margin(b = 20)),
+    axis.text.y = element_blank(),
+    plot.background = element_rect(fill = &amp;#39;#FFFAF0&amp;#39;),
+    panel.background = element_rect(fill = &amp;#39;#FFFAF0&amp;#39;),
+    legend.position = &amp;#39;none&amp;#39;,
+    panel.grid.major  = element_line(
+      color = &amp;#39;#eddcd2&amp;#39;,
+      size = 0.5,
+      linetype = &amp;#39;dashed&amp;#39;
+    ),
+    panel.grid.minor = element_line(
+      color = &amp;#39;#eddcd2&amp;#39;,
+      size = 0.01,
+      linetype = &amp;#39;dashed&amp;#39;
+    )
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let us load the Friends dataset using the handy &lt;code&gt;tt_load&lt;/code&gt; function from the &lt;code&gt;tidytuesdayR&lt;/code&gt; package!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tt &amp;lt;- tt_load(&amp;quot;2020-09-08&amp;quot;)
+friends_df &amp;lt;- tt$friends &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It returns three tables but since the data that I need , I will only be working with the friends transcript dataset.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;friends_df %&amp;gt;% 
+  head(20) %&amp;gt;% 
+  datatable()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;friends_df &amp;lt;- tt$friends &lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;top-locations&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Top Locations&lt;/h3&gt;
+&lt;p&gt;Now let’s find out which locations this show was filmed the most. This information is available in the &lt;code&gt;text&lt;/code&gt; column.
+In this column,Usually the location where the scene took place comes after the &lt;code&gt;Scene:&lt;/code&gt; string . So, we only need to find and filter rows that have this string. Unfortunately, this information is not available for the first and the last two seasons of Friends!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;friends_df %&amp;gt;%
+  filter(str_detect(text, fixed(&amp;#39;Scene:&amp;#39;))) %&amp;gt;% 
+  head() %&amp;gt;% 
+  datatable()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;scences &amp;lt;- friends_df %&amp;gt;%
+  filter(str_detect(text, fixed(&amp;#39;Scene:&amp;#39;))) %&amp;gt;%
+  rowwise() %&amp;gt;%
+  mutate(
+    location = if_else(season &amp;lt;9,str_split(text, &amp;#39;,&amp;#39;)[[1]][1],str_split(text, fixed(&amp;#39;.&amp;#39;))[[1]][1]),
+    location = str_remove_all(location, &amp;#39;erm&amp;#39;),
+    location = str_remove_all(location, fixed(&amp;#39;erm&amp;#39;)),
+    location = str_remove(location, fixed(&amp;#39;[Scene:&amp;#39;)) ,
+    location = str_trim(location)
+  ) %&amp;gt;% 
+  filter(!str_detect(location, fixed(&amp;#39;]&amp;#39;)),
+         !location %in% c(&amp;#39;Monica&amp;#39;, &amp;#39;Chandler&amp;#39;))
+
+scenes_location_count &amp;lt;- scences %&amp;gt;%
+  count(location, sort = TRUE) %&amp;gt;%
+  filter(n &amp;gt; 10 )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let’s sort and look at the top locations in Friends:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;scenes_location_count  %&amp;gt;% 
+  DT::datatable()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So, Central Perk was the location where most scenes took place!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; scenes_location_count %&amp;gt;% 
+  ggplot(aes(x = fct_reorder(location,n),n)) +
+  geom_col(fill = &amp;#39;#ef476f&amp;#39;) +
+  coord_flip() +
+  labs(title = &amp;#39;Most Filmed Locations in Friends&amp;#39; ) +
+  theme_fivethirtyeight() +
+  theme(legend.position = &amp;#39;none&amp;#39;, 
+        axis.text.x = element_text(angle = 90))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But let’s look at how many times each different locations&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;scences %&amp;gt;% 
+  count(season,location,sort = TRUE) %&amp;gt;% 
+  filter(n&amp;gt;5) %&amp;gt;% 
+  ggplot(aes(x= season,y=n)) +
+  geom_line(color = &amp;#39;red&amp;#39;,size = 1)+
+  geom_point(color = &amp;#39;red&amp;#39;,size = 3)+
+  labs(title = &amp;#39;Where Was Freinds Filmed?&amp;#39;,subtitle = &amp;#39;&amp;#39;) +
+  facet_wrap(~location) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;it inspired me to perform the same analysis on the Friends’ transcript. However, my approach is slightly different from what Julia Sigles employed. She used bigrams to find a combination of pronouns and verbs while My approach uses named entity recognition (NER) form the natural language processing literature. In my previous posts, I used Spacy and Python to extract named entities from text data, but in this post I will exclusively use
+the &lt;code&gt;spacyr&lt;/code&gt; package in R (which behind the scene uses Spacy and python).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;female_characters &amp;lt;- c(&amp;#39;monica&amp;#39;,&amp;#39;rachel&amp;#39;,&amp;#39;phoebe&amp;#39;,&amp;#39;emily&amp;#39;,&amp;#39;carol&amp;#39;,&amp;#39;janice&amp;#39;,&amp;#39;susan&amp;#39;,&amp;#39;kathy&amp;#39;,&amp;#39;elizabeth&amp;#39;,&amp;#39;she&amp;#39;)
+male_characters &amp;lt;- c(&amp;#39;ross&amp;#39;,&amp;#39;joey&amp;#39;,&amp;#39;chandler&amp;#39;,&amp;#39;mike&amp;#39;,&amp;#39;richard&amp;#39;,&amp;#39;gunther&amp;#39;,&amp;#39;paolo&amp;#39;,&amp;#39;bob&amp;#39;,&amp;#39;paul&amp;#39;,&amp;#39;frank&amp;#39;,&amp;#39;he&amp;#39;)
+
+
+male_speakers &amp;lt;- c(&amp;#39;Ross Geller&amp;#39;,&amp;#39;Chandler Bing&amp;#39;,&amp;#39;Joey Tribbiani&amp;#39;,&amp;#39;Richard Burke&amp;#39;,&amp;#39;Mike Hannigan&amp;#39;,&amp;#39;Frank Buffay Jr.&amp;#39;,&amp;#39;Jack Geller&amp;#39;,&amp;#39;David&amp;#39;,&amp;#39;Peter Becker&amp;#39;,&amp;#39;Eddie Menuek&amp;#39;,&amp;#39;Gunther&amp;#39;,&amp;#39;Paul Stevens&amp;#39;)
+
+female_speakers &amp;lt;- c(&amp;#39;Rachel Green&amp;#39;,&amp;#39;Phoebe Buffay&amp;#39;,&amp;#39;Janice Litman Goralnik&amp;#39;,&amp;#39;Monica Geller&amp;#39;,&amp;#39;Emily Waltham&amp;#39;,&amp;#39;Charlie Wheeler&amp;#39;,&amp;#39;Judy Geller&amp;#39;,&amp;#39;Amy Green&amp;#39;,&amp;#39;Carol Willick&amp;#39;,&amp;#39;Mona&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I start by separating the text column into sentences and give each sentence a unique id which I use later for joining dataframes.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;friends_sentences &amp;lt;- friends_df %&amp;gt;%
+  unnest_tokens(sentence, text, token = &amp;#39;sentences&amp;#39;) %&amp;gt;%
+  rownames_to_column() %&amp;gt;%
+  rename(doc_id = rowname,
+         text = sentence) 
+friends_sentences %&amp;gt;%
+  tail() %&amp;gt;% 
+  datatable()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The main function that I am going to use from &lt;code&gt;spacyr&lt;/code&gt; is the ‘spacy_parse’ function which can return named entities, dependencies, part-of-speech tags, etc. By default, it does not give us dependencies so we need to set &lt;code&gt;dependency = TRUE&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tq &amp;lt;- tquery(pos = &amp;quot;VERB&amp;quot;, label = &amp;quot;verb&amp;quot;, children(relation = &amp;quot;nsubj&amp;quot;, label = &amp;quot;subject&amp;quot;))
+tokens_df_dep &amp;lt;- friends_sentences %&amp;gt;% 
+  spacy_parse(dependency = TRUE) %&amp;gt;%
+  annotate_tqueries(&amp;quot;annotation&amp;quot;, query_name = tq) %&amp;gt;%
+  filter(!is.na(annotation))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now I join tokens that I created using spacy and the firends sentences dataframe.&lt;/p&gt;
+&lt;p&gt;I will pull the documnets id that:&lt;/p&gt;
+&lt;p&gt;token&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;friends-network&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Friends’ Network&lt;/h3&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Which Presidential Debate Was More Chaotic?</title>
@@ -1805,7 +2171,10 @@ A very useful place to learn more how spacy works the spacy’s online course by
 &lt;/ol&gt;
 &lt;p&gt;I use the &lt;code&gt;Tidytext&lt;/code&gt; library and its stopword list to compute my defined metrics. Note that there are several stopword lexicons out there, and the choice of lexicon can slightly change the outcome.&lt;/p&gt;
 &lt;p&gt;It’s time to start the analysis itself, but before that I need to import a few libraries and set and customize the theme that I am going to use for visualization.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(demdebates2020)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(readability)
+library(syllable)
+
+library(demdebates2020)
 library(tidytext)
 library(tidyverse)
 library(gghighlight)
@@ -1821,7 +2190,16 @@ theme_update(legend.position = &amp;#39;none&amp;#39;,
       axis.text.y = element_text(family = &amp;#39;Montserrat&amp;#39;, face = &amp;quot;bold&amp;quot;,size = 15, margin = margin(0, 0, 20, 0)),
       panel.spacing = unit(2, &amp;quot;points&amp;quot;),
       axis.title.x = element_blank(),
-      axis.title.y = element_blank())&lt;/code&gt;&lt;/pre&gt;
+      axis.title.y = element_blank())
+
+custom_palette &amp;lt;-c(
+    &amp;#39;Mike Bloomberg&amp;#39; = &amp;#39;#EDC948&amp;#39;,
+    &amp;#39;Amy Klobuchar&amp;#39; = &amp;#39;#59A14F&amp;#39; ,
+    &amp;#39;Joe Biden&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Pete Buttigieg&amp;#39; = &amp;#39;#B07AA1&amp;#39;,
+    &amp;#39;Elizabeth Warren&amp;#39; =  &amp;#39;#F28E2B&amp;#39;,
+    &amp;#39;Bernie Sanders&amp;#39; = &amp;#39;#E15759&amp;#39; 
+  )&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The field of the democratic primary election is full of candidates. So, for the sake of simplicity and clarity, I am going to analyze candidates that are still in the race (as of February 23rd) and were present in the last two democratic debate. It means that I will compare six democratic candidates including &lt;em&gt;Bernie Sanders&lt;/em&gt;, &lt;em&gt;Elizabeth Warren&lt;/em&gt;, &lt;em&gt;Mike Bloomberg&lt;/em&gt;, &lt;em&gt;Pete Buttigieg&lt;/em&gt;, &lt;em&gt;Amy Klobuchar&lt;/em&gt; and &lt;em&gt;Joe Biden&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;speakers &amp;lt;- debates %&amp;gt;%
   filter(!is.na(speech), type == &amp;#39;Candidate&amp;#39; ,debate == 9) %&amp;gt;%
@@ -1830,6 +2208,21 @@ theme_update(legend.position = &amp;#39;none&amp;#39;,
 speakers&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Bernie Sanders&amp;quot;   &amp;quot;Elizabeth Warren&amp;quot; &amp;quot;Mike Bloomberg&amp;quot;   &amp;quot;Pete Buttigieg&amp;quot;  
 ## [5] &amp;quot;Amy Klobuchar&amp;quot;    &amp;quot;Joe Biden&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;readability_scores &amp;lt;- debates %&amp;gt;%
+  filter(!is.na(speech), type == &amp;#39;Candidate&amp;#39;) %&amp;gt;%
+  with(readability(speech,list(speaker,debate))) 
+
+readability_scores %&amp;gt;% 
+  filter(speaker %in% speakers) %&amp;gt;% 
+  pivot_longer(Flesch_Kincaid:Average_Grade_Level,names_to = &amp;#39;readability_measure&amp;#39;,values_to = &amp;#39;value&amp;#39;) %&amp;gt;% 
+  ggplot(aes(x = debate, y = value,color = speaker)) +
+  geom_point(size = 6,alpha = 0.7)+
+  geom_line(size = 2,alpha = 0.9) +
+ scale_color_manual(values = custom_palette) +
+  labs(color = &amp;#39;&amp;#39;) +
+  facet_wrap(~readability_measure,scales = &amp;#39;free_y&amp;#39;) +
+  theme(legend.position = &amp;#39;top&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Before computing my desirable metrics, I should tokenize and transform the transcript into a &lt;em&gt;&lt;a href=&#34;https://www.tidytextmining.com/tidytext.html&#34;&gt;tidy format&lt;/a&gt;&lt;/em&gt; (one word per row). After that, I will create a logical variable called &lt;code&gt;is_stop_word&lt;/code&gt; to determine whether a word is stopword or not.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;debate_vocab_df &amp;lt;- debates %&amp;gt;%
   filter(!is.na(speech), type == &amp;#39;Candidate&amp;#39;,speaker %in% speakers) %&amp;gt;%
@@ -1932,17 +2325,7 @@ Mike Bloomberg
 &lt;div id=&#34;stop-word-ratio&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Stop word ratio&lt;/h3&gt;
 &lt;p&gt;I will start by visualizing the stop word ratio for each candidate.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;custom_palette &amp;lt;-
-  c(
-    &amp;#39;Mike Bloomberg&amp;#39; = &amp;#39;#EDC948&amp;#39;,
-    &amp;#39;Amy Klobuchar&amp;#39; = &amp;#39;#59A14F&amp;#39; ,
-    &amp;#39;Joe Biden&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
-    &amp;#39;Pete Buttigieg&amp;#39; = &amp;#39;#B07AA1&amp;#39;,
-    &amp;#39;Elizabeth Warren&amp;#39; =  &amp;#39;#F28E2B&amp;#39;,
-    &amp;#39;Bernie Sanders&amp;#39; = &amp;#39;#E15759&amp;#39; 
-  )
-
-debate_vocab_df %&amp;gt;%
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;debate_vocab_df %&amp;gt;%
   mutate(speaker = fct_reorder(speaker,stop_word_ratio,.desc =  TRUE)) %&amp;gt;% 
   ggplot(aes(x = speaker , y = stop_word_ratio,fill = speaker)) +
   geom_col(show.legend = FALSE) +
@@ -1950,7 +2333,7 @@ debate_vocab_df %&amp;gt;%
   coord_flip() +
   scale_fill_manual(values = custom_palette) +
   labs(title = &amp;quot;The ratio of stopwords used by Democratic canidates in the debates&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;1344&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;1344&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It seems that Bernie Sanders had used the lowest percentage of stopwords in his speeches. On the other hand, Mike Bloomberg had used the largest ratio of stopwords in his first and only debates so far.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;vocabulary-size&#34; class=&#34;section level3&#34;&gt;
@@ -1965,7 +2348,7 @@ debate_vocab_df %&amp;gt;%
   scale_fill_manual(values = custom_palette) +
   labs(title = &amp;quot;The ratio of unique Words used by Democratic candidates in the Debates&amp;quot;,
        caption = &amp;#39;Visualization: @m_cnakhaee\n\n Source: https://github.com/favstats/demdebates2020&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;So, there is no outright winner in terms of language skills among Democratic candidates. Bernie Sanders had the best score in terms of vocabulary complexity, but he has the least ratio of unique words among his competitors. Also, one can argue that being eloquent might not be advantage to a candidate and win them an election ( look at the person who is the current president). Finally, I must emphasize that my metrics are rather arbitrary and should be taken with a grain of salt.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;sentiment-analysis&#34; class=&#34;section level3&#34;&gt;
@@ -2125,7 +2508,7 @@ theme(strip.text = element_text(size = 20),
      axis.text.x = element_text(size = 15),
      axis.ticks.y = element_blank(),
      axis.title.y = element_blank())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;An the overall sentiment score for each candidate:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;debate_senteneces_sentiment %&amp;gt;%
 group_by(speaker,sentiment)%&amp;gt;%
@@ -2143,7 +2526,7 @@ scale_fill_manual(values = custom_palette) +
      legend.position = &amp;#39;none&amp;#39;,
      axis.title.y = element_blank(),
      axis.title.x = element_blank())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-02-23-the-most-eloquent-democratic-candidate/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It seems that negativity has been the most predominant emotion during Democratic debates (which absolutely makes sense since they want to unseat a president). Bernie Sanders used the highest number of words with negative sentiment in his remarks.&lt;/p&gt;
 &lt;p&gt;Performing sentiment analysis in tidytext is straightforward and easy, but sometimes the results are not what we hope and what the candidate actually meant. So, also take these results with a grain of salt.&lt;/p&gt;
 &lt;/div&gt;

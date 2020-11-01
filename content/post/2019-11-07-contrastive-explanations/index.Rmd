@@ -19,3 +19,106 @@ image:
   preview_only: no
 projects: []
 ---
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	eval = FALSE
+)
+reticulate::use_condaenv('r-reiculate')
+```
+
+```{python}
+import pandas as pd 
+from palmerpenguins import load_penguins
+X,y = load_penguins(return_X_y = True)
+#X.dropna(inplace=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=100,
+                                            random_state=0)
+X.shape
+```
+
+
+```{python}
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import FeatureUnion, make_pipeline
+from sklearn.metrics import confusion_matrix
+from sklearn.ensemble import RandomForestClassifier
+
+### To deal with missing values
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+from sklearn.tree import DecisionTreeClassifier
+
+y.unique()
+```
+
+
+```{python}
+imp = IterativeImputer(max_iter=10, random_state=0)
+X_train_imp = imp.fit_transform(X_train)
+X_test_imp = imp.transform(X_test)
+X_train_imp.shape
+```
+
+```{python}
+rf = RandomForestClassifier()
+rf.fit(X_train_imp,y_train)
+```
+
+
+
+```{python}
+import contrastive_explanation as ce
+
+```
+
+```{python}
+dm = ce.domain_mappers.DomainMapperTabular (X_train_imp, 
+              feature_names=X_train.columns,
+					   contrast_names=y.unique())
+```
+
+
+
+```{python}
+sample = X_test_imp[1]
+print(sample.shape)
+
+# Create a domain mapper for the Pandas DataFrame (it will automatically infer feature names)
+# c_dm = ce.domain_mappers.DomainMapperPandas(X_train_imp,
+#                                             contrast_names=y.unique())
+
+# Create the contrastive explanation object (default is a Foil Tree explanator)
+c_exp = ce.ContrastiveExplanation(c_dm)
+
+# Explain the instance (sample) for the given model
+c_exp.explain_instance_domain(rf.predict_proba, sample)
+```
+
+
+
+
+```{python}
+sample = X_testImp.iloc[1]
+print(sample.shape)
+
+# Create a domain mapper for the Pandas DataFrame (it will automatically infer feature names)
+c_dm = ce.domain_mappers.DomainMapperPandas(X_train_imp,
+                                            contrast_names=y.unique())
+
+# Create the contrastive explanation object (default is a Foil Tree explanator)
+c_exp = ce.ContrastiveExplanation(c_dm)
+
+# Explain the instance (sample) for the given model
+c_exp.explain_instance_domain(rf.predict_proba, sample)
+```
+
+
+```{python}
+print(c_exp.explain_instance_domain(rf.predict_proba, sample))
+```
+

@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="">
+  <meta name="description" content="import pandas as pd from palmerpenguins import load_penguinsX,y = load_penguins(return_X_y = True)#X.dropna(inplace=True)X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=100,random_state=0)X.shapefrom sklearn.model_selection import train_test_splitfrom sklearn.pipeline import FeatureUnion, make_pipelinefrom sklearn.metrics import confusion_matrixfrom sklearn.ensemble import RandomForestClassifier### To deal with missing valuesfrom sklearn.experimental import enable_iterative_imputerfrom sklearn.impute import IterativeImputerfrom sklearn.tree import DecisionTreeClassifiery.unique()imp = IterativeImputer(max_iter=10, random_state=0)X_train_imp = imp.fit_transform(X_train)X_test_imp = imp.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2019-11-07-contrastive-explanations/">
@@ -94,7 +94,7 @@
     
     
     
-    <link rel="stylesheet" href="/css/academic.bf0d00976bb752be54a4f3e21798555c.css">
+    <link rel="stylesheet" href="/css/academic.50ffad82b4ed3579b14ca31c3d831d9e.css">
   
 
   
@@ -129,7 +129,7 @@
   <meta property="og:site_name" content="Muhammad Chenariyan Nakhaee">
   <meta property="og:url" content="/post/2019-11-07-contrastive-explanations/">
   <meta property="og:title" content="Contrastive Explanations | Muhammad Chenariyan Nakhaee">
-  <meta property="og:description" content=""><meta property="og:image" content="/img/avatar.jpg">
+  <meta property="og:description" content="import pandas as pd from palmerpenguins import load_penguinsX,y = load_penguins(return_X_y = True)#X.dropna(inplace=True)X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=100,random_state=0)X.shapefrom sklearn.model_selection import train_test_splitfrom sklearn.pipeline import FeatureUnion, make_pipelinefrom sklearn.metrics import confusion_matrixfrom sklearn.ensemble import RandomForestClassifier### To deal with missing valuesfrom sklearn.experimental import enable_iterative_imputerfrom sklearn.impute import IterativeImputerfrom sklearn.tree import DecisionTreeClassifiery.unique()imp = IterativeImputer(max_iter=10, random_state=0)X_train_imp = imp.fit_transform(X_train)X_test_imp = imp."><meta property="og:image" content="/img/avatar.jpg">
   <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
   
     
@@ -181,7 +181,7 @@
       "url": "/img/icon-512.png"
     }
   },
-  "description": "\r\r"
+  "description": "import pandas as pd from palmerpenguins import load_penguins\rX,y = load_penguins(return_X_y = True)\r#X.dropna(inplace=True)\rX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=100,\rrandom_state=0)\rX.shape\rfrom sklearn.model_selection import train_test_split\rfrom sklearn.pipeline import FeatureUnion, make_pipeline\rfrom sklearn.metrics import confusion_matrix\rfrom sklearn.ensemble import RandomForestClassifier\r### To deal with missing values\rfrom sklearn.experimental import enable_iterative_imputer\rfrom sklearn.impute import IterativeImputer\rfrom sklearn.tree import DecisionTreeClassifier\ry.unique()\rimp = IterativeImputer(max_iter=10, random_state=0)\rX_train_imp = imp.fit_transform(X_train)\rX_test_imp = imp."
 }
 </script>
 
@@ -428,6 +428,19 @@
   
     
 
+<div id="code-folding-buttons" class="dropdown btn-group pull-right">
+  <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" id="allCodeToggleButton"
+     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Code
+  </a>
+  <div class="dropdown-menu" aria-labelledby="allCodeToggleButton">
+    <a id="rmd-show-all-code" class="dropdown-item small" href="#">Show all</a>
+    <a id="rmd-hide-all-code" class="dropdown-item small" href="#">Hide all</a>
+  </div>
+</div>
+
+
+
     
 
 
@@ -454,7 +467,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    0 min read
+    1 min read
   </span>
   
 
@@ -502,6 +515,59 @@
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<pre class="python"><code>import pandas as pd 
+from palmerpenguins import load_penguins
+X,y = load_penguins(return_X_y = True)
+#X.dropna(inplace=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=100,
+                                            random_state=0)
+X.shape</code></pre>
+<pre class="python"><code>from sklearn.model_selection import train_test_split
+from sklearn.pipeline import FeatureUnion, make_pipeline
+from sklearn.metrics import confusion_matrix
+from sklearn.ensemble import RandomForestClassifier
+
+### To deal with missing values
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+from sklearn.tree import DecisionTreeClassifier
+
+y.unique()</code></pre>
+<pre class="python"><code>imp = IterativeImputer(max_iter=10, random_state=0)
+X_train_imp = imp.fit_transform(X_train)
+X_test_imp = imp.transform(X_test)
+X_train_imp.shape</code></pre>
+<pre class="python"><code>rf = RandomForestClassifier()
+rf.fit(X_train_imp,y_train)</code></pre>
+<pre class="python"><code>import contrastive_explanation as ce</code></pre>
+<pre class="python"><code>dm = ce.domain_mappers.DomainMapperTabular (X_train_imp, 
+              feature_names=X_train.columns,
+                       contrast_names=y.unique())</code></pre>
+<pre class="python"><code>sample = X_test_imp[1]
+print(sample.shape)
+
+# Create a domain mapper for the Pandas DataFrame (it will automatically infer feature names)
+# c_dm = ce.domain_mappers.DomainMapperPandas(X_train_imp,
+#                                             contrast_names=y.unique())
+
+# Create the contrastive explanation object (default is a Foil Tree explanator)
+c_exp = ce.ContrastiveExplanation(c_dm)
+
+# Explain the instance (sample) for the given model
+c_exp.explain_instance_domain(rf.predict_proba, sample)</code></pre>
+<pre class="python"><code>sample = X_testImp.iloc[1]
+print(sample.shape)
+
+# Create a domain mapper for the Pandas DataFrame (it will automatically infer feature names)
+c_dm = ce.domain_mappers.DomainMapperPandas(X_train_imp,
+                                            contrast_names=y.unique())
+
+# Create the contrastive explanation object (default is a Foil Tree explanator)
+c_exp = ce.ContrastiveExplanation(c_dm)
+
+# Explain the instance (sample) for the given model
+c_exp.explain_instance_domain(rf.predict_proba, sample)</code></pre>
+<pre class="python"><code>print(c_exp.explain_instance_domain(rf.predict_proba, sample))</code></pre>
 
     </div>
 
@@ -806,7 +872,14 @@
   
   
   
-  
+   
+  <script>
+  $(document).ready(function () {
+    window.initializeCodeFolding("show" === "hide");
+  });
+  </script>
+  <script src="/js/codefolding.js"></script>
+
 
 
   <p class="powered-by">

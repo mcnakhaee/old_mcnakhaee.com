@@ -5,12 +5,227 @@
     <link>/tags/visualization/</link>
       <atom:link href="/tags/visualization/index.xml" rel="self" type="application/rss+xml" />
     <description>Visualization</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 15 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>Visualization</title>
       <link>/tags/visualization/</link>
     </image>
+    
+    <item>
+      <title>How Easy Is It to Understand What Donald Trump Says?</title>
+      <link>/post/2020-10-19-readability-of-trump-and-biden-speeches/</link>
+      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-10-19-readability-of-trump-and-biden-speeches/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/datatables-css/datatables-crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/datatables-binding/datatables.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;link href=&#34;/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Aside from their political differences, Donald Trump and Barack Obama are two US Presidents with very contrasting personalities, traits and characters. Obama is known to be a great communicator and an articulate speaker whose speeches are used in English classes to show how one should speak proper English. On the other hand, Trump is not the most eloquent English speaker or US president in history. Every now and then, you can find a clip on the web where Donald Trump is being mocked for the way he speaks or mispronounces words. This is so obvious that even non-native English speakers can notice how Trump’s speeches are very simple and inarticulate. Of course, this was not a bad thing for Trump at all. Actually, almost every political analyst that you see on the news talks about the fact that a vast majority of Trump’s fervent supporters are not college-educated Americans. It might be the case that he knows how to speak to his audience and his base supporters using their language (Although it is more likely that he cannot speak better English better than this level).&lt;/p&gt;
+&lt;p&gt;This post will investigate how difficult it is to understand what each US politicians talked about in the 2020 US Election cycle. I will use several readability metrics that can help us compute text comprehensibility. A wide range of these measures are implemented in the &lt;a href=&#34;https://github.com/shivam5992/textstat&#34;&gt;{&lt;code&gt;textstat&lt;/code&gt;}&lt;/a&gt; python package, and it is super easy to calculate them using this package.&lt;/p&gt;
+&lt;p&gt;I compiled a list of US Election-related speeches from rev.com and turned them into an R package called &lt;a href=&#34;https://github.com/mcnakhaee/us2020election&#34;&gt;&lt;code&gt;{us2020election}&lt;/code&gt;&lt;/a&gt;. I use this package as my data source for my analysis. Like some of my other posts, I use Python to perform the analysis and R to visualize my results. Now let’s get started by importing the necessary packages.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(reticulate)
+library(ggthemes)
+library(us2020election)
+library(ggridges)
+library(DT)
+theme_set(theme_tufte())
+theme_update(legend.position = &amp;#39;none&amp;#39;,
+             panel.background = element_rect(fill = &amp;#39;#FDF6E3&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np
+import pandas as pd 
+import textstat&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are several readability measures for English text included in {&lt;code&gt;textstat&lt;/code&gt;}. Calculating these measures is very straightforward and easy. I will explain what each metric represents in more details.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;us_election_speeches = r.us_election_speeches
+us_election_speeches[&amp;#39;Flesch_Reading_Ease_formula&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.flesch_reading_ease(x))
+us_election_speeches[&amp;#39;gunning_fog&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.gunning_fog(x))
+us_election_speeches[&amp;#39;smog_index&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.smog_index(x))
+us_election_speeches[&amp;#39;automated_readability_index&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.automated_readability_index(x))
+us_election_speeches[&amp;#39;coleman_liau_index&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.coleman_liau_index(x))
+us_election_speeches[&amp;#39;linsear_write_formula&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.linsear_write_formula(x))
+us_election_speeches[&amp;#39;dale_chall_readability_score&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.dale_chall_readability_score(x))
+us_election_speeches[&amp;#39;text_standard&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.text_standard(x))
+us_election_speeches[&amp;#39;text_standard_float&amp;#39;] = us_election_speeches[&amp;#39;text&amp;#39;].apply(lambda x: textstat.text_standard(x,float_output  = True))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s look at the resulting dataframe.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;us_election_speeches &amp;lt;- py$us_election_speeches 
+us_election_speeches %&amp;gt;% 
+  select(-text) %&amp;gt;% 
+  head() %&amp;gt;% 
+  datatable()&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;],[&#34;Barack Obama&#34;,&#34;Mike Pence&#34;,&#34;Kamala Harris&#34;,&#34;Donald Trump&#34;,&#34;Kamala Harris&#34;,&#34;Kamala Harris&#34;],[&#34;Barack Obama Campaign Roundtable Event for Joe Biden &amp;amp; Kamala Harris Transcript October 21&#34;,&#34;Mike Pence Campaign Speech Portsmouth, NH Transcript October 21&#34;,&#34;Kamala Harris ‘Get Out the Vote’ Event Speech Transcript October 21&#34;,&#34;Donald Trump Erie, PA Rally Transcript October 20&#34;,&#34;Kamala Harris Milwaukee Virtual Rally Transcript October 20&#34;,&#34;Kamala Harris Campaign Speech Transcript Jacksonville, FL October 19&#34;],[&#34;Oct 21, 2020&#34;,&#34;Oct 21, 2020&#34;,&#34;Oct 21, 2020&#34;,&#34;Oct 20, 2020&#34;,&#34;Oct 20, 2020&#34;,&#34;Oct 19, 2020&#34;],[&#34;Philadelphia, Pennsylvania&#34;,&#34;Portsmouth, New Hampshire&#34;,&#34;Orlando, Florida&#34;,&#34;Erie, Pennsylvania&#34;,&#34;Milwaukee, Wisconsin&#34;,&#34;Jacksonville, Florida&#34;],[&#34;Roundtable&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;,&#34;Campaign Speech&#34;],[78.38,67.99,65.35,85.99,71.04,81.22],[8.8,9.32,10.8,5.37,8.3,7.31],[9.8,11.5,11.6,8.1,10.4,8.7],[9,10.8,11.5,5.3,8.8,6.9],[7.95,9.11,8.71,6.48,8.12,6.9],[5.375,5.33333333333333,11.6666666666667,15,16.5,4.7],[5.77,5.75,6.27,5.18,5.65,5.66],[&#34;8th and 9th grade&#34;,&#34;8th and 9th grade&#34;,&#34;11th and 12th grade&#34;,&#34;5th and 6th grade&#34;,&#34;7th and 8th grade&#34;,&#34;5th and 6th grade&#34;],[9,9,12,6,8,6]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;speaker&lt;\/th&gt;\n      &lt;th&gt;title&lt;\/th&gt;\n      &lt;th&gt;date&lt;\/th&gt;\n      &lt;th&gt;location&lt;\/th&gt;\n      &lt;th&gt;type&lt;\/th&gt;\n      &lt;th&gt;Flesch_Reading_Ease_formula&lt;\/th&gt;\n      &lt;th&gt;gunning_fog&lt;\/th&gt;\n      &lt;th&gt;smog_index&lt;\/th&gt;\n      &lt;th&gt;automated_readability_index&lt;\/th&gt;\n      &lt;th&gt;coleman_liau_index&lt;\/th&gt;\n      &lt;th&gt;linsear_write_formula&lt;\/th&gt;\n      &lt;th&gt;dale_chall_readability_score&lt;\/th&gt;\n      &lt;th&gt;text_standard&lt;\/th&gt;\n      &lt;th&gt;text_standard_float&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[6,7,8,9,10,11,12,14]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p&gt;Now I am going to visualize the changes in the distribution of speech complexity for each politician. To make things more, I will select a list of politicians that I’d like to analyze in this post.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;speakers &amp;lt;- c(&amp;#39;Barack Obama&amp;#39;,&amp;#39;Pete Buttigieg&amp;#39;,&amp;#39;Mike Pence&amp;#39;,&amp;#39;Elizabeth Warren&amp;#39;,&amp;#39;Bernie Sanders&amp;#39;,&amp;#39;Donald Trump&amp;#39;,&amp;#39;Kamala Harris&amp;#39;,&amp;#39;Joe Biden&amp;#39;,&amp;#39;Mike Bloomberg&amp;#39;)
+custom_palette &amp;lt;-c(
+    &amp;#39;Mike Bloomberg&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Amy Klobuchar&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Joe Biden&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Pete Buttigieg&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Elizabeth Warren&amp;#39; =  &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Barack Obama&amp;#39;  = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Bernie Sanders&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Kamala Harris&amp;#39; = &amp;#39;#4E79A7&amp;#39;,
+    &amp;#39;Donald Trump&amp;#39;  = &amp;#39;#E15759&amp;#39; ,
+     &amp;#39;Mike Pence&amp;#39; = &amp;#39;#E15759&amp;#39; 
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Also, I created a function to make ridge plots for each metric easier.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot &amp;lt;- function(metric = Flesch_Reading_Ease_formula,title) {
+  metrics &amp;lt;- rlang::enquo(metric)
+  us_election_speeches %&amp;gt;%
+    separate_rows(speaker, sep = &amp;#39;,&amp;#39;) %&amp;gt;%
+    filter(speaker %in% speakers, type != &amp;#39;Debate&amp;#39;) %&amp;gt;%
+    add_count(speaker) %&amp;gt;%
+    ggplot() +
+    geom_density_ridges(aes(
+      x = !!metrics ,
+      y = speaker,
+      fill = speaker
+    )) +
+    labs(x = &amp;#39;&amp;#39;, y = &amp;#39;&amp;#39;,title = title) +
+    scale_fill_manual(values = custom_palette) +
+    theme(legend.position = &amp;#39;none&amp;#39;,
+          text = element_text(family = &amp;#39;Overpass&amp;#39;),
+          panel.background = element_rect(fill = &amp;#39;#FDF6E3&amp;#39;),
+          plot.background = element_rect(fill = &amp;#39;#FDF6E3&amp;#39;))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, let’s look at several readability measure in more depth.&lt;/p&gt;
+&lt;div id=&#34;flesch-reading-ease-scores&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Flesch Reading Ease scores&lt;/h3&gt;
+&lt;p&gt;The first readability score that I will look at is based on the Flesch Reading Ease formula. It computes the number of syllables to determine how easy a piece of text is. The maximum value of Flesch Reading Ease is 122, and there is no minimum value for it. Higher Flesch Reading Ease scores indicate that the text (speech) is easier to understand by the audience. In our case, it would show how sophisticated each politician is in terms of language use. You can find more about this metric on &lt;a href=&#34;https://en.wikipedia.org/wiki/Flesch–Kincaid_readability_tests&#34;&gt;Wikipedia&lt;/a&gt;!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(title = &amp;#39;Flesch Reading Ease scores&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;we can interpret the scores using the following table:&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;13%&#34; /&gt;
+&lt;col width=&#34;20%&#34; /&gt;
+&lt;col width=&#34;66%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Score&lt;/th&gt;
+&lt;th&gt;School level&lt;/th&gt;
+&lt;th&gt;Notes&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;100.00–90.00&lt;/td&gt;
+&lt;td&gt;5th grade&lt;/td&gt;
+&lt;td&gt;Very easy to read. Easily understood by an average 11-year-old student.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;90.0–80.0&lt;/td&gt;
+&lt;td&gt;6th grade&lt;/td&gt;
+&lt;td&gt;Easy to read. Conversational English for consumers.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;80.0–70.0&lt;/td&gt;
+&lt;td&gt;7th grade&lt;/td&gt;
+&lt;td&gt;Fairly easy to read.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;70.0–60.0&lt;/td&gt;
+&lt;td&gt;8th &amp;amp; 9th grade&lt;/td&gt;
+&lt;td&gt;Plain English. Easily understood by 13- to 15-year-old students.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;60.0–50.0&lt;/td&gt;
+&lt;td&gt;10th to 12th grade&lt;/td&gt;
+&lt;td&gt;Fairly difficult to read.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;50.0–30.0&lt;/td&gt;
+&lt;td&gt;College&lt;/td&gt;
+&lt;td&gt;Difficult to read.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;30.0–10.0&lt;/td&gt;
+&lt;td&gt;College graduate&lt;/td&gt;
+&lt;td&gt;Very difficult to read. Best understood by university graduates.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;10.0–0.0&lt;/td&gt;
+&lt;td&gt;Professional&lt;/td&gt;
+&lt;td&gt;Extremely difficult to read. Best understood by university graduates.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;gunning-fog-index&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Gunning fog index&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Gunning_fog_index&#34;&gt;The Gunning fog index&lt;/a&gt; is another metric to measure the complexity of a text document. It shows how many years of education one might need to understand a piece of text. Larger values of Gunning fog index correspond to more difficult writings.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(gunning_fog,title = &amp;#39;Gunning fog index&amp;#39; )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-smog-index&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;The SMOG index&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/SMOG&#34;&gt;The SMOG index&lt;/a&gt; computes the ratio of polysyllables (words with three or more syllables) in sentences to determine text complexity.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(smog_index,title = &amp;#39;The SMOG index&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;linsear-write-formula&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Linsear Write Formula&lt;/h3&gt;
+&lt;p&gt;Like previous the metric, &lt;a href=&#34;https://en.wikipedia.org/wiki/Linsear_Write&#34;&gt;the Linsear Write Formula&lt;/a&gt; uses words with three or more syllables to compute text readability. It also relies on the sentence length to measure how difficult reading a text could be.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(linsear_write_formula,title = &amp;#39;Linsear Write Formula&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;dale-chall-readability-score&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Dale–Chall_readability_formula&#34;&gt;Dale-Chall Readability Score&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;This metric is different from the other metrics that we have talked about. It uses a dictionary of 3000 words that are easy to read and understand for a fourth-grade student. So, Words that are not in this dictionary are considered to be complex.&lt;/p&gt;
+&lt;p&gt;The higher this Dale-Chall Score gets, the more a text becomes to read and understand.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(dale_chall_readability_score,title = &amp;#39;Dale-Chall Readability Score&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;960&#34; /&gt;
+### A unified readability
+We introduced several readability metrics, but each one of them might give us a slightly different result. There is a way in &lt;code&gt;textstats&lt;/code&gt; to combine all these metrics and have a single readability metric.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;us_election_speeches %&amp;gt;%
+  filter(speaker %in% speakers) %&amp;gt;%
+  mutate(text_standard = factor(
+    text_standard,
+    levels = c(
+      &amp;#39;4th and 5th grade&amp;#39;,
+      &amp;#39;5th and 6th grade&amp;#39;,
+      &amp;#39;6th and 7th grade&amp;#39;,
+      &amp;#39;7th and 8th grade&amp;#39;,
+      &amp;#39;8th and 9th grade&amp;#39;,
+      &amp;#39;9th and 10th grade&amp;#39;,
+      &amp;#39;10th and 11th grade&amp;#39;,
+      &amp;#39;11th and 12th grade&amp;#39;,
+      &amp;#39;12th and 13th grade&amp;#39;,
+      &amp;#39;14th and 15th grade&amp;#39;
+    )
+  )) %&amp;gt;%
+  count(speaker, text_standard) %&amp;gt;%
+  mutate(n = n + 1) %&amp;gt;%
+  ggplot()  +
+  geom_col(aes(x = text_standard , y =  n, fill = speaker)) +
+  scale_fill_tableau() +
+  scale_y_log10() +
+  facet_wrap( ~ speaker, ncol = 1) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We can also convert this readability metric to numbers to visualize and compare it to other metrics.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(text_standard_float,title = &amp;#39;Final Score&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;We can consistently see that Trump speeches are less sophisticated and less complex than the speeches given by the rest of politicians. We can attribute this to his lack of sophistication in terms of language, the fact that he knows how can speak to his audience or both. Also, we can notice that Mike Pence and Barack Obama seem to use a more an advanced language in their speeches.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;section&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;/h3&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Which Presidential Debate Was More Chaotic?</title>
@@ -1678,6 +1893,31 @@ songs_audio_plus_pop %&amp;gt;%
     </item>
     
     <item>
+      <title>Analyzing Football Data</title>
+      <link>/post/2020-02-12-analyzing-football-data/</link>
+      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-02-12-analyzing-football-data/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;names(html_table)&amp;lt;- col_names
+names(table_wiki)
+View(as_tibble(table_wiki,.name_repair = “minimal”)[1,1])&lt;/p&gt;
+&lt;p&gt;t &amp;lt;- as_tibble(table_wiki,.name_repair = “minimal”)[1,1]
+as.vector(t)
+table_wiki[1:10]&lt;/p&gt;
+&lt;p&gt;col_names &amp;lt;- url %&amp;gt;%
+read_html() %&amp;gt;%
+html_nodes(xpath = paste(’//*&lt;span class=&#34;citation&#34;&gt;[@id=&#34;stats_standard_ks_3260&#34;]&lt;/span&gt;’)) %&amp;gt;%
+html_table(header = NA,fill = TRUE) %&amp;gt;%
+as.data.frame() %&amp;gt;%
+slice(1)&lt;/p&gt;
+&lt;p&gt;```&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>The Map of Spotify Songs</title>
       <link>/post/2020-02-01-the-map-of-spotify-songs/</link>
       <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
@@ -2137,6 +2377,42 @@ We can observe that the most influential hyper-parameter seems to be the distanc
 &lt;p&gt;&lt;img src=&#34;/post/2020-02-01-the-map-of-spotify-songs/index_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;3360&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It is no surprise that the results of the supervised UMAP are much better separated than the unsupervised one. We just gave additional information to UMAP to transform input data.&lt;/p&gt;
 &lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Some Fun with Maps</title>
+      <link>/post/2020-01-24-some-fun-with-maps/</link>
+      <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-01-24-some-fun-with-maps/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+</description>
+    </item>
+    
+    <item>
+      <title>EuADS Summer School 2019: SUBJECTIVITY and VISUALIZATION</title>
+      <link>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</link>
+      <pubDate>Sat, 04 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;This talk was mainly focused on the importance of visualization and other techniques for exploring and explaining data. In other words, one approach to explainability is to first explore the input data and find interesting patterns. This can be done via:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Association analysis ()&lt;/li&gt;
+&lt;li&gt;Dimensionality reduction techniques&lt;/li&gt;
+&lt;li&gt;Graph embeddings&lt;/li&gt;
+&lt;li&gt;Clustering&lt;/li&gt;
+&lt;li&gt;Community detection&lt;/li&gt;
+&lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However interesting pattern is a subjective term and there are a huge number of “interesting measures” out there. What you find interesting as a data mining researcher may be different from another researcher. For example, in the case of community detection what we can define as an interesting community can vary. An interesting community might be a densely connected set of nodes or a set of nodes that have few outside neighbors.&lt;/p&gt;
+&lt;p&gt;Why interestingness measures are subjective? Because as a user we compare patterns with our prior beliefs or expectations and in if a pattern &lt;span style=&#34;color:blue&#34;&gt; contrasts&lt;/span&gt; with them and &lt;span style=&#34;color:blue&#34;&gt; can be described easily&lt;/span&gt;, we consider it as interesting.&lt;/p&gt;
+&lt;p&gt;The challenge is to come up with a metric or formalize a metric that measures ’true interestingness&#34; for us.&lt;/p&gt;
 </description>
     </item>
     

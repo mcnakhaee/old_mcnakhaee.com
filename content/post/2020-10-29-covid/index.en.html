@@ -1,0 +1,167 @@
+---
+title: Covid
+author: mcnakhaee
+date: '2020-10-29'
+slug: []
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-10-29T23:44:36+01:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<pre class="r"><code>library(sf)
+library(santoku)
+library(CoronaWatchNL)
+library(tidyverse)
+library(ggthemes)
+library(geofacet)
+library(lubridate)
+library(gganimate)</code></pre>
+<pre class="r"><code>apple_mobility &lt;- get_apple_mobility_data()
+google_mobility &lt;- get_google_mobility_data()
+waze_mobility_city_level &lt;- get_waze_mobility_city_level_data()
+waze_mobility_country_level &lt;- get_waze_mobility_country_level_data()
+province_cases &lt;- get_daily_provincial_cases()</code></pre>
+<pre class="r"><code>apple_mobility_ &lt;- apple_mobility %&gt;% 
+  filter(`sub-region`  !=&#39;Total&#39;) %&gt;% 
+  mutate(over_under = driving &lt; 0,
+         name = case_when(`sub-region`  == &quot;South Holland&quot; ~ &#39;Zuid-Holland&#39;,
+                          `sub-region`  == &quot;North Holland&quot;  ~ &#39;Noord-Holland&#39;,
+                          `sub-region`  == &quot;North Brabant&quot; ~ &#39;Noord-Brabant&#39;,
+                          TRUE ~ `sub-region` )) %&gt;% 
+  inner_join(province_cases,by = c(&#39;date&#39;=&#39;Datum&#39;,&#39;name&#39;=&#39;Provincienaam&#39;))
+
+ 
+  ggplot(apple_mobility_,aes(x =date)) +
+    #geom_hline(yintercept = 0, color = &quot;gray40&quot;) + 
+  geom_col(mapping = aes( y = driving, 
+                       group = name , color = over_under,fill = over_under),alpha = 0.5) +
+  geom_smooth(mapping = aes(y = Aantal),color = &#39;#e76f51&#39;,fill = &#39;#e76f51&#39;,alpha = 0.2,se = FALSE) +
+  scale_color_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+    scale_fill_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+
+  guides(color = FALSE) + 
+  #scale_y_continuous(limits = c(-120,220))+
+    scale_y_continuous(
+    
+    # Features of the first axis
+    name = &quot;Temperature (Celsius °)&quot;,
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*1, name=&quot;Price ($)&quot;) 
+  ) + 
+  labs(x = &quot;Date&quot;, y = &quot;Relative Mobility&quot;, title = &quot;Relative Trends in Apple Maps Usage for Driving in the Netherlands&quot;) +
+  facet_geo(~name,grid = &#39;nl_prov_grid1&#39;) +
+  theme_void()</code></pre>
+<p><img src="/post/2020-10-29-covid/index.en_files/figure-html/unnamed-chunk-5-1.png" width="1920" /></p>
+<pre class="r"><code>apple_mobility %&gt;% 
+  filter(`sub-region`  !=&#39;Total&#39;) %&gt;% 
+  mutate(over_under = driving &lt; 0,
+         name = case_when(`sub-region`  == &quot;South Holland&quot; ~ &#39;Zuid-Holland&#39;,
+                          `sub-region`  == &quot;North Holland&quot;  ~ &#39;Noord-Holland&#39;,
+                          `sub-region`  == &quot;North Brabant&quot; ~ &#39;Noord-Brabant&#39;,
+                          TRUE ~ `sub-region` )) %&gt;% 
+  ggplot(aes(x = date, y = driving, 
+                       group = name , color = over_under,fill = over_under)) +
+    geom_hline(yintercept = 0, color = &quot;gray40&quot;) + 
+  geom_col() +
+  scale_color_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+    scale_fill_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+
+  guides(color = FALSE) + 
+  scale_y_continuous(limits = c(-120,220))+
+  labs(x = &quot;Date&quot;, y = &quot;Relative Mobility&quot;, title = &quot;Relative Trends in Apple Maps Usage for Driving in the Netherlands&quot;) +
+  facet_geo(~name,grid = &#39;nl_prov_grid1&#39;) +
+  theme_minimal()</code></pre>
+<p><img src="/post/2020-10-29-covid/index.en_files/figure-html/unnamed-chunk-6-1.png" width="1920" /></p>
+<pre class="r"><code>google_mobility %&gt;% 
+  filter(`sub region 1`  !=&#39;Total&#39;) %&gt;% 
+  mutate(over_under = `retail and recreation` &lt; 0,
+        name = case_when(`sub region 1`  == &quot;South Holland&quot; ~ &#39;Zuid-Holland&#39;,
+                          `sub region 1`  == &quot;North Holland&quot;  ~ &#39;Noord-Holland&#39;,
+                          `sub region 1`  == &quot;North Brabant&quot; ~ &#39;Noord-Brabant&#39;,
+                          TRUE ~ `sub region 1` )) %&gt;% 
+  ggplot(aes(x = date, y = `retail and recreation`, 
+                       group = `sub region 1` , color = over_under)) +
+    geom_hline(yintercept = 0, color = &quot;gray40&quot;) + 
+  geom_col() +
+  scale_color_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+  guides(color = FALSE) + 
+  labs(x = &quot;Date&quot;, y = &quot;Relative Mobility&quot;, title = &quot;Relative Trends in Apple Maps Usage for Driving in the Netherlands&quot;) +
+  facet_geo(~name,grid = &#39;nl_prov_grid1&#39;) +
+  theme_minimal()</code></pre>
+<p><img src="/post/2020-10-29-covid/index.en_files/figure-html/unnamed-chunk-7-1.png" width="1920" /></p>
+<pre class="r"><code>google_mobility %&gt;% 
+  filter(`sub region 1`  !=&#39;Total&#39;,`sub region 2` !=&#39;Total&#39;) %&gt;% 
+  rename(ts = parks) %&gt;% 
+
+  mutate(date = as_date(date),
+         day = floor_date(date,unit = &#39;day&#39;),
+   
+        name = case_when(`sub region 1`  == &quot;South Holland&quot; ~ &#39;Zuid-Holland&#39;,
+                          `sub region 1`  == &quot;North Holland&quot;  ~ &#39;Noord-Holland&#39;,
+                          `sub region 1`  == &quot;North Brabant&quot; ~ &#39;Noord-Brabant&#39;,
+                          TRUE ~ `sub region 1` ) ) %&gt;%
+
+  group_by(day,name) %&gt;% 
+  summarize(mean_ts = median(ts,na.rm = TRUE)) %&gt;% 
+  ungroup() %&gt;% 
+  mutate( over_under = mean_ts &lt; 0) %&gt;% 
+  ggplot(aes(x = day, y = mean_ts,color = over_under,fill = over_under)) +
+    geom_hline(yintercept = 0, color = &quot;gray40&quot;) + 
+  geom_col(alpha = 0.7) +
+  #facet_wrap(~ `sub region 1` )
+  scale_color_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+    scale_fill_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+#scale_y_continuous(limits = c(-900,100)) +
+  guides(color = FALSE) + 
+  labs(x = &quot;Date&quot;, y = &quot;Relative Mobility&quot;, title = &quot;Relative Trends in Apple Maps Usage for Driving in the Netherlands&quot;) +
+  facet_geo(~name,grid = &#39;nl_prov_grid1&#39;) +
+  theme_minimal()</code></pre>
+<p><img src="/post/2020-10-29-covid/index.en_files/figure-html/unnamed-chunk-8-1.png" width="1920" /></p>
+<pre class="r"><code>waze_mobility_city_level %&gt;% 
+  #filter(`sub region 1`  !=&#39;Total&#39;,`sub region 2` !=&#39;Total&#39;) %&gt;% #summary()
+  rename(change = `% Change In Waze Driven Miles/KMs` ) %&gt;% 
+  mutate(over_under = change &lt; 0,
+         Date = mdy(Date)) %&gt;% 
+  ggplot(aes(x = Date, y = change, 
+                       group = City , fill = over_under)) +
+    geom_hline(yintercept = 0, color = &quot;gray40&quot;) + 
+  geom_col() +
+  scale_color_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+    scale_fill_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+
+  guides(fill = FALSE) + 
+  labs(x = &quot;Date&quot;, y = &quot;Relative Mobility&quot;, title = &quot;Relative Trends in Apple Maps Usage for Driving in the Netherlands&quot;) +
+  facet_wrap(~City) +
+  theme_minimal()</code></pre>
+<p><img src="/post/2020-10-29-covid/index.en_files/figure-html/unnamed-chunk-9-1.png" width="1920" /></p>
+<pre class="r"><code>waze_mobility_country_level %&gt;% 
+  #filter(`sub region 1`  !=&#39;Total&#39;,`sub region 2` !=&#39;Total&#39;) %&gt;% #summary()
+  rename(change = `% Change In Waze Driven Miles/KMs` ) %&gt;% 
+  mutate(over_under = change &lt; 0,
+         Date = mdy(Date)) %&gt;% 
+  ggplot(aes(x = Date, y = change, 
+                        fill = over_under)) +
+    geom_hline(yintercept = 0, color = &quot;gray40&quot;) + 
+  geom_col() +
+  scale_color_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+    scale_fill_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
+
+  guides(fill = FALSE) + 
+  labs(x = &quot;Date&quot;, y = &quot;Relative Mobility&quot;, title = &quot;Relative Trends in Apple Maps Usage for Driving in the Netherlands&quot;) +
+  #facet_wrap(~City) +
+  theme_minimal()</code></pre>
+<p><img src="/post/2020-10-29-covid/index.en_files/figure-html/unnamed-chunk-10-1.png" width="1920" /></p>

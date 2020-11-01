@@ -29,7 +29,7 @@ library(reticulate)
 ```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 #devtools::install_github("favstats/demdebates2020")
 #install.packages('ggthemes')  
- ggthemes::ggthemes_data[["tableau"]][["color-palettes"]][["regular"]] 
+ggthemes::ggthemes_data[["tableau"]][["color-palettes"]][["regular"]] 
 extrafont::font_install(
 )
 extrafont::font_import()
@@ -65,6 +65,9 @@ I use the `Tidytext` library and its stopword list to compute my defined metrics
 It's time to start the analysis itself, but before that I need to import a few libraries and set and customize the theme that I am going to use for visualization.
 
 ```{r message=FALSE, warning=FALSE}
+library(readability)
+library(syllable)
+
 library(demdebates2020)
 library(tidytext)
 library(tidyverse)
@@ -82,6 +85,15 @@ theme_update(legend.position = 'none',
       panel.spacing = unit(2, "points"),
       axis.title.x = element_blank(),
       axis.title.y = element_blank())
+
+custom_palette <-c(
+    'Mike Bloomberg' = '#EDC948',
+    'Amy Klobuchar' = '#59A14F' ,
+    'Joe Biden' = '#4E79A7',
+    'Pete Buttigieg' = '#B07AA1',
+    'Elizabeth Warren' =  '#F28E2B',
+    'Bernie Sanders' = '#E15759' 
+  )
 ```
 
 The field of the democratic primary election is full of candidates. So, for the sake of simplicity and clarity, I am going to analyze candidates that are still in the race (as of February 23rd) and were present in the last two democratic debate. It means that I will compare six democratic candidates including *Bernie Sanders*, *Elizabeth Warren*, *Mike Bloomberg*,  *Pete Buttigieg*, *Amy Klobuchar* and *Joe Biden*.       
@@ -93,7 +105,27 @@ speakers <- debates %>%
   distinct(speaker) %>%
   pull(speaker)
 speakers
+
 ```
+
+```{r fig.height=10,fig.width=20}
+readability_scores <- debates %>%
+  filter(!is.na(speech), type == 'Candidate') %>%
+  with(readability(speech,list(speaker,debate))) 
+
+readability_scores %>% 
+  filter(speaker %in% speakers) %>% 
+  pivot_longer(Flesch_Kincaid:Average_Grade_Level,names_to = 'readability_measure',values_to = 'value') %>% 
+  ggplot(aes(x = debate, y = value,color = speaker)) +
+  geom_point(size = 6,alpha = 0.7)+
+  geom_line(size = 2,alpha = 0.9) +
+ scale_color_manual(values = custom_palette) +
+  labs(color = '') +
+  facet_wrap(~readability_measure,scales = 'free_y') +
+  theme(legend.position = 'top')
+```
+
+
 
 Before computing my desirable metrics, I should tokenize and transform the transcript into a *[tidy format](https://www.tidytextmining.com/tidytext.html)* (one word per row). After that, I will create a logical variable called ``is_stop_word`` to determine whether a word is stopword or not.
 
@@ -122,15 +154,7 @@ I will start by visualizing the stop word ratio for each candidate.
 
 
 ```{r fig.height=7, fig.width= 14, message=FALSE, warning=FALSE}
-custom_palette <-
-  c(
-    'Mike Bloomberg' = '#EDC948',
-    'Amy Klobuchar' = '#59A14F' ,
-    'Joe Biden' = '#4E79A7',
-    'Pete Buttigieg' = '#B07AA1',
-    'Elizabeth Warren' =  '#F28E2B',
-    'Bernie Sanders' = '#E15759' 
-  )
+
 
 debate_vocab_df %>%
   mutate(speaker = fct_reorder(speaker,stop_word_ratio,.desc =  TRUE)) %>% 
@@ -164,6 +188,9 @@ The vocabulary size metric shows a different trend as Mike Bloomberg has the hig
 
 So, there is no outright winner in terms of language skills among Democratic candidates. Bernie Sanders had the best score in terms of vocabulary complexity, but he has the least ratio of unique words among his competitors. Also, one can argue that being eloquent might not be advantage to a candidate and win them an election ( look at the person who is the current president). Finally, I must emphasize that my metrics are rather arbitrary and should be taken with a grain of salt.
 
+```{r}
+
+```
 
 ### Sentiment analysis
 In this part of my blog post, I examine how the language used by each top candidate had changed over the course of debates. I will use the tidy text approach to measure sentiment in the text. There are four main sentiment lexicons in the tidytext library, but in this experiment I am just using the [Loughran lexicon](https://rdrr.io/cran/textdata/man/lexicon_loughran.html). 

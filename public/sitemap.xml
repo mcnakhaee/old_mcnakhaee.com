@@ -69,22 +69,87 @@
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2020-10-19T00:33:31+02:00</lastmod>
+    <lastmod>2020-10-30T22:33:30+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-10-30T22:33:30+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2020-10-30T22:33:30+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2020-10-30T22:33:30+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-10-30T22:33:30+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-10-30-trends/</loc>
+    <lastmod>2020-10-30T22:33:30+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-10-29-covid/</loc>
+    <lastmod>2020-10-29T23:44:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2020-10-28T16:08:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/python/</loc>
+    <lastmod>2020-10-28T16:08:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/social-network-analysis/</loc>
+    <lastmod>2020-10-28T16:08:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-10-28-tiktok-api/</loc>
+    <lastmod>2020-10-28T16:08:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-10-20-interactive-graphs-with-echarts4r-and-tidygraph/</loc>
+    <lastmod>2020-10-20T18:42:46+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/social-network-analysis/</loc>
+    <lastmod>2020-10-20T18:42:46+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-10-19-readability-of-trump-and-biden-speeches/</loc>
+    <lastmod>2020-10-19T14:26:27+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/nlp/</loc>
+    <lastmod>2020-10-19T14:26:27+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/nlp/</loc>
+    <lastmod>2020-10-19T14:26:27+02:00</lastmod>
   </url>
   
   <url>
     <loc>/project/</loc>
     <lastmod>2020-10-19T00:33:31+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/python/</loc>
-    <lastmod>2020-10-19T00:12:58+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/python/</loc>
-    <lastmod>2020-10-19T00:12:58+02:00</lastmod>
   </url>
   
   <url>
@@ -98,43 +163,23 @@
   </url>
   
   <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2020-10-19T00:33:31+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/r/</loc>
-    <lastmod>2020-10-19T00:33:31+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/project/2020-10-19-r-packages/</loc>
     <lastmod>2020-10-19T00:33:31+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-10-19T00:33:31+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/nlp/</loc>
-    <lastmod>2020-10-15T11:58:37+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/nlp/</loc>
-    <lastmod>2020-10-15T11:58:37+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-10-15T11:58:37+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/visualization/</loc>
-    <lastmod>2020-10-15T11:58:37+02:00</lastmod>
+    <lastmod>2020-10-19T14:26:27+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-10-16-exploring-word-embeddings/</loc>
+    <lastmod>2020-10-16T00:27:32+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-10-15-tidy-tuesday-week-37-nlp-and-friend/</loc>
+    <lastmod>2020-10-15T10:28:36+02:00</lastmod>
   </url>
   
   <url>
@@ -149,17 +194,17 @@
   
   <url>
     <loc>/tags/machine-learning/</loc>
-    <lastmod>2020-01-18T18:46:22+01:00</lastmod>
+    <lastmod>2020-02-14T00:25:41+01:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/xai/</loc>
-    <lastmod>2020-02-01T17:12:06+01:00</lastmod>
+    <lastmod>2020-02-11T22:27:18+01:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/xai/</loc>
-    <lastmod>2020-02-01T17:12:06+01:00</lastmod>
+    <lastmod>2020-02-11T22:27:18+01:00</lastmod>
   </url>
   
   <url>
@@ -178,13 +223,33 @@
   </url>
   
   <url>
-    <loc>/tags/social-network-analysis/</loc>
-    <lastmod>2020-03-08T00:10:58+01:00</lastmod>
+    <loc>/post/2020-02-23-the-most-eloquent-democratic-candidate/</loc>
+    <lastmod>2020-02-23T17:15:22+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/2020-02-23-the-most-eloquent-democratic-candidate/</loc>
-    <lastmod>2020-02-23T17:15:22+01:00</lastmod>
+    <loc>/categories/machine-learning/</loc>
+    <lastmod>2020-02-14T00:25:41+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-02-14-tidymodel-for-scikit-learn-users-and-vise-versa/</loc>
+    <lastmod>2020-02-14T00:25:41+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-02-12-analyzing-football-data/</loc>
+    <lastmod>2020-02-12T01:23:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/football/</loc>
+    <lastmod>2020-02-12T01:23:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/</loc>
+    <lastmod>2020-02-11T22:27:18+01:00</lastmod>
   </url>
   
   <url>
@@ -198,17 +263,27 @@
   </url>
   
   <url>
+    <loc>/post/2020-01-24-some-fun-with-maps/</loc>
+    <lastmod>2020-01-24T21:51:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-01-18-optimal-rule-lists/</loc>
+    <lastmod>2020-01-18T18:46:22+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/2020-01-05-euads-summer-school-explanations-in-philosophy-and-psychology/</loc>
     <lastmod>2020-01-05T13:29:59+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/2020-01-01-how-do-people-share-on-telegram/</loc>
-    <lastmod>2020-02-13T01:28:15+01:00</lastmod>
+    <loc>/post/2020-01-04-euads-summer-school-2019-subjectivity-and-visualization/</loc>
+    <lastmod>2020-01-04T14:28:27+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/social-network-analysis/</loc>
+    <loc>/project/2020-01-01-how-do-people-share-on-telegram/</loc>
     <lastmod>2020-02-13T01:28:15+01:00</lastmod>
   </url>
   
@@ -230,6 +305,16 @@
   <url>
     <loc>/tags/tidytuesday/</loc>
     <lastmod>2019-12-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2019-11-07-contrastive-explanations/</loc>
+    <lastmod>2019-12-29T12:41:22+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/data-shapely/</loc>
+    <lastmod>2019-10-03T14:43:44+02:00</lastmod>
   </url>
   
   <url>
@@ -303,6 +388,21 @@
   </url>
   
   <url>
+    <loc>/otherwidget/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/privacy/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/otherwidget/terms/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/authors/carlos-e.-budde/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
   </url>
@@ -330,10 +430,6 @@
   <url>
     <loc>/authors/stefano-schivo/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/otherwidget/</loc>
   </url>
   
   <url>

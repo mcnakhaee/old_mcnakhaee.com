@@ -1,0 +1,146 @@
+---
+title: Interactive Graphs with Echarts4r and Tidygraph
+author: mcnakhaee
+date: '2020-10-20'
+slug: []
+categories:
+  - R
+  - social network analysis
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-10-20T18:42:46+02:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
+```
+
+```{r}
+library(echarts4r)
+library(tidygraph)
+library(tidyverse)
+library(ggraph)
+library(ggthemes)
+theme_set(theme_graph())
+theme_update(
+  #plot.background = element_rect(fill = '#FDF6E3'),
+  panel.background = element_rect(fill = '#FDF6E3'),
+  legend.position = 'top'
+)
+
+```
+```{r}
+data <- read_csv('strategic_rivalries.csv')
+data
+```
+
+```{r}
+
+graph_edges_tbl <- data %>%
+  filter(endyear>1900) %>% 
+rename(from = sidea, to = sideb) 
+  
+
+ggraph_df <-  graph_edges_tbl  %>%  
+    as_tbl_graph(directed  = FALSE) %>%
+      activate(nodes) %>%
+      mutate(
+        betweenness_degree = centrality_betweenness(),
+        centrality_degree = centrality_degree(),
+        community = as.factor(group_louvain())
+      ) 
+      
+graph_nodes_tbl <- ggraph_df %>%
+    as_tibble()
+node_names <- graph_nodes_tbl %>% distinct(name) %>%pull()
+node_size <- graph_nodes_tbl%>% pull(centrality_degree)
+node_group <- graph_nodes_tbl%>%pull(community) 
+```
+
+
+```{r fig.height=20,fig.width=20}
+
+ggraph_df %>% 
+  ggraph(layout = 'nicely') +
+
+  geom_edge_link(width = 1,alpha = 0.7,color = '#e76f51') +
+    geom_node_text(aes(label = name,color =community ),size = 5,repel = TRUE) +
+  geom_node_point(aes(size = betweenness_degree,color =community )) +
+  #scale_color_tableau() +
+  scale_edge_color_manual(values = c('#118ab2', '#ef476f','#2a9d8f','#e76f51'))
+
+```
+
+
+
+```{r}
+
+
+graph_edges_tbl <- graph_edges_tbl %>% 
+  mutate(edge_color = case_when(type1 == 'ideological' ~ '#2a9d8f',
+                                type1 == 'interventionary' ~ '#e76f51',
+                                type1 == 'positional' ~ '#ef476f',
+                                type1 == 'spatial' ~ '#118ab2'))
+dim(graph_edges_tbl)
+edges <- data.frame(
+  source = graph_edges_tbl$from,
+  target = graph_edges_tbl$to,
+  categories = graph_edges_tbl$type1,
+  stringsAsFactors = FALSE
+)
+nodes <- data.frame(
+  name = node_names,
+  value = node_size,
+  size = node_size*3,
+  grp = node_group,
+  symbol =  "circle",
+  stringsAsFactors = FALSE
+)
+```
+
+```{r}
+rep('gray70',length(graph_edges_tbl))
+#,timeline = TRUE
+e_charts() %>% 
+  e_graph(layout = 'force',
+                    roam = T,
+          draggable = T,
+          cursor= 'pointer',
+          # symbol = paste0('path://', figure),  # It works, but all the node share same figure.
+          symbolKeepAspect = T,
+          focusNodeAdjacency = T,
+          # animation  = TRUE,
+          #edgeSymbol = c('circle', 'arrow'),
+          #itemStyle = list(color = 'black', borderColor='black'),
+          lineStyle = list(color = 'target',width = 2,curveness= 0.1),
+        
+          #category = list(symbol = node_group),
+         # textBorderColor = 'transparent',
+          force.gravity = 2.9, edgeLabel = 1) %>% 
+  e_graph_nodes(nodes, name, value, size, grp, symbol,legend = T) %>% 
+  e_graph_edges(edges, source, target  ) %>% 
+  e_title("Strategic Rivalry Between Nations and States",subtext = 'Strategic Rivalry Between Nations and States') %>% 
+  e_modularity() %>% 
+  e_labels(fontSize = 12) %>% 
+  e_toolbox_feature(feature = "saveAsImage", title = "Save As Image") %>% 
+  e_legend(show = T,type = "plain")
+  #e_theme("essos")
+
+```
+
+

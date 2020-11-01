@@ -1,0 +1,44 @@
+---
+title: Trends
+author: mcnakhaee
+date: '2020-10-30'
+slug: []
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-10-30T22:33:30+01:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+```{r}
+library(trendyy)
+library(gtrendsR)
+library(tidyverse)
+```
+
+```{r}
+ob <- trendy("obama")
+get_interest_country(ob)
+
+```
+```{r}
+search_terms <- c("Glory to Hong Kong", "願榮光歸香港")
+gtrends(keyword = search_terms,
+        geo = "HK",
+        time = "today 12-m") -> output_results
+
+
+
+```
+

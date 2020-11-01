@@ -94,7 +94,7 @@
     
     
     
-    <link rel="stylesheet" href="/css/academic.bf0d00976bb752be54a4f3e21798555c.css">
+    <link rel="stylesheet" href="/css/academic.50ffad82b4ed3579b14ca31c3d831d9e.css">
   
 
   
@@ -134,7 +134,7 @@
   <meta property="og:description" content="Personal Blog of Muhammad Chenariyan Nakhaee"><meta property="og:image" content="/img/avatar.jpg">
   <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-10-19T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2020-10-30T00:00:00&#43;00:00">
   
 
   
@@ -386,6 +386,36 @@
   
 
   
+  
+  <div>
+    <h2><a href="/post/2020-02-12-analyzing-football-data/">Analyzing Football Data</a></h2>
+    <div class="article-style">
+      
+      names(html_table)&lt;- col_namesnames(table_wiki)View(as_tibble(table_wiki,.name_repair = “minimal”)[1,1])
+t &lt;- as_tibble(table_wiki,.name_repair = “minimal”)[1,1]as.vector(t)table_wiki[1:10]
+col_names &lt;- url %&gt;%read_html() %&gt;%html_nodes(xpath = paste(’//*[@id="stats_standard_ks_3260"]’)) %&gt;%html_table(header = NA,fill = TRUE) %&gt;%as.data.frame() %&gt;%slice(1)
+```
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2020-02-11-what-makes-a-song-popular-an-explainable-machine-learning-approach/">What Makes a Song Popular? An Explainable Machine Learning Approach</a></h2>
+    <div class="article-style">
+      
+      knitr::opts_chunk$set(warning = FALSE, message = FALSE,eval = FALSE)library(tune)library(rsample)library(yardstick)library(dials)library(workflows)library(parsnip)library(infer)#devtools::install_github(&quot;tidymodels/tidymodels&quot;)#remotes::install_github(&quot;wilkelab/ggtext&quot;,build = &#39;binary&#39;)library(tidyverse)library(tidymodels)library(lubridate)library(corrr)library(pins)library(genius)library(reticulate)spotify_songs &lt;- pin(read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv&#39;))head(spotify_songs)spotify_songs &lt;- spotify_songs %&gt;% dplyr::rowwise() %&gt;% mutate(shorter_names = unlist(str_split(track_name,&#39;-&#39;))[1]) spotify_songs &lt;- py$spotify_songsHave you ever wondered why some songs from an artist become so popular and others are just total failure?Look at the next plot. Even The Beetles had a few not so popular songs.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2020-02-08-going-back-to-the-roots-how-much-influence-did-arabic-have-on-persian-literature/">Going Back to the Roots! How Much Influence Did Arabic Have on Persian Literature?</a></h2>
+    <div class="article-style">
+      
+      Since the conquest of Persia (now Iran) by the Muslim forces in the 7th century, Arabic culture and language have had an enormous influence on Iran and Iranians. Although Iran had never fully adapted Arabic as its primary language, the new Persian (Farsi) language is a mix of Arabic and the old Persian (Pahlavi) and almost uses the same alphabet for writing. Also, in some parts of Iran, Arabic is the daily-life language.
+      
+    </div>
+  </div>
   
   <div>
     <h2><a href="/post/2020-02-01-the-map-of-spotify-songs/">The Map of Spotify Songs</a></h2>

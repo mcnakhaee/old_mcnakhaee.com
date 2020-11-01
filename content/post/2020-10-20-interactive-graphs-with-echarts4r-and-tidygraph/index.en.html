@@ -1,0 +1,139 @@
+---
+title: Interactive Graphs with Echarts4r and Tidygraph
+author: mcnakhaee
+date: '2020-10-20'
+slug: []
+categories:
+  - R
+  - social network analysis
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-10-20T18:42:46+02:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/echarts4r/echarts-en.min.js"></script>
+<script src="/rmarkdown-libs/echarts4r/ecStat.min.js"></script>
+<script src="/rmarkdown-libs/echarts4r/dataTool.min.js"></script>
+<script src="/rmarkdown-libs/echarts4r-binding/echarts4r.js"></script>
+<script src="/rmarkdown-libs/echarts-gl/echarts-gl.min.js"></script>
+<script src="/rmarkdown-libs/echarts-modularity/echarts-graph-modularity.min.js"></script>
+
+
+<pre class="r"><code>library(echarts4r)
+library(tidygraph)
+library(tidyverse)
+library(ggraph)
+library(ggthemes)
+theme_set(theme_graph())
+theme_update(
+  #plot.background = element_rect(fill = &#39;#FDF6E3&#39;),
+  panel.background = element_rect(fill = &#39;#FDF6E3&#39;),
+  legend.position = &#39;top&#39;
+)</code></pre>
+<pre class="r"><code>data &lt;- read_csv(&#39;strategic_rivalries.csv&#39;)
+data</code></pre>
+<pre><code>## # A tibble: 197 x 10
+##    rivalryno rivalryname   sidea  sideb  styear endyear region type1 type2 type3
+##        &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+##  1         1 Austria-Fran~ Austr~ France   1494    1918 Europ~ spat~ posi~ &lt;NA&gt; 
+##  2         2 Austria-Otto~ Austr~ Ottom~   1494    1908 Europ~ spat~ posi~ &lt;NA&gt; 
+##  3         4 France-Spain  France Spain    1494    1700 Europ~ posi~ spat~ &lt;NA&gt; 
+##  4         3 Britain-Fran~ Great~ France   1494    1716 Europ~ spat~ posi~ &lt;NA&gt; 
+##  5         5 Ottoman Empi~ Ottom~ Spain    1494    1585 Europ~ spat~ posi~ &lt;NA&gt; 
+##  6         6 Ottoman Empi~ Ottom~ Venice   1494    1717 Europ~ spat~ posi~ &lt;NA&gt; 
+##  7         7 Portugal-Spa~ Portu~ Spain    1494    1580 Europ~ spat~ posi~ &lt;NA&gt; 
+##  8         8 Portugal-Ven~ Portu~ Venice   1494    1580 Europ~ posi~ &lt;NA&gt;  &lt;NA&gt; 
+##  9         9 Ottoman Empi~ Ottom~ Portu~   1501    1580 Europ~ posi~ &lt;NA&gt;  &lt;NA&gt; 
+## 10        10 Britain-Spai~ Brita~ Spain    1568    1667 Europ~ posi~ spat~ &lt;NA&gt; 
+## # ... with 187 more rows</code></pre>
+<pre class="r"><code>graph_edges_tbl &lt;- data %&gt;%
+  filter(endyear&gt;1900) %&gt;% 
+rename(from = sidea, to = sideb) 
+  
+
+ggraph_df &lt;-  graph_edges_tbl  %&gt;%  
+    as_tbl_graph(directed  = FALSE) %&gt;%
+      activate(nodes) %&gt;%
+      mutate(
+        betweenness_degree = centrality_betweenness(),
+        centrality_degree = centrality_degree(),
+        community = as.factor(group_louvain())
+      ) 
+      
+graph_nodes_tbl &lt;- ggraph_df %&gt;%
+    as_tibble()
+node_names &lt;- graph_nodes_tbl %&gt;% distinct(name) %&gt;%pull()
+node_size &lt;- graph_nodes_tbl%&gt;% pull(centrality_degree)
+node_group &lt;- graph_nodes_tbl%&gt;%pull(community) </code></pre>
+<pre class="r"><code>ggraph_df %&gt;% 
+  ggraph(layout = &#39;nicely&#39;) +
+
+  geom_edge_link(width = 1,alpha = 0.7,color = &#39;#e76f51&#39;) +
+    geom_node_text(aes(label = name,color =community ),size = 5,repel = TRUE) +
+  geom_node_point(aes(size = betweenness_degree,color =community )) +
+  #scale_color_tableau() +
+  scale_edge_color_manual(values = c(&#39;#118ab2&#39;, &#39;#ef476f&#39;,&#39;#2a9d8f&#39;,&#39;#e76f51&#39;))</code></pre>
+<p><img src="/post/2020-10-20-interactive-graphs-with-echarts4r-and-tidygraph/index.en_files/figure-html/unnamed-chunk-5-1.png" width="1920" /></p>
+<pre class="r"><code>graph_edges_tbl &lt;- graph_edges_tbl %&gt;% 
+  mutate(edge_color = case_when(type1 == &#39;ideological&#39; ~ &#39;#2a9d8f&#39;,
+                                type1 == &#39;interventionary&#39; ~ &#39;#e76f51&#39;,
+                                type1 == &#39;positional&#39; ~ &#39;#ef476f&#39;,
+                                type1 == &#39;spatial&#39; ~ &#39;#118ab2&#39;))
+dim(graph_edges_tbl)</code></pre>
+<pre><code>## [1] 162  11</code></pre>
+<pre class="r"><code>edges &lt;- data.frame(
+  source = graph_edges_tbl$from,
+  target = graph_edges_tbl$to,
+  categories = graph_edges_tbl$type1,
+  stringsAsFactors = FALSE
+)
+nodes &lt;- data.frame(
+  name = node_names,
+  value = node_size,
+  size = node_size*3,
+  grp = node_group,
+  symbol =  &quot;circle&quot;,
+  stringsAsFactors = FALSE
+)</code></pre>
+<pre class="r"><code>rep(&#39;gray70&#39;,length(graph_edges_tbl))</code></pre>
+<pre><code>##  [1] &quot;gray70&quot; &quot;gray70&quot; &quot;gray70&quot; &quot;gray70&quot; &quot;gray70&quot; &quot;gray70&quot; &quot;gray70&quot; &quot;gray70&quot;
+##  [9] &quot;gray70&quot; &quot;gray70&quot; &quot;gray70&quot;</code></pre>
+<pre class="r"><code>#,timeline = TRUE
+e_charts() %&gt;% 
+  e_graph(layout = &#39;force&#39;,
+                    roam = T,
+          draggable = T,
+          cursor= &#39;pointer&#39;,
+          # symbol = paste0(&#39;path://&#39;, figure),  # It works, but all the node share same figure.
+          symbolKeepAspect = T,
+          focusNodeAdjacency = T,
+          # animation  = TRUE,
+          #edgeSymbol = c(&#39;circle&#39;, &#39;arrow&#39;),
+          #itemStyle = list(color = &#39;black&#39;, borderColor=&#39;black&#39;),
+          lineStyle = list(color = &#39;target&#39;,width = 2,curveness= 0.1),
+        
+          #category = list(symbol = node_group),
+         # textBorderColor = &#39;transparent&#39;,
+          force.gravity = 2.9, edgeLabel = 1) %&gt;% 
+  e_graph_nodes(nodes, name, value, size, grp, symbol,legend = T) %&gt;% 
+  e_graph_edges(edges, source, target  ) %&gt;% 
+  e_title(&quot;Strategic Rivalry Between Nations and States&quot;,subtext = &#39;Strategic Rivalry Between Nations and States&#39;) %&gt;% 
+  e_modularity() %&gt;% 
+  e_labels(fontSize = 12) %&gt;% 
+  e_toolbox_feature(feature = &quot;saveAsImage&quot;, title = &quot;Save As Image&quot;) %&gt;% 
+  e_legend(show = T,type = &quot;plain&quot;)</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:500px;" class="echarts4r html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"theme":"default","tl":false,"draw":true,"renderer":"canvas","events":[],"buttons":[],"opts":{"series":[{"name":null,"type":"graph","layout":"force","roam":true,"draggable":true,"cursor":"pointer","symbolKeepAspect":true,"focusNodeAdjacency":true,"lineStyle":{"color":"target","width":2,"curveness":0.1},"force.gravity":2.9,"edgeLabel":1,"categories":[{"name":"1"},{"name":"2"},{"name":"4"},{"name":"5"},{"name":"6"},{"name":"3"},{"name":"12"},{"name":"13"},{"name":"11"},{"name":"9"},{"name":"8"},{"name":"14"},{"name":"10"},{"name":"7"},{"name":"15"},{"name":"16"},{"name":"17"},{"name":"18"}],"data":[{"name":"Austria","value":" 5","symbolSize":"15","category":"1","symbol":"circle"},{"name":"Ottoman Empire","value":" 7","symbolSize":"21","category":"1","symbol":"circle"},{"name":"Britain","value":" 7","symbolSize":"21","category":"2","symbol":"circle"},{"name":"France","value":" 4","symbolSize":"12","category":"1","symbol":"circle"},{"name":"Afghanistan","value":" 3","symbolSize":" 9","category":"4","symbol":"circle"},{"name":"China","value":" 9","symbolSize":"27","category":"2","symbol":"circle"},{"name":"Iran","value":" 9","symbolSize":"27","category":"4","symbol":"circle"},{"name":"Argentina","value":" 3","symbolSize":" 9","category":"5","symbol":"circle"},{"name":"Bolivia","value":" 3","symbolSize":" 9","category":"5","symbol":"circle"},{"name":"Colombia","value":" 4","symbolSize":"12","category":"5","symbol":"circle"},{"name":"Greece","value":" 5","symbolSize":"15","category":"1","symbol":"circle"},{"name":"Ecuador","value":" 2","symbolSize":" 6","category":"5","symbol":"circle"},{"name":"Chile","value":" 3","symbolSize":" 9","category":"5","symbol":"circle"},{"name":"El Salvador","value":" 2","symbolSize":" 6","category":"6","symbol":"circle"},{"name":"Honduras","value":" 4","symbolSize":"12","category":"6","symbol":"circle"},{"name":"Guatemala","value":" 4","symbolSize":"12","category":"6","symbol":"circle"},{"name":"Bulgaria","value":" 4","symbolSize":"12","category":"1","symbol":"circle"},{"name":"Ethiopia","value":" 4","symbolSize":"12","category":"3","symbol":"circle"},{"name":"Italy","value":" 6","symbolSize":"18","category":"1","symbol":"circle"},{"name":"Germany","value":" 7","symbolSize":"21","category":"2","symbol":"circle"},{"name":"Japan","value":" 5","symbolSize":"15","category":"2","symbol":"circle"},{"name":"Albania","value":" 1","symbolSize":" 3","category":"1","symbol":"circle"},{"name":"Hungary","value":" 3","symbolSize":" 9","category":"1","symbol":"circle"},{"name":"Poland","value":" 4","symbolSize":"12","category":"2","symbol":"circle"},{"name":"Lithuania","value":" 1","symbolSize":" 3","category":"2","symbol":"circle"},{"name":"Czechoslovakia","value":" 3","symbolSize":" 9","category":"2","symbol":"circle"},{"name":"Costa Rica","value":" 2","symbolSize":" 6","category":"6","symbol":"circle"},{"name":"Iraq","value":" 8","symbolSize":"24","category":"4","symbol":"circle"},{"name":"Saudi Arabia","value":" 8","symbolSize":"24","category":"4","symbol":"circle"},{"name":"Egypt","value":" 9","symbolSize":"27","category":"4","symbol":"circle"},{"name":"Russia","value":"11","symbolSize":"33","category":"2","symbol":"circle"},{"name":"Jordan","value":" 4","symbolSize":"12","category":"4","symbol":"circle"},{"name":"Syria","value":" 6","symbolSize":"18","category":"4","symbol":"circle"},{"name":"India","value":" 2","symbolSize":" 6","category":"2","symbol":"circle"},{"name":"Israel","value":" 5","symbolSize":"15","category":"4","symbol":"circle"},{"name":"North Korea","value":" 1","symbolSize":" 3","category":"12","symbol":"circle"},{"name":"West Germany","value":" 1","symbolSize":" 3","category":"13","symbol":"circle"},{"name":"Indonesia","value":" 2","symbolSize":" 6","category":"11","symbol":"circle"},{"name":"North Vietnam","value":" 1","symbolSize":" 3","category":"9","symbol":"circle"},{"name":"Thailand","value":" 1","symbolSize":" 3","category":"9","symbol":"circle"},{"name":"Cambodia","value":" 2","symbolSize":" 6","category":"9","symbol":"circle"},{"name":"Morocco","value":" 3","symbolSize":" 9","category":"8","symbol":"circle"},{"name":"Cuba","value":" 1","symbolSize":" 3","category":"2","symbol":"circle"},{"name":"Burkina Faso","value":" 1","symbolSize":" 3","category":"14","symbol":"circle"},{"name":"Ghana","value":" 3","symbolSize":" 9","category":"10","symbol":"circle"},{"name":"Mauritania","value":" 2","symbolSize":" 6","category":"8","symbol":"circle"},{"name":"Algeria","value":" 1","symbolSize":" 3","category":"8","symbol":"circle"},{"name":"Burundi","value":" 1","symbolSize":" 3","category":"3","symbol":"circle"},{"name":"Kenya","value":" 3","symbolSize":" 9","category":"3","symbol":"circle"},{"name":"Sudan","value":" 9","symbolSize":"27","category":"3","symbol":"circle"},{"name":"Chad","value":" 3","symbolSize":" 9","category":"3","symbol":"circle"},{"name":"Malawi","value":" 2","symbolSize":" 6","category":"7","symbol":"circle"},{"name":"Malaysia","value":" 2","symbolSize":" 6","category":"11","symbol":"circle"},{"name":"Rhodesia","value":" 2","symbolSize":" 6","category":"7","symbol":"circle"},{"name":"South Africa","value":" 4","symbolSize":"12","category":"7","symbol":"circle"},{"name":"Guyana","value":" 1","symbolSize":" 3","category":"5","symbol":"circle"},{"name":"South Yemen","value":" 2","symbolSize":" 6","category":"4","symbol":"circle"},{"name":"Tanzania","value":" 2","symbolSize":" 6","category":"7","symbol":"circle"},{"name":"Equatorial Guinea","value":" 1","symbolSize":" 3","category":"15","symbol":"circle"},{"name":"Oman","value":" 1","symbolSize":" 3","category":"4","symbol":"circle"},{"name":"Libya","value":" 3","symbolSize":" 9","category":"3","symbol":"circle"},{"name":"Angola","value":" 2","symbolSize":" 6","category":"3","symbol":"circle"},{"name":"Cameroon","value":" 1","symbolSize":" 3","category":"10","symbol":"circle"},{"name":"Mozambique","value":" 2","symbolSize":" 6","category":"7","symbol":"circle"},{"name":"Belize","value":" 1","symbolSize":" 3","category":"6","symbol":"circle"},{"name":"Bahrain","value":" 1","symbolSize":" 3","category":"16","symbol":"circle"},{"name":"Guinea Bissau","value":" 1","symbolSize":" 3","category":"8","symbol":"circle"},{"name":"Armenia","value":" 1","symbolSize":" 3","category":"17","symbol":"circle"},{"name":"Croatia","value":" 2","symbolSize":" 6","category":"1","symbol":"circle"},{"name":"Kazakhstan","value":" 1","symbolSize":" 3","category":"18","symbol":"circle"},{"name":"Bosnia","value":" 2","symbolSize":" 6","category":"1","symbol":"circle"},{"name":"Eritrea","value":" 3","symbolSize":" 9","category":"3","symbol":"circle"},{"name":"Democratic Republic of Congo","value":" 3","symbolSize":" 9","category":"3","symbol":"circle"},{"name":"Djibouti","value":" 1","symbolSize":" 3","category":"3","symbol":"circle"},{"name":"Rwanda","value":" 3","symbolSize":" 9","category":"3","symbol":"circle"},{"name":"Prussia","value":" 1","symbolSize":" 3","category":"1","symbol":"circle"},{"name":"United States","value":" 9","symbolSize":"27","category":"2","symbol":"circle"},{"name":"Brazil","value":" 1","symbolSize":" 3","category":"5","symbol":"circle"},{"name":"Peru","value":" 4","symbolSize":"12","category":"5","symbol":"circle"},{"name":"Venezuela","value":" 2","symbolSize":" 6","category":"5","symbol":"circle"},{"name":"Nicaragua","value":" 5","symbolSize":"15","category":"6","symbol":"circle"},{"name":"Romania","value":" 2","symbolSize":" 6","category":"1","symbol":"circle"},{"name":"Serbia","value":" 9","symbolSize":"27","category":"1","symbol":"circle"},{"name":"Paraguay","value":" 1","symbolSize":" 3","category":"5","symbol":"circle"},{"name":"Panama","value":" 1","symbolSize":" 3","category":"6","symbol":"circle"},{"name":"Yemen","value":" 3","symbolSize":" 9","category":"4","symbol":"circle"},{"name":"Turkey","value":" 2","symbolSize":" 6","category":"1","symbol":"circle"},{"name":"Pakistan","value":" 2","symbolSize":" 6","category":"2","symbol":"circle"},{"name":"South Korea","value":" 1","symbolSize":" 3","category":"12","symbol":"circle"},{"name":"Taiwan","value":" 1","symbolSize":" 3","category":"2","symbol":"circle"},{"name":"East Germany","value":" 1","symbolSize":" 3","category":"13","symbol":"circle"},{"name":"Netherlands","value":" 1","symbolSize":" 3","category":"11","symbol":"circle"},{"name":"South Vietnam","value":" 2","symbolSize":" 6","category":"9","symbol":"circle"},{"name":"Vietnam","value":" 3","symbolSize":" 9","category":"9","symbol":"circle"},{"name":"Spain","value":" 1","symbolSize":" 3","category":"8","symbol":"circle"},{"name":"Mali","value":" 1","symbolSize":" 3","category":"14","symbol":"circle"},{"name":"Somalia","value":" 2","symbolSize":" 6","category":"3","symbol":"circle"},{"name":"Ivory Coast","value":" 1","symbolSize":" 3","category":"10","symbol":"circle"},{"name":"Nigeria","value":" 2","symbolSize":" 6","category":"10","symbol":"circle"},{"name":"Togo","value":" 1","symbolSize":" 3","category":"10","symbol":"circle"},{"name":"Kuwait","value":" 1","symbolSize":" 3","category":"4","symbol":"circle"},{"name":"Uganda","value":" 6","symbolSize":"18","category":"3","symbol":"circle"},{"name":"Zambia","value":" 3","symbolSize":" 9","category":"7","symbol":"circle"},{"name":"Great Britain","value":" 1","symbolSize":" 3","category":"5","symbol":"circle"},{"name":"Singapore","value":" 1","symbolSize":" 3","category":"11","symbol":"circle"},{"name":"Gabon","value":" 1","symbolSize":" 3","category":"15","symbol":"circle"},{"name":"Zimbabwe","value":" 1","symbolSize":" 3","category":"7","symbol":"circle"},{"name":"Qatar","value":" 1","symbolSize":" 3","category":"16","symbol":"circle"},{"name":"Senegal","value":" 2","symbolSize":" 6","category":"8","symbol":"circle"},{"name":"Azerbaijan","value":" 1","symbolSize":" 3","category":"17","symbol":"circle"},{"name":"Uzbekistan","value":" 1","symbolSize":" 3","category":"18","symbol":"circle"}],"links":[{"source":"Austria","target":"France"},{"source":"Austria","target":"Ottoman Empire"},{"source":"Ottoman Empire","target":"Russia"},{"source":"Britain","target":"France"},{"source":"France","target":"Prussia"},{"source":"Austria","target":"Russia"},{"source":"Britain","target":"Russia"},{"source":"Afghanistan","target":"Iran"},{"source":"Britain","target":"United States"},{"source":"China","target":"Russia"},{"source":"Iran","target":"Ottoman Empire"},{"source":"Argentina","target":"Brazil"},{"source":"Bolivia","target":"Peru"},{"source":"Colombia","target":"Peru"},{"source":"Greece","target":"Ottoman Empire"},{"source":"Colombia","target":"Ecuador"},{"source":"Ecuador","target":"Peru"},{"source":"Colombia","target":"Venezuela"},{"source":"Chile","target":"Peru"},{"source":"Bolivia","target":"Chile"},{"source":"El Salvador","target":"Honduras"},{"source":"El Salvador","target":"Guatemala"},{"source":"Argentina","target":"Chile"},{"source":"Honduras","target":"Nicaragua"},{"source":"Austria","target":"Italy"},{"source":"Guatemala","target":"Honduras"},{"source":"Guatemala","target":"Nicaragua"},{"source":"China","target":"Japan"},{"source":"Bulgaria","target":"Romania"},{"source":"Bulgaria","target":"Greece"},{"source":"Bulgaria","target":"Ottoman Empire"},{"source":"Bulgaria","target":"Serbia"},{"source":"Ottoman Empire","target":"Serbia"},{"source":"Greece","target":"Serbia"},{"source":"France","target":"Italy"},{"source":"Ethiopia","target":"Italy"},{"source":"Italy","target":"Ottoman Empire"},{"source":"Bolivia","target":"Paraguay"},{"source":"Germany","target":"United States"},{"source":"Germany","target":"Russia"},{"source":"Japan","target":"Russia"},{"source":"Britain","target":"Germany"},{"source":"Japan","target":"United States"},{"source":"Austria","target":"Serbia"},{"source":"Albania","target":"Greece"},{"source":"Germany","target":"Poland"},{"source":"Hungary","target":"Romania"},{"source":"Hungary","target":"Serbia"},{"source":"Italy","target":"Serbia"},{"source":"Poland","target":"Russia"},{"source":"Lithuania","target":"Poland"},{"source":"Czechoslovakia","target":"Hungary"},{"source":"Czechoslovakia","target":"Poland"},{"source":"Costa Rica","target":"Panama"},{"source":"Britain","target":"Japan"},{"source":"Iran","target":"Iraq"},{"source":"Iraq","target":"Saudi Arabia"},{"source":"Saudi Arabia","target":"Yemen"},{"source":"Czechoslovakia","target":"Germany"},{"source":"Germany","target":"United States"},{"source":"Britain","target":"Germany"},{"source":"Britain","target":"Italy"},{"source":"Egypt","target":"Iraq"},{"source":"Russia","target":"United States"},{"source":"Egypt","target":"Jordan"},{"source":"Iraq","target":"Syria"},{"source":"Jordan","target":"Saudi Arabia"},{"source":"Jordan","target":"Syria"},{"source":"Syria","target":"Turkey"},{"source":"Afghanistan","target":"Pakistan"},{"source":"India","target":"Pakistan"},{"source":"China","target":"India"},{"source":"Costa Rica","target":"Nicaragua"},{"source":"Egypt","target":"Israel"},{"source":"Iraq","target":"Israel"},{"source":"Israel","target":"Jordan"},{"source":"Israel","target":"Syria"},{"source":"North Korea","target":"South Korea"},{"source":"Russia","target":"Serbia"},{"source":"China","target":"Taiwan"},{"source":"China","target":"United States"},{"source":"West Germany","target":"East Germany"},{"source":"Indonesia","target":"Netherlands"},{"source":"North Vietnam","target":"South Vietnam"},{"source":"Thailand","target":"Vietnam"},{"source":"Egypt","target":"Iran"},{"source":"Greece","target":"Turkey"},{"source":"Cambodia","target":"South Vietnam"},{"source":"Morocco","target":"Spain"},{"source":"Egypt","target":"Saudi Arabia"},{"source":"China","target":"Russia"},{"source":"Iran","target":"Iraq"},{"source":"Cuba","target":"United States"},{"source":"Burkina Faso","target":"Mali"},{"source":"Ethiopia","target":"Somalia"},{"source":"Ghana","target":"Ivory Coast"},{"source":"Ghana","target":"Nigeria"},{"source":"Ghana","target":"Togo"},{"source":"Mauritania","target":"Morocco"},{"source":"Egypt","target":"Syria"},{"source":"Iraq","target":"Kuwait"},{"source":"Saudi Arabia","target":"Syria"},{"source":"Algeria","target":"Morocco"},{"source":"Burundi","target":"Rwanda"},{"source":"Indonesia","target":"Malaysia"},{"source":"Kenya","target":"Somalia"},{"source":"Sudan","target":"Uganda"},{"source":"Chad","target":"Sudan"},{"source":"Malawi","target":"Tanzania"},{"source":"Malawi","target":"Zambia"},{"source":"Argentina","target":"Great Britain"},{"source":"Ethiopia","target":"Sudan"},{"source":"Malaysia","target":"Singapore"},{"source":"Rhodesia","target":"Zambia"},{"source":"South Africa","target":"Zambia"},{"source":"Chad","target":"Libya"},{"source":"Guyana","target":"Venezuela"},{"source":"South Yemen","target":"Yemen"},{"source":"Iraq","target":"Saudi Arabia"},{"source":"Tanzania","target":"Uganda"},{"source":"Equatorial Guinea","target":"Gabon"},{"source":"Oman","target":"South Yemen"},{"source":"China","target":"Vietnam"},{"source":"Egypt","target":"Libya"},{"source":"Libya","target":"Sudan"},{"source":"Angola","target":"Democratic Republic of Congo"},{"source":"Angola","target":"South Africa"},{"source":"Cameroon","target":"Nigeria"},{"source":"Mozambique","target":"Rhodesia"},{"source":"Cambodia","target":"Vietnam"},{"source":"Mozambique","target":"South Africa"},{"source":"Colombia","target":"Nicaragua"},{"source":"Egypt","target":"Iran"},{"source":"Iran","target":"Saudi Arabia"},{"source":"Iran","target":"Israel"},{"source":"Honduras","target":"Nicaragua"},{"source":"South Africa","target":"Zimbabwe"},{"source":"Belize","target":"Guatemala"},{"source":"Bahrain","target":"Qatar"},{"source":"Kenya","target":"Uganda"},{"source":"Guinea Bissau","target":"Senegal"},{"source":"Kenya","target":"Sudan"},{"source":"Mauritania","target":"Senegal"},{"source":"Saudi Arabia","target":"Yemen"},{"source":"Armenia","target":"Azerbaijan"},{"source":"Croatia","target":"Serbia"},{"source":"Egypt","target":"Sudan"},{"source":"Kazakhstan","target":"Uzbekistan"},{"source":"Bosnia","target":"Croatia"},{"source":"Bosnia","target":"Serbia"},{"source":"Eritrea","target":"Sudan"},{"source":"Sudan","target":"Uganda"},{"source":"Afghanistan","target":"Iran"},{"source":"China","target":"Japan"},{"source":"China","target":"United States"},{"source":"Democratic Republic of Congo","target":"Rwanda"},{"source":"Democratic Republic of Congo","target":"Uganda"},{"source":"Djibouti","target":"Eritrea"},{"source":"Eritrea","target":"Ethiopia"},{"source":"Rwanda","target":"Uganda"},{"source":"Chad","target":"Sudan"},{"source":"Russia","target":"United States"}],"modularity":{"modularity":true},"label":{"show":true,"position":"top","fontSize":12}}],"legend":{"data":[1,2,4,5,6,3,12,13,11,9,8,14,10,7,15,16,17,18],"show":true,"type":"plain"},"title":[{"text":"Strategic Rivalry Between Nations and States","subtext":"Strategic Rivalry Between Nations and States"}],"toolbox":{"feature":{"saveAsImage":{"title":"Save As Image"}}}},"dispose":true},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>  #e_theme(&quot;essos&quot;)</code></pre>

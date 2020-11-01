@@ -1,0 +1,241 @@
+---
+title: Covid
+author: mcnakhaee
+date: '2020-10-29'
+slug: []
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-10-29T23:44:36+01:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	eval = TRUE
+)
+```
+
+```{r}
+library(sf)
+library(santoku)
+library(CoronaWatchNL)
+library(tidyverse)
+library(ggthemes)
+library(geofacet)
+library(lubridate)
+library(gganimate)
+```
+
+```{r eval=FALSE, include=FALSE}
+province_boundaries <- st_read('https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_provincie_2019_gegeneraliseerd&outputFormat=json')
+```
+
+
+```{r message=FALSE, warning=FALSE}
+apple_mobility <- get_apple_mobility_data()
+google_mobility <- get_google_mobility_data()
+waze_mobility_city_level <- get_waze_mobility_city_level_data()
+waze_mobility_country_level <- get_waze_mobility_country_level_data()
+province_cases <- get_daily_provincial_cases()
+```
+
+```{r fig.height=10,fig.width = 20}
+
+apple_mobility_ <- apple_mobility %>% 
+  filter(`sub-region`  !='Total') %>% 
+  mutate(over_under = driving < 0,
+         name = case_when(`sub-region`  == "South Holland" ~ 'Zuid-Holland',
+                          `sub-region`  == "North Holland"  ~ 'Noord-Holland',
+                          `sub-region`  == "North Brabant" ~ 'Noord-Brabant',
+                          TRUE ~ `sub-region` )) %>% 
+  inner_join(province_cases,by = c('date'='Datum','name'='Provincienaam'))
+
+ 
+  ggplot(apple_mobility_,aes(x =date)) +
+    #geom_hline(yintercept = 0, color = "gray40") + 
+  geom_col(mapping = aes( y = driving, 
+                       group = name , color = over_under,fill = over_under),alpha = 0.5) +
+  geom_smooth(mapping = aes(y = Aantal),color = '#e76f51',fill = '#e76f51',alpha = 0.2,se = FALSE) +
+  scale_color_manual(values = c("steelblue" , "firebrick")) +
+    scale_fill_manual(values = c("steelblue" , "firebrick")) +
+
+  guides(color = FALSE) + 
+  #scale_y_continuous(limits = c(-120,220))+
+    scale_y_continuous(
+    
+    # Features of the first axis
+    name = "Temperature (Celsius °)",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*1, name="Price ($)") 
+  ) + 
+  labs(x = "Date", y = "Relative Mobility", title = "Relative Trends in Apple Maps Usage for Driving in the Netherlands") +
+  facet_geo(~name,grid = 'nl_prov_grid1') +
+  theme_void()
+
+```
+
+
+```{r fig.height=10,fig.width = 20}
+apple_mobility %>% 
+  filter(`sub-region`  !='Total') %>% 
+  mutate(over_under = driving < 0,
+         name = case_when(`sub-region`  == "South Holland" ~ 'Zuid-Holland',
+                          `sub-region`  == "North Holland"  ~ 'Noord-Holland',
+                          `sub-region`  == "North Brabant" ~ 'Noord-Brabant',
+                          TRUE ~ `sub-region` )) %>% 
+  ggplot(aes(x = date, y = driving, 
+                       group = name , color = over_under,fill = over_under)) +
+    geom_hline(yintercept = 0, color = "gray40") + 
+  geom_col() +
+  scale_color_manual(values = c("steelblue" , "firebrick")) +
+    scale_fill_manual(values = c("steelblue" , "firebrick")) +
+
+  guides(color = FALSE) + 
+  scale_y_continuous(limits = c(-120,220))+
+  labs(x = "Date", y = "Relative Mobility", title = "Relative Trends in Apple Maps Usage for Driving in the Netherlands") +
+  facet_geo(~name,grid = 'nl_prov_grid1') +
+  theme_minimal()
+
+```
+
+```{r fig.height=10,fig.width = 20}
+google_mobility %>% 
+  filter(`sub region 1`  !='Total') %>% 
+  mutate(over_under = `retail and recreation` < 0,
+        name = case_when(`sub region 1`  == "South Holland" ~ 'Zuid-Holland',
+                          `sub region 1`  == "North Holland"  ~ 'Noord-Holland',
+                          `sub region 1`  == "North Brabant" ~ 'Noord-Brabant',
+                          TRUE ~ `sub region 1` )) %>% 
+  ggplot(aes(x = date, y = `retail and recreation`, 
+                       group = `sub region 1` , color = over_under)) +
+    geom_hline(yintercept = 0, color = "gray40") + 
+  geom_col() +
+  scale_color_manual(values = c("steelblue" , "firebrick")) +
+  guides(color = FALSE) + 
+  labs(x = "Date", y = "Relative Mobility", title = "Relative Trends in Apple Maps Usage for Driving in the Netherlands") +
+  facet_geo(~name,grid = 'nl_prov_grid1') +
+  theme_minimal()
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r fig.height=10,fig.width = 20}
+google_mobility %>% 
+  filter(`sub region 1`  !='Total',`sub region 2` !='Total') %>% 
+  rename(ts = parks) %>% 
+
+  mutate(date = as_date(date),
+         day = floor_date(date,unit = 'day'),
+   
+        name = case_when(`sub region 1`  == "South Holland" ~ 'Zuid-Holland',
+                          `sub region 1`  == "North Holland"  ~ 'Noord-Holland',
+                          `sub region 1`  == "North Brabant" ~ 'Noord-Brabant',
+                          TRUE ~ `sub region 1` ) ) %>%
+
+  group_by(day,name) %>% 
+  summarize(mean_ts = median(ts,na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  mutate( over_under = mean_ts < 0) %>% 
+  ggplot(aes(x = day, y = mean_ts,color = over_under,fill = over_under)) +
+    geom_hline(yintercept = 0, color = "gray40") + 
+  geom_col(alpha = 0.7) +
+  #facet_wrap(~ `sub region 1` )
+  scale_color_manual(values = c("steelblue" , "firebrick")) +
+    scale_fill_manual(values = c("steelblue" , "firebrick")) +
+#scale_y_continuous(limits = c(-900,100)) +
+  guides(color = FALSE) + 
+  labs(x = "Date", y = "Relative Mobility", title = "Relative Trends in Apple Maps Usage for Driving in the Netherlands") +
+  facet_geo(~name,grid = 'nl_prov_grid1') +
+  theme_minimal()
+```
+
+
+
+```{r fig.height=10,fig.width = 20}
+waze_mobility_city_level %>% 
+  #filter(`sub region 1`  !='Total',`sub region 2` !='Total') %>% #summary()
+  rename(change = `% Change In Waze Driven Miles/KMs` ) %>% 
+  mutate(over_under = change < 0,
+         Date = mdy(Date)) %>% 
+  ggplot(aes(x = Date, y = change, 
+                       group = City , fill = over_under)) +
+    geom_hline(yintercept = 0, color = "gray40") + 
+  geom_col() +
+  scale_color_manual(values = c("steelblue" , "firebrick")) +
+    scale_fill_manual(values = c("steelblue" , "firebrick")) +
+
+  guides(fill = FALSE) + 
+  labs(x = "Date", y = "Relative Mobility", title = "Relative Trends in Apple Maps Usage for Driving in the Netherlands") +
+  facet_wrap(~City) +
+  theme_minimal()
+```
+
+
+```{r fig.height=10,fig.width = 20}
+waze_mobility_country_level %>% 
+  #filter(`sub region 1`  !='Total',`sub region 2` !='Total') %>% #summary()
+  rename(change = `% Change In Waze Driven Miles/KMs` ) %>% 
+  mutate(over_under = change < 0,
+         Date = mdy(Date)) %>% 
+  ggplot(aes(x = Date, y = change, 
+                        fill = over_under)) +
+    geom_hline(yintercept = 0, color = "gray40") + 
+  geom_col() +
+  scale_color_manual(values = c("steelblue" , "firebrick")) +
+    scale_fill_manual(values = c("steelblue" , "firebrick")) +
+
+  guides(fill = FALSE) + 
+  labs(x = "Date", y = "Relative Mobility", title = "Relative Trends in Apple Maps Usage for Driving in the Netherlands") +
+  #facet_wrap(~City) +
+  theme_minimal()
+```
+
+```{r eval=FALSE, include=FALSE}
+province_boundaries
+g <- google_mobility %>% 
+  filter(`sub region 1`  !='Total',`sub region 2` !='Total') %>% 
+  mutate(over_under = `transit stations` < 0,
+        name = case_when(`sub region 1`  == "South Holland" ~ 'Zuid-Holland',
+                          `sub region 1`  == "North Holland"  ~ 'Noord-Holland',
+                          `sub region 1`  == "North Brabant" ~ 'Noord-Brabant',
+                          TRUE ~ `sub region 1` )) %>% 
+  group_by(date,name) %>% 
+  summarise(m_ts = mean(`transit stations`,na.rm = TRUE)) #%>% 
+  #filter(date < "2020-02-24") %>% 
+  #mutate(tms_chopped )
+
+province_boundaries %>% 
+  
+  left_join(g, by=c(statnaam="name")) %>% 
+  ggplot() +
+  geom_sf(aes(fill =m_ts )) +
+  scale_fill_gradient2_tableau()+
+    theme_void()+
+transition_manual(date,cumulative = T) +
+```
+
+
+
+
