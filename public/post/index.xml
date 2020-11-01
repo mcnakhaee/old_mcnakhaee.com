@@ -379,7 +379,6 @@ library(reticulate)
 library(ggthemes)
 library(us2020election)
 library(ggridges)
-library(DT)
 theme_set(theme_tufte())
 theme_update(legend.position = &amp;#39;none&amp;#39;,
              panel.background = element_rect(fill = &amp;#39;#FDF6E3&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
