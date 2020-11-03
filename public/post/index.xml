@@ -580,8 +580,8 @@ custom_palette &amp;lt;-c(
 &lt;p&gt;This metric is different from the other metrics that we have talked about. It uses a dictionary of 3000 words that are easy to read and understand for a fourth-grade student. So, Words that are not in this dictionary are considered to be complex. The higher the Dale-Chall Score is, the more difficult it is to read a text.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_plot(dale_chall_readability_score,subtitle = &amp;#39;The Dale-Chall Readability Score measure the complexity of a text document. The higher the Dale-Chall Score is, the more difficult it is to read a text.&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;960&#34; /&gt;
-### A unified readability
-We introduced several readability metrics, but each one of them might give us a slightly different result. There is a way in &lt;code&gt;textstats&lt;/code&gt; to combine all these metrics and have a single readability metric.&lt;/p&gt;
+### A unified readability&lt;/p&gt;
+&lt;p&gt;We introduced several readability metrics, but each one of them might give us a slightly different result. There is a way in &lt;code&gt;textstats&lt;/code&gt; to combine all these metrics and have a single readability metric.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;us_election_speeches %&amp;gt;%
   filter(speaker %in% speakers) %&amp;gt;%
   mutate(text_standard = str_replace(text_standard,&amp;#39; and &amp;#39;,&amp;#39;-&amp;#39;),
@@ -604,12 +604,15 @@ We introduced several readability metrics, but each one of them might give us a 
   mutate(n = n + 1) %&amp;gt;%
   ggplot()  +
   geom_col(aes(x = text_standard , y =  n, fill = speaker)) +
-  labs(x = &amp;#39;&amp;#39;, y = &amp;#39;&amp;#39;, title = &amp;quot;How Easy Is It to Understand What Each US Politician Said in Their Campaign Speeches?&amp;quot;) +
+  labs(x = &amp;#39;&amp;#39;, y = &amp;#39;Number of Speeches&amp;#39;, title = &amp;quot;How Easy Is It to Understand &amp;#39;Trump&amp;#39;s Speeches?&amp;quot;,
+       subtitle = &amp;#39;Based on several readability tests, the education level that one needs to comprehend the 2020 Election speeches by different US politicians is illustrated in this plot.&amp;#39; ) +
   scale_fill_manual(values = custom_palette) +
   scale_y_log10() +
   facet_wrap(~ speaker, ncol = 1) +
   theme(axis.text  = element_text(size = 13),
+        axis.title.y = element_text(size = 15,margin = margin(r = 10,l = 10)),
         plot.title = element_text(size = 20,margin = margin(b = 10,t = 10)),
+        plot.subtitle = element_text(size = 14,margin = margin(b = 10)),
         strip.text = element_text(size = 15))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-10-19-readability-of-trump-and-biden-speeches/index.en_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Interestingly, we can observe that Trump never gave a speech to an audience with difficulty more than the 7th or 8th grade. We can also convert this readability metric to numbers to visualize and compare it to other metrics.&lt;/p&gt;

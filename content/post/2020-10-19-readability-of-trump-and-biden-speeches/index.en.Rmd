@@ -188,6 +188,7 @@ This metric is different from the other metrics that we have talked about. It us
 create_plot(dale_chall_readability_score,subtitle = 'The Dale-Chall Readability Score measure the complexity of a text document. The higher the Dale-Chall Score is, the more difficult it is to read a text.')
 ```
 ### A unified readability
+
 We introduced several readability metrics, but each one of them might give us a slightly different result. There is a way in `textstats` to combine all these metrics and have a single readability metric.
 
 ```{r fig.height = 14, fig.width=15}
@@ -213,12 +214,15 @@ us_election_speeches %>%
   mutate(n = n + 1) %>%
   ggplot()  +
   geom_col(aes(x = text_standard , y =  n, fill = speaker)) +
-  labs(x = '', y = '', title = "How Easy Is It to Understand What Each US Politician Said in Their Campaign Speeches?") +
+  labs(x = '', y = 'Number of Speeches', title = "How Easy Is It to Understand 'Trump's Speeches?",
+       subtitle = 'Based on several readability tests, the education level that one needs to comprehend the 2020 Election speeches by different US politicians is illustrated in this plot.' ) +
   scale_fill_manual(values = custom_palette) +
   scale_y_log10() +
   facet_wrap(~ speaker, ncol = 1) +
   theme(axis.text  = element_text(size = 13),
+        axis.title.y = element_text(size = 15,margin = margin(r = 10,l = 10)),
         plot.title = element_text(size = 20,margin = margin(b = 10,t = 10)),
+        plot.subtitle = element_text(size = 14,margin = margin(b = 10)),
         strip.text = element_text(size = 15))
 ```
 
