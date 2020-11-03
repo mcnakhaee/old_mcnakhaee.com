@@ -25,20 +25,7 @@ projects: []
 ---
 
 
-```{r include=FALSE}
-knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE
-	#eval = FALSE
-)
-reticulate::use_condaenv('r-reiculate')
-library(showtext)
-font_add_google("Overpass", "Overpass")
-windowsFonts('Lobser' = 'Lobser')
 
-#windowsFont()
-```
 
 Aside from their political differences, Donald Trump and Barack Obama have very contrasting personalities, traits and characters. Obama is known to be a great communicator and an articulate speaker whose speeches are used in English classes to show how one should speak proper English. On the other hand, Trump is not the most eloquent English speaker or US president in history. Every now and then, you can find a clip on the web where Donald Trump is being mocked for the way he speaks or mispronounces words. This is so obvious that even non-native English speakers can notice how Trump's speeches are very simple and inarticulate. Of course, this was not a bad thing for Trump at all. Actually, almost every political analyst that you see on the news talks about the fact that a vast majority of Trump's fervent supporters are not college-educated Americans. We can attribute this to the fact that he knows how to speak to his audience and his base supporters using their language (Although it is more likely that he cannot speak better English better than this level).
 
@@ -46,7 +33,8 @@ This post will investigate how difficult it is to understand what each US politi
 
 I compiled a list of US Election-related speeches from rev.com and turned them into an R package called [`{us2020election}`](https://github.com/mcnakhaee/us2020election). I use this package as my data source for my analysis. Like some of my other posts, I use Python to perform the analysis and R to visualize my results. Now let's get started by importing the necessary packages.
 
-```{r}
+
+```r
 library(tidyverse)
 library(reticulate)
 library(ggthemes)
@@ -61,7 +49,8 @@ theme_update(legend.position = 'none',
           plot.background = element_rect(fill = '#FDF6E3'))
 ```
 
-```{python}
+
+```python
 import numpy as np
 import pandas as pd 
 import textstat
@@ -69,7 +58,8 @@ import textstat
 
 There are several readability measures for English text included in {`textstat`}. Calculating these measures is very straightforward and easy. I will explain what each metric represents in more details.
 
-```{python}
+
+```python
 us_election_speeches = r.us_election_speeches
 us_election_speeches['Flesch_Reading_Ease_formula'] = us_election_speeches['text'].apply(lambda x: textstat.flesch_reading_ease(x))
 us_election_speeches['gunning_fog'] = us_election_speeches['text'].apply(lambda x: textstat.gunning_fog(x))
@@ -85,14 +75,36 @@ us_election_speeches['text_standard_float'] = us_election_speeches['text'].apply
 
 Let's look at the resulting dataframe. 
 
-```{r}
+
+```r
 us_election_speeches <- py$us_election_speeches 
 us_election_speeches %>% 
 glimpse()
 ```
 
+```
+## Rows: 286
+## Columns: 15
+## $ speaker                      <chr> "Barack Obama", "Mike Pence", "Kamala ...
+## $ title                        <chr> "Barack Obama Campaign Roundtable Even...
+## $ text                         <chr> "Barack Obama: (00:01)\n… or the ’40s ...
+## $ date                         <chr> "Oct 21, 2020", "Oct 21, 2020", "Oct 2...
+## $ location                     <chr> "Philadelphia, Pennsylvania", "Portsmo...
+## $ type                         <chr> "Roundtable", "Campaign Speech", "Camp...
+## $ Flesch_Reading_Ease_formula  <dbl> 78.38, 67.99, 65.35, 85.99, 71.04, 81....
+## $ gunning_fog                  <dbl> 8.80, 9.32, 10.80, 5.37, 8.30, 7.31, 5...
+## $ smog_index                   <dbl> 9.8, 11.5, 11.6, 8.1, 10.4, 8.7, 8.2, ...
+## $ automated_readability_index  <dbl> 9.0, 10.8, 11.5, 5.3, 8.8, 6.9, 5.5, 5...
+## $ coleman_liau_index           <dbl> 7.95, 9.11, 8.71, 6.48, 8.12, 6.90, 6....
+## $ linsear_write_formula        <dbl> 5.375000, 5.333333, 11.666667, 15.0000...
+## $ dale_chall_readability_score <dbl> 5.77, 5.75, 6.27, 5.18, 5.65, 5.66, 5....
+## $ text_standard                <chr> "8th and 9th grade", "8th and 9th grad...
+## $ text_standard_float          <dbl> 9, 9, 12, 6, 8, 6, 6, 5, 11, 6, 5, 7, ...
+```
+
 Now I am going to visualize the changes in the distribution of speech complexity for each politician. To make things more, I will select a list of politicians that I'd like to analyze in this post.
-```{r}
+
+```r
 speakers <- c('Barack Obama','Pete Buttigieg','Mike Pence','Elizabeth Warren','Bernie Sanders','Donald Trump','Kamala Harris','Joe Biden','Mike Bloomberg')
 custom_palette <-c(
     'Mike Bloomberg' = '#4E79A7',
@@ -109,8 +121,8 @@ custom_palette <-c(
 ```
 
 Also, I created a function to make ridge plots for each metric easier.
-```{r }
 
+```r
 create_plot <- function(metric = Flesch_Reading_Ease_formula,subtitle = subtitle) {
   metrics <- rlang::enquo(metric)
   us_election_speeches %>%
@@ -126,9 +138,6 @@ create_plot <- function(metric = Flesch_Reading_Ease_formula,subtitle = subtitle
     labs(x = '', y = '',title = "How Easy Is It to Comprehend Different US Politicians?",subtitle = str_wrap(subtitle,width = 100)) +
     scale_fill_manual(values = custom_palette) 
 }
-
-
-
 ```
 
 Now, let's look at several readability measure in more depth. 
@@ -137,10 +146,13 @@ Now, let's look at several readability measure in more depth.
 
 The first readability score that I will look at is based on the Flesch Reading Ease formula. It computes the number of syllables to determine how easy a piece of text is. The maximum value of Flesch Reading Ease is 122, and there is no minimum value for it. Higher Flesch Reading Ease scores indicate that the text (speech) is easier to understand by the audience. In our case, it would show how sophisticated each politician is in terms of language use. You can find more about this metric on [Wikipedia](https://en.wikipedia.org/wiki/Flesch–Kincaid_readability_tests)!
 
-```{r fig.height=6,fig.width=10}
+
+```r
 create_plot(Flesch_Reading_Ease_formula ,
             subtitle = 'The Flesch Reading Ease scores measure the complexity of a text document. Higher scores indicate a text is easier to comprehend.')
 ```
+
+<img src="index.en_files/figure-html/unnamed-chunk-8-1.png" width="960" />
 
 we can interpret the scores using the following table:
 
@@ -161,36 +173,49 @@ we can interpret the scores using the following table:
 ### Gunning fog index
 [The Gunning fog index](https://en.wikipedia.org/wiki/Gunning_fog_index) is another metric to measure the complexity of a text document. It shows how many years of education one might need to understand a piece of text. Larger values of the Gunning fog index correspond to more difficult writings. 
 
-```{r fig.height=6,fig.width=10}
+
+```r
 create_plot(gunning_fog,subtitle = 'The Gunning fog index measure the complexity of a text document. Larger values of the Gunning fog index correspond to more difficult writings.' )
 ```
+
+<img src="index.en_files/figure-html/unnamed-chunk-9-1.png" width="960" />
 
 ### The SMOG index
 [The SMOG index](https://en.wikipedia.org/wiki/SMOG) computes the ratio of polysyllables (words with three or more syllables) in sentences to determine text complexity.
 
-```{r fig.height=6,fig.width=10}
+
+```r
 create_plot(smog_index,subtitle = 'The SMOG index measure the complexity of a text document. Larger values of the SMOG index indicate more difficult writings.' )
 ```
+
+<img src="index.en_files/figure-html/unnamed-chunk-10-1.png" width="960" />
 
 
 ### Linsear Write Formula
 
 Like previous the metric, [the Linsear Write Formula](https://en.wikipedia.org/wiki/Linsear_Write) uses words with three or more syllables to compute text readability. It also relies on the sentence length to measure how difficult reading a text could be.
 
-```{r fig.height=6,fig.width=10}
+
+```r
 create_plot(linsear_write_formula, subtitle = 'The Linsear Write Formula measure the complexity of a text document. Larger values indicate more difficult writings.')
 ```
+
+<img src="index.en_files/figure-html/unnamed-chunk-11-1.png" width="960" />
 
 ### [Dale-Chall Readability Score](https://en.wikipedia.org/wiki/Dale–Chall_readability_formula)
 This metric is different from the other metrics that we have talked about. It uses a dictionary of 3000  words that are easy to read and understand for a fourth-grade student. So, Words that are not in this dictionary are considered to be complex.  The higher the Dale-Chall Score is, the more difficult it is to read a text.
 
-```{r fig.height=6,fig.width=10}
+
+```r
 create_plot(dale_chall_readability_score,subtitle = 'The Dale-Chall Readability Score measure the complexity of a text document. The higher the Dale-Chall Score is, the more difficult it is to read a text.')
 ```
+
+<img src="index.en_files/figure-html/unnamed-chunk-12-1.png" width="960" />
 ### A unified readability
 We introduced several readability metrics, but each one of them might give us a slightly different result. There is a way in `textstats` to combine all these metrics and have a single readability metric.
 
-```{r fig.height = 14, fig.width=15}
+
+```r
 us_election_speeches %>%
   filter(speaker %in% speakers) %>%
   mutate(text_standard = str_replace(text_standard,' and ','-'),
@@ -222,11 +247,16 @@ us_election_speeches %>%
         strip.text = element_text(size = 15))
 ```
 
+<img src="index.en_files/figure-html/unnamed-chunk-13-1.png" width="1440" />
+
 Interestingly, we can observe that Trump never gave a speech to an audience with difficulty more than the 7th or 8th grade. We can also convert this readability metric to numbers to visualize and compare it to other metrics.
 
-```{r fig.height=6,fig.width=10}
+
+```r
 create_plot(text_standard_float,subtitle = 'The complexity of a text document were measured based on several readability metrics where larger values indicate more difficult writings.')
 ```
+
+<img src="index.en_files/figure-html/unnamed-chunk-14-1.png" width="960" />
 
 
 ### Conclusion
@@ -235,15 +265,9 @@ We can consistently see that Trump speeches are less sophisticated and less comp
 
 
 
-```{r eval=FALSE, fig.height=6, fig.width=10, include=FALSE}
-### Automated Readability Index
-create_plot(automated_readability_index)
-```
+
 
 ### 
 
 
-```{r eval=FALSE, fig.height=6, fig.width=10, include=FALSE}
-create_plot(coleman_liau_index)
-The Coleman-Liau Index
-```
+

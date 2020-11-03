@@ -25,6 +25,7 @@ projects: []
 library(trendyy)
 library(gtrendsR)
 library(tidyverse)
+library(gghighlight)
 ```
 
 ```{r}
@@ -32,13 +33,48 @@ ob <- trendy("obama")
 get_interest_country(ob)
 
 ```
-```{r}
-search_terms <- c("Glory to Hong Kong", "願榮光歸香港")
+```{r fig.width=10}
+search_terms <- c("Rutte", "Iran","Sex","Ajax","Toilet Paper")
+search_terms_2 <- c("Rutte", "Black Lives Matter","Barcelona","Vaccine","WC Papier")
+
 gtrends(keyword = search_terms,
-        geo = "HK",
+        geo = "NL",
         time = "today 12-m") -> output_results
+search_terms <- c("Rutte", "Iran","Sex","Ajax","Toilet Paper")
+
+gtrendsR::countries %>% View()
+output_results$interest_over_time %>% as_tibble() %>% 
+  filter(date> '2018-11-25') %>% 
+  ggplot(aes(date,y = hits,group =keyword,color = keyword )) +
+  geom_smooth(se = FALSE) +
+  gghighlight()+
+  theme_void()+
+  facet_wrap(~keyword)+
+  theme(legend.position = 'top')
+```
 
 
 
+```{r}
+library(trendyy)
+library(dplyr)
+
+
+
+ob <- trendy(c("Rutte", "Iran","Sex","Ajax","WC Papier"),
+             from = Sys.Date() - 365,
+             to = Sys.Date(),
+             geo ="NL" ) %>% 
+        get_interest()
+
+
+ob %>% 
+  #filter(date> '2018-11-25') %>% 
+  ggplot(aes(date,y = hits,group =keyword,color = keyword )) +
+  geom_smooth(se = FALSE) +
+  gghighlight()+
+  theme_void()+
+  facet_wrap(~keyword)+
+  theme(legend.position = 'top')
 ```
 
