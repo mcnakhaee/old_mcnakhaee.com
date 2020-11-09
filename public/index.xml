@@ -162,6 +162,173 @@
     </item>
     
     <item>
+      <title>Covid-19 Trends in the Netherlands</title>
+      <link>/post/2020-11-04-covid-19-trends-in-the-netherlands/</link>
+      <pubDate>Wed, 04 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2020-11-04-covid-19-trends-in-the-netherlands/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(CoronaWatchNL)
+library(sf)
+library(gganimate)
+library(santoku)
+library(lubridate)
+library(gghighlight)
+library(geofacet)
+library(foreign)
+theme_set(theme_void())
+theme_update(
+  #plot.background = element_rect(fill = &amp;#39;#FDF6E3&amp;#39;,color = &amp;#39;#FDF6E3&amp;#39;),
+  text = element_text(family = &amp;#39;Poppins Light&amp;#39;),
+  plot.subtitle = element_text(
+    family = &amp;#39;Poppins Light&amp;#39;,
+    size = 10,
+    margin = margin(b = 10)
+  ),
+  plot.title = element_text(
+    family = &amp;#39;Poppins Light&amp;#39;,
+    size = 12,
+    margin = margin(t = 10, b = 10)
+  )
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;municipalBoundaries &amp;lt;- st_read(
+    &amp;quot;https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;amp;service=WFS&amp;amp;version=2.0.0&amp;amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;amp;outputFormat=json&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Reading layer `OGRGeoJSON&amp;#39; from data source `https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;amp;service=WFS&amp;amp;version=2.0.0&amp;amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;amp;outputFormat=json&amp;#39; using driver `GeoJSON&amp;#39;
+## Simple feature collection with 355 features and 5 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 13565.4 ymin: 306846.2 xmax: 278026.1 ymax: 619352.4
+## projected CRS:  Amersfoort / RD New&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;daily_cases_per_municpality &amp;lt;- get_daily_cases_per_municipality()
+populatuon_per_region &amp;lt;- get_population_per_region()
+
+daily_cases_per_municpality &amp;lt;- daily_cases_per_municpality %&amp;gt;%
+  inner_join(populatuon_per_region, by = c(&amp;#39;Municipality_name&amp;#39; = &amp;#39;Regions&amp;#39;)) %&amp;gt;%
+  mutate(
+    Date_of_publication = as_date(Date_of_publication),
+    avg_daily_total_cases = 100000 * as.numeric(Total_reported) / as.numeric(`Bevolking op 1 januari (aantal)`),
+    avg_daily_hospital_admissions = 100000 * as.numeric(Hospital_admission) / as.numeric(`Bevolking op 1 januari (aantal)`),
+    avg_daily_deceased = 100000 * as.numeric(Deceased) / as.numeric(`Bevolking op 1 januari (aantal)`)
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;weekly_cases &amp;lt;- daily_cases_per_municpality %&amp;gt;%
+  mutate(week = round_date(Date_of_publication , unit = &amp;#39;week&amp;#39;))
+
+weekly_cases_per_municpality &amp;lt;- weekly_cases %&amp;gt;%
+  group_by(Municipality_name, week) %&amp;gt;%
+  summarise(
+    avg_weekly_total_cases = mean(avg_daily_total_cases),
+    avg_weekly_hospital_admissions = mean(avg_daily_hospital_admissions),
+    avg_weekly_deceased = mean(avg_daily_deceased)
+  ) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  mutate(
+    d_avg_weekly_total_cases = chop(avg_weekly_total_cases, c(0, 0, 0.5, 1, 5, 12, 20, 35, 55, 80, 100)),
+    d_avg_hospital_admissions = chop(
+      avg_weekly_hospital_admissions,
+      c(0, 0, 0.5, 1, 2, 3, 5, 7, 9, 10, 15)
+    ),
+    d_avg_weekly_deceased = chop(avg_weekly_deceased, c(0, 0, 0.1, 0.5, 1, 1.5, 2, 2.5, 3, 5))
+  )
+
+data_weekly &amp;lt;- municipalBoundaries %&amp;gt;%
+  right_join(weekly_cases_per_municpality,
+             by = c(statnaam = &amp;quot;Municipality_name&amp;quot;))
+
+
+weekly_cases %&amp;gt;%
+  group_by(Province, week) %&amp;gt;%
+  summarise(
+    avg_weekly_hospital_admissions = mean(avg_daily_hospital_admissions),
+    avg_weekly_deceased = mean(avg_daily_deceased)
+  ) %&amp;gt;%
+  rename(name = Province) %&amp;gt;%
+  ggplot(aes(week, avg_weekly_hospital_admissions, color = name)) +
+  geom_line(color = &amp;#39;indianred&amp;#39;, size = 1.5) +
+  geom_point(color = &amp;#39;indianred&amp;#39;) +
+  gghighlight(
+    use_direct_label = FALSE,
+    unhighlighted_params = list(
+      size = 1.3,
+      color = &amp;#39;#F6DAB4&amp;#39;,
+      alpha  = 0.5
+    )
+  ) +
+  facet_geo( ~ name, grid = &amp;#39;nl_prov_grid1&amp;#39;) +
+  theme_minimal()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;make_animation &amp;lt;- function(data, var_name, pal, title) {
+  var_name &amp;lt;- rlang::enquo(var_name)
+  data %&amp;gt;%
+    #filter(week &amp;gt; &amp;#39;2020-10-01&amp;#39;) %&amp;gt;%
+    ggplot() +
+    geom_sf(aes(fill = !!var_name), color = &amp;#39;gray95&amp;#39;) +
+    scale_fill_manual(values  = pal) +
+    coord_sf(datum = NA) +
+    labs(
+      title = title,
+      subtitle = &amp;#39;Date: {current_frame}&amp;#39;,
+      fill = &amp;#39;Counts per 100000&amp;#39;,
+      caption = &amp;#39;Source: RIVM&amp;#39;
+    ) +
+    transition_manual(week, cumulative = T) +
+    ease_aes(&amp;quot;sine&amp;quot;) +
+    enter_fade(alpha = 0.5) +
+    exit_fade(alpha = 0.5)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_patients &amp;lt;- c(
+      &amp;#39;gray95&amp;#39;,
+      &amp;#39;#caf0f8&amp;#39;,
+      &amp;#39;#ade8f4&amp;#39;,
+      &amp;#39;#90e0ef&amp;#39;,
+      &amp;#39;#48cae4&amp;#39;,
+      &amp;#39;#00b4d8&amp;#39;,
+      &amp;#39;#0096c7&amp;#39;,
+      &amp;#39;#0077b6&amp;#39;,
+      &amp;#39;#023e8a&amp;#39;,
+      &amp;#39;#03045e&amp;#39;,
+      &amp;#39;#03071e&amp;#39;
+)
+make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&amp;#39;The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-6-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_cases &amp;lt;- c(
+      &amp;#39;gray95&amp;#39;,
+      &amp;#39;#fee440&amp;#39;,
+      &amp;#39;#FFBA08&amp;#39;,
+      &amp;#39;#FAA307&amp;#39;,
+      &amp;#39;#F48C06&amp;#39;,
+      &amp;#39;#E85D04&amp;#39;,
+      &amp;#39;#DC2F02&amp;#39;,
+      &amp;#39;#D00000&amp;#39;,
+      &amp;#39;#9D0208&amp;#39;,
+      &amp;#39;#6A040F&amp;#39;,
+      &amp;#39;#370617&amp;#39;,
+      &amp;#39;#03071e&amp;#39;
+    )
+make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&amp;#39;The Average Weekly Number of Covid-19 Cases\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-7-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_deceased &amp;lt;- c(
+      &amp;#39;gray95&amp;#39;,
+      &amp;#39;#fdc5f5&amp;#39;,
+     &amp;#39;#e0aaff&amp;#39;,
+      &amp;#39;#c77dff&amp;#39;,
+      &amp;#39;#9d4edd&amp;#39;,
+      &amp;#39;#7b2cbf&amp;#39;,
+      &amp;#39;#5a189a&amp;#39;,
+      &amp;#39;#3c096c&amp;#39;,
+      &amp;#39;#240046&amp;#39;,
+      &amp;#39;#10002b&amp;#39;
+
+)
+make_animation(data_weekly,d_avg_weekly_deceased,pal_deceased,&amp;#39;The Average Weekly Number of Deceased Patients\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-8-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Trends</title>
       <link>/post/2020-10-30-trends/</link>
       <pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate>
@@ -274,7 +441,8 @@ library(tidyverse)
 library(ggthemes)
 library(geofacet)
 library(lubridate)
-library(gganimate)&lt;/code&gt;&lt;/pre&gt;
+library(gganimate)
+library(ggtext)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;apple_mobility &amp;lt;- get_apple_mobility_data()
 google_mobility &amp;lt;- get_google_mobility_data()
 waze_mobility_city_level &amp;lt;- get_waze_mobility_city_level_data()
@@ -294,23 +462,29 @@ province_cases &amp;lt;- get_daily_provincial_cases()&lt;/code&gt;&lt;/pre&gt;
     #geom_hline(yintercept = 0, color = &amp;quot;gray40&amp;quot;) + 
   geom_col(mapping = aes( y = driving, 
                        group = name , color = over_under,fill = over_under),alpha = 0.5) +
-  geom_smooth(mapping = aes(y = Aantal),color = &amp;#39;#e76f51&amp;#39;,fill = &amp;#39;#e76f51&amp;#39;,alpha = 0.2,se = FALSE) +
+  geom_smooth(mapping = aes(y = Aantal/2),color = &amp;#39;#e76f51&amp;#39;,fill = &amp;#39;#e76f51&amp;#39;,alpha = 0.2,se = FALSE,size = 1.2) +
   scale_color_manual(values = c(&amp;quot;steelblue&amp;quot; , &amp;quot;firebrick&amp;quot;)) +
     scale_fill_manual(values = c(&amp;quot;steelblue&amp;quot; , &amp;quot;firebrick&amp;quot;)) +
 
-  guides(color = FALSE) + 
+  guides(color = FALSE,fill = FALSE) + 
   #scale_y_continuous(limits = c(-120,220))+
     scale_y_continuous(
     
     # Features of the first axis
-    name = &amp;quot;Temperature (Celsius °)&amp;quot;,
+    name = &amp;quot;% Usage Change&amp;quot;,
     
     # Add a second axis and specify its features
-    sec.axis = sec_axis(~.*1, name=&amp;quot;Price ($)&amp;quot;) 
+    sec.axis = sec_axis(~.*2, name=&amp;quot;Number of Cases&amp;quot;) 
   ) + 
-  labs(x = &amp;quot;Date&amp;quot;, y = &amp;quot;Relative Mobility&amp;quot;, title = &amp;quot;Relative Trends in Apple Maps Usage for Driving in the Netherlands&amp;quot;) +
+  labs(x = &amp;quot;&amp;quot;, y = &amp;quot;Relative Mobility&amp;quot;, title = &amp;quot;Relative Trends in Apple Maps Usage for Driving and&amp;lt;span style=&amp;#39;color:#e76f51&amp;#39;&amp;gt; the Number of Covid-19 Cases &amp;lt;/span&amp;gt; in the Netherlands&amp;quot;) +
   facet_geo(~name,grid = &amp;#39;nl_prov_grid1&amp;#39;) +
-  theme_void()&lt;/code&gt;&lt;/pre&gt;
+  theme_minimal() +
+    theme(text = element_text(family = &amp;#39;Space Grotesk&amp;#39;),
+      strip.text = element_text(size  = 15,family = &amp;#39;Space Grotesk&amp;#39;),
+      axis.title.y.left = element_text(margin = margin(r = 12)),
+      axis.title.y.right = element_text(margin = margin(l = 12)),
+      axis.text.x = element_text(size = 10),
+      plot.title = element_markdown(size = 20,margin = margin(t = 15,l = 10,b = 15)))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-10-29-covid/index.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;1920&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;apple_mobility %&amp;gt;% 
   filter(`sub-region`  !=&amp;#39;Total&amp;#39;) %&amp;gt;% 

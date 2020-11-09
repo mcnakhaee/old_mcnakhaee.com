@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="library(sf)library(santoku)library(CoronaWatchNL)library(tidyverse)library(ggthemes)library(geofacet)library(lubridate)library(gganimate)apple_mobility &lt;- get_apple_mobility_data()google_mobility &lt;- get_google_mobility_data()waze_mobility_city_level &lt;- get_waze_mobility_city_level_data()waze_mobility_country_level &lt;- get_waze_mobility_country_level_data()province_cases &lt;- get_daily_provincial_cases()apple_mobility_ &lt;- apple_mobility %&gt;% filter(`sub-region` !=&#39;Total&#39;) %&gt;% mutate(over_under = driving &lt; 0,name = case_when(`sub-region` == &quot;South Holland&quot; ~ &#39;Zuid-Holland&#39;,`sub-region` == &quot;North Holland&quot; ~ &#39;Noord-Holland&#39;,`sub-region` == &quot;North Brabant&quot; ~ &#39;Noord-Brabant&#39;,TRUE ~ `sub-region` )) %&gt;% inner_join(province_cases,by = c(&#39;date&#39;=&#39;Datum&#39;,&#39;name&#39;=&#39;Provincienaam&#39;))ggplot(apple_mobility_,aes(x =date)) &#43;#geom_hline(yintercept = 0, color = &quot;gray40&quot;) &#43; geom_col(mapping = aes( y = driving, group = name , color = over_under,fill = over_under),alpha = 0.">
+  <meta name="description" content="library(sf)library(santoku)library(CoronaWatchNL)library(tidyverse)library(ggthemes)library(geofacet)library(lubridate)library(gganimate)library(ggtext)apple_mobility &lt;- get_apple_mobility_data()google_mobility &lt;- get_google_mobility_data()waze_mobility_city_level &lt;- get_waze_mobility_city_level_data()waze_mobility_country_level &lt;- get_waze_mobility_country_level_data()province_cases &lt;- get_daily_provincial_cases()apple_mobility_ &lt;- apple_mobility %&gt;% filter(`sub-region` !=&#39;Total&#39;) %&gt;% mutate(over_under = driving &lt; 0,name = case_when(`sub-region` == &quot;South Holland&quot; ~ &#39;Zuid-Holland&#39;,`sub-region` == &quot;North Holland&quot; ~ &#39;Noord-Holland&#39;,`sub-region` == &quot;North Brabant&quot; ~ &#39;Noord-Brabant&#39;,TRUE ~ `sub-region` )) %&gt;% inner_join(province_cases,by = c(&#39;date&#39;=&#39;Datum&#39;,&#39;name&#39;=&#39;Provincienaam&#39;))ggplot(apple_mobility_,aes(x =date)) &#43;#geom_hline(yintercept = 0, color = &quot;gray40&quot;) &#43; geom_col(mapping = aes( y = driving, group = name , color = over_under,fill = over_under),alpha = 0.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2020-10-29-covid/">
@@ -129,7 +129,7 @@
   <meta property="og:site_name" content="Muhammad Chenariyan Nakhaee">
   <meta property="og:url" content="/post/2020-10-29-covid/">
   <meta property="og:title" content="Covid | Muhammad Chenariyan Nakhaee">
-  <meta property="og:description" content="library(sf)library(santoku)library(CoronaWatchNL)library(tidyverse)library(ggthemes)library(geofacet)library(lubridate)library(gganimate)apple_mobility &lt;- get_apple_mobility_data()google_mobility &lt;- get_google_mobility_data()waze_mobility_city_level &lt;- get_waze_mobility_city_level_data()waze_mobility_country_level &lt;- get_waze_mobility_country_level_data()province_cases &lt;- get_daily_provincial_cases()apple_mobility_ &lt;- apple_mobility %&gt;% filter(`sub-region` !=&#39;Total&#39;) %&gt;% mutate(over_under = driving &lt; 0,name = case_when(`sub-region` == &quot;South Holland&quot; ~ &#39;Zuid-Holland&#39;,`sub-region` == &quot;North Holland&quot; ~ &#39;Noord-Holland&#39;,`sub-region` == &quot;North Brabant&quot; ~ &#39;Noord-Brabant&#39;,TRUE ~ `sub-region` )) %&gt;% inner_join(province_cases,by = c(&#39;date&#39;=&#39;Datum&#39;,&#39;name&#39;=&#39;Provincienaam&#39;))ggplot(apple_mobility_,aes(x =date)) &#43;#geom_hline(yintercept = 0, color = &quot;gray40&quot;) &#43; geom_col(mapping = aes( y = driving, group = name , color = over_under,fill = over_under),alpha = 0."><meta property="og:image" content="/img/avatar.jpg">
+  <meta property="og:description" content="library(sf)library(santoku)library(CoronaWatchNL)library(tidyverse)library(ggthemes)library(geofacet)library(lubridate)library(gganimate)library(ggtext)apple_mobility &lt;- get_apple_mobility_data()google_mobility &lt;- get_google_mobility_data()waze_mobility_city_level &lt;- get_waze_mobility_city_level_data()waze_mobility_country_level &lt;- get_waze_mobility_country_level_data()province_cases &lt;- get_daily_provincial_cases()apple_mobility_ &lt;- apple_mobility %&gt;% filter(`sub-region` !=&#39;Total&#39;) %&gt;% mutate(over_under = driving &lt; 0,name = case_when(`sub-region` == &quot;South Holland&quot; ~ &#39;Zuid-Holland&#39;,`sub-region` == &quot;North Holland&quot; ~ &#39;Noord-Holland&#39;,`sub-region` == &quot;North Brabant&quot; ~ &#39;Noord-Brabant&#39;,TRUE ~ `sub-region` )) %&gt;% inner_join(province_cases,by = c(&#39;date&#39;=&#39;Datum&#39;,&#39;name&#39;=&#39;Provincienaam&#39;))ggplot(apple_mobility_,aes(x =date)) &#43;#geom_hline(yintercept = 0, color = &quot;gray40&quot;) &#43; geom_col(mapping = aes( y = driving, group = name , color = over_under,fill = over_under),alpha = 0."><meta property="og:image" content="/img/avatar.jpg">
   <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
   
     
@@ -181,7 +181,7 @@
       "url": "/img/icon-512.png"
     }
   },
-  "description": "library(sf)\rlibrary(santoku)\rlibrary(CoronaWatchNL)\rlibrary(tidyverse)\rlibrary(ggthemes)\rlibrary(geofacet)\rlibrary(lubridate)\rlibrary(gganimate)\rapple_mobility \u0026lt;- get_apple_mobility_data()\rgoogle_mobility \u0026lt;- get_google_mobility_data()\rwaze_mobility_city_level \u0026lt;- get_waze_mobility_city_level_data()\rwaze_mobility_country_level \u0026lt;- get_waze_mobility_country_level_data()\rprovince_cases \u0026lt;- get_daily_provincial_cases()\rapple_mobility_ \u0026lt;- apple_mobility %\u0026gt;% filter(`sub-region` !=\u0026#39;Total\u0026#39;) %\u0026gt;% mutate(over_under = driving \u0026lt; 0,\rname = case_when(`sub-region` == \u0026quot;South Holland\u0026quot; ~ \u0026#39;Zuid-Holland\u0026#39;,\r`sub-region` == \u0026quot;North Holland\u0026quot; ~ \u0026#39;Noord-Holland\u0026#39;,\r`sub-region` == \u0026quot;North Brabant\u0026quot; ~ \u0026#39;Noord-Brabant\u0026#39;,\rTRUE ~ `sub-region` )) %\u0026gt;% inner_join(province_cases,by = c(\u0026#39;date\u0026#39;=\u0026#39;Datum\u0026#39;,\u0026#39;name\u0026#39;=\u0026#39;Provincienaam\u0026#39;))\rggplot(apple_mobility_,aes(x =date)) +\r#geom_hline(yintercept = 0, color = \u0026quot;gray40\u0026quot;) + geom_col(mapping = aes( y = driving, group = name , color = over_under,fill = over_under),alpha = 0."
+  "description": "library(sf)\rlibrary(santoku)\rlibrary(CoronaWatchNL)\rlibrary(tidyverse)\rlibrary(ggthemes)\rlibrary(geofacet)\rlibrary(lubridate)\rlibrary(gganimate)\rlibrary(ggtext)\rapple_mobility \u0026lt;- get_apple_mobility_data()\rgoogle_mobility \u0026lt;- get_google_mobility_data()\rwaze_mobility_city_level \u0026lt;- get_waze_mobility_city_level_data()\rwaze_mobility_country_level \u0026lt;- get_waze_mobility_country_level_data()\rprovince_cases \u0026lt;- get_daily_provincial_cases()\rapple_mobility_ \u0026lt;- apple_mobility %\u0026gt;% filter(`sub-region` !=\u0026#39;Total\u0026#39;) %\u0026gt;% mutate(over_under = driving \u0026lt; 0,\rname = case_when(`sub-region` == \u0026quot;South Holland\u0026quot; ~ \u0026#39;Zuid-Holland\u0026#39;,\r`sub-region` == \u0026quot;North Holland\u0026quot; ~ \u0026#39;Noord-Holland\u0026#39;,\r`sub-region` == \u0026quot;North Brabant\u0026quot; ~ \u0026#39;Noord-Brabant\u0026#39;,\rTRUE ~ `sub-region` )) %\u0026gt;% inner_join(province_cases,by = c(\u0026#39;date\u0026#39;=\u0026#39;Datum\u0026#39;,\u0026#39;name\u0026#39;=\u0026#39;Provincienaam\u0026#39;))\rggplot(apple_mobility_,aes(x =date)) +\r#geom_hline(yintercept = 0, color = \u0026quot;gray40\u0026quot;) + geom_col(mapping = aes( y = driving, group = name , color = over_under,fill = over_under),alpha = 0."
 }
 </script>
 
@@ -522,7 +522,8 @@ library(tidyverse)
 library(ggthemes)
 library(geofacet)
 library(lubridate)
-library(gganimate)</code></pre>
+library(gganimate)
+library(ggtext)</code></pre>
 <pre class="r"><code>apple_mobility &lt;- get_apple_mobility_data()
 google_mobility &lt;- get_google_mobility_data()
 waze_mobility_city_level &lt;- get_waze_mobility_city_level_data()
@@ -542,23 +543,29 @@ province_cases &lt;- get_daily_provincial_cases()</code></pre>
     #geom_hline(yintercept = 0, color = &quot;gray40&quot;) + 
   geom_col(mapping = aes( y = driving, 
                        group = name , color = over_under,fill = over_under),alpha = 0.5) +
-  geom_smooth(mapping = aes(y = Aantal),color = &#39;#e76f51&#39;,fill = &#39;#e76f51&#39;,alpha = 0.2,se = FALSE) +
+  geom_smooth(mapping = aes(y = Aantal/2),color = &#39;#e76f51&#39;,fill = &#39;#e76f51&#39;,alpha = 0.2,se = FALSE,size = 1.2) +
   scale_color_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
     scale_fill_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
 
-  guides(color = FALSE) + 
+  guides(color = FALSE,fill = FALSE) + 
   #scale_y_continuous(limits = c(-120,220))+
     scale_y_continuous(
     
     # Features of the first axis
-    name = &quot;Temperature (Celsius °)&quot;,
+    name = &quot;% Usage Change&quot;,
     
     # Add a second axis and specify its features
-    sec.axis = sec_axis(~.*1, name=&quot;Price ($)&quot;) 
+    sec.axis = sec_axis(~.*2, name=&quot;Number of Cases&quot;) 
   ) + 
-  labs(x = &quot;Date&quot;, y = &quot;Relative Mobility&quot;, title = &quot;Relative Trends in Apple Maps Usage for Driving in the Netherlands&quot;) +
+  labs(x = &quot;&quot;, y = &quot;Relative Mobility&quot;, title = &quot;Relative Trends in Apple Maps Usage for Driving and&lt;span style=&#39;color:#e76f51&#39;&gt; the Number of Covid-19 Cases &lt;/span&gt; in the Netherlands&quot;) +
   facet_geo(~name,grid = &#39;nl_prov_grid1&#39;) +
-  theme_void()</code></pre>
+  theme_minimal() +
+    theme(text = element_text(family = &#39;Space Grotesk&#39;),
+      strip.text = element_text(size  = 15,family = &#39;Space Grotesk&#39;),
+      axis.title.y.left = element_text(margin = margin(r = 12)),
+      axis.title.y.right = element_text(margin = margin(l = 12)),
+      axis.text.x = element_text(size = 10),
+      plot.title = element_markdown(size = 20,margin = margin(t = 15,l = 10,b = 15)))</code></pre>
 <p><img src="/post/2020-10-29-covid/index.en_files/figure-html/unnamed-chunk-5-1.png" width="1920" /></p>
 <pre class="r"><code>apple_mobility %&gt;% 
   filter(`sub-region`  !=&#39;Total&#39;) %&gt;% 
