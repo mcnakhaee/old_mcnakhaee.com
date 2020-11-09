@@ -28,7 +28,8 @@ library(tidyverse)
 library(ggthemes)
 library(geofacet)
 library(lubridate)
-library(gganimate)</code></pre>
+library(gganimate)
+library(ggtext)</code></pre>
 <pre class="r"><code>apple_mobility &lt;- get_apple_mobility_data()
 google_mobility &lt;- get_google_mobility_data()
 waze_mobility_city_level &lt;- get_waze_mobility_city_level_data()
@@ -48,23 +49,29 @@ province_cases &lt;- get_daily_provincial_cases()</code></pre>
     #geom_hline(yintercept = 0, color = &quot;gray40&quot;) + 
   geom_col(mapping = aes( y = driving, 
                        group = name , color = over_under,fill = over_under),alpha = 0.5) +
-  geom_smooth(mapping = aes(y = Aantal),color = &#39;#e76f51&#39;,fill = &#39;#e76f51&#39;,alpha = 0.2,se = FALSE) +
+  geom_smooth(mapping = aes(y = Aantal/2),color = &#39;#e76f51&#39;,fill = &#39;#e76f51&#39;,alpha = 0.2,se = FALSE,size = 1.2) +
   scale_color_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
     scale_fill_manual(values = c(&quot;steelblue&quot; , &quot;firebrick&quot;)) +
 
-  guides(color = FALSE) + 
+  guides(color = FALSE,fill = FALSE) + 
   #scale_y_continuous(limits = c(-120,220))+
     scale_y_continuous(
     
     # Features of the first axis
-    name = &quot;Temperature (Celsius °)&quot;,
+    name = &quot;% Usage Change&quot;,
     
     # Add a second axis and specify its features
-    sec.axis = sec_axis(~.*1, name=&quot;Price ($)&quot;) 
+    sec.axis = sec_axis(~.*2, name=&quot;Number of Cases&quot;) 
   ) + 
-  labs(x = &quot;Date&quot;, y = &quot;Relative Mobility&quot;, title = &quot;Relative Trends in Apple Maps Usage for Driving in the Netherlands&quot;) +
+  labs(x = &quot;&quot;, y = &quot;Relative Mobility&quot;, title = &quot;Relative Trends in Apple Maps Usage for Driving and&lt;span style=&#39;color:#e76f51&#39;&gt; the Number of Covid-19 Cases &lt;/span&gt; in the Netherlands&quot;) +
   facet_geo(~name,grid = &#39;nl_prov_grid1&#39;) +
-  theme_void()</code></pre>
+  theme_minimal() +
+    theme(text = element_text(family = &#39;Space Grotesk&#39;),
+      strip.text = element_text(size  = 15,family = &#39;Space Grotesk&#39;),
+      axis.title.y.left = element_text(margin = margin(r = 12)),
+      axis.title.y.right = element_text(margin = margin(l = 12)),
+      axis.text.x = element_text(size = 10),
+      plot.title = element_markdown(size = 20,margin = margin(t = 15,l = 10,b = 15)))</code></pre>
 <p><img src="/post/2020-10-29-covid/index.en_files/figure-html/unnamed-chunk-5-1.png" width="1920" /></p>
 <pre class="r"><code>apple_mobility %&gt;% 
   filter(`sub-region`  !=&#39;Total&#39;) %&gt;% 
