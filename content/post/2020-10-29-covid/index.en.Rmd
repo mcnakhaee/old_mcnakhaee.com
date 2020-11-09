@@ -26,6 +26,8 @@ knitr::opts_chunk$set(
 	warning = FALSE,
 	eval = TRUE
 )
+
+windowsFonts(`Space Grotesk` = 'Space Grotesk')
 ```
 
 ```{r}
@@ -37,6 +39,7 @@ library(ggthemes)
 library(geofacet)
 library(lubridate)
 library(gganimate)
+library(ggtext)
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -68,23 +71,29 @@ apple_mobility_ <- apple_mobility %>%
     #geom_hline(yintercept = 0, color = "gray40") + 
   geom_col(mapping = aes( y = driving, 
                        group = name , color = over_under,fill = over_under),alpha = 0.5) +
-  geom_smooth(mapping = aes(y = Aantal),color = '#e76f51',fill = '#e76f51',alpha = 0.2,se = FALSE) +
+  geom_smooth(mapping = aes(y = Aantal/2),color = '#e76f51',fill = '#e76f51',alpha = 0.2,se = FALSE,size = 1.2) +
   scale_color_manual(values = c("steelblue" , "firebrick")) +
     scale_fill_manual(values = c("steelblue" , "firebrick")) +
 
-  guides(color = FALSE) + 
+  guides(color = FALSE,fill = FALSE) + 
   #scale_y_continuous(limits = c(-120,220))+
     scale_y_continuous(
     
     # Features of the first axis
-    name = "Temperature (Celsius °)",
+    name = "% Usage Change",
     
     # Add a second axis and specify its features
-    sec.axis = sec_axis(~.*1, name="Price ($)") 
+    sec.axis = sec_axis(~.*2, name="Number of Cases") 
   ) + 
-  labs(x = "Date", y = "Relative Mobility", title = "Relative Trends in Apple Maps Usage for Driving in the Netherlands") +
+  labs(x = "", y = "Relative Mobility", title = "Relative Trends in Apple Maps Usage for Driving and<span style='color:#e76f51'> the Number of Covid-19 Cases </span> in the Netherlands") +
   facet_geo(~name,grid = 'nl_prov_grid1') +
-  theme_void()
+  theme_minimal() +
+    theme(text = element_text(family = 'Space Grotesk'),
+      strip.text = element_text(size  = 15,family = 'Space Grotesk'),
+      axis.title.y.left = element_text(margin = margin(r = 12)),
+      axis.title.y.right = element_text(margin = margin(l = 12)),
+      axis.text.x = element_text(size = 10),
+      plot.title = element_markdown(size = 20,margin = margin(t = 15,l = 10,b = 15)))
 
 ```
 
