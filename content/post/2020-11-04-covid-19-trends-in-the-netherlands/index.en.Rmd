@@ -34,6 +34,7 @@ windowsFonts('Poppins Light' = 'Poppins Light')
 
 ```
 
+Two weeks ago, I made a visualization that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.
 
 ```{r}
 library(tidyverse)
@@ -61,9 +62,9 @@ theme_update(
   )
 )
 ```
+I created an R package called CoronaWarchNL that allows you to access a wide range of Covid-19 datasets. I'll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities. 
 
-
-```{r}
+```{r warning=FALSE, message=FALSE}
 
 municipalBoundaries <- st_read(
     "https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2020_gegeneraliseerd&outputFormat=json"
@@ -84,11 +85,9 @@ daily_cases_per_municpality <- daily_cases_per_municpality %>%
 
 ```
 
-
+I compute the weekly average number of Covid-19 cases, hospitalizations, and death for each municipality. The following piece of code shows how I did this using R.
 
 ```{r fig.height=10,fig.width=10}
-
-
 
 
 weekly_cases <- daily_cases_per_municpality %>%
@@ -99,45 +98,22 @@ weekly_cases_per_municpality <- weekly_cases %>%
   summarise(
     avg_weekly_total_cases = mean(avg_daily_total_cases),
     avg_weekly_hospital_admissions = mean(avg_daily_hospital_admissions),
-    avg_weekly_deceased = mean(avg_daily_deceased)
-  ) %>%
+    avg_weekly_deceased = mean(avg_daily_deceased)) %>%
   ungroup() %>%
   mutate(
     d_avg_weekly_total_cases = chop(avg_weekly_total_cases, c(0, 0, 0.5, 1, 5, 12, 20, 35, 55, 80, 100)),
     d_avg_hospital_admissions = chop(
       avg_weekly_hospital_admissions,
-      c(0, 0, 0.5, 1, 2, 3, 5, 7, 9, 10, 15)
-    ),
-    d_avg_weekly_deceased = chop(avg_weekly_deceased, c(0, 0, 0.1, 0.5, 1, 1.5, 2, 2.5, 3, 5))
-  )
+      c(0, 0, 0.5, 1, 2, 3, 5, 7, 9, 10, 15)),
+    d_avg_weekly_deceased = chop(avg_weekly_deceased, c(0, 0, 0.1, 0.5, 1, 1.5, 2, 2.5, 3, 5)))
 
 data_weekly <- municipalBoundaries %>%
   right_join(weekly_cases_per_municpality,
              by = c(statnaam = "Municipality_name"))
 
 
-weekly_cases %>%
-  group_by(Province, week) %>%
-  summarise(
-    avg_weekly_hospital_admissions = mean(avg_daily_hospital_admissions),
-    avg_weekly_deceased = mean(avg_daily_deceased)
-  ) %>%
-  rename(name = Province) %>%
-  ggplot(aes(week, avg_weekly_hospital_admissions, color = name)) +
-  geom_line(color = 'indianred', size = 1.5) +
-  geom_point(color = 'indianred') +
-  gghighlight(
-    use_direct_label = FALSE,
-    unhighlighted_params = list(
-      size = 1.3,
-      color = '#F6DAB4',
-      alpha  = 0.5
-    )
-  ) +
-  facet_geo( ~ name, grid = 'nl_prov_grid1') +
-  theme_minimal()
 ```
-
+I will create an animation that shows how Covid-19 cases spread in the Netherlands and which municipality were and are hit hardest by the pandemic.
 
 ```{r}
 make_animation <- function(data, var_name, pal, title) {
@@ -163,27 +139,7 @@ make_animation <- function(data, var_name, pal, title) {
 ```
 
 
-
-```{r}
-pal_patients <- c(
-      'gray95',
-      '#caf0f8',
-      '#ade8f4',
-      '#90e0ef',
-      '#48cae4',
-      '#00b4d8',
-      '#0096c7',
-      '#0077b6',
-      '#023e8a',
-      '#03045e',
-      '#03071e'
-)
-make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,'The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands')
-```
-
-
-
-```{r}
+```{r eval=FALSE}
 pal_cases <- c(
       'gray95',
       '#fee440',
@@ -201,7 +157,28 @@ pal_cases <- c(
 make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,'The Average Weekly Number of Covid-19 Cases\nper 100000 Inhabitants in the Netherlands')
 ```
 
-```{r}
+![](cases.gif)
+
+```{r eval=FALSE}
+pal_patients <- c(
+      'gray95',
+      '#caf0f8',
+      '#ade8f4',
+      '#90e0ef',
+      '#48cae4',
+      '#00b4d8',
+      '#0096c7',
+      '#0077b6',
+      '#023e8a',
+      '#03045e',
+      '#03071e'
+)
+make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,'The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands')
+```
+
+![](admissions.gif)
+
+```{r eval=FALSE}
 pal_deceased <- c(
       'gray95',
       '#fdc5f5',
@@ -216,6 +193,33 @@ pal_deceased <- c(
 
 )
 make_animation(data_weekly,d_avg_weekly_deceased,pal_deceased,'The Average Weekly Number of Deceased Patients\nper 100000 Inhabitants in the Netherlands')
+
+```
+![](deceased.gif)
+
+
+
+```{r fig.height=10,fig.width=10,eval=FALSE,include=FALSE}
+weekly_cases %>%
+  group_by(Province, week) %>%
+  summarise(
+    avg_weekly_hospital_admissions = mean(avg_daily_hospital_admissions),
+    avg_weekly_deceased = mean(avg_daily_deceased)
+  ) %>%
+  rename(name = Province) %>%
+  ggplot(aes(week, avg_weekly_hospital_admissions, color = name)) +
+  geom_line(color = 'indianred', size = 1.5) +
+  geom_point(color = 'indianred') +
+  gghighlight(
+    use_direct_label = FALSE,
+    unhighlighted_params = list(
+      size = 1.3,
+      color = '#F6DAB4',
+      alpha  = 0.5
+    )
+  ) +
+  facet_geo( ~ name, grid = 'nl_prov_grid1') +
+  theme_minimal()
 ```
 
 

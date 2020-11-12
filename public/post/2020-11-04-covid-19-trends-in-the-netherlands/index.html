@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="library(tidyverse)library(CoronaWatchNL)library(sf)library(gganimate)library(santoku)library(lubridate)library(gghighlight)library(geofacet)library(foreign)theme_set(theme_void())theme_update(#plot.background = element_rect(fill = &#39;#FDF6E3&#39;,color = &#39;#FDF6E3&#39;),text = element_text(family = &#39;Poppins Light&#39;),plot.subtitle = element_text(family = &#39;Poppins Light&#39;,size = 10,margin = margin(b = 10)),plot.title = element_text(family = &#39;Poppins Light&#39;,size = 12,margin = margin(t = 10, b = 10)))municipalBoundaries &lt;- st_read(&quot;https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;service=WFS&amp;version=2.0.0&amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;outputFormat=json&quot;)## Reading layer `OGRGeoJSON&#39; from data source `https://geodata.">
+  <meta name="description" content="Two weeks ago, I made a visualization that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2020-11-04-covid-19-trends-in-the-netherlands/">
@@ -118,10 +118,9 @@
   
   
     
-    
   
   
-  <meta property="twitter:card" content="summary">
+  <meta property="twitter:card" content="summary_large_image">
   
   <meta property="twitter:site" content="@m_cnakhaee">
   <meta property="twitter:creator" content="@m_cnakhaee">
@@ -129,8 +128,8 @@
   <meta property="og:site_name" content="Muhammad Chenariyan Nakhaee">
   <meta property="og:url" content="/post/2020-11-04-covid-19-trends-in-the-netherlands/">
   <meta property="og:title" content="Covid-19 Trends in the Netherlands | Muhammad Chenariyan Nakhaee">
-  <meta property="og:description" content="library(tidyverse)library(CoronaWatchNL)library(sf)library(gganimate)library(santoku)library(lubridate)library(gghighlight)library(geofacet)library(foreign)theme_set(theme_void())theme_update(#plot.background = element_rect(fill = &#39;#FDF6E3&#39;,color = &#39;#FDF6E3&#39;),text = element_text(family = &#39;Poppins Light&#39;),plot.subtitle = element_text(family = &#39;Poppins Light&#39;,size = 10,margin = margin(b = 10)),plot.title = element_text(family = &#39;Poppins Light&#39;,size = 12,margin = margin(t = 10, b = 10)))municipalBoundaries &lt;- st_read(&quot;https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;service=WFS&amp;version=2.0.0&amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;outputFormat=json&quot;)## Reading layer `OGRGeoJSON&#39; from data source `https://geodata."><meta property="og:image" content="/img/avatar.jpg">
-  <meta property="twitter:image" content="/img/avatar.jpg"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="Two weeks ago, I made a visualization that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands."><meta property="og:image" content="/post/2020-11-04-covid-19-trends-in-the-netherlands/featured.JPG">
+  <meta property="twitter:image" content="/post/2020-11-04-covid-19-trends-in-the-netherlands/featured.JPG"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2020-11-04T00:00:00&#43;00:00">
@@ -165,6 +164,10 @@
   },
   "headline": "Covid-19 Trends in the Netherlands",
   
+  "image": [
+    "/post/2020-11-04-covid-19-trends-in-the-netherlands/featured.JPG"
+  ],
+  
   "datePublished": "2020-11-04T00:00:00Z",
   "dateModified": "2020-11-04T14:25:51+01:00",
   
@@ -181,7 +184,7 @@
       "url": "/img/icon-512.png"
     }
   },
-  "description": "library(tidyverse)\rlibrary(CoronaWatchNL)\rlibrary(sf)\rlibrary(gganimate)\rlibrary(santoku)\rlibrary(lubridate)\rlibrary(gghighlight)\rlibrary(geofacet)\rlibrary(foreign)\rtheme_set(theme_void())\rtheme_update(\r#plot.background = element_rect(fill = \u0026#39;#FDF6E3\u0026#39;,color = \u0026#39;#FDF6E3\u0026#39;),\rtext = element_text(family = \u0026#39;Poppins Light\u0026#39;),\rplot.subtitle = element_text(\rfamily = \u0026#39;Poppins Light\u0026#39;,\rsize = 10,\rmargin = margin(b = 10)\r),\rplot.title = element_text(\rfamily = \u0026#39;Poppins Light\u0026#39;,\rsize = 12,\rmargin = margin(t = 10, b = 10)\r)\r)\rmunicipalBoundaries \u0026lt;- st_read(\r\u0026quot;https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature\u0026amp;service=WFS\u0026amp;version=2.0.0\u0026amp;typeName=cbs_gemeente_2020_gegeneraliseerd\u0026amp;outputFormat=json\u0026quot;\r)\r## Reading layer `OGRGeoJSON\u0026#39; from data source `https://geodata."
+  "description": "Two weeks ago, I made a visualization that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands."
 }
 </script>
 
@@ -415,18 +418,26 @@
 
 
 
-  
+
+
+
+
+
+
+
 
   
   
+    
   
+
+
 <div class="article-container pt-3">
   <h1>Covid-19 Trends in the Netherlands</h1>
 
   
-
   
-    
+  
 
 <div id="code-folding-buttons" class="dropdown btn-group pull-right">
   <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" id="allCodeToggleButton"
@@ -441,7 +452,8 @@
 
 
 
-    
+
+  
 
 
 
@@ -492,22 +504,29 @@
 
 </div>
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 675px;">
+  <div style="position: relative">
+    <img src="/post/2020-11-04-covid-19-trends-in-the-netherlands/featured_hu844569c7f9a90a4b154e33490315f1e5_97138_720x0_resize_q90_lanczos.JPG" alt="" class="featured-image">
+    
+  </div>
 </div>
 
 
@@ -519,6 +538,7 @@
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>Two weeks ago, I made a visualization that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.</p>
 <pre class="r"><code>library(tidyverse)
 library(CoronaWatchNL)
 library(sf)
@@ -543,6 +563,7 @@ theme_update(
     margin = margin(t = 10, b = 10)
   )
 )</code></pre>
+<p>I created an R package called CoronaWarchNL that allows you to access a wide range of Covid-19 datasets. I’ll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities.</p>
 <pre class="r"><code>municipalBoundaries &lt;- st_read(
     &quot;https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;service=WFS&amp;version=2.0.0&amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;outputFormat=json&quot;
   )</code></pre>
@@ -563,6 +584,7 @@ daily_cases_per_municpality &lt;- daily_cases_per_municpality %&gt;%
     avg_daily_hospital_admissions = 100000 * as.numeric(Hospital_admission) / as.numeric(`Bevolking op 1 januari (aantal)`),
     avg_daily_deceased = 100000 * as.numeric(Deceased) / as.numeric(`Bevolking op 1 januari (aantal)`)
   )</code></pre>
+<p>I compute the weekly average number of Covid-19 cases, hospitalizations, and death for each municipality. The following piece of code shows how I did this using R.</p>
 <pre class="r"><code>weekly_cases &lt;- daily_cases_per_municpality %&gt;%
   mutate(week = round_date(Date_of_publication , unit = &#39;week&#39;))
 
@@ -571,44 +593,19 @@ weekly_cases_per_municpality &lt;- weekly_cases %&gt;%
   summarise(
     avg_weekly_total_cases = mean(avg_daily_total_cases),
     avg_weekly_hospital_admissions = mean(avg_daily_hospital_admissions),
-    avg_weekly_deceased = mean(avg_daily_deceased)
-  ) %&gt;%
+    avg_weekly_deceased = mean(avg_daily_deceased)) %&gt;%
   ungroup() %&gt;%
   mutate(
     d_avg_weekly_total_cases = chop(avg_weekly_total_cases, c(0, 0, 0.5, 1, 5, 12, 20, 35, 55, 80, 100)),
     d_avg_hospital_admissions = chop(
       avg_weekly_hospital_admissions,
-      c(0, 0, 0.5, 1, 2, 3, 5, 7, 9, 10, 15)
-    ),
-    d_avg_weekly_deceased = chop(avg_weekly_deceased, c(0, 0, 0.1, 0.5, 1, 1.5, 2, 2.5, 3, 5))
-  )
+      c(0, 0, 0.5, 1, 2, 3, 5, 7, 9, 10, 15)),
+    d_avg_weekly_deceased = chop(avg_weekly_deceased, c(0, 0, 0.1, 0.5, 1, 1.5, 2, 2.5, 3, 5)))
 
 data_weekly &lt;- municipalBoundaries %&gt;%
   right_join(weekly_cases_per_municpality,
-             by = c(statnaam = &quot;Municipality_name&quot;))
-
-
-weekly_cases %&gt;%
-  group_by(Province, week) %&gt;%
-  summarise(
-    avg_weekly_hospital_admissions = mean(avg_daily_hospital_admissions),
-    avg_weekly_deceased = mean(avg_daily_deceased)
-  ) %&gt;%
-  rename(name = Province) %&gt;%
-  ggplot(aes(week, avg_weekly_hospital_admissions, color = name)) +
-  geom_line(color = &#39;indianred&#39;, size = 1.5) +
-  geom_point(color = &#39;indianred&#39;) +
-  gghighlight(
-    use_direct_label = FALSE,
-    unhighlighted_params = list(
-      size = 1.3,
-      color = &#39;#F6DAB4&#39;,
-      alpha  = 0.5
-    )
-  ) +
-  facet_geo( ~ name, grid = &#39;nl_prov_grid1&#39;) +
-  theme_minimal()</code></pre>
-<p><img src="/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
+             by = c(statnaam = &quot;Municipality_name&quot;))</code></pre>
+<p>I will create an animation that shows how Covid-19 cases spread in the Netherlands and which municipality were and are hit hardest by the pandemic.</p>
 <pre class="r"><code>make_animation &lt;- function(data, var_name, pal, title) {
   var_name &lt;- rlang::enquo(var_name)
   data %&gt;%
@@ -628,21 +625,6 @@ weekly_cases %&gt;%
     enter_fade(alpha = 0.5) +
     exit_fade(alpha = 0.5)
 }</code></pre>
-<pre class="r"><code>pal_patients &lt;- c(
-      &#39;gray95&#39;,
-      &#39;#caf0f8&#39;,
-      &#39;#ade8f4&#39;,
-      &#39;#90e0ef&#39;,
-      &#39;#48cae4&#39;,
-      &#39;#00b4d8&#39;,
-      &#39;#0096c7&#39;,
-      &#39;#0077b6&#39;,
-      &#39;#023e8a&#39;,
-      &#39;#03045e&#39;,
-      &#39;#03071e&#39;
-)
-make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&#39;The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands&#39;)</code></pre>
-<p><img src="/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-6-1.gif" /><!-- --></p>
 <pre class="r"><code>pal_cases &lt;- c(
       &#39;gray95&#39;,
       &#39;#fee440&#39;,
@@ -658,7 +640,22 @@ make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&#39;The Avera
       &#39;#03071e&#39;
     )
 make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&#39;The Average Weekly Number of Covid-19 Cases\nper 100000 Inhabitants in the Netherlands&#39;)</code></pre>
-<p><img src="/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-7-1.gif" /><!-- --></p>
+<p><img src="cases.gif" /></p>
+<pre class="r"><code>pal_patients &lt;- c(
+      &#39;gray95&#39;,
+      &#39;#caf0f8&#39;,
+      &#39;#ade8f4&#39;,
+      &#39;#90e0ef&#39;,
+      &#39;#48cae4&#39;,
+      &#39;#00b4d8&#39;,
+      &#39;#0096c7&#39;,
+      &#39;#0077b6&#39;,
+      &#39;#023e8a&#39;,
+      &#39;#03045e&#39;,
+      &#39;#03071e&#39;
+)
+make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&#39;The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands&#39;)</code></pre>
+<p><img src="admissions.gif" /></p>
 <pre class="r"><code>pal_deceased &lt;- c(
       &#39;gray95&#39;,
       &#39;#fdc5f5&#39;,
@@ -673,7 +670,7 @@ make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&#39;The Average W
 
 )
 make_animation(data_weekly,d_avg_weekly_deceased,pal_deceased,&#39;The Average Weekly Number of Deceased Patients\nper 100000 Inhabitants in the Netherlands&#39;)</code></pre>
-<p><img src="/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-8-1.gif" /><!-- --></p>
+<p><img src="deceased.gif" /></p>
 
     </div>
 

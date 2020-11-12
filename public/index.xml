@@ -170,6 +170,7 @@
 &lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
+&lt;p&gt;Two weeks ago, I made a visualization that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
 library(CoronaWatchNL)
 library(sf)
@@ -194,6 +195,7 @@ theme_update(
     margin = margin(t = 10, b = 10)
   )
 )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I created an R package called CoronaWarchNL that allows you to access a wide range of Covid-19 datasets. I’ll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;municipalBoundaries &amp;lt;- st_read(
     &amp;quot;https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;amp;service=WFS&amp;amp;version=2.0.0&amp;amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;amp;outputFormat=json&amp;quot;
   )&lt;/code&gt;&lt;/pre&gt;
@@ -214,6 +216,7 @@ daily_cases_per_municpality &amp;lt;- daily_cases_per_municpality %&amp;gt;%
     avg_daily_hospital_admissions = 100000 * as.numeric(Hospital_admission) / as.numeric(`Bevolking op 1 januari (aantal)`),
     avg_daily_deceased = 100000 * as.numeric(Deceased) / as.numeric(`Bevolking op 1 januari (aantal)`)
   )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I compute the weekly average number of Covid-19 cases, hospitalizations, and death for each municipality. The following piece of code shows how I did this using R.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;weekly_cases &amp;lt;- daily_cases_per_municpality %&amp;gt;%
   mutate(week = round_date(Date_of_publication , unit = &amp;#39;week&amp;#39;))
 
@@ -222,44 +225,19 @@ weekly_cases_per_municpality &amp;lt;- weekly_cases %&amp;gt;%
   summarise(
     avg_weekly_total_cases = mean(avg_daily_total_cases),
     avg_weekly_hospital_admissions = mean(avg_daily_hospital_admissions),
-    avg_weekly_deceased = mean(avg_daily_deceased)
-  ) %&amp;gt;%
+    avg_weekly_deceased = mean(avg_daily_deceased)) %&amp;gt;%
   ungroup() %&amp;gt;%
   mutate(
     d_avg_weekly_total_cases = chop(avg_weekly_total_cases, c(0, 0, 0.5, 1, 5, 12, 20, 35, 55, 80, 100)),
     d_avg_hospital_admissions = chop(
       avg_weekly_hospital_admissions,
-      c(0, 0, 0.5, 1, 2, 3, 5, 7, 9, 10, 15)
-    ),
-    d_avg_weekly_deceased = chop(avg_weekly_deceased, c(0, 0, 0.1, 0.5, 1, 1.5, 2, 2.5, 3, 5))
-  )
+      c(0, 0, 0.5, 1, 2, 3, 5, 7, 9, 10, 15)),
+    d_avg_weekly_deceased = chop(avg_weekly_deceased, c(0, 0, 0.1, 0.5, 1, 1.5, 2, 2.5, 3, 5)))
 
 data_weekly &amp;lt;- municipalBoundaries %&amp;gt;%
   right_join(weekly_cases_per_municpality,
-             by = c(statnaam = &amp;quot;Municipality_name&amp;quot;))
-
-
-weekly_cases %&amp;gt;%
-  group_by(Province, week) %&amp;gt;%
-  summarise(
-    avg_weekly_hospital_admissions = mean(avg_daily_hospital_admissions),
-    avg_weekly_deceased = mean(avg_daily_deceased)
-  ) %&amp;gt;%
-  rename(name = Province) %&amp;gt;%
-  ggplot(aes(week, avg_weekly_hospital_admissions, color = name)) +
-  geom_line(color = &amp;#39;indianred&amp;#39;, size = 1.5) +
-  geom_point(color = &amp;#39;indianred&amp;#39;) +
-  gghighlight(
-    use_direct_label = FALSE,
-    unhighlighted_params = list(
-      size = 1.3,
-      color = &amp;#39;#F6DAB4&amp;#39;,
-      alpha  = 0.5
-    )
-  ) +
-  facet_geo( ~ name, grid = &amp;#39;nl_prov_grid1&amp;#39;) +
-  theme_minimal()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+             by = c(statnaam = &amp;quot;Municipality_name&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I will create an animation that shows how Covid-19 cases spread in the Netherlands and which municipality were and are hit hardest by the pandemic.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;make_animation &amp;lt;- function(data, var_name, pal, title) {
   var_name &amp;lt;- rlang::enquo(var_name)
   data %&amp;gt;%
@@ -279,21 +257,6 @@ weekly_cases %&amp;gt;%
     enter_fade(alpha = 0.5) +
     exit_fade(alpha = 0.5)
 }&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_patients &amp;lt;- c(
-      &amp;#39;gray95&amp;#39;,
-      &amp;#39;#caf0f8&amp;#39;,
-      &amp;#39;#ade8f4&amp;#39;,
-      &amp;#39;#90e0ef&amp;#39;,
-      &amp;#39;#48cae4&amp;#39;,
-      &amp;#39;#00b4d8&amp;#39;,
-      &amp;#39;#0096c7&amp;#39;,
-      &amp;#39;#0077b6&amp;#39;,
-      &amp;#39;#023e8a&amp;#39;,
-      &amp;#39;#03045e&amp;#39;,
-      &amp;#39;#03071e&amp;#39;
-)
-make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&amp;#39;The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-6-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_cases &amp;lt;- c(
       &amp;#39;gray95&amp;#39;,
       &amp;#39;#fee440&amp;#39;,
@@ -309,7 +272,22 @@ make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&amp;#39;The A
       &amp;#39;#03071e&amp;#39;
     )
 make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&amp;#39;The Average Weekly Number of Covid-19 Cases\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-7-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;cases.gif&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_patients &amp;lt;- c(
+      &amp;#39;gray95&amp;#39;,
+      &amp;#39;#caf0f8&amp;#39;,
+      &amp;#39;#ade8f4&amp;#39;,
+      &amp;#39;#90e0ef&amp;#39;,
+      &amp;#39;#48cae4&amp;#39;,
+      &amp;#39;#00b4d8&amp;#39;,
+      &amp;#39;#0096c7&amp;#39;,
+      &amp;#39;#0077b6&amp;#39;,
+      &amp;#39;#023e8a&amp;#39;,
+      &amp;#39;#03045e&amp;#39;,
+      &amp;#39;#03071e&amp;#39;
+)
+make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&amp;#39;The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;admissions.gif&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_deceased &amp;lt;- c(
       &amp;#39;gray95&amp;#39;,
       &amp;#39;#fdc5f5&amp;#39;,
@@ -324,7 +302,7 @@ make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&amp;#39;The Avera
 
 )
 make_animation(data_weekly,d_avg_weekly_deceased,pal_deceased,&amp;#39;The Average Weekly Number of Deceased Patients\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-11-04-covid-19-trends-in-the-netherlands/index.en_files/figure-html/unnamed-chunk-8-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;deceased.gif&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
