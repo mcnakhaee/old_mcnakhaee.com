@@ -141,6 +141,7 @@ make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&amp;#39;The Avera
 )
 make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&amp;#39;The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;admissions.gif&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The trend for deceased patients looks similar to of the hospital admission.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_deceased &amp;lt;- c(
       &amp;#39;gray95&amp;#39;,
       &amp;#39;#fdc5f5&amp;#39;,
@@ -156,7 +157,6 @@ make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&amp;#39;The A
 )
 make_animation(data_weekly,d_avg_weekly_deceased,pal_deceased,&amp;#39;The Average Weekly Number of Deceased Patients\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;deceased.gif&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;The trend for deceased patients looks similar to of the hospital admission.&lt;/p&gt;
 </description>
     </item>
     
