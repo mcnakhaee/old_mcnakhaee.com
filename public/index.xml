@@ -170,7 +170,7 @@
 &lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;p&gt;Two weeks ago, I made a visualization that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.&lt;/p&gt;
+&lt;p&gt;Two weeks ago, I made &lt;a href=&#34;https://www.linkedin.com/posts/muhammadcnakhaee_covid19-datavisualization-ggplot-activity-6726775611223764992-c_dk&#34;&gt;a visualization&lt;/a&gt; that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
 library(CoronaWatchNL)
 library(sf)
@@ -195,7 +195,7 @@ theme_update(
     margin = margin(t = 10, b = 10)
   )
 )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I created an R package called CoronaWarchNL that allows you to access a wide range of Covid-19 datasets. I’ll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities.&lt;/p&gt;
+&lt;p&gt;I created an R package called &lt;a href=&#34;https://github.com/mcnakhaee/CoronaWatchNL&#34;&gt;CoronaWarchNL&lt;/a&gt; that allows you to access a wide range of Covid-19 datasets. I’ll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;municipalBoundaries &amp;lt;- st_read(
     &amp;quot;https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;amp;service=WFS&amp;amp;version=2.0.0&amp;amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;amp;outputFormat=json&amp;quot;
   )&lt;/code&gt;&lt;/pre&gt;
@@ -216,7 +216,7 @@ daily_cases_per_municpality &amp;lt;- daily_cases_per_municpality %&amp;gt;%
     avg_daily_hospital_admissions = 100000 * as.numeric(Hospital_admission) / as.numeric(`Bevolking op 1 januari (aantal)`),
     avg_daily_deceased = 100000 * as.numeric(Deceased) / as.numeric(`Bevolking op 1 januari (aantal)`)
   )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I compute the weekly average number of Covid-19 cases, hospitalizations, and death for each municipality. The following piece of code shows how I did this using R.&lt;/p&gt;
+&lt;p&gt;I compute the weekly average number of Covid-19 cases, hospitalizations, and death per 100000 inhabitants in each municipality in the Netherlands. The following piece of code shows how I did this using R.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;weekly_cases &amp;lt;- daily_cases_per_municpality %&amp;gt;%
   mutate(week = round_date(Date_of_publication , unit = &amp;#39;week&amp;#39;))
 
@@ -257,6 +257,7 @@ data_weekly &amp;lt;- municipalBoundaries %&amp;gt;%
     enter_fade(alpha = 0.5) +
     exit_fade(alpha = 0.5)
 }&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The first animation shows the number of infections in each municipality, from the start of the pandemic in February until recently. As you can see, the second wave, which began in late September, looks really terrifying. Note that there are some municipalities that no data is available for them.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_cases &amp;lt;- c(
       &amp;#39;gray95&amp;#39;,
       &amp;#39;#fee440&amp;#39;,
@@ -273,6 +274,7 @@ data_weekly &amp;lt;- municipalBoundaries %&amp;gt;%
     )
 make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&amp;#39;The Average Weekly Number of Covid-19 Cases\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;cases.gif&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;If we look at the number of hospital admissions we see a different story. It seems that the number of hospitalizations was higher during the first wave of Covid-19.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_patients &amp;lt;- c(
       &amp;#39;gray95&amp;#39;,
       &amp;#39;#caf0f8&amp;#39;,
@@ -303,6 +305,7 @@ make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&amp;#39;The A
 )
 make_animation(data_weekly,d_avg_weekly_deceased,pal_deceased,&amp;#39;The Average Weekly Number of Deceased Patients\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;deceased.gif&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The trend for deceased patients looks similar to of the hospital admission.&lt;/p&gt;
 </description>
     </item>
     

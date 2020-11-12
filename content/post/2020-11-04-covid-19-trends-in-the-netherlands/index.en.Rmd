@@ -34,7 +34,7 @@ windowsFonts('Poppins Light' = 'Poppins Light')
 
 ```
 
-Two weeks ago, I made a visualization that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.
+Two weeks ago, I made [a visualization](https://www.linkedin.com/posts/muhammadcnakhaee_covid19-datavisualization-ggplot-activity-6726775611223764992-c_dk) that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.
 
 ```{r}
 library(tidyverse)
@@ -62,7 +62,7 @@ theme_update(
   )
 )
 ```
-I created an R package called CoronaWarchNL that allows you to access a wide range of Covid-19 datasets. I'll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities. 
+I created an R package called [CoronaWarchNL](https://github.com/mcnakhaee/CoronaWatchNL) that allows you to access a wide range of Covid-19 datasets. I'll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities. 
 
 ```{r warning=FALSE, message=FALSE}
 
@@ -85,7 +85,7 @@ daily_cases_per_municpality <- daily_cases_per_municpality %>%
 
 ```
 
-I compute the weekly average number of Covid-19 cases, hospitalizations, and death for each municipality. The following piece of code shows how I did this using R.
+I compute the weekly average number of Covid-19 cases, hospitalizations, and death per 100000 inhabitants in each municipality in the Netherlands. The following piece of code shows how I did this using R. 
 
 ```{r fig.height=10,fig.width=10}
 
@@ -138,7 +138,7 @@ make_animation <- function(data, var_name, pal, title) {
 
 ```
 
-
+The first animation shows the number of infections in each municipality, from the start of the pandemic in February until recently. As you can see, the second wave, which began in late September, looks really terrifying. Note that there are some municipalities that no data is available for them.
 ```{r eval=FALSE}
 pal_cases <- c(
       'gray95',
@@ -159,6 +159,8 @@ make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,'The Average Weekl
 
 ![](cases.gif)
 
+If we look at the number of hospital admissions we see a different story.  It seems that the number of hospitalizations was higher during the first wave of Covid-19.
+
 ```{r eval=FALSE}
 pal_patients <- c(
       'gray95',
@@ -176,7 +178,9 @@ pal_patients <- c(
 make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,'The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands')
 ```
 
-![](admissions.gif)
+![
+
+](admissions.gif)
 
 ```{r eval=FALSE}
 pal_deceased <- c(
@@ -197,7 +201,7 @@ make_animation(data_weekly,d_avg_weekly_deceased,pal_deceased,'The Average Weekl
 ```
 ![](deceased.gif)
 
-
+The trend for deceased patients looks similar to of the hospital admission. 
 
 ```{r fig.height=10,fig.width=10,eval=FALSE,include=FALSE}
 weekly_cases %>%
