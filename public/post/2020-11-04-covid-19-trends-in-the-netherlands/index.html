@@ -642,7 +642,7 @@ data_weekly &lt;- municipalBoundaries %&gt;%
     )
 make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&#39;The Average Weekly Number of Covid-19 Cases\nper 100000 Inhabitants in the Netherlands&#39;)</code></pre>
 <p><img src="cases.gif" /></p>
-<p>If we look at the number of hospital admissions we see a different story. It seems that the number of hospitalizations was higher during the first wave of Covid-19.</p>
+<p>If we look at the number of hospital admissions we see a different story. It seems that the number of hospitalizations was higher during the first wave of Covid-19 compared to the second wave and mostly the southern parts of the Netherlands were hit harder than the rest of the Netherlands.</p>
 <pre class="r"><code>pal_patients &lt;- c(
       &#39;gray95&#39;,
       &#39;#caf0f8&#39;,
@@ -658,7 +658,7 @@ make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&#39;The Average W
 )
 make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&#39;The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands&#39;)</code></pre>
 <p><img src="admissions.gif" /></p>
-<p>The trend for deceased patients looks similar to of the hospital admission.</p>
+<p>The trend for deceased patients looks similar to of the hospital admission. The average numb of death during the first wave of Corona was higher than the average number of death during the second wave.</p>
 <pre class="r"><code>pal_deceased &lt;- c(
       &#39;gray95&#39;,
       &#39;#fdc5f5&#39;,
@@ -674,6 +674,7 @@ make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&#39;The Avera
 )
 make_animation(data_weekly,d_avg_weekly_deceased,pal_deceased,&#39;The Average Weekly Number of Deceased Patients\nper 100000 Inhabitants in the Netherlands&#39;)</code></pre>
 <p><img src="deceased.gif" /></p>
+<p>These different animations show us two distinct trends. On the one hand, we can see the number of confirmed cases rose rapidly during the second wave to affect almost all regions. On the other hand, the number of hospitalizations and deaths during the second wave slightly decreased. This might suggest that the rise in the number of cases is mainly driven by an increase in the number of tests. Alternatively, the virus might have become less deadly and severe.</p>
 
     </div>
 
@@ -722,7 +723,7 @@ make_animation(data_weekly,d_avg_weekly_deceased,pal_deceased,&#39;The Average W
     <div class="media-body">
       <h5 class="card-title"><a href="/">Muhammad Chenariyan Nakhaee</a></h5>
       <h6 class="card-subtitle">Machine Learning Researcher</h6>
-      <p class="card-text">I am Muhammad,a data scientist and machine learning enthusiast</p>
+      <p class="card-text">I am Muhammad, a data scientist, and a machine learning enthusiast.</p>
       <ul class="network-icon" aria-hidden="true">
   
     

@@ -1,7 +1,7 @@
 ---
 authors:
 - admin
-bio: I am Muhammad,a data scientist and machine learning enthusiast
+bio: I am Muhammad, a data scientist, and a machine learning enthusiast.
 education:
   courses:
   - course: MSC Industrial Engineering
@@ -44,4 +44,4 @@ user_groups:
 - Researchers
 - Visitors
 ---
-"Die Daten … ist das Opium des Volkes".  
+I am Muhammad, a data scientist with a huge passion for computational social science, machine learning and AI.  

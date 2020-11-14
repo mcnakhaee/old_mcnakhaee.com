@@ -274,7 +274,7 @@ data_weekly &amp;lt;- municipalBoundaries %&amp;gt;%
     )
 make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&amp;#39;The Average Weekly Number of Covid-19 Cases\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;cases.gif&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;If we look at the number of hospital admissions we see a different story. It seems that the number of hospitalizations was higher during the first wave of Covid-19.&lt;/p&gt;
+&lt;p&gt;If we look at the number of hospital admissions we see a different story. It seems that the number of hospitalizations was higher during the first wave of Covid-19 compared to the second wave and mostly the southern parts of the Netherlands were hit harder than the rest of the Netherlands.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_patients &amp;lt;- c(
       &amp;#39;gray95&amp;#39;,
       &amp;#39;#caf0f8&amp;#39;,
@@ -290,7 +290,7 @@ make_animation(data_weekly,d_avg_weekly_total_cases,pal_cases,&amp;#39;The Avera
 )
 make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&amp;#39;The Average Weekly Number of Hospital Admissions\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;admissions.gif&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;The trend for deceased patients looks similar to of the hospital admission.&lt;/p&gt;
+&lt;p&gt;The trend for deceased patients looks similar to of the hospital admission. The average numb of death during the first wave of Corona was higher than the average number of death during the second wave.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pal_deceased &amp;lt;- c(
       &amp;#39;gray95&amp;#39;,
       &amp;#39;#fdc5f5&amp;#39;,
@@ -306,6 +306,7 @@ make_animation(data_weekly,d_avg_hospital_admissions,pal_patients,&amp;#39;The A
 )
 make_animation(data_weekly,d_avg_weekly_deceased,pal_deceased,&amp;#39;The Average Weekly Number of Deceased Patients\nper 100000 Inhabitants in the Netherlands&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;deceased.gif&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;These different animations show us two distinct trends. On the one hand, we can see the number of confirmed cases rose rapidly during the second wave to affect almost all regions. On the other hand, the number of hospitalizations and deaths during the second wave slightly decreased. This might suggest that the rise in the number of cases is mainly driven by an increase in the number of tests. Alternatively, the virus might have become less deadly and severe.&lt;/p&gt;
 </description>
     </item>
     
