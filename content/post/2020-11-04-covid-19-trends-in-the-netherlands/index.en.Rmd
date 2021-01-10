@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 	echo = TRUE,
 	message = FALSE,
 	warning = FALSE,
-	eval = TRUE
+	eval = FALSE
 )
 windowsFonts('Lobser' = 'Lobser')
 windowsFonts('Poppins Light' = 'Poppins Light')
@@ -36,7 +36,7 @@ windowsFonts('Poppins Light' = 'Poppins Light')
 
 Two weeks ago, I made [a visualization](https://www.linkedin.com/posts/muhammadcnakhaee_covid19-datavisualization-ggplot-activity-6726775611223764992-c_dk) that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.
 
-```{r}
+```{r,eval=FALSE}
 library(tidyverse)
 library(CoronaWatchNL)
 library(sf)
@@ -64,7 +64,7 @@ theme_update(
 ```
 I created an R package called [CoronaWarchNL](https://github.com/mcnakhaee/CoronaWatchNL) that allows you to access a wide range of Covid-19 datasets. I'll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities. 
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE,eval=FALSE}
 
 municipalBoundaries <- st_read(
     "https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2020_gegeneraliseerd&outputFormat=json"
@@ -87,7 +87,7 @@ daily_cases_per_municpality <- daily_cases_per_municpality %>%
 
 I compute the weekly average number of Covid-19 cases, hospitalizations, and death per 100000 inhabitants in each municipality in the Netherlands. The following piece of code shows how I did this using R. 
 
-```{r fig.height=10,fig.width=10}
+```{r fig.height=10,fig.width=10,eval=FALSE}
 
 
 weekly_cases <- daily_cases_per_municpality %>%
@@ -115,7 +115,7 @@ data_weekly <- municipalBoundaries %>%
 ```
 I will create an animation that shows how Covid-19 cases spread in the Netherlands and which municipality were and are hit hardest by the pandemic.
 
-```{r}
+```{r eval=FALSE}
 make_animation <- function(data, var_name, pal, title) {
   var_name <- rlang::enquo(var_name)
   data %>%

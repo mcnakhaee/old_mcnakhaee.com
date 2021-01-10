@@ -10,3 +10,6 @@ options(
   blogdown.new_bundle = TRUE,
   blogdown.title_case = TRUE
 )
+
+options(blogdown.hugo.version = "0.69.0")
+#options(blogdown.hugo.version = "0.80.0")

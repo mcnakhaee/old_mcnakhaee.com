@@ -18,7 +18,7 @@ day_night = true
 #   Latest font sets (may require updating): https://sourcethemes.com/academic/themes/
 #   Browse built-in font sets in `themes/academic/data/fonts/`
 #   Browse user installed font sets in `data/fonts/`
-font = "jim"
+font = "alison"
 
 # Choose a font size.
 # Sizes: XS (extra small), S (small), M (medium), L (large - DEFAULT), XL (extra large)
@@ -58,7 +58,7 @@ logo = ""
 highlight = true
 highlight_languages = ["r","python"]  # Add support for highlighting additional languages
 # highlight_style = "github"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
-
+highlight_style =  "github" 
 # Enable LaTeX math rendering? true/false
 #   If false, you can enable math on a per page basis as needed.
 math = false
@@ -85,7 +85,7 @@ edit_page = {repo_url = "https://github.com/gcushen/hugo-academic", repo_branch 
 
 # Enter contact details (optional). To hide a field, clear it to "".
 email = "m.cnakhaee@utwente.nl"
-phone = "888 888 88 88"
+
 
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
@@ -100,10 +100,9 @@ phone = "888 888 88 88"
 
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
-office_hours = ["Monday 10:00 to 13:00", "Wednesday 09:00 to 10:00"]
 
 # Enter an optional link for booking appointments (e.g. calendly.com).
-appointment_url = "https://calendly.com"
+
 
 # Contact links
 #   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
@@ -151,7 +150,7 @@ section_pager = false
 docs_section_pager = true  # Display pager in Docs layout (e.g. tutorials)?
 
 # Enable in-built social sharing buttons? (true/false)
-sharing = false
+sharing = true
 
 # Link authors to their profile page? (true/false)
 link_authors = true
@@ -200,6 +199,10 @@ plugins_js  = []
     shortname = ""  # Paste the shortname from your Disqus dashboard.
     show_count = true  # Show comment count in page header? (true/false)
 
+  # Configuration of Commento.
+  [comments.commento]
+    # If self-hosting Commento, enter its URL here (e.g. "https://commento.?.com"), otherwise leave empty.
+    url = ""
 ############################
 ## Search
 ############################
@@ -244,7 +247,7 @@ plugins_js  = []
 ## Marketing
 ############################
 [marketing]
-  google_analytics = ""
+  google_analytics = "UA-103723417-2"
   google_tag_manager = ""
 
 ltr = true

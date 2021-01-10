@@ -19,7 +19,7 @@ image:
 projects: []
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="index.en.html~_files/header-attrs/header-attrs.js"></script>
 
 
 <p>Two weeks ago, I made <a href="https://www.linkedin.com/posts/muhammadcnakhaee_covid19-datavisualization-ggplot-activity-6726775611223764992-c_dk">a visualization</a> that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.</p>
@@ -50,14 +50,10 @@ theme_update(
 <p>I created an R package called <a href="https://github.com/mcnakhaee/CoronaWatchNL">CoronaWarchNL</a> that allows you to access a wide range of Covid-19 datasets. I’ll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities.</p>
 <pre class="r"><code>municipalBoundaries &lt;- st_read(
     &quot;https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;service=WFS&amp;version=2.0.0&amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;outputFormat=json&quot;
-  )</code></pre>
-<pre><code>## Reading layer `OGRGeoJSON&#39; from data source `https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;service=WFS&amp;version=2.0.0&amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;outputFormat=json&#39; using driver `GeoJSON&#39;
-## Simple feature collection with 355 features and 5 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 13565.4 ymin: 306846.2 xmax: 278026.1 ymax: 619352.4
-## projected CRS:  Amersfoort / RD New</code></pre>
-<pre class="r"><code>daily_cases_per_municpality &lt;- get_daily_cases_per_municipality()
+  )
+
+
+daily_cases_per_municpality &lt;- get_daily_cases_per_municipality()
 populatuon_per_region &lt;- get_population_per_region()
 
 daily_cases_per_municpality &lt;- daily_cases_per_municpality %&gt;%
