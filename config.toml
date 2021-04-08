@@ -68,3 +68,8 @@ googleAnalytics = "UA-103723417-2"
   publication_type = "publication_types"
   author = "authors"
 
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

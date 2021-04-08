@@ -1,0 +1,42 @@
+---
+title: Bump Plots
+author: mcnakhaee
+date: '2021-01-28'
+slug: []
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-01-28T21:24:01+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r}
+library(tidyverse)
+library(ggthemes)
+library(showtext)
+library(ggbump)
+font_add_google("Overpass", "Overpass")
+
+
+theme_set(theme_tufte())
+theme_update(
+  text = element_text(family = 'Overpass'),
+  plot.margin = margin(10, 10, 10, 10),
+  plot.background = element_rect(fill = "#FEF9EA", color = "#FEF9EA"),
+  strip.background = element_blank(),
+  panel.spacing = unit(0, "mm"),
+
+)
+```
+
+```{r}
+
+```
+

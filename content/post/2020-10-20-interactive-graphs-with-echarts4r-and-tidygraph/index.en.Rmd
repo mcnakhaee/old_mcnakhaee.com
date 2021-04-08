@@ -72,11 +72,11 @@ node_size <- graph_nodes_tbl%>% pull(centrality_degree)
 node_group <- graph_nodes_tbl%>%pull(community) 
 ```
 
-
+Each color represents a community (a clique of related nodes).
 ```{r fig.height=20,fig.width=20}
 
 ggraph_df %>% 
-  ggraph(layout = 'nicely') +
+  ggraph(layout = 'kk') +
 
   geom_edge_link(width = 1,alpha = 0.7,color = '#e76f51') +
     geom_node_text(aes(label = name,color =community ),size = 5,repel = TRUE) +
@@ -114,32 +114,39 @@ nodes <- data.frame(
 ```
 
 ```{r}
-rep('gray70',length(graph_edges_tbl))
+rep('gray70', length(graph_edges_tbl))
 #,timeline = TRUE
-e_charts() %>% 
-  e_graph(layout = 'force',
-                    roam = T,
-          draggable = T,
-          cursor= 'pointer',
-          # symbol = paste0('path://', figure),  # It works, but all the node share same figure.
-          symbolKeepAspect = T,
-          focusNodeAdjacency = T,
-          # animation  = TRUE,
-          #edgeSymbol = c('circle', 'arrow'),
-          #itemStyle = list(color = 'black', borderColor='black'),
-          lineStyle = list(color = 'target',width = 2,curveness= 0.1),
-        
-          #category = list(symbol = node_group),
-         # textBorderColor = 'transparent',
-          force.gravity = 2.9, edgeLabel = 1) %>% 
-  e_graph_nodes(nodes, name, value, size, grp, symbol,legend = T) %>% 
-  e_graph_edges(edges, source, target  ) %>% 
-  e_title("Strategic Rivalry Between Nations and States",subtext = 'Strategic Rivalry Between Nations and States') %>% 
-  e_modularity() %>% 
-  e_labels(fontSize = 12) %>% 
-  e_toolbox_feature(feature = "saveAsImage", title = "Save As Image") %>% 
-  e_legend(show = T,type = "plain")
-  #e_theme("essos")
+e_charts() %>%
+  e_graph(
+    layout = 'force',
+    roam = TRUE,
+    draggable = TRUE,
+    cursor = 'pointer',
+    # symbol = paste0('path://', figure),  # It works, but all the node share same figure.
+    symbolKeepAspect = TRUE,
+    focusNodeAdjacency = TRUE,
+    # animation  = TRUE,
+    #edgeSymbol = c('circle', 'arrow'),
+    #itemStyle = list(color = 'black', borderColor='black'),
+    lineStyle = list(
+      color = 'target',
+      width = 2,
+      curveness = 0.1
+    ),
+    
+    #category = list(symbol = node_group),
+    # textBorderColor = 'transparent',
+    force.gravity = 2.9,
+    edgeLabel = 1
+  ) %>%
+  e_graph_nodes(nodes, name, value, size, grp, symbol, legend = T) %>%
+  e_graph_edges(edges, source, target) %>%
+  e_title("Strategic Rivalry Between Nations and States", subtext = 'Strategic Rivalry Between Nations and States') %>%
+  e_modularity() %>%
+  e_labels(fontSize = 12) %>%
+  e_toolbox_feature(feature = "saveAsImage", title = "Save As Image") %>%
+  e_legend(show = T, type = "plain") %>% 
+   e_theme("essos")
 
 ```
 

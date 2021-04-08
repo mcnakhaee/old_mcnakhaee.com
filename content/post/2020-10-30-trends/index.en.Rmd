@@ -22,44 +22,75 @@ projects: []
 
 
 ```{r}
+library(wikipediatrend)
 library(trendyy)
 library(gtrendsR)
 library(tidyverse)
 library(gghighlight)
+WikipediR::page_content()
 ```
 
+Google trends is not without limitations. You can only search and compare up to 5 keywords at the same time. However, we can use a trick to circumvent this problem.
+
+The solution is to use one of our keywords as an index keyword. Then we divide the large number of keywords into groups of four and add the index keyword to each group.  
 ```{r}
 ob <- trendy("obama")
 get_interest_country(ob)
 
 ```
+
+
+The hits for each keyword in different groups have different scales because these numbers are  measured relatively to each other.
+
 ```{r fig.width=10}
 search_terms <- c("Rutte", "Iran","Sex","Ajax","Toilet Paper")
-search_terms_2 <- c("Rutte", "Black Lives Matter","Barcelona","Vaccine","WC Papier")
+search_terms_2 <- c("Rutte","Famke Louise",
+                    "Black Lives Matter",
+                    "Barcelona",
+                    "Vaccine",
+                    "WC Papier",
+                    "Persconferentie",
+                    'Angst',
+                    "Iran",
+                    "Yoga")
 
-gtrends(keyword = search_terms,
+function(index_search_term,search_terms_2){
+  
+  search_term_split <-split(search_terms_2,ceiling(seq_along(search_terms_2)/4))
+  purrr::map2_chr(search_term_split,c('Iran'))
+  for (variable in search_term_split) {
+    output_results <- gtrends
+  }
+}
+
+gtrends(keyword = search_terms_2,
         geo = "NL",
         time = "today 12-m") -> output_results
 search_terms <- c("Rutte", "Iran","Sex","Ajax","Toilet Paper")
 
 gtrendsR::countries %>% View()
 output_results$interest_over_time %>% as_tibble() %>% 
-  filter(date> '2018-11-25') %>% 
+  filter(date> '2019-11-25') %>% 
   ggplot(aes(date,y = hits,group =keyword,color = keyword )) +
-  geom_smooth(se = FALSE) +
+  geom_line(se = FALSE) +
+  geom_point() +
   gghighlight()+
   theme_void()+
   facet_wrap(~keyword)+
   theme(legend.position = 'top')
+
+
+output_results$interest_by_region
 ```
 
 
 
 ```{r}
+wikipediatrend::wiki_search('Iran',lang = 'en' )
 library(trendyy)
 library(dplyr)
 
-
+gtrendsR::countries
 
 ob <- trendy(c("Rutte", "Iran","Sex","Ajax","WC Papier"),
              from = Sys.Date() - 365,
@@ -67,14 +98,81 @@ ob <- trendy(c("Rutte", "Iran","Sex","Ajax","WC Papier"),
              geo ="NL" ) %>% 
         get_interest()
 
-
+ob <- trendy(c("قاسم سلیمانی", "اوکراین","آمیزش جنسی","بارسلونا","کرونا"),
+             from = Sys.Date() - 380,
+             to = Sys.Date(),
+             geo ="IR" ) %>% 
+        get_interest()
 ob %>% 
   #filter(date> '2018-11-25') %>% 
-  ggplot(aes(date,y = hits,group =keyword,color = keyword )) +
-  geom_smooth(se = FALSE) +
-  gghighlight()+
+  ggplot(aes(date,y = hits,group =keyword,fill = keyword )) +
+  geom_area() +
+  #gghighlight()+
   theme_void()+
   facet_wrap(~keyword)+
   theme(legend.position = 'top')
+```
+```{r}
+wp_trend("ایران",lang = 'fa') %>% 
+  ggplot(aes(x= date,y = views,color = views))+
+  geom_point() +
+  facet_wrap(~language )
+```
+
+```{r}
+search_terms <- c('روحانی',
+                  'ترامپ',
+                  'دلار',
+                  'قاسم سلیمانی',
+                  'تحریم')
+``{r}
+search_terms <- c('مداحی',
+                  'آهنگ',
+                  'دلار',
+                  'خنده',
+                  'کار')
+
+
+search_terms <- c('ترامپ',
+                  'واکسن',
+                  'انتخابات',
+                  'بایدن',
+                  'مارادونا')
+
+
+
+search_terms <- c('جورج فلوید',
+                  'کوبی برایانت',
+                  'انتخابات',
+                  'TikTok',
+                  'اینستاگرام')
+
+
+search_terms <- c('طلاق',
+                  'محیط زیست',
+                  'بیکاری',
+                  'بیمه',
+                  'ازدواج')
+get_interest_region()
+
+ob <- trendy(search_terms,
+             from = Sys.Date() - 380,
+             to = Sys.Date(),
+             geo ="IR" ) %>% 
+        get_interest_city()
+ob %>% 
+  #filter(date> '2018-11-25') %>% 
+  ggplot(aes(date,y = hits,group =keyword,fill = keyword )) +
+  geom_area() +
+  #gghighlight()+
+  theme_void()+
+  facet_wrap(~keyword)+
+  theme(legend.position = 'top')
+
+
+
+
+ob
+
 ```
 

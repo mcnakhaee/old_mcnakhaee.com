@@ -1,0 +1,103 @@
+---
+title: Dumbblle Plots
+author: mcnakhaee
+date: '2021-01-27'
+slug: []
+categories:
+  - R
+  - Tidy Tuesday
+tags:
+  - Visualization
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-01-27T22:49:34+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+```{r}
+library(tidyverse)
+library(ggalt)
+library(ggthemes)
+library(showtext)
+font_add_google("Overpass", "Overpass")
+
+
+theme_set(theme_tufte())
+theme_update(
+  text = element_text(family = 'Overpass'),
+  plot.margin = margin(10, 10, 10, 10),
+  plot.background = element_rect(fill = "#FEF9EA", color = "#FEF9EA"),
+  strip.background = element_blank(),
+  panel.spacing = unit(0, "mm"),
+
+)
+
+```
+```{r}
+data <- read_csv('strategic_rivalries.csv')
+data
+```
+
+
+
+
+```{r}
+data %>% 
+  filter(region == 'European GPs') %>% 
+  ggplot(aes(x = styear,xend = endyear,y = rivalryname)) +
+  geom_dumbbell() 
+```
+
+```{r}
+data %>% 
+  filter(region == 'European GPs') %>% 
+  ggplot(aes(x = styear,xend = endyear,y = rivalryname)) +
+  geom_dumbbell(color = 'gray70',
+                size = 2,
+                colour_x = '#e63946',
+                colour_xend = '#118ab2',
+                size_x = 4,
+                size_xend = 4) 
+```
+The result is not quite what we want to see. It would be better if we can sort rivalires and show them based on their duration so the longer rivalries are placed on top. 
+```{r}
+data %>% 
+  filter(region == 'European GPs') %>% 
+  mutate(duration = endyear - styear ) %>% 
+  ggplot(aes(x = styear,xend = endyear,y = fct_reorder(rivalryname,duration))) +
+  geom_dumbbell(color = 'gray70',
+                size = 2,
+                colour_x = '#e63946',
+                colour_xend = '#118ab2',
+                size_x = 4,
+                size_xend = 4) 
+  
+  
+```
+```{r}
+library(plotly)
+
+```
+
+```{r}
+
+data %>% 
+    filter(region == 'European GPs') %>% 
+  plot_ly(color = I("gray80"))%>%
+  add_segments(x = ~styear,xend = ~endyear,y = ~rivalryname,yend = ~rivalryname)  %>% 
+  add_markers(x = ~styear,y = ~rivalryname,color = I('#e63946')) %>%
+  add_markers(x = ~endyear,y = ~rivalryname,color = I('#118ab2'))
+```
+
+with `geom_dumbbell` we can only plot two points. There are other tricks to create a multi-point dumbbell plots. Basically, we can use a combination of `geom_segment()` and `geom_point()` to do this.
+
+https://www.r-bloggers.com/2019/06/make-multi-point-dumbbell-plots-in-ggplot2/
+https://plotly.com/r/dumbbell-plots/

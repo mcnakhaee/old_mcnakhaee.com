@@ -1,0 +1,43 @@
+---
+title: Strava
+author: mcnakhaee
+date: '2021-01-31'
+slug: []
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-01-31T00:13:12+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+```{r}
+install.packages('devtools')
+devtools::install_github('fawda123/rStrava')
+```
+
+```{r}
+library(tidyverse)
+library(rStrava)
+athl_fun(9781317, trace = FALSE)
+```
+```{r}
+app_name <- 'exact_com_app' # chosen by user
+app_client_id  <- '60923' # an integer, assigned by Strava
+app_secret <- 'a588aba0bb6d3deec7775d9044063cd6ea8b9c37   ' # an alphanumeric secret, assigned by Strava
+
+# create the authentication token
+stoken <- httr::config(token = strava_oauth(app_name, app_client_id, app_secret, app_scope="activity:read_all",cache = TRUE))
+```
+```{r}
+myinfo <- get_athlete(stoken, id = '2837007')
+
+```
+
