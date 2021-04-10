@@ -59,10 +59,8 @@
     
       
       
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
-        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
       
     
 
@@ -77,13 +75,13 @@
   
   
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,400i%7CKarla:400,400i,700,700i%7CDM+Mono&display=swap">
   
 
   
   
   
-  <link rel="stylesheet" href="/css/academic.min.a1e68790d54b399632e80a98649b3d14.css">
+  <link rel="stylesheet" href="/css/academic.min.8e6eb0ac16a28f00fc5993e67630260d.css">
 
   
     
@@ -94,7 +92,7 @@
     
     
     
-    <link rel="stylesheet" href="/css/academic.30211a0cc2e7037c5f8f94cadfa5bc62.css">
+    <link rel="stylesheet" href="/css/academic.50ffad82b4ed3579b14ca31c3d831d9e.css">
   
 
   
@@ -499,6 +497,90 @@
 
   
     
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/2020-11-04-covid-19-trends-in-the-netherlands/&amp;text=Covid-19%20Trends%20in%20the%20Netherlands" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/2020-11-04-covid-19-trends-in-the-netherlands/&amp;t=Covid-19%20Trends%20in%20the%20Netherlands" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Covid-19%20Trends%20in%20the%20Netherlands&amp;body=/post/2020-11-04-covid-19-trends-in-the-netherlands/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2020-11-04-covid-19-trends-in-the-netherlands/&amp;title=Covid-19%20Trends%20in%20the%20Netherlands" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Covid-19%20Trends%20in%20the%20Netherlands%20/post/2020-11-04-covid-19-trends-in-the-netherlands/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/2020-11-04-covid-19-trends-in-the-netherlands/&amp;title=Covid-19%20Trends%20in%20the%20Netherlands" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
 
   
 
@@ -535,7 +617,7 @@
 
     <div class="article-style">
       
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="index.en.html~_files/header-attrs/header-attrs.js"></script>
 
 
 <p>Two weeks ago, I made <a href="https://www.linkedin.com/posts/muhammadcnakhaee_covid19-datavisualization-ggplot-activity-6726775611223764992-c_dk">a visualization</a> that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.</p>
@@ -566,14 +648,10 @@ theme_update(
 <p>I created an R package called <a href="https://github.com/mcnakhaee/CoronaWatchNL">CoronaWarchNL</a> that allows you to access a wide range of Covid-19 datasets. I’ll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities.</p>
 <pre class="r"><code>municipalBoundaries &lt;- st_read(
     &quot;https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;service=WFS&amp;version=2.0.0&amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;outputFormat=json&quot;
-  )</code></pre>
-<pre><code>## Reading layer `OGRGeoJSON&#39; from data source `https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;service=WFS&amp;version=2.0.0&amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;outputFormat=json&#39; using driver `GeoJSON&#39;
-## Simple feature collection with 355 features and 5 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 13565.4 ymin: 306846.2 xmax: 278026.1 ymax: 619352.4
-## projected CRS:  Amersfoort / RD New</code></pre>
-<pre class="r"><code>daily_cases_per_municpality &lt;- get_daily_cases_per_municipality()
+  )
+
+
+daily_cases_per_municpality &lt;- get_daily_cases_per_municipality()
 populatuon_per_region &lt;- get_population_per_region()
 
 daily_cases_per_municpality &lt;- daily_cases_per_municpality %&gt;%

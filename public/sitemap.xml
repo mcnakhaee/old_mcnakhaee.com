@@ -13,10 +13,6 @@
   </url>
   
   <url>
-    <loc>/otherwidget/slider/</loc>
-  </url>
-  
-  <url>
     <loc>/courses/example/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url>
@@ -68,32 +64,52 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2020-11-04T14:25:51+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/2020-11-04-covid-19-trends-in-the-netherlands/</loc>
-    <lastmod>2020-11-04T14:25:51+01:00</lastmod>
+    <loc>/post/2021-01-28-bump-plots/</loc>
+    <lastmod>2021-01-28T21:24:01+01:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2020-11-04T14:25:51+01:00</lastmod>
+    <lastmod>2021-01-28T21:24:01+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2021-01-27T22:49:34+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2021-01-27-dumbblle-plots/</loc>
+    <lastmod>2021-01-27T22:49:34+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2021-01-27T22:49:34+01:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/r/</loc>
-    <lastmod>2020-11-04T14:25:51+01:00</lastmod>
+    <lastmod>2021-01-27T22:49:34+01:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2020-11-04T14:25:51+01:00</lastmod>
+    <lastmod>2021-01-27T22:49:34+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/tidy-tuesday/</loc>
+    <lastmod>2021-01-27T22:49:34+01:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/visualization/</loc>
+    <lastmod>2021-01-27T22:49:34+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-11-04-covid-19-trends-in-the-netherlands/</loc>
     <lastmod>2020-11-04T14:25:51+01:00</lastmod>
   </url>
   
@@ -135,11 +151,6 @@
   <url>
     <loc>/tags/pythonpackages/</loc>
     <lastmod>2020-10-19T00:12:58+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2020-10-19T14:26:27+02:00</lastmod>
   </url>
   
   <url>
@@ -225,11 +236,6 @@
   <url>
     <loc>/post/2019-12-31-explainable-data-science-summer-school/</loc>
     <lastmod>2019-12-31T12:46:32+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/tidy-tuesday/</loc>
-    <lastmod>2019-12-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>

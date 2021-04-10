@@ -5,7 +5,7 @@
     <link>/categories/r/</link>
       <atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 04 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 27 Jan 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/avatar.jpg</url>
       <title>R</title>
@@ -13,12 +13,239 @@
     </image>
     
     <item>
+      <title>Dumbblle Plots</title>
+      <link>/post/2021-01-27-dumbblle-plots/</link>
+      <pubDate>Wed, 27 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>/post/2021-01-27-dumbblle-plots/</guid>
+      <description>
+&lt;script src=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyverse&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Registered S3 methods overwritten by &amp;#39;tibble&amp;#39;:
+##   method     from  
+##   format.tbl pillar
+##   print.tbl  pillar&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## v ggplot2 3.3.2     v purrr   0.3.3
+## v tibble  3.0.1     v dplyr   1.0.2
+## v tidyr   1.0.2     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggalt)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggalt&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Registered S3 methods overwritten by &amp;#39;ggalt&amp;#39;:
+##   method                  from   
+##   grid.draw.absoluteGrob  ggplot2
+##   grobHeight.absoluteGrob ggplot2
+##   grobWidth.absoluteGrob  ggplot2
+##   grobX.absoluteGrob      ggplot2
+##   grobY.absoluteGrob      ggplot2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggthemes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggthemes&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(showtext)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;showtext&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: sysfonts&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;sysfonts&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: showtextdb&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;showtextdb&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;font_add_google(&amp;quot;Overpass&amp;quot;, &amp;quot;Overpass&amp;quot;)
+
+
+theme_set(theme_tufte())
+theme_update(
+  text = element_text(family = &amp;#39;Overpass&amp;#39;),
+  plot.margin = margin(10, 10, 10, 10),
+  plot.background = element_rect(fill = &amp;quot;#FEF9EA&amp;quot;, color = &amp;quot;#FEF9EA&amp;quot;),
+  strip.background = element_blank(),
+  panel.spacing = unit(0, &amp;quot;mm&amp;quot;),
+
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data &amp;lt;- read_csv(&amp;#39;strategic_rivalries.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   rivalryno = col_double(),
+##   rivalryname = col_character(),
+##   sidea = col_character(),
+##   sideb = col_character(),
+##   styear = col_double(),
+##   endyear = col_double(),
+##   region = col_character(),
+##   type1 = col_character(),
+##   type2 = col_character(),
+##   type3 = col_character()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `...` is not empty.
+## 
+## We detected these problematic arguments:
+## * `needs_dots`
+## 
+## These dots only exist to allow future extensions and should be empty.
+## Did you misspecify an argument?&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 197 x 10
+##    rivalryno rivalryname   sidea  sideb  styear endyear region type1 type2 type3
+##        &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;
+##  1         1 Austria-Fran~ Austr~ France   1494    1918 Europ~ spat~ posi~ &amp;lt;NA&amp;gt; 
+##  2         2 Austria-Otto~ Austr~ Ottom~   1494    1908 Europ~ spat~ posi~ &amp;lt;NA&amp;gt; 
+##  3         4 France-Spain  France Spain    1494    1700 Europ~ posi~ spat~ &amp;lt;NA&amp;gt; 
+##  4         3 Britain-Fran~ Great~ France   1494    1716 Europ~ spat~ posi~ &amp;lt;NA&amp;gt; 
+##  5         5 Ottoman Empi~ Ottom~ Spain    1494    1585 Europ~ spat~ posi~ &amp;lt;NA&amp;gt; 
+##  6         6 Ottoman Empi~ Ottom~ Venice   1494    1717 Europ~ spat~ posi~ &amp;lt;NA&amp;gt; 
+##  7         7 Portugal-Spa~ Portu~ Spain    1494    1580 Europ~ spat~ posi~ &amp;lt;NA&amp;gt; 
+##  8         8 Portugal-Ven~ Portu~ Venice   1494    1580 Europ~ posi~ &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt; 
+##  9         9 Ottoman Empi~ Ottom~ Portu~   1501    1580 Europ~ posi~ &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt; 
+## 10        10 Britain-Spai~ Brita~ Spain    1568    1667 Europ~ posi~ spat~ &amp;lt;NA&amp;gt; 
+## # ... with 187 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data %&amp;gt;% 
+  filter(region == &amp;#39;European GPs&amp;#39;) %&amp;gt;% 
+  ggplot(aes(x = styear,xend = endyear,y = rivalryname)) +
+  geom_dumbbell() &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family not
+## found in Windows font database
+
+## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family not
+## found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data %&amp;gt;% 
+  filter(region == &amp;#39;European GPs&amp;#39;) %&amp;gt;% 
+  ggplot(aes(x = styear,xend = endyear,y = rivalryname)) +
+  geom_dumbbell(color = &amp;#39;gray70&amp;#39;,
+                size = 2,
+                colour_x = &amp;#39;#e63946&amp;#39;,
+                colour_xend = &amp;#39;#118ab2&amp;#39;,
+                size_x = 4,
+                size_xend = 4) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;
+The result is not quite what we want to see. It would be better if we can sort rivalires and show them based on their duration so the longer rivalries are placed on top.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data %&amp;gt;% 
+  filter(region == &amp;#39;European GPs&amp;#39;) %&amp;gt;% 
+  mutate(duration = endyear - styear ) %&amp;gt;% 
+  ggplot(aes(x = styear,xend = endyear,y = fct_reorder(rivalryname,duration))) +
+  geom_dumbbell(color = &amp;#39;gray70&amp;#39;,
+                size = 2,
+                colour_x = &amp;#39;#e63946&amp;#39;,
+                colour_xend = &amp;#39;#118ab2&amp;#39;,
+                size_x = 4,
+                size_xend = 4) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database
+
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+## family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2021-01-27-dumbblle-plots/index.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(plotly)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;plotly&amp;#39; was built under R version 3.6.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;plotly&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:ggplot2&amp;#39;:
+## 
+##     last_plot&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:graphics&amp;#39;:
+## 
+##     layout&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data %&amp;gt;% 
+    filter(region == &amp;#39;European GPs&amp;#39;) %&amp;gt;% 
+  plot_ly(color = I(&amp;quot;gray80&amp;quot;))%&amp;gt;%
+  add_segments(x = ~styear,xend = ~endyear,y = ~rivalryname,yend = ~rivalryname)  %&amp;gt;% 
+  add_markers(x = ~styear,y = ~rivalryname,color = I(&amp;#39;#e63946&amp;#39;)) %&amp;gt;%
+  add_markers(x = ~endyear,y = ~rivalryname,color = I(&amp;#39;#118ab2&amp;#39;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `arrange_()` was deprecated in dplyr 0.7.0.
+## Please use `arrange()` instead.
+## See vignette(&amp;#39;programming&amp;#39;) for more help&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `group_by_()` was deprecated in dplyr 0.7.0.
+## Please use `group_by()` instead.
+## See vignette(&amp;#39;programming&amp;#39;) for more help&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;plotly html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;visdat&#34;:{&#34;42a86d092f4a&#34;:[&#34;function () &#34;,&#34;plotlyVisDat&#34;]},&#34;cur_data&#34;:&#34;42a86d092f4a&#34;,&#34;attrs&#34;:{&#34;42a86d092f4a&#34;:{&#34;color&#34;:[&#34;gray80&#34;],&#34;alpha_stroke&#34;:1,&#34;sizes&#34;:[10,100],&#34;spans&#34;:[1,20],&#34;x&#34;:{},&#34;y&#34;:{},&#34;xend&#34;:{},&#34;yend&#34;:{},&#34;type&#34;:&#34;scatter&#34;,&#34;mode&#34;:&#34;lines&#34;,&#34;inherit&#34;:true},&#34;42a86d092f4a.1&#34;:{&#34;color&#34;:[&#34;#e63946&#34;],&#34;alpha_stroke&#34;:1,&#34;sizes&#34;:[10,100],&#34;spans&#34;:[1,20],&#34;x&#34;:{},&#34;y&#34;:{},&#34;type&#34;:&#34;scatter&#34;,&#34;mode&#34;:&#34;markers&#34;,&#34;inherit&#34;:true},&#34;42a86d092f4a.2&#34;:{&#34;color&#34;:[&#34;#118ab2&#34;],&#34;alpha_stroke&#34;:1,&#34;sizes&#34;:[10,100],&#34;spans&#34;:[1,20],&#34;x&#34;:{},&#34;y&#34;:{},&#34;type&#34;:&#34;scatter&#34;,&#34;mode&#34;:&#34;markers&#34;,&#34;inherit&#34;:true}},&#34;layout&#34;:{&#34;margin&#34;:{&#34;b&#34;:40,&#34;l&#34;:60,&#34;t&#34;:25,&#34;r&#34;:10},&#34;xaxis&#34;:{&#34;domain&#34;:[0,1],&#34;automargin&#34;:true,&#34;title&#34;:&#34;styear&#34;},&#34;yaxis&#34;:{&#34;domain&#34;:[0,1],&#34;automargin&#34;:true,&#34;title&#34;:&#34;rivalryname&#34;,&#34;type&#34;:&#34;category&#34;,&#34;categoryorder&#34;:&#34;array&#34;,&#34;categoryarray&#34;:[&#34;Austria-France&#34;,&#34;Austria-Italy&#34;,&#34;Austria-Ottoman Empire&#34;,&#34;Austria-Prussia&#34;,&#34;Austria-Russia&#34;,&#34;Austria-Spain&#34;,&#34;Britain-France 1&#34;,&#34;Britain-France 2&#34;,&#34;Britain-Germany 1&#34;,&#34;Britain-Germany 2&#34;,&#34;Britain-Italy&#34;,&#34;Britain-Netherlands&#34;,&#34;Britain-Russia&#34;,&#34;Britain-Spain 1&#34;,&#34;Britain-Spain 2&#34;,&#34;France-Italy&#34;,&#34;France-Netherlands&#34;,&#34;France-Prussia&#34;,&#34;France-Russia&#34;,&#34;France-Spain&#34;,&#34;Germany-Russia 2&#34;,&#34;Netherlands-Spain&#34;,&#34;Ottoman Empire-Portugal&#34;,&#34;Ottoman Empire-Russia&#34;,&#34;Ottoman Empire-Spain&#34;,&#34;Ottoman Empire-Venice&#34;,&#34;Portugal-Spain&#34;,&#34;Portugal-Venice&#34;,&#34;Prussia-Russia 1&#34;,&#34;Russia-Sweden&#34;]},&#34;hovermode&#34;:&#34;closest&#34;,&#34;showlegend&#34;:true},&#34;source&#34;:&#34;A&#34;,&#34;config&#34;:{&#34;showSendToCloud&#34;:false},&#34;data&#34;:[{&#34;x&#34;:[1494,1918,null,1494,1908,null,1494,1700,null,1494,1716,null,1494,1585,null,1494,1717,null,1494,1580,null,1494,1580,null,1501,1580,null,1568,1667,null,1579,1648,null,1651,1688,null,1668,1713,null,1668,1918,null,1700,1815,null,1701,1793,null,1701,1808,null,1731,1904,null,1732,1894,null,1740,1870,null,1744,1807,null,1756,1955,null,1768,1918,null,1778,1956,null,1847,1918,null,1881,1940,null,1890,1945,null,1896,1918,null,1934,1945,null,1934,1943],&#34;y&#34;:[&#34;Austria-France&#34;,&#34;Austria-France&#34;,null,&#34;Austria-Ottoman Empire&#34;,&#34;Austria-Ottoman Empire&#34;,null,&#34;France-Spain&#34;,&#34;France-Spain&#34;,null,&#34;Britain-France 1&#34;,&#34;Britain-France 1&#34;,null,&#34;Ottoman Empire-Spain&#34;,&#34;Ottoman Empire-Spain&#34;,null,&#34;Ottoman Empire-Venice&#34;,&#34;Ottoman Empire-Venice&#34;,null,&#34;Portugal-Spain&#34;,&#34;Portugal-Spain&#34;,null,&#34;Portugal-Venice&#34;,&#34;Portugal-Venice&#34;,null,&#34;Ottoman Empire-Portugal&#34;,&#34;Ottoman Empire-Portugal&#34;,null,&#34;Britain-Spain 1&#34;,&#34;Britain-Spain 1&#34;,null,&#34;Netherlands-Spain&#34;,&#34;Netherlands-Spain&#34;,null,&#34;Britain-Netherlands&#34;,&#34;Britain-Netherlands&#34;,null,&#34;France-Netherlands&#34;,&#34;France-Netherlands&#34;,null,&#34;Ottoman Empire-Russia&#34;,&#34;Ottoman Empire-Russia&#34;,null,&#34;Russia-Sweden&#34;,&#34;Russia-Sweden&#34;,null,&#34;Austria-Spain&#34;,&#34;Austria-Spain&#34;,null,&#34;Britain-Spain 2&#34;,&#34;Britain-Spain 2&#34;,null,&#34;Britain-France 2&#34;,&#34;Britain-France 2&#34;,null,&#34;France-Russia&#34;,&#34;France-Russia&#34;,null,&#34;Austria-Prussia&#34;,&#34;Austria-Prussia&#34;,null,&#34;Prussia-Russia 1&#34;,&#34;Prussia-Russia 1&#34;,null,&#34;France-Prussia&#34;,&#34;France-Prussia&#34;,null,&#34;Austria-Russia&#34;,&#34;Austria-Russia&#34;,null,&#34;Britain-Russia&#34;,&#34;Britain-Russia&#34;,null,&#34;Austria-Italy&#34;,&#34;Austria-Italy&#34;,null,&#34;France-Italy&#34;,&#34;France-Italy&#34;,null,&#34;Germany-Russia 2&#34;,&#34;Germany-Russia 2&#34;,null,&#34;Britain-Germany 1&#34;,&#34;Britain-Germany 1&#34;,null,&#34;Britain-Germany 2&#34;,&#34;Britain-Germany 2&#34;,null,&#34;Britain-Italy&#34;,&#34;Britain-Italy&#34;],&#34;type&#34;:&#34;scatter&#34;,&#34;mode&#34;:&#34;lines&#34;,&#34;marker&#34;:{&#34;color&#34;:&#34;rgba(204,204,204,1)&#34;,&#34;line&#34;:{&#34;color&#34;:&#34;rgba(204,204,204,1)&#34;}},&#34;textfont&#34;:{&#34;color&#34;:&#34;rgba(204,204,204,1)&#34;},&#34;error_y&#34;:{&#34;color&#34;:&#34;rgba(204,204,204,1)&#34;},&#34;error_x&#34;:{&#34;color&#34;:&#34;rgba(204,204,204,1)&#34;},&#34;line&#34;:{&#34;color&#34;:&#34;rgba(204,204,204,1)&#34;},&#34;xaxis&#34;:&#34;x&#34;,&#34;yaxis&#34;:&#34;y&#34;,&#34;frame&#34;:null},{&#34;x&#34;:[1494,1494,1494,1494,1494,1494,1494,1494,1501,1568,1579,1651,1668,1668,1700,1701,1701,1731,1732,1740,1744,1756,1768,1778,1847,1881,1890,1896,1934,1934],&#34;y&#34;:[&#34;Austria-France&#34;,&#34;Austria-Ottoman Empire&#34;,&#34;France-Spain&#34;,&#34;Britain-France 1&#34;,&#34;Ottoman Empire-Spain&#34;,&#34;Ottoman Empire-Venice&#34;,&#34;Portugal-Spain&#34;,&#34;Portugal-Venice&#34;,&#34;Ottoman Empire-Portugal&#34;,&#34;Britain-Spain 1&#34;,&#34;Netherlands-Spain&#34;,&#34;Britain-Netherlands&#34;,&#34;France-Netherlands&#34;,&#34;Ottoman Empire-Russia&#34;,&#34;Russia-Sweden&#34;,&#34;Austria-Spain&#34;,&#34;Britain-Spain 2&#34;,&#34;Britain-France 2&#34;,&#34;France-Russia&#34;,&#34;Austria-Prussia&#34;,&#34;Prussia-Russia 1&#34;,&#34;France-Prussia&#34;,&#34;Austria-Russia&#34;,&#34;Britain-Russia&#34;,&#34;Austria-Italy&#34;,&#34;France-Italy&#34;,&#34;Germany-Russia 2&#34;,&#34;Britain-Germany 1&#34;,&#34;Britain-Germany 2&#34;,&#34;Britain-Italy&#34;],&#34;type&#34;:&#34;scatter&#34;,&#34;mode&#34;:&#34;markers&#34;,&#34;marker&#34;:{&#34;color&#34;:&#34;rgba(230,57,70,1)&#34;,&#34;line&#34;:{&#34;color&#34;:&#34;rgba(230,57,70,1)&#34;}},&#34;textfont&#34;:{&#34;color&#34;:&#34;rgba(230,57,70,1)&#34;},&#34;error_y&#34;:{&#34;color&#34;:&#34;rgba(230,57,70,1)&#34;},&#34;error_x&#34;:{&#34;color&#34;:&#34;rgba(230,57,70,1)&#34;},&#34;line&#34;:{&#34;color&#34;:&#34;rgba(230,57,70,1)&#34;},&#34;xaxis&#34;:&#34;x&#34;,&#34;yaxis&#34;:&#34;y&#34;,&#34;frame&#34;:null},{&#34;x&#34;:[1918,1908,1700,1716,1585,1717,1580,1580,1580,1667,1648,1688,1713,1918,1815,1793,1808,1904,1894,1870,1807,1955,1918,1956,1918,1940,1945,1918,1945,1943],&#34;y&#34;:[&#34;Austria-France&#34;,&#34;Austria-Ottoman Empire&#34;,&#34;France-Spain&#34;,&#34;Britain-France 1&#34;,&#34;Ottoman Empire-Spain&#34;,&#34;Ottoman Empire-Venice&#34;,&#34;Portugal-Spain&#34;,&#34;Portugal-Venice&#34;,&#34;Ottoman Empire-Portugal&#34;,&#34;Britain-Spain 1&#34;,&#34;Netherlands-Spain&#34;,&#34;Britain-Netherlands&#34;,&#34;France-Netherlands&#34;,&#34;Ottoman Empire-Russia&#34;,&#34;Russia-Sweden&#34;,&#34;Austria-Spain&#34;,&#34;Britain-Spain 2&#34;,&#34;Britain-France 2&#34;,&#34;France-Russia&#34;,&#34;Austria-Prussia&#34;,&#34;Prussia-Russia 1&#34;,&#34;France-Prussia&#34;,&#34;Austria-Russia&#34;,&#34;Britain-Russia&#34;,&#34;Austria-Italy&#34;,&#34;France-Italy&#34;,&#34;Germany-Russia 2&#34;,&#34;Britain-Germany 1&#34;,&#34;Britain-Germany 2&#34;,&#34;Britain-Italy&#34;],&#34;type&#34;:&#34;scatter&#34;,&#34;mode&#34;:&#34;markers&#34;,&#34;marker&#34;:{&#34;color&#34;:&#34;rgba(17,138,178,1)&#34;,&#34;line&#34;:{&#34;color&#34;:&#34;rgba(17,138,178,1)&#34;}},&#34;textfont&#34;:{&#34;color&#34;:&#34;rgba(17,138,178,1)&#34;},&#34;error_y&#34;:{&#34;color&#34;:&#34;rgba(17,138,178,1)&#34;},&#34;error_x&#34;:{&#34;color&#34;:&#34;rgba(17,138,178,1)&#34;},&#34;line&#34;:{&#34;color&#34;:&#34;rgba(17,138,178,1)&#34;},&#34;xaxis&#34;:&#34;x&#34;,&#34;yaxis&#34;:&#34;y&#34;,&#34;frame&#34;:null}],&#34;highlight&#34;:{&#34;on&#34;:&#34;plotly_click&#34;,&#34;persistent&#34;:false,&#34;dynamic&#34;:false,&#34;selectize&#34;:false,&#34;opacityDim&#34;:0.2,&#34;selected&#34;:{&#34;opacity&#34;:1},&#34;debounce&#34;:0},&#34;shinyEvents&#34;:[&#34;plotly_hover&#34;,&#34;plotly_click&#34;,&#34;plotly_selected&#34;,&#34;plotly_relayout&#34;,&#34;plotly_brushed&#34;,&#34;plotly_brushing&#34;,&#34;plotly_clickannotation&#34;,&#34;plotly_doubleclick&#34;,&#34;plotly_deselect&#34;,&#34;plotly_afterplot&#34;,&#34;plotly_sunburstclick&#34;],&#34;base_url&#34;:&#34;https://plot.ly&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p&gt;with &lt;code&gt;geom_dumbbell&lt;/code&gt; we can only plot two points. There are other tricks to create a multi-point dumbbell plots. Basically, we can use a combination of &lt;code&gt;geom_segment()&lt;/code&gt; and &lt;code&gt;geom_point()&lt;/code&gt; to do this.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.r-bloggers.com/2019/06/make-multi-point-dumbbell-plots-in-ggplot2/&#34; class=&#34;uri&#34;&gt;https://www.r-bloggers.com/2019/06/make-multi-point-dumbbell-plots-in-ggplot2/&lt;/a&gt;
+&lt;a href=&#34;https://plotly.com/r/dumbbell-plots/&#34; class=&#34;uri&#34;&gt;https://plotly.com/r/dumbbell-plots/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Covid-19 Trends in the Netherlands</title>
       <link>/post/2020-11-04-covid-19-trends-in-the-netherlands/</link>
       <pubDate>Wed, 04 Nov 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-11-04-covid-19-trends-in-the-netherlands/</guid>
       <description>
-&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;index.en.html~_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Two weeks ago, I made &lt;a href=&#34;https://www.linkedin.com/posts/muhammadcnakhaee_covid19-datavisualization-ggplot-activity-6726775611223764992-c_dk&#34;&gt;a visualization&lt;/a&gt; that shows how Covid-19 cases spread in the Netherlands from the beginning of March and how grim the situation looks. However, someone pointed out to the fact that the number of tests has increased significantly. It means that my plot may exaggerate the Covid-19 situation in the Netherlands. Unfortunately, I could not find testing data for each Dutch municipality. Instead, I decided to use hospitalization admission and deceased cases to see if we can indeed see a massive spread in the second wave of Covid-19 cases in the Netherlands.&lt;/p&gt;
@@ -49,14 +276,10 @@ theme_update(
 &lt;p&gt;I created an R package called &lt;a href=&#34;https://github.com/mcnakhaee/CoronaWatchNL&#34;&gt;CoronaWarchNL&lt;/a&gt; that allows you to access a wide range of Covid-19 datasets. I’ll use this package in this post to get Covid-19 cases, hospital admissions, and deaths for Dutch municipalities.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;municipalBoundaries &amp;lt;- st_read(
     &amp;quot;https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;amp;service=WFS&amp;amp;version=2.0.0&amp;amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;amp;outputFormat=json&amp;quot;
-  )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Reading layer `OGRGeoJSON&amp;#39; from data source `https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&amp;amp;service=WFS&amp;amp;version=2.0.0&amp;amp;typeName=cbs_gemeente_2020_gegeneraliseerd&amp;amp;outputFormat=json&amp;#39; using driver `GeoJSON&amp;#39;
-## Simple feature collection with 355 features and 5 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 13565.4 ymin: 306846.2 xmax: 278026.1 ymax: 619352.4
-## projected CRS:  Amersfoort / RD New&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;daily_cases_per_municpality &amp;lt;- get_daily_cases_per_municipality()
+  )
+
+
+daily_cases_per_municpality &amp;lt;- get_daily_cases_per_municipality()
 populatuon_per_region &amp;lt;- get_population_per_region()
 
 daily_cases_per_municpality &amp;lt;- daily_cases_per_municpality %&amp;gt;%
